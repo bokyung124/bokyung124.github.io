@@ -24,7 +24,7 @@ title: BoKyung                         # the main title
 tagline: SMWU SW & STAT   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  studying Database, Bigdata 
+  studying Database, Bigdata, DL
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: 'https://bokyung124.github.io'
@@ -167,7 +167,8 @@ defaults:
     values:
       swcache: true
 
-sass:
+ sass:
+  sass_dir: /assets/css
   style: compressed
 
 compress_html:
@@ -177,18 +178,16 @@ compress_html:
   profile: false
   blanklines: false
   ignore:
-    envs: [development]
+    envs: []
 
 exclude:
-  - '*.gem'
-  - '*.gemspec'
+  - vendor
+  - Gemfile.lock
+  - Gemfile
   - tools
+  - docs
   - README.md
-  - CHANGELOG.md
   - LICENSE
-  - gulpfile.js
-  - node_modules
-  - package*.json
 
 jekyll-archives:
   enabled: [categories, tags]
