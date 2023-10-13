@@ -89,7 +89,7 @@ h1, h2, h3, h4, h5, h6 {
  * Links
  */
 a {
-  color: #ff5100;
+  color: #2f884b;
   text-decoration: none;
 }
 a:hover {
@@ -227,27 +227,27 @@ table td {
  */
 ::selection {
   color: inherit;
-  background-color: rgba(0, 174, 255, 0.3);
+  background-color: rgba(208, 119, 180, 0.3);
 }
 
 ::-moz-selection { /* Code for Firefox */
   color: inherit;
-  background-color: rgba(0, 174, 255, 0.3);
+  background-color: rgba(208, 119, 180, 0.3);
 }
 
 ::-ms-selection {
   color: inherit;
-  background-color: rgba(0, 174, 255, 0.3);
+  background-color: rgba(208, 119, 180, 0.3);
 }
 
 ::-o-selection {
   color: inherit;
-  background-color: rgba(0, 174, 255, 0.3);
+  background-color: rgba(208, 119, 180, 0.3);
 }
 
 ::-webkit-selection {
   color: inherit;
-  background-color: rgba(0, 174, 255, 0.3);
+  background-color: rgba(208, 119, 180, 0.3);
 }
 
 /**
@@ -422,10 +422,10 @@ html[data-scroll-status=down] .framework .sidebar {
   padding: 54px 0;
 }
 .site-footer a {
-  color: #ff5100;
+  color: #2f884b;
 }
 .site-footer a:hover {
-  color: #ff7433;
+  color: #3cae60;
 }
 
 .copyleft {
@@ -941,7 +941,7 @@ html[data-scroll-status=down] .framework .sidebar {
 .post-badge {
   display: none;
   padding: 0px 3px;
-  background-color: #ff5100;
+  background-color: #2f884b;
   color: #fff;
   font-size: 10px;
   font-weight: 600;
