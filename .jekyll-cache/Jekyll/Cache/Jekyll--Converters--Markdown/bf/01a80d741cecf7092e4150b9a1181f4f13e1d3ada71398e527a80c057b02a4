@@ -1,0 +1,7 @@
+I"	<h2 id="1-실시간-적재-환경-구성">1. 실시간 적재 환경 구성</h2>
+<h3 id="1-hbase-설치">1) HBase 설치</h3>
+<ul>
+  <li>CM 홈 - [서비스 추가] - [HBase] 선택 - [계속]
+<img src="img/CH05/hbase%20%EC%84%A4%EC%B9%98.png" alt="" /></li>
+</ul>
+:ET

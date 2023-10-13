@@ -1,0 +1,659 @@
+I"*�<h2 id="0-이번-장에서-할-것">0. 이번 장에서 할 것</h2>
+<ul>
+  <li>빅데이터 아키텍처의 첫 번째 레이어인 <strong>수집 영역</strong> 구축</li>
+  <li>스마트카 시뮬레이터로 배치 파일(스마트카 상태 정보)과 실시간 로그(스마트카 운행 정보) 생성</li>
+  <li>이를 플러모가 카프카로 수집</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="1-flume-설치">1. Flume 설치</h2>
+<ul>
+  <li>CM 홈에서 [서비스 추가] - [Flume] 선택
+<img src="/img/CH03/flume%20%EC%84%A4%EC%B9%98.png" alt="" /></li>
+  <li>서버 호스트 <code class="language-plaintext highlighter-rouge">server02.hadoop.com</code> 선택</li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Flume Heap Memory 수정</strong>
+    <ul>
+      <li>50Mib -&gt; <strong>100MiB</strong>
+  <img src="img/CH03/flume%20heap%20memory%20%EB%B3%80%EA%B2%BD.png" alt="" /></li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="2-kafka-설치">2. Kafka 설치</h2>
+<ul>
+  <li>
+    <p>CM 홈에서 [서비스 추가] - [Kafka] 선택
+<img src="img/CH03/kafka%20%EC%84%A4%EC%B9%98.png" alt="" /></p>
+  </li>
+  <li>
+    <p>서버 호스트 <code class="language-plaintext highlighter-rouge">server02.hadoop.com</code> 선택</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>카프카에 저장될 메시지 보관 기간 짧게 조정</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Data Retention Time</code> 7일 -&gt; <strong>10분</strong>
+  <img src="img/CH03/kafka%20data%20retention%20time%20%EB%B3%80%EA%B2%BD.png" alt="" /></li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="3-플럼-수집-기능-구현">3. 플럼 수집 기능 구현</h2>
+<ul>
+  <li>플럼에서 2개의 에이전트 구현
+    <ul>
+      <li>스마트카 상태정보 수집하는 <code class="language-plaintext highlighter-rouge">SmartCarInfo Agent</code></li>
+      <li>운전자의 운행정보 수집하는 <code class="language-plaintext highlighter-rouge">DriverCarInfo Agent</code></li>
+    </ul>
+  </li>
+  <li>에이전트 생성
+    <ul>
+      <li>플럼이 인식할 수 있는 특정 디렉터리에 <code class="language-plaintext highlighter-rouge">{Agent 고유 이름}.conf</code> 파일 생성</li>
+      <li>파일럿 프로젝트에서는 CM에서 제공하는 플럼 구성 정보 설정을 통해 에이전트 편리하게 생성 가능</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="1-smartcar-에이전트-생성">1) SmartCar 에이전트 생성</h3>
+<ul>
+  <li>CM 홈 [Flume] - [구성]</li>
+  <li><code class="language-plaintext highlighter-rouge">구성 파일</code> 항목 수정</li>
+</ul>
+
+<p><img src="img/CH03/flume%20agent%20생성.png" alt="" /></p>
+
+<p><br /></p>
+
+<ul>
+  <li>Agent 이름: <code class="language-plaintext highlighter-rouge">SmartCar_Agent</code></li>
+  <li>구성 파일</li>
+</ul>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#1
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>  = <span class="n">SmartCarInfo_SpoolSource</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span> = <span class="n">SmartCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>    = <span class="n">SmartCarInfo_LoggerSink</span> 
+
+<span class="c">#2
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">type</span> = <span class="n">spooldir</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">spoolDir</span> = /<span class="n">home</span>/<span class="n">pilot</span>-<span class="n">pjt</span>/<span class="n">working</span>/<span class="n">car</span>-<span class="n">batch</span>-<span class="n">log</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">deletePolicy</span> = <span class="n">immediate</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">batchSize</span> = <span class="m">1000</span>
+
+<span class="c">#3
+</span><span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">type</span> = <span class="n">memory</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">capacity</span>  = <span class="m">100000</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">transactionCapacity</span>  = <span class="m">10000</span>
+
+<span class="c">#4
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_LoggerSink</span>.<span class="n">type</span> = <span class="n">logger</span>
+
+<span class="c">#5
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">channels</span> = <span class="n">SmartCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_LoggerSink</span>.<span class="n">channel</span> = <span class="n">SmartCarInfo_Channel</span>
+</code></pre></div></div>
+
+<ul>
+  <li>#1
+    <ul>
+      <li>플럼의 에이전트에서 사용할 Source, Channle, Sink의 각 리소스 변수 정의</li>
+    </ul>
+  </li>
+  <li>#2
+    <ul>
+      <li>에이전트의 Source 설정</li>
+      <li>#1에서 Source로 선언했던 <code class="language-plaintext highlighter-rouge">SmartCarInfo_SpoolSource</code> 변수의 type을 <code class="language-plaintext highlighter-rouge">spooldir</code>로 설정</li>
+      <li><code class="language-plaintext highlighter-rouge">spooldir</code> : 지정한 특정 디렉터리를 모니터링하고 있다가 새로운 파일이 생성되면 이벤트를 감지해서 <code class="language-plaintext highlighter-rouge">batchSize</code> 설정값만큼 읽어서 #3의 Channel에 데이터 전송</li>
+    </ul>
+  </li>
+  <li>#3
+    <ul>
+      <li>에이전트의 Channel로서 <code class="language-plaintext highlighter-rouge">SmartCarInfo_Channel</code>의 type을 <code class="language-plaintext highlighter-rouge">memory</code>로 설정</li>
+      <li>채널의 종류) memory / file</li>
+      <li>Memory Channel은 Source로부터 받은 데이터를 메모리 상에 중간 적재 -&gt; 성능 높지만, 안정성 낮음</li>
+      <li>File Channel은 Source에서 전송한 데이터를 받아 로컬 파일시스템 경로인 <code class="language-plaintext highlighter-rouge">dataDirs</code>에 임시로 저장했다가 Sink에게 데이터 제공 -&gt; 성능 낮지만, 안정성 높음</li>
+    </ul>
+  </li>
+  <li>#4
+    <ul>
+      <li>에이전트의 최종 목적지</li>
+      <li>SmartCarInfo_LoggerSink의 type을 <code class="language-plaintext highlighter-rouge">logger</code>로 설정</li>
+      <li>Logger Sink는 수집한 데이터를 테스트 및 디버깅 목적으로 플럼의 표준 출력 로그 파일인 <code class="language-plaintext highlighter-rouge">/var/log/flume-ng/flume-cmf-flume-AGENT-server02.hadoop.com.log</code>에 출력</li>
+    </ul>
+  </li>
+  <li>#5
+    <ul>
+      <li>Source와 Channel Sink 연결</li>
+      <li>앞서 정의한 SmartCarInfo_SpoolSource의 채널값을 <code class="language-plaintext highlighter-rouge">SmartCarInfo_Channel</code>로 설정</li>
+      <li>SmartCarInfo_LoggerSink의 채널값도 <code class="language-plaintext highlighter-rouge">SmartCarInfo_Channel</code>로 설정</li>
+      <li>File -&gt; Channel -&gt; Sink로 이어지는 에이전트 리소스를 하나로 연결</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="2-smartcar-에이전트에-interceptor-추가">2) SmartCar 에이전트에 Interceptor 추가</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Interceptor</code> : Source와 Channel의 중간에서 데이터를 가공하는 역할</li>
+  <li>플럼의 Source에서 유입되는 데이터 중 일부 데이터를 수정하거나 필요한 데이터만 필터링하는 등 중간에 데이터를 추가/가공/정제하는 데 사용됨</li>
+  <li>플럼에서 데이터 전송 단위 <code class="language-plaintext highlighter-rouge">Event</code> - Header와 본문 Body로 구성됨</li>
+  <li>Interceptor는 Event의 Header에 특정값을 추가하거나 Body에 데이터를 가공하는 기능으로 활용됨</li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>파일럿 프로젝트에서는 SmartCarInfo 로그 파일을 수집하는데 총 4개의 Interceptor를 추가할 것</li>
+  <li>이번 장에서는 <code class="language-plaintext highlighter-rouge">Filter Interceptor</code> 하나만 추가</li>
+  <li>앞서 작성한 SmartCarInfo 에이전트 수정해서 Filter Interceptor 사용</li>
+</ul>
+
+<p><img src="img/CH03/flume%20interceptor%20추가.png" alt="" /></p>
+
+<p><br /></p>
+
+<ul>
+  <li>CM 홈 [Flume] - [구성] - [구성 파일]</li>
+  <li>Source와 Channel 사이에 Interceptor 추가</li>
+</ul>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>  = <span class="n">SmartCarInfo_SpoolSource</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span> = <span class="n">SmartCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>    = <span class="n">SmartCarInfo_LoggerSink</span> 
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">type</span> = <span class="n">spooldir</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">spoolDir</span> = /<span class="n">home</span>/<span class="n">pilot</span>-<span class="n">pjt</span>/<span class="n">working</span>/<span class="n">car</span>-<span class="n">batch</span>-<span class="n">log</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">deletePolicy</span> = <span class="n">immediate</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">batchSize</span> = <span class="m">1000</span>
+
+<span class="c">#1
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span> = <span class="n">filterInterceptor</span>
+
+<span class="c">#2
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">type</span> = <span class="n">regex_filter</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">regex</span> = ^\\<span class="n">d</span>{<span class="m">14</span>}
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">excludeEvents</span> = <span class="n">false</span>
+
+
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">type</span> = <span class="n">memory</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">capacity</span>  = <span class="m">100000</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">transactionCapacity</span>  = <span class="m">10000</span>
+
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_LoggerSink</span>.<span class="n">type</span> = <span class="n">logger</span>
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">channels</span> = <span class="n">SmartCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_LoggerSink</span>.<span class="n">channel</span> = <span class="n">SmartCarInfo_Channel</span>
+</code></pre></div></div>
+
+<ul>
+  <li>#1
+    <ul>
+      <li>수집 데이터를 필터링하기 위해 <code class="language-plaintext highlighter-rouge">filterInterceptor</code> 변수를 선언해서 SmartCarInfo_SpoolSource에 할당</li>
+    </ul>
+  </li>
+  <li>#2
+    <ul>
+      <li>filterInterceptor의 type을 <code class="language-plaintext highlighter-rouge">regex_filter</code>로 설정</li>
+      <li>정규 표현식(Regular Expression)을 이용해 수집 데이터를 필터링할 때 유용하게 사용</li>
+      <li>아래 이미지에서 스마트카 로그 생성기가 만든 로그 파일 내용을 보면, 중간에 로그 포맷의 형식을 알리는 메타 정보가 포함되어 있음</li>
+      <li>이 메타 정보를 수집 데이터에서 제외하고, 필요한 데이터만 수집해야 함</li>
+      <li>이때 간단한 정규 표현식을 이용해서 해결 가능
+        <ul>
+          <li>스마트카 로그의 경우) 정상적인 로그 데이터가 발생했을 때 14자리의 날짜 형식을 가짐</li>
+          <li>이 14자리 날짜 형식으로 시작하는 데이터에 대한 정규 표현식 <code class="language-plaintext highlighter-rouge">^\\d{14}</code>를 “regex” 속성에 설정</li>
+          <li>“excludeEvents” 속성이 <strong>false</strong> 로 되어있는데, <strong>true</strong> 로 하면 반대로 제외 대상만 수집하게 됨</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="3-drivercarinfo-에이전트-생성">3) DriverCarInfo 에이전트 생성</h3>
+<ul>
+  <li>앞서 작성한 SmartCar 에이전트에 DriverCarInfo 에이전트를 위한 Source, Channel, Sink를 추가하여 생성</li>
+  <li>한 개의 플럼 에이전트 파일에 여러 개의 에이전트를 만들어 사용</li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>DriverCarInfo 리소스 변수 추가</strong></li>
+</ul>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#1
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>  = <span class="n">SmartCarInfo_SpoolSource</span> <span class="n">DriverCarInfo_TailSource</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span> = <span class="n">SmartCarInfo_Channel</span> <span class="n">DriverCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>    = <span class="n">SmartCarInfo_LoggerSink</span> <span class="n">DriverCarInfo_KafkaSink</span>
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">type</span> = <span class="n">spooldir</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">spoolDir</span> = /<span class="n">home</span>/<span class="n">pilot</span>-<span class="n">pjt</span>/<span class="n">working</span> /<span class="n">car</span>-<span class="n">batch</span>-<span class="n">log</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">deletePolicy</span> = <span class="n">immediate</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">batchSize</span> = <span class="m">1000</span>
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span> = <span class="n">filterInterceptor</span>
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">type</span> = <span class="n">regex_filter</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">regex</span> = ^\\<span class="n">d</span>{<span class="m">14</span>}
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">excludeEvents</span> = <span class="n">false</span>
+
+
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">type</span> = <span class="n">memory</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">capacity</span>  = <span class="m">100000</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">transactionCapacity</span>  = <span class="m">10000</span>
+
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_LoggerSink</span>.<span class="n">type</span> = <span class="n">logger</span>
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">channels</span> = <span class="n">SmartCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_LoggerSink</span>.<span class="n">channel</span> = <span class="n">SmartCarInfo_Channel</span>
+</code></pre></div></div>
+<ul>
+  <li>#1
+    <ul>
+      <li>에이전트의 Source, Channel, Sink에 DriverCarInfo 리소스 변수 추가</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>DriverCarInfo 설정 추가</strong></li>
+</ul>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>  = <span class="n">SmartCarInfo_SpoolSource</span> <span class="n">DriverCarInfo_TailSource</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span> = <span class="n">SmartCarInfo_Channel</span> <span class="n">DriverCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>    = <span class="n">SmartCarInfo_LoggerSink</span> <span class="n">DriverCarInfo_KafkaSink</span>
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">type</span> = <span class="n">spooldir</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">spoolDir</span> = /<span class="n">home</span>/<span class="n">pilot</span>-<span class="n">pjt</span>/<span class="n">working</span>/<span class="n">car</span>-<span class="n">batch</span>-<span class="n">log</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">deletePolicy</span> = <span class="n">immediate</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">batchSize</span> = <span class="m">1000</span>
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span> = <span class="n">filterInterceptor</span>
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">type</span> = <span class="n">regex_filter</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">regex</span> = ^\\<span class="n">d</span>{<span class="m">14</span>}
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">excludeEvents</span> = <span class="n">false</span>
+
+
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">type</span> = <span class="n">memory</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">capacity</span>  = <span class="m">100000</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">transactionCapacity</span>  = <span class="m">10000</span>
+
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_LoggerSink</span>.<span class="n">type</span> = <span class="n">logger</span>
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">channels</span> = <span class="n">SmartCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_LoggerSink</span>.<span class="n">channel</span> = <span class="n">SmartCarInfo_Channel</span>
+
+<span class="c">#1
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">type</span> = <span class="n">exec</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">command</span> = <span class="n">tail</span> -<span class="n">F</span> /<span class="n">home</span>/<span class="n">pilot</span>-<span class="n">pjt</span>/<span class="n">working</span>/<span class="n">driver</span>-<span class="n">realtime</span>-<span class="n">log</span>/<span class="n">SmartCarDriverInfo</span>.<span class="n">log</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">restart</span> = <span class="n">true</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">batchSize</span> = <span class="m">1000</span>
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">interceptors</span> = <span class="n">filterInterceptor2</span>
+
+<span class="c">#2
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor2</span>.<span class="n">type</span> = <span class="n">regex_filter</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor2</span>.<span class="n">regex</span> = ^\\<span class="n">d</span>{<span class="m">14</span>}
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor2</span>.<span class="n">excludeEvents</span> = <span class="n">false</span>
+
+<span class="c">#3
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">type</span> = <span class="n">org</span>.<span class="n">apache</span>.<span class="n">flume</span>.<span class="n">sink</span>.<span class="n">kafka</span>.<span class="n">KafkaSink</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">topic</span> = <span class="n">SmartCar</span>-<span class="n">Topic</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">brokerList</span> = <span class="n">server02</span>.<span class="n">hadoop</span>.<span class="n">com</span>:<span class="m">9092</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">requiredAcks</span> = <span class="m">1</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">batchSize</span> = <span class="m">1000</span>
+
+<span class="c">#4
+</span><span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">DriverCarInfo_Channel</span>.<span class="n">type</span> = <span class="n">memory</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">DriverCarInfo_Channel</span>.<span class="n">capacity</span>= <span class="m">100000</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">DriverCarInfo_Channel</span>.<span class="n">transactionCapacity</span> = <span class="m">10000</span>
+
+<span class="c">#5
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">channels</span> = <span class="n">DriverCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">channel</span> = <span class="n">DriverCarInfo_Channel</span>
+</code></pre></div></div>
+
+<ul>
+  <li>앞서 선언한 SmartCarInfo 에이전트와 유사하게 Source, Interceptor, Channel, Sink 순서대로 정의</li>
+  <li>일부 Source와 Sink 유형이 달라짐</li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>#1
+    <ul>
+      <li>Source의 type이 <code class="language-plaintext highlighter-rouge">exec</code></li>
+      <li><code class="language-plaintext highlighter-rouge">exec</code>는 플럼 외부에서 수행한 명령의 결과를 플럼의 Event로 가져와 수집할 수 있는 기능 제공</li>
+      <li>스마트카 운전자의 운행 정보가 로그 시뮬레이터를 통해 <code class="language-plaintext highlighter-rouge">/home/pilot-pjt/working/driver-realtime-log/SmartCarDriverInfo.log</code>에 생성
+  -&gt; 리눅스의 <code class="language-plaintext highlighter-rouge">tail</code> 명령을 플럼의 <code class="language-plaintext highlighter-rouge">exec</code>를 실행해서 운전자의 실시간 운행 정보 수집</li>
+    </ul>
+  </li>
+  <li>#2
+    <ul>
+      <li>Interceptor 정의</li>
+      <li>데이터 필터링을 위한 <code class="language-plaintext highlighter-rouge">regex_filter</code>만 추가</li>
+    </ul>
+  </li>
+  <li>#3
+    <ul>
+      <li>스마트카 운전자의 실시간 운행 정보는 플럼에서 수집과 동시에 카프카로 전송</li>
+      <li>플럼의 <code class="language-plaintext highlighter-rouge">KafkaSink</code>의 내용을 보면, 카프카 브로커 서버가 실행중인 server02.hadoop.com:9092에 연결해서 SmartCar-Topic에 데이터를 100개의 배치 크기로 전송</li>
+    </ul>
+  </li>
+  <li>#4
+    <ul>
+      <li>DriverCarInfo의 Channel을 <code class="language-plaintext highlighter-rouge">Memory Channel</code>로 선언</li>
+    </ul>
+  </li>
+  <li>#5
+    <ul>
+      <li>DriverCarInfo의 Source와 Sink의 Channel을 앞서 정의한 DriverCarInfo_Channel로 설정해서 Source-Channel-Sink 구조 완성</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="4-카프카-기능-구현">4. 카프카 기능 구현</h2>
+<ul>
+  <li>카프카에 대한 직접적인 기능 구현은 하지 않음</li>
+  <li>이미 플럼의 <code class="language-plaintext highlighter-rouge">DriverCarInfo_KafkaSink</code>를 통해 수집한 실시간 데이터를 카프카에 전송하는 기능 구현은 끝났기 때문</li>
+  <li>카프카 명령어를 이용해 카프카의 <code class="language-plaintext highlighter-rouge">브로커</code> 안에 앞으로 사용하게 될 토픽 생성 &amp; 카프카의 <code class="language-plaintext highlighter-rouge">Producer</code> 명령을 통해 토픽에 데이터 전송</li>
+  <li>토픽에 들어간 데이터를 다시 카프카의 <code class="language-plaintext highlighter-rouge">Consumer</code> 명령어로 수신</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="1-카프카-topic-생성">1) 카프카 Topic 생성</h3>
+<ul>
+  <li>카프카가 설치되어 있는 Server02에서 카프카의 <code class="language-plaintext highlighter-rouge">CLI</code> 명령어를 이용해 다양한 카프카 기능 사용</li>
+  <li>PuTTY로 Server02에 SSH 접속 - root 계정으로 로그인</li>
+  <li>아래 카프카 토픽 명령어로 <strong>SmartCar-Topic</strong> 생성
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kafka-topics <span class="nt">--create</span> <span class="nt">--zookeeper</span> server02.hadoop.2181 <span class="nt">--replication-factor</span> 1 <span class="nt">--partitions</span> 1 <span class="nt">--topic</span> SmartCar-Topic
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><img src="img/CH03/kafka%20topic%20생성.png" alt="" /></p>
+
+<p><br /></p>
+
+<ul>
+  <li>위 명령어 실행하고 <code class="language-plaintext highlighter-rouge">Created Topic SmartCar-Topic</code> 메시지가 나오면 토픽이 정상적으로 생성된 것</li>
+  <li><code class="language-plaintext highlighter-rouge">--zookeeper</code> 옵션
+    <ul>
+      <li>토픽의 메타 정보들이 Zookeeper의 Z노드에 만들어지고 관리됨</li>
+      <li><code class="language-plaintext highlighter-rouge">replication-factor</code> 옵션은 카프카를 다중 Broker로 만들고, 전송한 데이터를 replication-factor 개수만큼 복제하게 됨. 파일럿 플젝은 단일 카프카 브로커 -&gt; 복제 개수 1</li>
+      <li><code class="language-plaintext highlighter-rouge">partitions</code> 옵션은 해당 Topic에 데이터들은 partitions 개수만큼 분리 저장하게 됨. 다중 Broker에서 쓰기/읽기 성능 향상을 위해 사용</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">--topic</code> 옵션
+    <ul>
+      <li>파일럿 환경에서 사용할 토픽명 정의</li>
+      <li><strong>SmartCar-Topic</strong>이라는 이름으로 토픽 정의</li>
+      <li>플럼의 DriverCarInfo_KafkaSink에서 설정한 토픽 이름과 같아야 함</li>
+      <li>토픽 삭제 명령어
+  <code class="language-plaintext highlighter-rouge">kafka-topics --delete --zookeeper server02.hadoop.com:2181 --topic 토픽명</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="2-카프카-producer-사용">2) 카프카 Producer 사용</h3>
+<ul>
+  <li>Server02 SSH 접속 후 아래 명령 실행
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kafka-console-producer <span class="nt">--broker-list</span> server02.hadoop.com:9092 <span class="nt">-topic</span> SmartCar-Topic
+</code></pre></div>    </div>
+  </li>
+  <li>이후 <code class="language-plaintext highlighter-rouge">Hello! BigData!</code> 를 입력하고 엔터 키를 누름</li>
+  <li>에러 메시지가 없으면 <strong>SmartCar-Topic</strong>에 “Hello! BigData!” 메시지를 성공적으로 전송한 것</li>
+</ul>
+
+<p><img src="img/CH03/kafka%20producer(1).png" alt="" />    <br />
+<img src="img/CH03/kafka%20producer(2).png" alt="" /></p>
+
+<p><br /></p>
+
+<ul>
+  <li>카프카 Producer와 Consumer 기능 점검</li>
+</ul>
+
+<p><img src="img/CH03/producer.jpg" alt="" /></p>
+
+<ul>
+  <li>앞서 Producer가 전송한 “Hello! BigData!” 메시지는 아직 카프카 토픽에 머물러 있는 상태</li>
+  <li>Consumer 콘솔 1, 2를 실행해서 <strong>SmartCar-Topic</strong>에 연결하면 “Hello! BigData!” 메시지를 Consumer가 동시에 수신받게 될 것</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="3-카프카-consumer-사용">3) 카프카 Consumer 사용</h3>
+<ul>
+  <li>Server02에 SSH 터미널을 2개 열어서 각각에 아래 카프카 Consumer 명령 실행
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kafka-console-consumer <span class="nt">--bootstrap-server</span> server02.hadoop.com:9092 <span class="nt">--topic</span> SmartCar-Topic <span class="nt">--partition</span> 0 <span class="nt">--from-beginning</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>실행과 동시에 Producer에서 입력했던 “Hello! BigData!”가 출력되는 것을 볼 수 있음</li>
+</ul>
+
+<p><img src="img/CH03/kafka%20consumer(1).png" alt="" />
+<img src="img/CH03/kafka%20consumer(2).png" alt="" /></p>
+
+<ul>
+  <li>위에서 “Hello! BigData!”를 입력했던 Producer 콘솔창에서 메시지를 전송할 때마다 2개의 Consumer 콘솔창에 브로드캐스트되어 동일 메시지가 수신됨</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="5-수집-기능-테스트">5. 수집 기능 테스트</h2>
+
+<h3 id="1-smartcar-로그-시뮬레이터-작동">1) SmartCar 로그 시뮬레이터 작동</h3>
+<ul>
+  <li>2016년 1월 1일에 3대의 스마트카 로그만 발생시켜 보기</li>
+</ul>
+
+<h4 id="1-server02에-ssh-접속-후-bigdatasmartcarloggen-10jar가-위치한-곳으로-이동">1) Server02에 SSH 접속 후 bigdata.smartcar.loggen-1.0.jar가 위치한 곳으로 이동</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="2-다음-명령으로-2개의-스마트카-로그-시뮬레이터를-백그라운드-방식으로-실행">2) 다음 명령으로 2개의 스마트카 로그 시뮬레이터를 백그라운드 방식으로 실행</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.CarLogMain 20160101 3 &amp;
+java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.DriverLogMain 20160101 3 &amp;
+</code></pre></div></div>
+
+<p><img src="img/CH03/smartcar%20log%20시뮬레이터%20작동.png" alt="" /></p>
+
+<ul>
+  <li>2016년 1월 1일에 3대의 스마트카에 대한 상태 정보와 운전자의 운행 정보 생성 시작</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="3-정상적으로-시뮬레이터가-작동되고-있는지-아래-내용으로-확인">3) 정상적으로 시뮬레이터가 작동되고 있는지 아래 내용으로 확인</h4>
+<ul>
+  <li>/home/pilot-pjt/working/SmartCar 경로에 SmartCarStatusInfo_20160101.txt 파일이 생성됐는지 확인</li>
+  <li>파일의 내용 확인해보면 3대의 스마트카 상태 정보가 기록된 것을 볼 수 있음
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working/SmartCar
+vi SmartCarStatusInfo_20160101.txt
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><img src="img/CH03/smartcarstatusinfo%20파일%20생성%20확인.png" alt="" /></p>
+
+<p><br /></p>
+
+<ul>
+  <li>/home/pilot-pjt/working/driver-realtime-log 경로에 SmartCarDriverInfo.log 파일 생성됐는지 확인</li>
+  <li>tail -f SmartCarDriverInfo.log 명령을 통해 3대의 스마트카 운전자의 운행 정보가 실시간으로 발생하는 것을 볼 수 있음</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working/driver-realtime-log
+<span class="nb">tail</span> <span class="nt">-f</span> SmartCarDriverInfo.log
+</code></pre></div></div>
+
+<p><img src="img/CH03/smartcardriverinfo%20파일%20생성%20확인.png" alt="" /></p>
+
+<p><br /></p>
+
+<h4 id="4-homepilot-pjtworkingsmartcar-경로에-만들어진-smartcarstatusinfo_20160101txt-파일을-플럼-smartcarinfo-에이전트의-spooldir-경로로-옮김">4) /home/pilot-pjt/working/SmartCar 경로에 만들어진 SmartCarStatusInfo_20160101.txt 파일을 플럼 SmartCarInfo 에이전트의 SpoolDir 경로로 옮김</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mv</span> /home/pilot-pjt/working/SmartCar/SmartCarStatusInfo_20160101.txt /home/pilot-pjt/working/car-batch-log/
+</code></pre></div></div>
+
+<p><img src="img/CH03/smartcarstatusinfo%20파일%20이동.png" alt="" /></p>
+
+<p><br /></p>
+
+<h3 id="2-플럼-에이전트-작동">2) 플럼 에이전트 작동</h3>
+<ul>
+  <li>플럼 에이전트를 작동시켜 스마트카 로그 시뮬레이터가 만들어낸 두 유형의 로그 수집</li>
+  <li>CM 홈 - [Flume] - [재시작] - 플럼 에이전트 재기동</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="3-카프카-consumer-작동">3) 카프카 Consumer 작동</h3>
+<ul>
+  <li>Server02에 접속하여 다음과 같은 카프카 명령 실행</li>
+  <li>이전에 사용한 Consumer 명령과 -from-beginning 옵션은 생략
+    <ul>
+      <li>-from-beginning 옵션: 해당 토픽에 저장된 첫 데이터부터 마지막 데이터까지 일괄 수신 후 대기하게 됨</li>
+      <li>여기서는 실시간으로 발생된 데이터만 수신할 것이므로 해당 옵션 제외</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kafka-console-consumer <span class="nt">--bootstrap-server</span> server02.hadoop.com:9092 <span class="nt">--topic</span> SmartCar-Topic <span class="nt">--partition</span> 0
+</code></pre></div></div>
+
+<p><img src="img/CH03/kafka%20consumer%20작동.png" alt="" /></p>
+
+<p><br /></p>
+
+<ul>
+  <li>앞서 실행한 시뮬레이터에 의해 스마트카의 운행 로그 데이터가 실시간으로 카프카에 유입되는 것을 확인할 수 있음</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="4-수집-기능-점검">4) 수집 기능 점검</h3>
+
+<h4 id="1-스마트카의-상태-정보-로그-파일이-플럼의-표준-출력-로그로-전송됐는지-리눅스-tail-명령어로-확인">1) 스마트카의 상태 정보 로그 파일이 플럼의 표준 출력 로그로 전송됐는지 리눅스 tail 명령어로 확인</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tail</span> <span class="nt">-f</span> /var/log/flume-ng/flume-cmf-flume-AGENT-server02.hadoop.com.log
+</code></pre></div></div>
+
+<p><br /></p>
+
+<ul>
+  <li>아래 그림처럼 수집된 스마트카의 상태값 데이터가 출력되면 성공적으로 수집되고 있는 것</li>
+</ul>
+
+<p><img src="img/CH03/수집기능점검(1).png" alt="" /></p>
+
+<ul>
+  <li>참고로 출력되고 있는 로그의 내용을 보면, 플럼의 데이터 전송 단위인 Event가 Header와 Body 구조로 분리된 것을 확인할 수 있음</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="2-스마트카-운전자의-실시간-운전-정보인-drivercarinfo가-정상적으로-수집되는지-확인">2) 스마트카 운전자의 실시간 운전 정보인 DriverCarInfo가 정상적으로 수집되는지 확인</h4>
+<ul>
+  <li>앞서 실행했던 카프카의 Consumer 콘솔창 확인</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kafka-console-consumer <span class="nt">--bootstrap-server</span> server02.hadoop.com:9092 <span class="nt">--topic</span> SmartCar-Topic <span class="nt">--partition</span> 0
+</code></pre></div></div>
+
+<p><br /></p>
+
+<ul>
+  <li>아래와 같이 스마트카의 운전자 정보가 실시간으로 수집되고 있는지 확인할 수 있음</li>
+</ul>
+
+<p><img src="img/CH03/수집기능점검(2).png" alt="" /></p>
+
+<p><br /></p>
+
+<h4 id="3-백그라운드로-실행했던-스마트카-로그-시뮬레이터-모두-종료">3) 백그라운드로 실행했던 스마트카 로그 시뮬레이터 모두 종료</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span> | <span class="nb">grep </span>smartcar.log
+</code></pre></div></div>
+
+<p><br /></p>
+
+<ul>
+  <li>위 명령어로 조회된 두 자바 프로세스 (CarLogMain, DriverLogMain)의 pid를 찾아 강제 종료
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-9</span> <span class="o">[</span>pid]
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="6-파일럿-환경의-로그-확인">6. 파일럿 환경의 로그 확인</h2>
+<ul>
+  <li>Hadoop 에코시스템 서버들의 로그 위치 : /var/log/디렉터리(cloudera, Hadoop, Oozie 등)</li>
+  <li>Redis 서버 로그 위치 : /var/log/redis_6379.log</li>
+  <li>Storm 서버 로그 위치 : /var/log/storm/</li>
+  <li>Zeppelin 서버 로그 위치 : /home/pilot-pjt/zeppelin-0.8.2-bin-all/logs</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="7-파일럿-환경에서-hdfs-문제-발생">7. 파일럿 환경에서 HDFS 문제 발생</h2>
+<ul>
+  <li>개인의 파일럿 프로젝트 환경은 가상머신으로 구성되어 있어 비정상적인 종료가 자주 발생할 수 있음</li>
+  <li>이때 HDFS 상에 CORRUPT BLOCKS/FILES 같은 문제가 발생하거나, Safe 모드로 전환되어 빠져나오지 못하는 경우가 자주 발생</li>
+  <li>파일럿 환경의 일부 기능 또는 설치 중에 문제가 발생한다면 HDFS의 파일/블록 깨짐 또는 Safe 모드 전환 여부 체크해야 함</li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>HDFS 파일 시스템 검사 : <code class="language-plaintext highlighter-rouge">hdfs fsck /</code></li>
+  <li>HDFS에 Safe 모드 발생 후 빠져나오지 못할 경우 Safe 모드 강제 해제 : <code class="language-plaintext highlighter-rouge">hdfs dfsadmin -safamode leave</code></li>
+  <li>HDFS에 CORRUPT BLOCKS/FILES 등이 발생해 복구가 불가능한 경우
+    <ul>
+      <li>손상된 파일 강제 삭제 : <code class="language-plaintext highlighter-rouge">hdfs fsck / -delete</code></li>
+      <li>손상된 파일을 /lost + found 디렉터리로 이동 : <code class="language-plaintext highlighter-rouge">hdfs fsck / -move</code></li>
+    </ul>
+  </li>
+</ul>
+:ET

@@ -1,0 +1,249 @@
+I"�/<h2 id="1-homebrew로-하둡-설치">1. Homebrew로 하둡 설치</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>hadoop
+
+brew info hadoop
+<span class="c"># 하둡 설치 위치</span>
+<span class="c">## /opt/homebrew/Cellar/hadoop/3.3.6</span>
+<span class="c">## Required: openjdk@11</span>
+</code></pre></div></div>
+
+<h3 id="hadoop-환경변수-설정">HADOOP 환경변수 설정</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi ~/.bash_profile
+
+<span class="nb">export </span><span class="nv">HADOOP_HOME</span><span class="o">=</span>/opt/homebrew/Cellar/hadoop/3.3.6/libexec  <span class="c"># 추가</span>
+<span class="nb">export </span><span class="nv">HADOOP_INSTALL</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
+<span class="nb">export </span><span class="nv">HADOOP_MAPRED_HOME</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
+<span class="nb">export </span><span class="nv">HADOOP_COMMON_HOME</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
+<span class="nb">export </span><span class="nv">HADOOP_HDFS_HOME</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
+<span class="nb">export </span><span class="nv">YARN_HOME</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
+<span class="nb">export </span><span class="nv">HADOOP_COMMON_LIB_NATIVE_DIR</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>/lib/native
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HADOOP_HOME</span>/sbin:<span class="nv">$HADOOP_HOME</span>/bin
+<span class="nb">export </span><span class="nv">HADOOP_OPTS</span><span class="o">=</span><span class="s2">"-Djava.library.path=</span><span class="nv">$HADOOP_HOME</span><span class="s2">/lib"</span>
+<span class="nb">export </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:<span class="nv">$HADOOP_HOME</span>/lib/native
+ 
+<span class="nb">source</span> ~/.bash_profile  <span class="c"># 적용</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="2-java_home-path---java-180_371-설정">2. JAVA_HOME PATH -&gt; java 1.8.0_371 설정</h2>
+
+<!-- ```bash
+vi ~/.bash_profile
+
+export JAVA_HOME=/opt/homebrew/Cellar/openjdk@11/11.0.19/libexec/openjdk.jdk/Contents/Home
+export PATH=$PATH:$JAVA_HOME/bin
+
+source ~/.bash_profile 
+```
+```bash
+java -version
+# openjdk version "11.0.19" 2023-04-18
+``` -->
+
+<p>https://cwiki.apache.org/confluence/display/HADOOP/Hadoop+Java+Versions</p>
+
+<ul>
+  <li>Java 8 설치 권장</li>
+</ul>
+
+<!-- ```bash
+brew install cask
+
+brew tap AdoptOpenJDK/openjdk
+brew install --cask adoptopenjdk8
+
+java -version
+# java version "1.8.0_371"
+``` -->
+
+<p><br /></p>
+
+<h3 id="jdk-버전-변경">JDK 버전 변경</h3>
+
+<ul>
+  <li>설치된 JDK 버전 확인</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/libexec/java_home <span class="nt">-V</span>
+
+<span class="c"># Matching Java Virtual Machines (5):</span>
+<span class="c">#     17.0.7 (arm64) "Oracle Corporation" - "Java SE 17.0.7" /Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home</span>
+<span class="c">#     1.8.371.11 (x86_64) "Oracle Corporation" - "Java" /Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home</span>
+<span class="c">#     1.8.0_371 (x86_64) "Oracle Corporation" - "Java SE 8" /Library/Java/JavaVirtualMachines/jdk-1.8.jdk/Contents/Home</span>
+<span class="c">#     1.8.0_292 (x86_64) "AdoptOpenJDK" - "AdoptOpenJDK 8" /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home</span>
+<span class="c"># /Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/Library/Java/JavaVirtualMachines/jdk-1.8.jdk/Contents/Home
+
+java <span class="nt">-version</span>
+<span class="c"># openjdk version "1.8.0_371"</span>
+
+<span class="nb">echo</span> <span class="nv">$JAVA_HOME</span>
+<span class="c"># /Library/Java/JavaVirtualMachines/jdk-1.8.jdk/Contents/Home</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">~/.bash_profile</code> 파일에도 JAVA_HOME 추가
+```bash
+vi ~/.bash_profile</li>
+</ul>
+
+<p>export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home  # 추가</p>
+
+<p>source ~/.bash_profile  # 적용</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+&lt;br&gt;
+
+## 3. Hadoop 환경 설정
+
+```bash
+cd $HADOOP_HOME/etc/hadoop
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="1-core-sitexml">1) core-site.xml</h3>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>fs.defaultFS<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>hdfs://localhost:9000<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>hadoop.tmp.dir<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>/tmp/hadoop-${user.name}<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="2-hdfs-stiexml">2) hdfs-stie.xml</h3>
+
+<ul>
+  <li>namenode, datanode 파일 만들어질 <code class="language-plaintext highlighter-rouge">/Users/{user.name}/hadoop</code> 폴더 만들어놓고 작성</li>
+</ul>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>dfs.replication<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>1<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>dfs.namenode.name.dir<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>/Users/bokyung/hadoop/namenode<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>dfs.datanode.data.dir<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>/Users/bokyung/hadoop/datanode<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>dfs.namenode.http-address<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>localhost:50070<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>dfs.namenode.secondary.http-address<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>localhost:50090<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>dfs.datanode.address<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>localhost:50010<span class="nt">&lt;/value&gt;</span>
+   <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>dfs.datanode.http.address<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>localhost:50075<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="3-mapred-sitexml">3) mapred-site.xml</h3>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>mapreduce.framework.name<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>yarn<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>mapreduce.application.classpath<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/:$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/lib/<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="4-yarn-sitexml">4) yarn-site.xml</h3>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>yarn.nodemanager.aux-services<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>mapreduce_shuffle<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>yarn.nodemanager.env-whitelist<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_HOME,PATH,LANG,TZ,HADOOP_MAPRED_HOME<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="5-hadoop-envsh">5) hadoop-env.sh</h3>
+
+<ul>
+  <li>JAVA PATH만 한 번 더 적어주기</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/opt/homebrew/Cellar/openjdk@11/11.0.19/libexec/openjdk.jdk/Contents/Home
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="4-namenode-format">4. namenode format</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hdfs namenode <span class="nt">-format</span>
+</code></pre></div></div>
+
+<h3 id="주의할-점">주의할 점!</h3>
+
+<ul>
+  <li>환경 설정을 바꿀 때 hadoop, yarn 종료 후 변경하기
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">cd $HADOOP_HOME/sbin</code> -&gt; <code class="language-plaintext highlighter-rouge">stop-yarn.sh</code> <code class="language-plaintext highlighter-rouge">stop-dfs.sh</code></li>
+    </ul>
+  </li>
+  <li>변경 후 namenode 포맷 후 재실행</li>
+  <li>포맷 전에 <strong>datanode, namenode 폴더 지우고</strong> 포맷!!!
+    <ul>
+      <li>그렇지 않으면 datanode가 실행되지 않음!</li>
+      <li><code class="language-plaintext highlighter-rouge">hdfs-site.xml</code>에서 설정한 폴더</li>
+      <li>재실행 시 다시 생김</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="5-hadoop-실행">5. Hadoop 실행</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> <span class="nv">$HADOOP_HOME</span>/sbin
+start-dfs.sh
+start-yarn.sh
+
+jps
+<span class="c"># 98658 Jps</span>
+<span class="c"># 98034 DataNode</span>
+<span class="c"># 98549 NodeManager</span>
+<span class="c"># 97924 NameNode</span>
+<span class="c"># 98452 ResourceManager</span>
+<span class="c"># 98170 SecondaryNameNode</span>
+</code></pre></div></div>
+:ET

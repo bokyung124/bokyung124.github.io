@@ -1,0 +1,2 @@
+I"�<p>3개 이상의 노드로 구성되어 EditsLog를 각 노드에 복제 관리 <br /> Active NameNode는 EditsLog에 쓰기만을 수행하고, Standby NameNode는 읽기만을 실행</p>
+:ET
