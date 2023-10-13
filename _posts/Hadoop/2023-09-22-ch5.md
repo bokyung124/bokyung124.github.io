@@ -10,6 +10,7 @@ toc_sticky: true
 toc_icon: "cog"
 author_profile: true
 mathjax: true
+tag: [study, Hadoop, 파일럿프로젝트]
 ---
 
 [출처: 실무로 배우는 빅데이터 기술, 김강원 저]

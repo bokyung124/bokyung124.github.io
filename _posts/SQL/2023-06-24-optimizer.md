@@ -9,6 +9,7 @@ toc: true
 toc_sticky: true
 author_profile: true
 mathjax: true
+tag: [MySQL]
 ---
 
 ![image](https://github.com/bokyung124/bokyung124.github.io/assets/53086873/aa6f0ede-6803-4329-aa87-7d8639e3c5c5)

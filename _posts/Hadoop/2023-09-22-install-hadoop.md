@@ -10,6 +10,7 @@ toc_sticky: true
 toc_icon: "cog"
 author_profile: true
 mathjax: true
+tag: [Hadoop, 설치]
 ---
 
 ## 1. Homebrew로 하둡 설치

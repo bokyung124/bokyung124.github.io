@@ -9,6 +9,7 @@ toc: true
 toc_sticky: true
 author_profile: true
 mathjax: true
+tag: [lecture, OracleSQL]
 ---
 
 <br>

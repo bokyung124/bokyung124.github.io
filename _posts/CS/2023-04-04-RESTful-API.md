@@ -8,6 +8,7 @@ excerpt: CS 1) API, REST API, RESTful API
 author_profile: true
 toc: true
 toc_sticky: true
+tag: [BE 이론]
 ---
 
 <br>

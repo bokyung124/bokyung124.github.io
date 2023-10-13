@@ -142,7 +142,7 @@ pre {
 pre > code {
   display: inline-block;
   padding: 20px !important;
-  background-color: transparent;
+  background-color: #eee;
   border: 0;
 }
 pre table, pre pre {
@@ -151,6 +151,10 @@ pre table, pre pre {
 pre table .gutter, pre table .code, pre pre .gutter, pre pre .code {
   padding: 6px;
   border: none;
+}
+
+pre.highlight {
+  white-space: pre-wrap;
 }
 
 /**
@@ -1495,6 +1499,112 @@ html[data-theme=light] .click-to-top {
 html[data-theme=dark] .click-to-top {
   background-color: #34323d;
   color: #bbb;
+}
+
+.highlight table td {
+  padding: 5px;
+}
+
+.highlight table pre {
+  margin: 0;
+}
+
+.highlight, .highlight .w {
+  color: #586e75;
+}
+
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #657b83;
+}
+
+.highlight .cp {
+  color: #c6a236;
+}
+
+.highlight .nt {
+  color: #c6a236;
+}
+
+.highlight .o, .highlight .ow {
+  color: #93a1a1;
+}
+
+.highlight .p, .highlight .pi {
+  color: #93a1a1;
+}
+
+.highlight .gi {
+  color: #95a52b;
+}
+
+.highlight .gd {
+  color: #e54240;
+}
+
+.highlight .gh {
+  color: #268bd2;
+  background-color: #002b36;
+  font-weight: bold;
+}
+
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #6c71c4;
+}
+
+.highlight .kc {
+  color: #c15c31;
+}
+
+.highlight .kt {
+  color: #c15c31;
+}
+
+.highlight .kd {
+  color: #c15c31;
+}
+
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #95a52b;
+}
+
+.highlight .sa {
+  color: #6c71c4;
+}
+
+.highlight .sr {
+  color: #399b92;
+}
+
+.highlight .si {
+  color: #d7428a;
+}
+
+.highlight .se {
+  color: #d7428a;
+}
+
+.highlight .nn {
+  color: #c89c18;
+}
+
+.highlight .nc {
+  color: #c69b18;
+}
+
+.highlight .no {
+  color: #be9c37;
+}
+
+.highlight .na {
+  color: #388ac4;
+}
+
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #95a52b;
+}
+
+.highlight .ss {
+  color: #95a52b;
 }
 
 /*# sourceMappingURL=main.css.map */

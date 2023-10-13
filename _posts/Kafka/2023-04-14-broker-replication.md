@@ -10,6 +10,7 @@ toc_sticky: true
 author_profile: true
 mathjax: true
 published: true
+tag: [study, Kafka]
 ---
 
 <https://www.inflearn.com/course/아파치-카프카-입문/dashboard>

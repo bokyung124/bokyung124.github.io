@@ -10,6 +10,7 @@ toc_sticky: true
 author_profile: true
 mathjax: true
 published: true
+tag: [알고리즘]
 ---
 
 <br>

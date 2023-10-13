@@ -10,6 +10,7 @@ toc_sticky: true
 toc_icon: "cog"
 author_profile: true
 mathjax: true
+tag: [study, docker]
 ---
 
 ## 1. 문제

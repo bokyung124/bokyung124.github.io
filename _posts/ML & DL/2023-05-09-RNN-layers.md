@@ -10,6 +10,7 @@ toc_sticky: true
 author_profile: true
 mathjax: true
 published: true
+tag: [study, Udemy, DL]
 ---
 
 <https://hanium.udemy.com/course/keras-deep-learning/learn/lecture/9359716#reviews>
