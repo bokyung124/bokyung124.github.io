@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -525,7 +525,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -692,7 +692,58 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/default)"></div>
+        <img class="img-placeholder" src="/default">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[BOJ] 2163. 초콜릿 자르기</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-04-12T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 12, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+  </div></header>
+</div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -877,48 +928,6 @@ function googleTranslateElementInit() {
 
 
 
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">[BOJ] 2163. 초콜릿 자르기</h1>
-  <h2 class="post-subtitle"></h2>
-
-  <div class="post-meta">
-    <time class="dt-published" datetime="2023-04-12T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 12, 2023
-    </time>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
-  </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -1005,32 +1014,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/26/optimization.html" title="[BoostCourse] 2. 최적화">
-            [BoostCourse] 2. 최적화<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/26/1855.html" title="[BOJ] 1855. 암호">
+            [BOJ] 1855. 암호<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/06/Oracle-Func.html" title="[DBP] CH2-1. Oracle 문자 처리 함수">
-            [DBP] CH2-1. Oracle 문자 처리 함수<span class="post-badges">
+          <a class="post-link" href="/it%20issues/2023/04/17/bing.html" title="[IT] 삼성, 갤럭시 검색엔진 '빙'으로 교체 검토하자 패닉 빠진 구글">
+            [IT] 삼성, 갤럭시 검색엔진 '빙'으로 교체 검토하자 패닉 빠진 구글<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/06/1546.html" title="[BOJ] 1546. 평균">
-            [BOJ] 1546. 평균<span class="post-badges">
+          <a class="post-link" href="/algorithm/2023/07/11/chap5.html" title="Backtracking">
+            Backtracking<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/cs/2023/04/04/RESTful-API.html" title="[CS] REST API, RESTful API">
-            [CS] REST API, RESTful API<span class="post-badges">
+          <a class="post-link" href="/hadoop/2023/09/22/architecture.html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계">
+            [pilot] Ch2. 파일럿 프로젝트 아키텍처 설계<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

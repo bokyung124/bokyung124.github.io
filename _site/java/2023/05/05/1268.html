@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -525,7 +525,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -692,7 +692,58 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/default)"></div>
+        <img class="img-placeholder" src="/default">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[BOJ] 1268. 임시 반장 정하기</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-05-05T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 05, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
+  </div></header>
+</div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -877,48 +928,6 @@ function googleTranslateElementInit() {
 
 
 
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">[BOJ] 1268. 임시 반장 정하기</h1>
-  <h2 class="post-subtitle"></h2>
-
-  <div class="post-meta">
-    <time class="dt-published" datetime="2023-05-05T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 05, 2023
-    </time>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
-  </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -1052,16 +1061,24 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/27/gradientDescent.html" title="[BoostCourse] 3. Gradient Descent Methods">
-            [BoostCourse] 3. Gradient Descent Methods<span class="post-badges">
+          <a class="post-link" href="/hadoop/2023/09/22/ch2.html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 이론">
+            [pilot] Ch2. 파일럿 프로젝트 아키텍처 이론<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/cs/2023/04/14/time-complexity.html" title="[Algorithm] 시간 복잡도">
-            [Algorithm] 시간 복잡도<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/08/1100.html" title="[BOJ] 1100. 하얀 칸">
+            [BOJ] 1100. 하얀 칸<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/28/CNN.html" title="[BoostCourse] 4. Regularization">
+            [BoostCourse] 4. Regularization<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
@@ -1070,14 +1087,6 @@ function googleTranslateElementInit() {
 <li class="">
           <a class="post-link" href="/hadoop/2023/09/22/architecture.html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계">
             [pilot] Ch2. 파일럿 프로젝트 아키텍처 설계<span class="post-badges">
-  <span class="post-badge badge-top">TOP</span>
-  <span class="post-badge badge-new">NEW</span>
-</span>
-</a>
-        </li>
-<li class="">
-          <a class="post-link" href="/algorithm/2023/06/30/chap1.html" title="효율, 분석, 차수">
-            효율, 분석, 차수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

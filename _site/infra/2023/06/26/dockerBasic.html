@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -525,7 +525,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -692,7 +692,58 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/default)"></div>
+        <img class="img-placeholder" src="/default">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[docker] 도커 기초</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-06-26T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jun 26, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+  </div></header>
+</div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -877,48 +928,6 @@ function googleTranslateElementInit() {
 
 
 
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">[docker] 도커 기초</h1>
-  <h2 class="post-subtitle"></h2>
-
-  <div class="post-meta">
-    <time class="dt-published" datetime="2023-06-26T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jun 26, 2023
-    </time>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
-  </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -1257,32 +1266,32 @@ CMD python /app/app.py
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/it%20issues/2023/05/07/copilot.html" title="[IT] '빙 챗은 잊어라' 마이크로소프트 코파일럿, 얼마나 유능할까">
-            [IT] '빙 챗은 잊어라' 마이크로소프트 코파일럿, 얼마나 유능할까<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/08/1212.html" title="[BOJ] 1212. 8진수 2진수">
+            [BOJ] 1212. 8진수 2진수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/26/1855.html" title="[BOJ] 1855. 암호">
-            [BOJ] 1855. 암호<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/16/fe.html" title="[BoostCourse] 4. 피처 엔지니어링">
+            [BoostCourse] 4. 피처 엔지니어링<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/hadoop/2023/09/22/architecture.html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계">
-            [pilot] Ch2. 파일럿 프로젝트 아키텍처 설계<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/11/1952.html" title="[BOJ] 1952. 달팽이2">
+            [BOJ] 1952. 달팽이2<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/kafka/2023/04/14/broker-replication.html" title="[kafka] 브로커, 복제, ISR(In-Sync-Replication)">
-            [kafka] 브로커, 복제, ISR(In-Sync-Replication)<span class="post-badges">
+          <a class="post-link" href="/infra/2023/06/26/docker_advanced.html" title="[docker] 도커 심화">
+            [docker] 도커 심화<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

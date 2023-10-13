@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -526,7 +526,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -693,7 +693,58 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/default)"></div>
+        <img class="img-placeholder" src="/default">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">Greedy Algorithm</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-07-10T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jul 10, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 25 mins</span>
+  </div></header>
+</div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -878,48 +929,6 @@ function googleTranslateElementInit() {
 
 
 
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">Greedy Algorithm</h1>
-  <h2 class="post-subtitle"></h2>
-
-  <div class="post-meta">
-    <time class="dt-published" datetime="2023-07-10T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jul 10, 2023
-    </time>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 25 mins</span>
-  </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -1955,32 +1964,32 @@ T(n) = 2(n-1)(n-1) ∈ $Θ(n^2)$</li>
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/tableu/2023/06/24/start.html" title="[tableu] 초급 데이터 시각화 활용">
-            [tableu] 초급 데이터 시각화 활용<span class="post-badges">
+          <a class="post-link" href="/algorithm/2023/07/12/chap7.html" title="정렬 문제">
+            정렬 문제<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/01/linear-regression.html" title="[BITAmin] Linear Regression">
-            [BITAmin] Linear Regression<span class="post-badges">
+          <a class="post-link" href="/hadoop/2023/09/22/ch4.html" title="[pilot] Ch4. 빅데이터 적재 이론">
+            [pilot] Ch4. 빅데이터 적재 이론<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/25/dl.html" title="[BoostCourse] 1. 딥러닝 기본">
-            [BoostCourse] 1. 딥러닝 기본<span class="post-badges">
+          <a class="post-link" href="/spark/2023/05/02/basic.html" title="[pyspark] 기본 문법">
+            [pyspark] 기본 문법<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/hadoop/2023/09/22/ch2.html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 이론">
-            [pilot] Ch2. 파일럿 프로젝트 아키텍처 이론<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/07/1145.html" title="[BOJ] 1145. 적어도 대부분의 배수">
+            [BOJ] 1145. 적어도 대부분의 배수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

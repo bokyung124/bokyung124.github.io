@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -525,7 +525,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -692,7 +692,58 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/default)"></div>
+        <img class="img-placeholder" src="/default">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[DBP] CH2-2. Oracle 숫자 처리 함수</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-04-06T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 06, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 4 mins</span>
+  </div></header>
+</div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -877,48 +928,6 @@ function googleTranslateElementInit() {
 
 
 
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">[DBP] CH2-2. Oracle 숫자 처리 함수</h1>
-  <h2 class="post-subtitle"></h2>
-
-  <div class="post-meta">
-    <time class="dt-published" datetime="2023-04-06T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 06, 2023
-    </time>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 4 mins</span>
-  </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -1080,32 +1089,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/java/2023/05/03/1924.html" title="[BOJ] 1924. 2007년">
-            [BOJ] 1924. 2007년<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/08/1100.html" title="[BOJ] 1100. 하얀 칸">
+            [BOJ] 1100. 하얀 칸<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/08/1316.html" title="[BOJ] 1316. 그룹 단어 체커">
-            [BOJ] 1316. 그룹 단어 체커<span class="post-badges">
+          <a class="post-link" href="/hadoop/2023/09/22/architecture2.html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2)">
+            [pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/09/RNN.html" title="[Udemy] RNN (1)">
-            [Udemy] RNN (1)<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/08/1212.html" title="[BOJ] 1212. 8진수 2진수">
+            [BOJ] 1212. 8진수 2진수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/12/1551.html" title="[BOJ] 1551. 수열의 변화">
-            [BOJ] 1551. 수열의 변화<span class="post-badges">
+          <a class="post-link" href="/sql/2023/06/24/optimizer.html" title="[MySQL] SQL 옵티마이저">
+            [MySQL] SQL 옵티마이저<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

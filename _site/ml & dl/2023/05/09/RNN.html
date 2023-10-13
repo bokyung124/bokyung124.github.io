@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -525,7 +525,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -692,7 +692,58 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/default)"></div>
+        <img class="img-placeholder" src="/default">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[Udemy] RNN (1)</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-05-09T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 09, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 3 mins</span>
+  </div></header>
+</div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -877,48 +928,6 @@ function googleTranslateElementInit() {
 
 
 
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">[Udemy] RNN (1)</h1>
-  <h2 class="post-subtitle"></h2>
-
-  <div class="post-meta">
-    <time class="dt-published" datetime="2023-05-09T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 09, 2023
-    </time>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 3 mins</span>
-  </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -1123,32 +1132,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/cs/2023/04/04/RESTful-API.html" title="[CS] REST API, RESTful API">
-            [CS] REST API, RESTful API<span class="post-badges">
+          <a class="post-link" href="/tableu/2023/06/24/map.html" title="[tableu] 태블로 시작 &amp; 지도 시각화">
+            [tableu] 태블로 시작 &amp; 지도 시각화<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/12/1551.html" title="[BOJ] 1551. 수열의 변화">
-            [BOJ] 1551. 수열의 변화<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/27/regularization.html" title="[BoostCourse] 4. Regularization">
+            [BoostCourse] 4. Regularization<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/04/05/1075.html" title="[BOJ] 1075.나누기">
-            [BOJ] 1075.나누기<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/13/1271.html" title="[BOJ] 1271. 엄청난 부자2">
+            [BOJ] 1271. 엄청난 부자2<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/04/04/1009.html" title="[BOJ] 1009. 분산처리">
-            [BOJ] 1009. 분산처리<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/11/1357.html" title="[BOJ] 1357. 뒤집힌 덧셈">
+            [BOJ] 1357. 뒤집힌 덧셈<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

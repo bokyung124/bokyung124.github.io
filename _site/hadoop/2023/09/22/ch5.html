@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -525,7 +525,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -692,7 +692,58 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/default)"></div>
+        <img class="img-placeholder" src="/default">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[pilot] Ch5. 빅데이터 적재 이론 (2)</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-09-22T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Sep 22, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 13 mins</span>
+  </div></header>
+</div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -877,48 +928,6 @@ function googleTranslateElementInit() {
 
 
 
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">[pilot] Ch5. 빅데이터 적재 이론 (2)</h1>
-  <h2 class="post-subtitle"></h2>
-
-  <div class="post-meta">
-    <time class="dt-published" datetime="2023-09-22T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Sep 22, 2023
-    </time>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 13 mins</span>
-  </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -1461,16 +1470,24 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/it%20issues/2023/05/07/copilot.html" title="[IT] '빙 챗은 잊어라' 마이크로소프트 코파일럿, 얼마나 유능할까">
-            [IT] '빙 챗은 잊어라' 마이크로소프트 코파일럿, 얼마나 유능할까<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/24/1427.html" title="[BOJ] 1427. 소트인사이드">
+            [BOJ] 1427. 소트인사이드<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/04/09/1524.html" title="[BOJ] 1524. 세준세비">
-            [BOJ] 1524. 세준세비<span class="post-badges">
+          <a class="post-link" href="/tableu/2023/06/24/start.html" title="[tableu] 초급 데이터 시각화 활용">
+            [tableu] 초급 데이터 시각화 활용<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/java/2023/05/26/1855.html" title="[BOJ] 1855. 암호">
+            [BOJ] 1855. 암호<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
@@ -1479,14 +1496,6 @@ function googleTranslateElementInit() {
 <li class="">
           <a class="post-link" href="/kafka/2023/04/14/about-kafka.html" title="[kafka] 아파치 카프카 개요와 토픽">
             [kafka] 아파치 카프카 개요와 토픽<span class="post-badges">
-  <span class="post-badge badge-top">TOP</span>
-  <span class="post-badge badge-new">NEW</span>
-</span>
-</a>
-        </li>
-<li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/09/RNN-layers.html" title="[Udemy] RNN (2)">
-            [Udemy] RNN (2)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

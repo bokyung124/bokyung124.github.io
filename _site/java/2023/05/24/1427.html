@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -525,7 +525,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -692,7 +692,58 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/default)"></div>
+        <img class="img-placeholder" src="/default">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[BOJ] 1427. 소트인사이드</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-05-24T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 24, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+  </div></header>
+</div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -877,48 +928,6 @@ function googleTranslateElementInit() {
 
 
 
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">[BOJ] 1427. 소트인사이드</h1>
-  <h2 class="post-subtitle"></h2>
-
-  <div class="post-meta">
-    <time class="dt-published" datetime="2023-05-24T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 24, 2023
-    </time>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
-  </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -980,32 +989,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/sql/2023/04/06/View.html" title="[DBP] CH2-4. View">
-            [DBP] CH2-4. View<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/08/1100.html" title="[BOJ] 1100. 하얀 칸">
+            [BOJ] 1100. 하얀 칸<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/20/Procedure.html" title="[DBP] CH4-1. PL/SQL - Procedure">
-            [DBP] CH4-1. PL/SQL - Procedure<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/06/1546.html" title="[BOJ] 1546. 평균">
+            [BOJ] 1546. 평균<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/hadoop/2023/09/22/ch5(2).html" title="[pilot] Ch5. 빅데이터 적재 실습 (2)">
-            [pilot] Ch5. 빅데이터 적재 실습 (2)<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/20/Procedure-exercise.html" title="[DBP] CH5. PL/SQL - 수강신청 시스템 실습">
+            [DBP] CH5. PL/SQL - 수강신청 시스템 실습<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/hadoop/2023/09/22/ch4(2).html" title="[pilot] Ch4. 빅데이터 적재 실습">
-            [pilot] Ch4. 빅데이터 적재 실습<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/12/1551.html" title="[BOJ] 1551. 수열의 변화">
+            [BOJ] 1551. 수열의 변화<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -525,7 +525,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -692,7 +692,58 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/default)"></div>
+        <img class="img-placeholder" src="/default">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[BOJ] 1524. 세준세비</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-04-09T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 09, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
+  </div></header>
+</div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -877,48 +928,6 @@ function googleTranslateElementInit() {
 
 
 
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">[BOJ] 1524. 세준세비</h1>
-  <h2 class="post-subtitle"></h2>
-
-  <div class="post-meta">
-    <time class="dt-published" datetime="2023-04-09T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 09, 2023
-    </time>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
-  </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -1064,32 +1073,32 @@ B
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/java/2023/04/16/1259.html" title="[BOJ] 1259. 팰린드롬수">
-            [BOJ] 1259. 팰린드롬수<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/16/fe.html" title="[BoostCourse] 4. 피처 엔지니어링">
+            [BoostCourse] 4. 피처 엔지니어링<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/hadoop/2023/09/22/install-hadoop.html" title="MAC 하둡 설치">
-            MAC 하둡 설치<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/05/1075.html" title="[BOJ] 1075.나누기">
+            [BOJ] 1075.나누기<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/infra/2023/06/26/docker_advanced.html" title="[docker] 도커 심화">
-            [docker] 도커 심화<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/10/1292.html" title="[BOJ] 1292. 쉽게 푸는 문제">
+            [BOJ] 1292. 쉽게 푸는 문제<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/20/Procedure-exercise.html" title="[DBP] CH5. PL/SQL - 수강신청 시스템 실습">
-            [DBP] CH5. PL/SQL - 수강신청 시스템 실습<span class="post-badges">
+          <a class="post-link" href="/hadoop/2023/09/22/ch3.html" title="[pilot] Ch3. 빅데이터 수집 이론">
+            [pilot] Ch3. 빅데이터 수집 이론<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

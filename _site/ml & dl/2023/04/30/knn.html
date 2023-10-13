@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -526,7 +526,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -693,7 +693,58 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/default)"></div>
+        <img class="img-placeholder" src="/default">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[BITAmin] KNN</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-04-30T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 30, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 14 mins</span>
+  </div></header>
+</div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -878,48 +929,6 @@ function googleTranslateElementInit() {
 
 
 
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">[BITAmin] KNN</h1>
-  <h2 class="post-subtitle"></h2>
-
-  <div class="post-meta">
-    <time class="dt-published" datetime="2023-04-30T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 30, 2023
-    </time>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 14 mins</span>
-  </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -1426,32 +1435,32 @@ p : 민코프스키 미터법의 차수 결정 (1이면 맨해튼 거리, 2이�
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/sql/2023/06/24/optimizer.html" title="[MySQL] SQL 옵티마이저">
-            [MySQL] SQL 옵티마이저<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/12/2163.html" title="[BOJ] 2163. 초콜릿 자르기">
+            [BOJ] 2163. 초콜릿 자르기<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/06/View.html" title="[DBP] CH2-4. View">
-            [DBP] CH2-4. View<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/11/1357.html" title="[BOJ] 1357. 뒤집힌 덧셈">
+            [BOJ] 1357. 뒤집힌 덧셈<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/08/1316.html" title="[BOJ] 1316. 그룹 단어 체커">
-            [BOJ] 1316. 그룹 단어 체커<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/05/Integrity-Constraints.html" title="[DBP] CH1-3. Integrity Constraints">
+            [DBP] CH1-3. Integrity Constraints<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/20/Function.html" title="[DBP] CH4-2. PL/SQL - Function">
-            [DBP] CH4-2. PL/SQL - Function<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/20/Trigger.html" title="[DBP] CH4-3. PL/SQL - Trigger">
+            [DBP] CH4-3. PL/SQL - Trigger<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

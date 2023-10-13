@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -526,7 +526,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -693,7 +693,58 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/default)"></div>
+        <img class="img-placeholder" src="/default">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[BITAmin] Multi Linear Regression</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-05-01T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 01, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
+  </div></header>
+</div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -878,48 +929,6 @@ function googleTranslateElementInit() {
 
 
 
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">[BITAmin] Multi Linear Regression</h1>
-  <h2 class="post-subtitle"></h2>
-
-  <div class="post-meta">
-    <time class="dt-published" datetime="2023-05-01T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 01, 2023
-    </time>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
-  </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -1065,32 +1074,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/25/dl.html" title="[BoostCourse] 1. 딥러닝 기본">
-            [BoostCourse] 1. 딥러닝 기본<span class="post-badges">
+          <a class="post-link" href="/kafka/2023/04/14/broker-replication.html" title="[kafka] 브로커, 복제, ISR(In-Sync-Replication)">
+            [kafka] 브로커, 복제, ISR(In-Sync-Replication)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/10/2609.html" title="[BOJ] 2609. 최대공약수와 최소공배수">
-            [BOJ] 2609. 최대공약수와 최소공배수<span class="post-badges">
+          <a class="post-link" href="/infra/2023/09/22/k8s.html" title="[k8s] Kubernetes Basic">
+            [k8s] Kubernetes Basic<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/tableu/2023/06/24/start.html" title="[tableu] 초급 데이터 시각화 활용">
-            [tableu] 초급 데이터 시각화 활용<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/06/View.html" title="[DBP] CH2-4. View">
+            [DBP] CH2-4. View<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/infra/2023/08/25/aws-load-balancing.html" title="[AWS] AWS Load Balancing">
-            [AWS] AWS Load Balancing<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/07/1145.html" title="[BOJ] 1145. 적어도 대부분의 배수">
+            [BOJ] 1145. 적어도 대부분의 배수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

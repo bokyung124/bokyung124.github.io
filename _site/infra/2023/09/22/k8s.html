@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -525,7 +525,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -692,7 +692,58 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/default)"></div>
+        <img class="img-placeholder" src="/default">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[k8s] Kubernetes Basic</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-09-22T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Sep 22, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 23 mins</span>
+  </div></header>
+</div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -877,48 +928,6 @@ function googleTranslateElementInit() {
 
 
 
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">[k8s] Kubernetes Basic</h1>
-  <h2 class="post-subtitle"></h2>
-
-  <div class="post-meta">
-    <time class="dt-published" datetime="2023-09-22T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Sep 22, 2023
-    </time>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 23 mins</span>
-  </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -1850,32 +1859,32 @@ image: nginx:1.20.2
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/01/fe.html" title="[BITAmin] Feature Engineering and Regularization">
-            [BITAmin] Feature Engineering and Regularization<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/09/1524.html" title="[BOJ] 1524. 세준세비">
+            [BOJ] 1524. 세준세비<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/06/Oracle-Func-2.html" title="[DBP] CH2-2. Oracle 숫자 처리 함수">
-            [DBP] CH2-2. Oracle 숫자 처리 함수<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/06/1076.html" title="[BOJ] 1076. 저항">
+            [BOJ] 1076. 저항<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/cs/2023/04/14/debugging.html" title="[Algorithm] 디버깅">
-            [Algorithm] 디버깅<span class="post-badges">
+          <a class="post-link" href="/infra/2023/06/28/docker_build.html" title="[docker] 이미지 빌드">
+            [docker] 이미지 빌드<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/algorithm/2023/07/11/chap5.html" title="Backtracking">
-            Backtracking<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/26/1855.html" title="[BOJ] 1855. 암호">
+            [BOJ] 1855. 암호<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

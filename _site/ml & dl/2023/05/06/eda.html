@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -525,7 +525,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -692,7 +692,58 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/default)"></div>
+        <img class="img-placeholder" src="/default">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[BoostCourse] 1. 정형데이터와 EDA</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-05-06T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 06, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
+  </div></header>
+</div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -877,48 +928,6 @@ function googleTranslateElementInit() {
 
 
 
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">[BoostCourse] 1. 정형데이터와 EDA</h1>
-  <h2 class="post-subtitle"></h2>
-
-  <div class="post-meta">
-    <time class="dt-published" datetime="2023-05-06T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 06, 2023
-    </time>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
-  </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -1048,32 +1057,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/java/2023/05/09/1037.html" title="[BOJ] 1037. 약수">
-            [BOJ] 1037. 약수<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/08/1100.html" title="[BOJ] 1100. 하얀 칸">
+            [BOJ] 1100. 하얀 칸<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/14/2596.html" title="[BOJ] 2596. 비밀편지">
-            [BOJ] 2596. 비밀편지<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/06/eda.html" title="[BoostCourse] 1. 정형데이터와 EDA">
+            [BoostCourse] 1. 정형데이터와 EDA<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/algorithm/2023/07/11/chap6.html" title="분기 한정법 Branch and Bound">
-            분기 한정법 Branch and Bound<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/04/1085.html" title="[BOJ] 1085. 직사각형에서 탈출">
+            [BOJ] 1085. 직사각형에서 탈출<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/hadoop/2023/09/22/architecture.html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계">
-            [pilot] Ch2. 파일럿 프로젝트 아키텍처 설계<span class="post-badges">
+          <a class="post-link" href="/infra/2023/08/25/aws-load-balancing.html" title="[AWS] AWS Load Balancing">
+            [AWS] AWS Load Balancing<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

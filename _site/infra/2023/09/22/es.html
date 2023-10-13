@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -525,7 +525,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -692,7 +692,58 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/default)"></div>
+        <img class="img-placeholder" src="/default">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[ES] Elastic Search Basic</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-09-22T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Sep 22, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+  </div></header>
+</div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     hashValue = decodeURIComponent(hashValue);
@@ -877,48 +928,6 @@ function googleTranslateElementInit() {
 
 
 
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">[ES] Elastic Search Basic</h1>
-  <h2 class="post-subtitle"></h2>
-
-  <div class="post-meta">
-    <time class="dt-published" datetime="2023-09-22T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Sep 22, 2023
-    </time>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
-  </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -1002,32 +1011,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/java/2023/04/08/1100.html" title="[BOJ] 1100. 하얀 칸">
-            [BOJ] 1100. 하얀 칸<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/05/Sub-Query.html" title="[DBP] CH1-2. Sub Query">
+            [DBP] CH1-2. Sub Query<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/07/PL-SQL.html" title="[DBP] CH3. PL/SQL">
-            [DBP] CH3. PL/SQL<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/13/1271.html" title="[BOJ] 1271. 엄청난 부자2">
+            [BOJ] 1271. 엄청난 부자2<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/04/10/1292.html" title="[BOJ] 1292. 쉽게 푸는 문제">
-            [BOJ] 1292. 쉽게 푸는 문제<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/20/Trigger.html" title="[DBP] CH4-3. PL/SQL - Trigger">
+            [DBP] CH4-3. PL/SQL - Trigger<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/04/09/1524.html" title="[BOJ] 1524. 세준세비">
-            [BOJ] 1524. 세준세비<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/04/1085.html" title="[BOJ] 1085. 직사각형에서 탈출">
+            [BOJ] 1085. 직사각형에서 탈출<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
