@@ -30,7 +30,7 @@ tag: [study, Hadoop, 파일럿프로젝트]
 - 원래는 명령어를 이용하여 CM을 설치해야 하지만, 현재 CM 정책이 수정되어 책에 나와있는 명령어로 설치가 안됨
 - 저자님의 깃허브에서 가상머신 2개 이미지 파일을 받을 수 있음
 
-https://drive.google.com/file/d/1oLikMIC6bzt0jNV0n49YNOM0foNPXDZh/view?usp=sharing 
+<https://drive.google.com/file/d/1oLikMIC6bzt0jNV0n49YNOM0foNPXDZh/view?usp=sharing>
 
 <br>
 
@@ -59,7 +59,7 @@ https://drive.google.com/file/d/1oLikMIC6bzt0jNV0n49YNOM0foNPXDZh/view?usp=shari
 
 <br>
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbGNmVJ%2FbtrVT73Coaa%2FYnPz6ZgiGsQ7C2dOwv0yj1%2Fimg.png)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbGNmVJ%2FbtrVT73Coaa%2FYnPz6ZgiGsQ7C2dOwv0yj1%2Fimg.png)  
 - CM 첫화면
 - 우선은 HDFS, YARN, ZooKeeper 만 설치  
 
@@ -134,13 +134,14 @@ https://drive.google.com/file/d/1oLikMIC6bzt0jNV0n49YNOM0foNPXDZh/view?usp=shari
 <br> 
 
 > HDFS 명령어   
-https://hadoop.apache.org/docs/r3.1.2/hadoop-project-dist/hadoop-common/FileSystemShell.html
+<https://hadoop.apache.org/docs/r3.1.2/hadoop-project-dist/hadoop-common/FileSystemShell.html>
 
 <br>
 
 ```bash
 hdfs dfs [GENERIC_OPTIONS] [COMMAND_OPTIONS]
 ```
+
 ```bash
 # cat : 파일 읽어서 보여줌 (리눅스 cat과 동일)
 hdfs dfs -cat [경로]
@@ -161,6 +162,7 @@ hdfs dfs -cp [소스 경로] [복사 경로]
 <br>
 
 ### 2) 파일 저장 및 확인
+
 ```bash
 cd /home/bigdata
 hdfs dfs -put Sample.txt /tmp
@@ -268,7 +270,7 @@ delete /pilot-pjt
 
 
 > 참고 사이트     
-https://engkimbs.tistory.com/660
+<https://engkimbs.tistory.com/660>
 
 <br>
 
@@ -317,6 +319,7 @@ java -version
 <br>
 
 - `DriverLogMain.java` 먼저 실행
+
 ```bash
 cd /home/pilot-pjt/working
 java -cp bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.DriverLogMain 20160101 10
@@ -334,6 +337,7 @@ java -cp bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.Dr
 <br>
 
 - __시뮬레이터 작동 확인__
+
 ```bash
 cd /home/pilot-pjt/working/driver-realtime-log
 tail -f SmartCarDriverInfo.log
@@ -350,6 +354,7 @@ tail -f SmartCarDriverInfo.log
 <br>
 
 - __CarLogMain.java 실행__
+
 ```bash
 cd /home/pilot-pjt/working
 java -cp bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.CarLogMain 20160101 10
@@ -365,6 +370,7 @@ java -cp bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.Ca
 <br>
 
 - __시뮬레이터 작동 확인__
+
 ```bash
 cd /home/pilot-pjt/working/SmartCar
 tail -f SmartCarStatusInfo_20160101.txt

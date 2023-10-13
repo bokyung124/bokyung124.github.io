@@ -61,7 +61,7 @@ java -version
 ``` -->
 
 
-https://cwiki.apache.org/confluence/display/HADOOP/Hadoop+Java+Versions
+<https://cwiki.apache.org/confluence/display/HADOOP/Hadoop+Java+Versions>
 
 - Java 8 설치 권장
 
@@ -105,6 +105,7 @@ echo $JAVA_HOME
 <br>
 
 - `~/.bash_profile` 파일에도 JAVA_HOME 추가
+
 ```bash
 vi ~/.bash_profile
 

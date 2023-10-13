@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
   pre.badge::before {
     content: attr(data-lang);
     color: #fff;
-    background-color: #ff4e00;
+    background-color: #90a959;
     padding: 0 .5em;
-    border-radius: 0 2px;
+    border-radius: 0.2px;
     text-transform: uppercase;
     text-align: center;
     min-width: 32px;
@@ -984,7 +984,7 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h2 id="3-파일럿-프로젝트-소프트웨어-아키텍처">3. 파일럿 프로젝트 소프트웨어 아키텍처</h2>
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbyLmtt%2FbtrUIZmQfNM%2Fbzo2admbnvciKPiCJTOeck%2Fimg.png" alt="sw"></p>
+<p><img src="https://camo.githubusercontent.com/d44ddf2259aff6d0605416818d8d91cd946d74f2db76f85336b767dcda8bebfc/68747470733a2f2f696d67312e6461756d63646e2e6e65742f7468756d622f523132383078302f3f73636f64653d6d746973746f72793226666e616d653d6874747073253341253246253246626c6f672e6b616b616f63646e2e6e6574253246646e25324662794c6d747425324662747255495a6d51664e4d253246627a6f3261646d626e7663694b5069434a544f65636b253246696d672e706e67" alt="sw"></p>
 
 <ul>
   <li>하둡을 중심으로 앞쪽을 수집/적재 (전처리) 영역, 뒤쪽을 탐색/분석 (후처리) 영역</li>
@@ -1002,7 +1002,7 @@ function googleTranslateElementInit() {
 <code class="language-plaintext highlighter-rouge">Kafka</code>: 플럼과 스톰 사이에서 데이터의 안정적인 수집을 위해 버퍼링, 트랜잭션 처리</li>
 </ul>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcWmWKE%2FbtrUM57qDGA%2FrkDf9rPGJunJGJxaip96s0%2Fimg.png" alt="collect"></p>
+<p><img src="https://camo.githubusercontent.com/2e1d8db801d8f918814157a86c3ad8daa745a14db0eb8da7f568db4f274f93bf/68747470733a2f2f696d67312e6461756d63646e2e6e65742f7468756d622f523132383078302f3f73636f64653d6d746973746f72793226666e616d653d6874747073253341253246253246626c6f672e6b616b616f63646e2e6e6574253246646e25324663576d574b45253246627472554d353771444741253246726b4466397250474a756e4a474a7861697039367330253246696d672e706e67" alt="collect"></p>
 
 <p><br></p>
 
@@ -1016,7 +1016,7 @@ function googleTranslateElementInit() {
   <li>스톰을 통해 실시간 이벤트 분석 -&gt; 결과에 따라 HBase와 레디스로 나누어 적재</li>
 </ul>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FFZraV%2FbtrUKmB4dbg%2FIk87w7E4vULbeq0B5XRJx1%2Fimg.png" alt="load"></p>
+<p><img src="https://camo.githubusercontent.com/0c8d4de6f33796da751caa2a46984946c077077cab35e69f83245224cb7112fc/68747470733a2f2f696d67312e6461756d63646e2e6e65742f7468756d622f523132383078302f3f73636f64653d6d746973746f72793226666e616d653d6874747073253341253246253246626c6f672e6b616b616f63646e2e6e6574253246646e253246465a726156253246627472554b6d4234646267253246496b38377737453476554c62657130423558524a7831253246696d672e706e67" alt="load"></p>
 
 <p><br></p>
 
@@ -1030,7 +1030,7 @@ function googleTranslateElementInit() {
 <code class="language-plaintext highlighter-rouge">우지</code>: 길고 복잡한 처리/탐색 프로세스를 우지의 워크플로로 구성해 복잡도 낮추고 자동화</li>
 </ul>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbt92DO%2FbtrUP0K6TGp%2FppmunqNB41RoKZXQlkfMwk%2Fimg.png" alt="process"></p>
+<p><img src="https://camo.githubusercontent.com/5e9458f94cc847866d1d99dc4471173f4859702c74291448615ff71e55a36dbc/68747470733a2f2f696d67312e6461756d63646e2e6e65742f7468756d622f523132383078302f3f73636f64653d6d746973746f72793226666e616d653d6874747073253341253246253246626c6f672e6b616b616f63646e2e6e6574253246646e25324662743932444f2532466274725550304b3654477025324670706d756e714e423431526f4b5a58516c6b664d776b253246696d672e706e67" alt="process"></p>
 
 <p><br></p>
 
@@ -1048,12 +1048,12 @@ function googleTranslateElementInit() {
 <code class="language-plaintext highlighter-rouge">플라스크</code>: 서비스 API 제공</li>
 </ul>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbLt9Z5%2FbtrUNU5JckW%2FRzRkc1cyi7ytgxY9WTpU0K%2Fimg.png" alt="analysis"></p>
+<p><img src="https://camo.githubusercontent.com/b859cab28a027625c3e22df842c97d032380c15f99124d091c50cc11a62b543c/68747470733a2f2f696d67312e6461756d63646e2e6e65742f7468756d622f523132383078302f3f73636f64653d6d746973746f72793226666e616d653d6874747073253341253246253246626c6f672e6b616b616f63646e2e6e6574253246646e253246624c74395a35253246627472554e55354a636b57253246527a526b63316379693779746778593957547055304b253246696d672e706e67" alt="analysis"></p>
 
 <p><br></p>
 
 <h2 id="4-하드웨어-아키텍처">4. 하드웨어 아키텍처</h2>
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbqUmw2%2FbtrUOQPvzpr%2FSSz0Knsc6ALZxmUGpErP1K%2Fimg.png" alt="hw"></p>
+<p><img src="https://camo.githubusercontent.com/dd8e9465953b5081e95b475c88109c8381ded820c040e952901d928a4a48a724/68747470733a2f2f696d67312e6461756d63646e2e6e65742f7468756d622f523132383078302f3f73636f64653d6d746973746f72793226666e616d653d6874747073253341253246253246626c6f672e6b616b616f63646e2e6e6574253246646e2532466271556d7732253246627472554f5150767a707225324653537a304b6e736336414c5a786d554770457250314b253246696d672e706e67" alt="hw"></p>
 
 <p><br></p>
 
@@ -1062,7 +1062,7 @@ function googleTranslateElementInit() {
 <ul>
   <li>빅데이터 자동화 관리 툴</li>
   <li>하둡을 포함한 에코시스템 17개 편리하게 설치 및 관리
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdgrhZY%2FbtrUKYOQmH2%2Fkn9pfO6wlfXFhPPAYhI7U1%2Fimg.png" alt="cm">
+<img src="https://camo.githubusercontent.com/52b55c286be1adf4f402084eb753c6eec32e2d37e5ab0216db1ccc6aeedd1da7/68747470733a2f2f696d67312e6461756d63646e2e6e65742f7468756d622f523132383078302f3f73636f64653d6d746973746f72793226666e616d653d6874747073253341253246253246626c6f672e6b616b616f63646e2e6e6574253246646e253246646772685a59253246627472554b594f516d48322532466b6e3970664f36776c66584668505041596849375531253246696d672e706e67" alt="cm">
 </li>
 </ul>
 
@@ -1077,32 +1077,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/06/eda.html" title="[BoostCourse] 1. 정형데이터와 EDA">
-            [BoostCourse] 1. 정형데이터와 EDA<span class="post-badges">
+          <a class="post-link" href="/infra/2023/08/25/aws-load-balancing.html" title="[AWS] AWS Load Balancing">
+            [AWS] AWS Load Balancing<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/27/gradientDescent.html" title="[BoostCourse] 3. Gradient Descent Methods">
-            [BoostCourse] 3. Gradient Descent Methods<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/09/1037.html" title="[BOJ] 1037. 약수">
+            [BOJ] 1037. 약수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/tableu/2023/06/24/chart.html" title="[Tableu] 기초 시각화 연습2">
-            [Tableu] 기초 시각화 연습2<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/06/View.html" title="[DBP] CH2-4. View">
+            [DBP] CH2-4. View<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/infra/2023/06/26/dockerBasic.html" title="[docker] 도커 기초">
-            [docker] 도커 기초<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/09/RNN-layers.html" title="[Udemy] RNN (2)">
+            [Udemy] RNN (2)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
   pre.badge::before {
     content: attr(data-lang);
     color: #fff;
-    background-color: #ff4e00;
+    background-color: #90a959;
     padding: 0 .5em;
-    border-radius: 0 2px;
+    border-radius: 0.2px;
     text-transform: uppercase;
     text-align: center;
     min-width: 32px;
@@ -937,7 +937,7 @@ function googleTranslateElementInit() {
 
 
 
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 9 mins</span>
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 14 mins</span>
   </div>
 <div class="post-tags">
 <a class="post-tag" href="/tags.html#study">#study</a><a class="post-tag" href="/tags.html#Hadoop">#Hadoop</a><a class="post-tag" href="/tags.html#%ED%8C%8C%EC%9D%BC%EB%9F%BF%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8">#파일럿프로젝트</a>
@@ -953,11 +953,11 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <ul>
-  <li>하둡 웹 관리 화면 <br>
-http://server01.hadoop.com:9870  <br>
-<img src="img/CH04/%ED%95%98%EB%91%A1%20%EC%83%81%ED%83%9C%20%EC%A0%95%EB%B3%B4%20%ED%99%95%EC%9D%B8.png" alt="">
-</li>
+  <li>하둡 웹 관리 화면</li>
 </ul>
+<p><a href="http://server01.hadoop.com:9870">http://server01.hadoop.com:9870</a></p>
+
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH04/%ED%95%98%EB%91%A1%20%EC%83%81%ED%83%9C%20%EC%A0%95%EB%B3%B4%20%ED%99%95%EC%9D%B8.png" alt=""></p>
 
 <p><br></p>
 
@@ -981,8 +981,9 @@ http://server01.hadoop.com:9870  <br>
 
 <p><br></p>
 
-<p><a href="http://server01.hadoop.com:8088/cluster">리소스 매니저</a>
-<a href="http://server01.hadoop.com:19888/jobhistory">Job History</a></p>
+<p><a href="http://server01.hadoop.com:8088/cluster">리소스 매니저</a></p>
+
+<p><a href="http://server01.hadoop.com:19888/jobhistory">Job History</a></p>
 
 <p><br></p>
 
@@ -1008,185 +1009,213 @@ http://server01.hadoop.com:9870  <br>
   <li>CH03에서 만든 SmartCar_Agent의 구성 파일에서 Logger Sink의 구성 요소들을 HDFS Sink로 교체</li>
 </ul>
 
-<p><img src="img/CH04/flume%20%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C%20%EA%B5%90%EC%B2%B4.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH04/flume%20%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C%20%EA%B5%90%EC%B2%B4.png" alt=""></p>
 
 <p><br></p>
 
 <ul>
-  <li>수정할 기존 Logger Sink
-```conf
-vSmartCar_Agent.sources  = SmartCarInfo_SpoolSource DriverCarInfo_TailSource
-SmartCar_Agent.channels = SmartCarInfo_Channel DriverCarInfo_Channel
-SmartCar_Agent.sinks    = SmartCarInfo_HdfsSink DriverCarInfo_KafkaSink  #1</li>
+  <li>수정할 기존 Logger Sink</li>
 </ul>
 
-<p>SmartCar_Agent.sources.SmartCarInfo_SpoolSource.type = spooldir
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.spoolDir = /home/pilot-pjt/working/car-batch-log
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.deletePolicy = immediate
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.batchSize = 1000</p>
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vSmartCar_Agent</span>.<span class="n">sources</span>  = <span class="n">SmartCarInfo_SpoolSource</span> <span class="n">DriverCarInfo_TailSource</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span> = <span class="n">SmartCarInfo_Channel</span> <span class="n">DriverCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>    = <span class="n">SmartCarInfo_HdfsSink</span> <span class="n">DriverCarInfo_KafkaSink</span>  <span class="c">#1
+</span>
 
-<p>#2
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors = timeInterceptor typeInterceptor collectDayInterceptor filterInterceptor</p>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">type</span> = <span class="n">spooldir</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">spoolDir</span> = /<span class="n">home</span>/<span class="n">pilot</span>-<span class="n">pjt</span>/<span class="n">working</span>/<span class="n">car</span>-<span class="n">batch</span>-<span class="n">log</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">deletePolicy</span> = <span class="n">immediate</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">batchSize</span> = <span class="m">1000</span>
 
-<p>#3
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.timeInterceptor.type = timestamp
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.timeInterceptor.preserveExisting = true</p>
+<span class="c">#2
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span> = <span class="n">timeInterceptor</span> <span class="n">typeInterceptor</span> <span class="n">collectDayInterceptor</span> <span class="n">filterInterceptor</span>
 
-<p>#4
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.typeInterceptor.type = static
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.typeInterceptor.key = logType
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.typeInterceptor.value = car-batch-log</p>
+<span class="c">#3
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">timeInterceptor</span>.<span class="n">type</span> = <span class="n">timestamp</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">timeInterceptor</span>.<span class="n">preserveExisting</span> = <span class="n">true</span>
 
-<p>#5
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.collectDayInterceptor.type = com.wikibook.bigdata.smartcar.flume.CollectDayInterceptor$Builder</p>
+<span class="c">#4
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">typeInterceptor</span>.<span class="n">type</span> = <span class="n">static</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">typeInterceptor</span>.<span class="n">key</span> = <span class="n">logType</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">typeInterceptor</span>.<span class="n">value</span> = <span class="n">car</span>-<span class="n">batch</span>-<span class="n">log</span>
 
-<p>SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.filterInterceptor.type = regex_filter
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.filterInterceptor.regex = ^\d{14}
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.filterInterceptor.excludeEvents = false</p>
+<span class="c">#5
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">collectDayInterceptor</span>.<span class="n">type</span> = <span class="n">com</span>.<span class="n">wikibook</span>.<span class="n">bigdata</span>.<span class="n">smartcar</span>.<span class="n">flume</span>.<span class="n">CollectDayInterceptor</span>$<span class="n">Builder</span>
 
-<p>SmartCar_Agent.channels.SmartCarInfo_Channel.type = memory
-SmartCar_Agent.channels.SmartCarInfo_Channel.capacity  = 100000
-SmartCar_Agent.channels.SmartCarInfo_Channel.transactionCapacity  = 10000</p>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">type</span> = <span class="n">regex_filter</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">regex</span> = ^\\<span class="n">d</span>{<span class="m">14</span>}
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">excludeEvents</span> = <span class="n">false</span>
 
-<p>#6
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.type = hdfs
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.path = /pilot-pjt/collect/%{logType}/wrk_date=%Y%m%d
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.filePrefix = %{logType}
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.fileSuffix = .log
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.fileType = DataStream
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.writeFormat = Text
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.batchSize = 10000
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.rollInterval = 0
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.rollCount = 0
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.idleTimeout = 100
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.callTimeout = 600000
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.rollSize = 67108864
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.threadsPoolSize = 10</p>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">type</span> = <span class="n">memory</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">capacity</span>  = <span class="m">100000</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">transactionCapacity</span>  = <span class="m">10000</span>
 
-<p>#7
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.channels = SmartCarInfo_Channel
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.channel = SmartCarInfo_Channel</p>
+<span class="c">#6
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">type</span> = <span class="n">hdfs</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">path</span> = /<span class="n">pilot</span>-<span class="n">pjt</span>/<span class="n">collect</span>/%{<span class="n">logType</span>}/<span class="n">wrk_date</span>=%<span class="n">Y</span>%<span class="n">m</span>%<span class="n">d</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">filePrefix</span> = %{<span class="n">logType</span>}
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">fileSuffix</span> = .<span class="n">log</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">fileType</span> = <span class="n">DataStream</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">writeFormat</span> = <span class="n">Text</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">batchSize</span> = <span class="m">10000</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">rollInterval</span> = <span class="m">0</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">rollCount</span> = <span class="m">0</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">idleTimeout</span> = <span class="m">100</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">callTimeout</span> = <span class="m">600000</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">rollSize</span> = <span class="m">67108864</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">threadsPoolSize</span> = <span class="m">10</span>
 
-<p>SmartCar_Agent.sources.DriverCarInfo_TailSource.type = exec
-SmartCar_Agent.sources.DriverCarInfo_TailSource.command = tail -F /home/pilot-pjt/working/driver-realtime-log/SmartCarDriverInfo.log
-SmartCar_Agent.sources.DriverCarInfo_TailSource.restart = true
-SmartCar_Agent.sources.DriverCarInfo_TailSource.batchSize = 1000</p>
-
-<p>SmartCar_Agent.sources.DriverCarInfo_TailSource.interceptors = filterInterceptor2
-SmartCar_Agent.sources.DriverCarInfo_TailSource.interceptors.filterInterceptor2.type = regex_filter
-SmartCar_Agent.sources.DriverCarInfo_TailSource.interceptors.filterInterceptor2.regex = ^\d{14}
-SmartCar_Agent.sources.DriverCarInfo_TailSource.interceptors.filterInterceptor2.excludeEvents = false</p>
-
-<p>SmartCar_Agent.sinks.DriverCarInfo_KafkaSink.type = org.apache.flume.sink.kafka.KafkaSink
-SmartCar_Agent.sinks.DriverCarInfo_KafkaSink.topic = SmartCar-Topic
-SmartCar_Agent.sinks.DriverCarInfo_KafkaSink.brokerList = server02.hadoop.com:9092
-SmartCar_Agent.sinks.DriverCarInfo_KafkaSink.requiredAcks = 1
-SmartCar_Agent.sinks.DriverCarInfo_KafkaSink.batchSize = 1000</p>
-
-<p>SmartCar_Agent.channels.DriverCarInfo_Channel.type = memory
-SmartCar_Agent.channels.DriverCarInfo_Channel.capacity= 100000
-SmartCar_Agent.channels.DriverCarInfo_Channel.transactionCapacity = 10000</p>
-
-<p>SmartCar_Agent.sources.DriverCarInfo_TailSource.channels = DriverCarInfo_Channel
-SmartCar_Agent.sinks.DriverCarInfo_KafkaSink.channel = DriverCarInfo_Channel</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-- #1
-    - HDFS Sink 정보를 설정하기 위한 SmartCarInfo_HdfsSink 리소스 선언
-- #2
-    - 3개의 Interceptor 추가
-    - 타임스탬프를 활용하기 위한 `timeInterceptor`
-    - 로그 유형에 해당하는 상수값을 정의하기 위한 `typeInterceptor`
-    - 수집 일자를 추가하기 위한 `collectDayInterceptor`
-- #3
-    - timeInterceptor의 설정
-    - 타임스탬프 Interceptor를 추가하면, 플럼의 이벤트 헤더에 현재 타임 스탬프가 설정되어 필요시 헤더로부터 타임스탬프 값을 가져와 활용할 수 있음
-- #4
-    - typeInterceptor의 설정
-    - 플럼의 해당 이벤트 내에서 사용할 상수를 선언하고 값을 설정
-    - `logType` 이라는 상수를 선언했고, 값은 "car-batch-log"로 설정했음
-- #5
-    - collectDayInterceptor의 설정
-    - 플럼 이벤트 바디에 수집된 당일의 작업 날짜(YYYYMMDD)를 추가하기 위한 Interceptor
-    - 플럼에서 기본으로 제공하는 Interceptor가 아닌, 이번 파일럿 프로젝트를 위해 추가로 개발한 사용자 정의 Interceptor
-
-&lt;br&gt;
-
-- collectDayInterceptor
-```java
-package com.wikibook.bigdata.smartcar.flume;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.flume.Context;
-import org.apache.flume.Event;
-import org.apache.flume.interceptor.Interceptor;
+<span class="c">#7
+</span><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">channels</span> = <span class="n">SmartCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">channel</span> = <span class="n">SmartCarInfo_Channel</span>
 
 
-public class CollectDayInterceptor implements Interceptor {
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">type</span> = <span class="n">exec</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">command</span> = <span class="n">tail</span> -<span class="n">F</span> /<span class="n">home</span>/<span class="n">pilot</span>-<span class="n">pjt</span>/<span class="n">working</span>/<span class="n">driver</span>-<span class="n">realtime</span>-<span class="n">log</span>/<span class="n">SmartCarDriverInfo</span>.<span class="n">log</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">restart</span> = <span class="n">true</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">batchSize</span> = <span class="m">1000</span>
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">interceptors</span> = <span class="n">filterInterceptor2</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor2</span>.<span class="n">type</span> = <span class="n">regex_filter</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor2</span>.<span class="n">regex</span> = ^\\<span class="n">d</span>{<span class="m">14</span>}
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor2</span>.<span class="n">excludeEvents</span> = <span class="n">false</span>
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">type</span> = <span class="n">org</span>.<span class="n">apache</span>.<span class="n">flume</span>.<span class="n">sink</span>.<span class="n">kafka</span>.<span class="n">KafkaSink</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">topic</span> = <span class="n">SmartCar</span>-<span class="n">Topic</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">brokerList</span> = <span class="n">server02</span>.<span class="n">hadoop</span>.<span class="n">com</span>:<span class="m">9092</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">requiredAcks</span> = <span class="m">1</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">batchSize</span> = <span class="m">1000</span>
 
 
-	public CollectDayInterceptor(){
-	}
-
-	@Override
-	public void initialize() {
-
-	}
-
-	@Override
-	public Event intercept(Event event) {
-
-		String eventBody = new String(event.getBody()) + "," + getToDate();
-		event.setBody(eventBody.getBytes());
-		return event;
-
-	}
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">DriverCarInfo_Channel</span>.<span class="n">type</span> = <span class="n">memory</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">DriverCarInfo_Channel</span>.<span class="n">capacity</span>= <span class="m">100000</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">DriverCarInfo_Channel</span>.<span class="n">transactionCapacity</span> = <span class="m">10000</span>
 
 
-	@Override
-	public void close() {
-	}
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">channels</span> = <span class="n">DriverCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">channel</span> = <span class="n">DriverCarInfo_Channel</span>
+</code></pre></div></div>
+
+<ul>
+  <li>#1
+    <ul>
+      <li>HDFS Sink 정보를 설정하기 위한 SmartCarInfo_HdfsSink 리소스 선언</li>
+    </ul>
+  </li>
+  <li>#2
+    <ul>
+      <li>3개의 Interceptor 추가</li>
+      <li>타임스탬프를 활용하기 위한 <code class="language-plaintext highlighter-rouge">timeInterceptor</code>
+</li>
+      <li>로그 유형에 해당하는 상수값을 정의하기 위한 <code class="language-plaintext highlighter-rouge">typeInterceptor</code>
+</li>
+      <li>수집 일자를 추가하기 위한 <code class="language-plaintext highlighter-rouge">collectDayInterceptor</code>
+</li>
+    </ul>
+  </li>
+  <li>#3
+    <ul>
+      <li>timeInterceptor의 설정</li>
+      <li>타임스탬프 Interceptor를 추가하면, 플럼의 이벤트 헤더에 현재 타임 스탬프가 설정되어 필요시 헤더로부터 타임스탬프 값을 가져와 활용할 수 있음</li>
+    </ul>
+  </li>
+  <li>#4
+    <ul>
+      <li>typeInterceptor의 설정</li>
+      <li>플럼의 해당 이벤트 내에서 사용할 상수를 선언하고 값을 설정</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">logType</code> 이라는 상수를 선언했고, 값은 “car-batch-log”로 설정했음</li>
+    </ul>
+  </li>
+  <li>#5
+    <ul>
+      <li>collectDayInterceptor의 설정</li>
+      <li>플럼 이벤트 바디에 수집된 당일의 작업 날짜(YYYYMMDD)를 추가하기 위한 Interceptor</li>
+      <li>플럼에서 기본으로 제공하는 Interceptor가 아닌, 이번 파일럿 프로젝트를 위해 추가로 개발한 사용자 정의 Interceptor</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>collectDayInterceptor</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.wikibook.bigdata.smartcar.flume</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.text.SimpleDateFormat</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.flume.Context</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.flume.Event</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.flume.interceptor.Interceptor</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CollectDayInterceptor</span> <span class="kd">implements</span> <span class="nc">Interceptor</span> <span class="o">{</span>
+
+
+	<span class="kd">public</span> <span class="nf">CollectDayInterceptor</span><span class="o">(){</span>
+	<span class="o">}</span>
+
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">()</span> <span class="o">{</span>
+
+	<span class="o">}</span>
+
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="nc">Event</span> <span class="nf">intercept</span><span class="o">(</span><span class="nc">Event</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+
+		<span class="nc">String</span> <span class="n">eventBody</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getBody</span><span class="o">())</span> <span class="o">+</span> <span class="s">","</span> <span class="o">+</span> <span class="n">getToDate</span><span class="o">();</span>
+		<span class="n">event</span><span class="o">.</span><span class="na">setBody</span><span class="o">(</span><span class="n">eventBody</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+		<span class="k">return</span> <span class="n">event</span><span class="o">;</span>
+
+	<span class="o">}</span>
+
+
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="o">{</span>
+	<span class="o">}</span>
 
 	
-	@Override
-	public List&lt;Event&gt; intercept(List&lt;Event&gt; events)
-	{
-		for (Event event:events) {
-			intercept(event);
-		}
-		return events;
-	}
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Event</span><span class="o">&gt;</span> <span class="nf">intercept</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Event</span><span class="o">&gt;</span> <span class="n">events</span><span class="o">)</span>
+	<span class="o">{</span>
+		<span class="k">for</span> <span class="o">(</span><span class="nc">Event</span> <span class="nl">event:</span><span class="n">events</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">intercept</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="n">events</span><span class="o">;</span>
+	<span class="o">}</span>
 	
 
-	public static class Builder implements Interceptor.Builder
-	{
-		@Override
-		public void configure(Context context) {
-		}
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Builder</span> <span class="kd">implements</span> <span class="nc">Interceptor</span><span class="o">.</span><span class="na">Builder</span>
+	<span class="o">{</span>
+		<span class="nd">@Override</span>
+		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">(</span><span class="nc">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+		<span class="o">}</span>
 
-		@Override
-		public Interceptor build() {
-			return new CollectDayInterceptor();
-		}
-	}
+		<span class="nd">@Override</span>
+		<span class="kd">public</span> <span class="nc">Interceptor</span> <span class="nf">build</span><span class="o">()</span> <span class="o">{</span>
+			<span class="k">return</span> <span class="k">new</span> <span class="nf">CollectDayInterceptor</span><span class="o">();</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
 
-	public  String getToDate() {
+	<span class="kd">public</span>  <span class="nc">String</span> <span class="nf">getToDate</span><span class="o">()</span> <span class="o">{</span>
 
-		long todaytime;
-		SimpleDateFormat day;
-		String toDay;
+		<span class="kt">long</span> <span class="n">todaytime</span><span class="o">;</span>
+		<span class="nc">SimpleDateFormat</span> <span class="n">day</span><span class="o">;</span>
+		<span class="nc">String</span> <span class="n">toDay</span><span class="o">;</span>
 
-		todaytime = System.currentTimeMillis(); 
-		day = new SimpleDateFormat("yyyyMMdd");
+		<span class="n">todaytime</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span> 
+		<span class="n">day</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SimpleDateFormat</span><span class="o">(</span><span class="s">"yyyyMMdd"</span><span class="o">);</span>
 
-		toDay =  day.format(new Date(todaytime));
+		<span class="n">toDay</span> <span class="o">=</span>  <span class="n">day</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">(</span><span class="n">todaytime</span><span class="o">));</span>
 
-		return toDay;
+		<span class="k">return</span> <span class="n">toDay</span><span class="o">;</span>
 
-	}
-}
+	<span class="o">}</span>
+<span class="o">}</span>
 </code></pre></div></div>
 
 <p><br></p>
@@ -1220,103 +1249,114 @@ public class CollectDayInterceptor implements Interceptor {
     <p>플럼의 Conf 파일을 HDFS에 적재하는 Sink 구조로 변경</p>
   </li>
   <li>
-    <p>CM 홈 - [Flume] - [구성] - ‘구성 파일’
-```conf
-SmartCar_Agent.sources  = SmartCarInfo_SpoolSource DriverCarInfo_TailSource
-SmartCar_Agent.channels = SmartCarInfo_Channel DriverCarInfo_Channel
-SmartCar_Agent.sinks    = SmartCarInfo_HdfsSink DriverCarInfo_KafkaSink</p>
+    <p>CM 홈 - [Flume] - [구성] - ‘구성 파일’</p>
   </li>
 </ul>
 
-<p>SmartCar_Agent.sources.SmartCarInfo_SpoolSource.type = spooldir
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.spoolDir = /home/pilot-pjt/working/car-batch-log
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.deletePolicy = immediate
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.batchSize = 1000</p>
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SmartCar_Agent</span>.<span class="n">sources</span>  = <span class="n">SmartCarInfo_SpoolSource</span> <span class="n">DriverCarInfo_TailSource</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span> = <span class="n">SmartCarInfo_Channel</span> <span class="n">DriverCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>    = <span class="n">SmartCarInfo_HdfsSink</span> <span class="n">DriverCarInfo_KafkaSink</span>
 
-<p>SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors = timeInterceptor typeInterceptor collectDayInterceptor filterInterceptor</p>
 
-<p>SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.timeInterceptor.type = timestamp
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.timeInterceptor.preserveExisting = true</p>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">type</span> = <span class="n">spooldir</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">spoolDir</span> = /<span class="n">home</span>/<span class="n">pilot</span>-<span class="n">pjt</span>/<span class="n">working</span>/<span class="n">car</span>-<span class="n">batch</span>-<span class="n">log</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">deletePolicy</span> = <span class="n">immediate</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">batchSize</span> = <span class="m">1000</span>
 
-<p>SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.typeInterceptor.type = static
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.typeInterceptor.key = logType
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.typeInterceptor.value = car-batch-log</p>
 
-<p>SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.collectDayInterceptor.type = com.wikibook.bigdata.smartcar.flume.CollectDayInterceptor$Builder</p>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span> = <span class="n">timeInterceptor</span> <span class="n">typeInterceptor</span> <span class="n">collectDayInterceptor</span> <span class="n">filterInterceptor</span>
 
-<p>SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.filterInterceptor.type = regex_filter
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.filterInterceptor.regex = ^\d{14}
-SmartCar_Agent.sources.SmartCarInfo_SpoolSource.interceptors.filterInterceptor.excludeEvents = false</p>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">timeInterceptor</span>.<span class="n">type</span> = <span class="n">timestamp</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">timeInterceptor</span>.<span class="n">preserveExisting</span> = <span class="n">true</span>
 
-<p>SmartCar_Agent.channels.SmartCarInfo_Channel.type = memory
-SmartCar_Agent.channels.SmartCarInfo_Channel.capacity  = 100000
-SmartCar_Agent.channels.SmartCarInfo_Channel.transactionCapacity  = 10000</p>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">typeInterceptor</span>.<span class="n">type</span> = <span class="n">static</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">typeInterceptor</span>.<span class="n">key</span> = <span class="n">logType</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">typeInterceptor</span>.<span class="n">value</span> = <span class="n">car</span>-<span class="n">batch</span>-<span class="n">log</span>
 
-<p>SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.type = hdfs
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.path = /pilot-pjt/collect/%{logType}/wrk_date=%Y%m%d
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.filePrefix = %{logType}
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.fileSuffix = .log
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.fileType = DataStream
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.writeFormat = Text
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.batchSize = 10000
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.rollInterval = 0
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.rollCount = 0
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.idleTimeout = 100
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.callTimeout = 600000
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.rollSize = 67108864
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.hdfs.threadsPoolSize = 10</p>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">collectDayInterceptor</span>.<span class="n">type</span> = <span class="n">com</span>.<span class="n">wikibook</span>.<span class="n">bigdata</span>.<span class="n">smartcar</span>.<span class="n">flume</span>.<span class="n">CollectDayInterceptor</span>$<span class="n">Builder</span>
 
-<p>SmartCar_Agent.sources.SmartCarInfo_SpoolSource.channels = SmartCarInfo_Channel
-SmartCar_Agent.sinks.SmartCarInfo_HdfsSink.channel = SmartCarInfo_Channel</p>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">type</span> = <span class="n">regex_filter</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">regex</span> = ^\\<span class="n">d</span>{<span class="m">14</span>}
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor</span>.<span class="n">excludeEvents</span> = <span class="n">false</span>
 
-<p>SmartCar_Agent.sources.DriverCarInfo_TailSource.type = exec
-SmartCar_Agent.sources.DriverCarInfo_TailSource.command = tail -F /home/pilot-pjt/working/driver-realtime-log/SmartCarDriverInfo.log
-SmartCar_Agent.sources.DriverCarInfo_TailSource.restart = true
-SmartCar_Agent.sources.DriverCarInfo_TailSource.batchSize = 1000</p>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">type</span> = <span class="n">memory</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">capacity</span>  = <span class="m">100000</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">SmartCarInfo_Channel</span>.<span class="n">transactionCapacity</span>  = <span class="m">10000</span>
 
-<p>SmartCar_Agent.sources.DriverCarInfo_TailSource.interceptors = filterInterceptor2
-SmartCar_Agent.sources.DriverCarInfo_TailSource.interceptors.filterInterceptor2.type = regex_filter
-SmartCar_Agent.sources.DriverCarInfo_TailSource.interceptors.filterInterceptor2.regex = ^\d{14}
-SmartCar_Agent.sources.DriverCarInfo_TailSource.interceptors.filterInterceptor2.excludeEvents = false</p>
 
-<p>SmartCar_Agent.sinks.DriverCarInfo_KafkaSink.type = org.apache.flume.sink.kafka.KafkaSink
-SmartCar_Agent.sinks.DriverCarInfo_KafkaSink.topic = SmartCar-Topic
-SmartCar_Agent.sinks.DriverCarInfo_KafkaSink.brokerList = server02.hadoop.com:9092
-SmartCar_Agent.sinks.DriverCarInfo_KafkaSink.requiredAcks = 1
-SmartCar_Agent.sinks.DriverCarInfo_KafkaSink.batchSize = 1000</p>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">type</span> = <span class="n">hdfs</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">path</span> = /<span class="n">pilot</span>-<span class="n">pjt</span>/<span class="n">collect</span>/%{<span class="n">logType</span>}/<span class="n">wrk_date</span>=%<span class="n">Y</span>%<span class="n">m</span>%<span class="n">d</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">filePrefix</span> = %{<span class="n">logType</span>}
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">fileSuffix</span> = .<span class="n">log</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">fileType</span> = <span class="n">DataStream</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">writeFormat</span> = <span class="n">Text</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">batchSize</span> = <span class="m">10000</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">rollInterval</span> = <span class="m">0</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">rollCount</span> = <span class="m">0</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">idleTimeout</span> = <span class="m">100</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">callTimeout</span> = <span class="m">600000</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">rollSize</span> = <span class="m">67108864</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">hdfs</span>.<span class="n">threadsPoolSize</span> = <span class="m">10</span>
 
-<p>SmartCar_Agent.channels.DriverCarInfo_Channel.type = memory
-SmartCar_Agent.channels.DriverCarInfo_Channel.capacity= 100000
-SmartCar_Agent.channels.DriverCarInfo_Channel.transactionCapacity = 10000</p>
 
-<p>SmartCar_Agent.sources.DriverCarInfo_TailSource.channels = DriverCarInfo_Channel
-SmartCar_Agent.sinks.DriverCarInfo_KafkaSink.channel = DriverCarInfo_Channel</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-- 변경 내용 저장 후 플럼 재시작
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">channels</span> = <span class="n">SmartCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_HdfsSink</span>.<span class="n">channel</span> = <span class="n">SmartCarInfo_Channel</span>
 
-&lt;br&gt;
 
-### 3) SmartCar 로그 시뮬레이터 작동
-- CH04에서는 스마트카의 상태 정보 로그 파일을 하둡에 적재
-- 2개의 시뮬레이터 중 **CarLogMain.java**만 작동시켜 2016년 1월 1일 날짜의 스마트카 상태 정보 로그 파일 생성
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">type</span> = <span class="n">exec</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">command</span> = <span class="n">tail</span> -<span class="n">F</span> /<span class="n">home</span>/<span class="n">pilot</span>-<span class="n">pjt</span>/<span class="n">working</span>/<span class="n">driver</span>-<span class="n">realtime</span>-<span class="n">log</span>/<span class="n">SmartCarDriverInfo</span>.<span class="n">log</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">restart</span> = <span class="n">true</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">batchSize</span> = <span class="m">1000</span>
 
-&lt;br&gt;
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">interceptors</span> = <span class="n">filterInterceptor2</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor2</span>.<span class="n">type</span> = <span class="n">regex_filter</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor2</span>.<span class="n">regex</span> = ^\\<span class="n">d</span>{<span class="m">14</span>}
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">interceptors</span>.<span class="n">filterInterceptor2</span>.<span class="n">excludeEvents</span> = <span class="n">false</span>
 
-1) Server02에 SSH로 접속하고, bigdata.smartcar.loggen-1.0.jar가 위치한 경로인 /home/pilot-pjt/working 으로 이동
-```bash
-cd /home/pilot-pjt/working
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">type</span> = <span class="n">org</span>.<span class="n">apache</span>.<span class="n">flume</span>.<span class="n">sink</span>.<span class="n">kafka</span>.<span class="n">KafkaSink</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">topic</span> = <span class="n">SmartCar</span>-<span class="n">Topic</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">brokerList</span> = <span class="n">server02</span>.<span class="n">hadoop</span>.<span class="n">com</span>:<span class="m">9092</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">requiredAcks</span> = <span class="m">1</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">batchSize</span> = <span class="m">1000</span>
+
+
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">DriverCarInfo_Channel</span>.<span class="n">type</span> = <span class="n">memory</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">DriverCarInfo_Channel</span>.<span class="n">capacity</span>= <span class="m">100000</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">channels</span>.<span class="n">DriverCarInfo_Channel</span>.<span class="n">transactionCapacity</span> = <span class="m">10000</span>
+
+
+<span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">DriverCarInfo_TailSource</span>.<span class="n">channels</span> = <span class="n">DriverCarInfo_Channel</span>
+<span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">DriverCarInfo_KafkaSink</span>.<span class="n">channel</span> = <span class="n">DriverCarInfo_Channel</span>
+</code></pre></div></div>
+
+<ul>
+  <li>변경 내용 저장 후 플럼 재시작</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="3-smartcar-로그-시뮬레이터-작동">3) SmartCar 로그 시뮬레이터 작동</h3>
+<ul>
+  <li>CH04에서는 스마트카의 상태 정보 로그 파일을 하둡에 적재</li>
+  <li>2개의 시뮬레이터 중 <strong>CarLogMain.java</strong>만 작동시켜 2016년 1월 1일 날짜의 스마트카 상태 정보 로그 파일 생성</li>
+</ul>
+
+<p><br></p>
+
+<p>1) Server02에 SSH로 접속하고, bigdata.smartcar.loggen-1.0.jar가 위치한 경로인 /home/pilot-pjt/working 으로 이동</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working
 </code></pre></div></div>
 
 <p><br></p>
 
 <p>2) 스마트카 로그 시뮬레이터를 아래의 자바 명령으로 백그라운드 방식으로 실행</p>
 <ul>
-  <li>2016-01-01의 100대의 스마트카 상태 정보 로그 생성
-    <div class="language-bash highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code>java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.CarLogMain 20160101 100 &amp;
-</code></pre></div>    </div>
-  </li>
+  <li>2016-01-01의 100대의 스마트카 상태 정보 로그 생성</li>
 </ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.CarLogMain 20160101 100 &amp;
+</code></pre></div></div>
 
 <p><br></p>
 
@@ -1330,7 +1370,7 @@ cd /home/pilot-pjt/working
 <span class="nb">tail</span> <span class="nt">-f</span> SmartCarStatusInfo_20160101.txt
 </code></pre></div></div>
 
-<p><img src="img/CH04/hdfs%20%EC%8A%A4%EB%A7%88%ED%8A%B8%EC%B9%B4%20%EC%83%81%ED%83%9C%EC%A0%95%EB%B3%B4%ED%8C%8C%EC%9D%BC%20%ED%99%95%EC%9D%B81.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH04/hdfs%20%EC%8A%A4%EB%A7%88%ED%8A%B8%EC%B9%B4%20%EC%83%81%ED%83%9C%EC%A0%95%EB%B3%B4%ED%8C%8C%EC%9D%BC%20%ED%99%95%EC%9D%B81.png" alt=""></p>
 
 <p><br></p>
 
@@ -1342,17 +1382,19 @@ cd /home/pilot-pjt/working
 <p><br></p>
 
 <p>1) /home/pilot-pjt/working/SmartCar 경로에 만들어진 SmartCarStatusInfo_20160101.txt 파일을 플럼의 SmartCarInfo의 SpoolDir 경로인 /home/pilot-pjt/working/car-batch-log로 옮겨서 플럼의 File 이벤트가 작동되도록 함</p>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mv</span> /home/pilot-pjt/working/SmartCar/SmartCarStatusInfo_20160101.txt /home/pilot-pjt/working/car-batch-log/
 </code></pre></div></div>
 
 <p><br></p>
 
 <p>2) 플럼의 실행 로그를 통해 SmartCarInfo_Agent가 정상적으로 작동하는지 확인</p>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /var/log/flume-ng/
 <span class="nb">tail</span> <span class="nt">-f</span> /var/log/flume-ng/flume-cmf-flume-AGENT-server02.hadoop.com.log
 </code></pre></div></div>
 
-<p><img src="img/CH04/%ED%94%8C%EB%9F%BC%EC%9D%B4%EB%B2%A4%ED%8A%B8%20%EC%9E%91%EB%8F%99.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH04/%ED%94%8C%EB%9F%BC%EC%9D%B4%EB%B2%A4%ED%8A%B8%20%EC%9E%91%EB%8F%99.png" alt=""></p>
 
 <ul>
   <li>
@@ -1374,7 +1416,7 @@ cd /home/pilot-pjt/working
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hdfs dfs <span class="nt">-ls</span> <span class="nt">-R</span> /pilot-pjt/collect/car-batch-log/
 </code></pre></div></div>
 
-<p><img src="img/CH04/hdfs%20%EC%A0%81%EC%9E%AC%EB%90%98%EA%B3%A0%20%EC%9E%88%EB%8A%94%20%EC%8A%A4%EB%A7%88%ED%8A%B8%EC%B9%B4%20%EB%A1%9C%EA%B7%B8%ED%8C%8C%EC%9D%BC.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH04/hdfs%20%EC%A0%81%EC%9E%AC%EB%90%98%EA%B3%A0%20%EC%9E%88%EB%8A%94%20%EC%8A%A4%EB%A7%88%ED%8A%B8%EC%B9%B4%20%EB%A1%9C%EA%B7%B8%ED%8C%8C%EC%9D%BC.png" alt=""></p>
 
 <ul>
   <li>위의 이미지를 보면 스마트카 상태 정보 파일(100MB) 한 개가 64MB와 46MB의 2개로 나눠져 HDFS의 “wrk_date=작업일자” 파티션 디렉터리에 적재된 것을 확인할 수 있음</li>
@@ -1384,26 +1426,32 @@ cd /home/pilot-pjt/working
 
 <h4 id="hdfs에-적재된-스마트카-상태-정보-파일-내용-직접-확인"><strong>HDFS에 적재된 스마트카 상태 정보 파일 내용 직접 확인</strong></h4>
 <ul>
-  <li>적재된 일자와 시간에 따라 파일 경로와 최종 파일명이 다를 수 있음
-```bash
-hdfs dfs -cat “출력된 디렉터리/파일명.log”</li>
+  <li>적재된 일자와 시간에 따라 파일 경로와 최종 파일명이 다를 수 있음</li>
 </ul>
 
-<h1 id="필자-환경에서-단순-데이터-확인">필자 환경에서 단순 데이터 확인</h1>
-<p>hdfs dfs -tail /pilot-pjt/collet/car-batch-log/wrk_date=20230109/car-batch-log.1673203446499.log</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>![](img/CH04/hdfs%20%EC%8A%A4%EB%A7%88%ED%8A%B8%EC%B9%B4%20%EC%83%81%ED%83%9C%EC%A0%95%EB%B3%B4%ED%8C%8C%EC%9D%BC%20%ED%99%95%EC%9D%B81.png)   
-![](img/CH04/hdfs%20%EC%8A%A4%EB%A7%88%ED%8A%B8%EC%B9%B4%20%EC%83%81%ED%83%9C%EC%A0%95%EB%B3%B4%ED%8C%8C%EC%9D%BC%20%ED%99%95%EC%9D%B82.png)
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hdfs dfs <span class="nt">-cat</span> <span class="s2">"출력된 디렉터리/파일명.log"</span>
 
-- 이미지를 보면 각 행의 내용이 모두 "20160101"로 시작됨
-- 로그 시뮬레이터 설정으로 스마트카 상태 정보 데이터를 "2016년 1월 1일"로 발생하게 했기 때문
-- 또한, 각 행의 끝에 붙은 "20230109"는 수집일자 정보로서, 플럼의 Interceptor가 붙여넣은 추가 정보
+<span class="c"># 필자 환경에서 단순 데이터 확인</span>
+hdfs dfs <span class="nt">-tail</span> /pilot-pjt/collet/car-batch-log/wrk_date<span class="o">=</span>20230109/car-batch-log.1673203446499.log
+</code></pre></div></div>
 
-&lt;br&gt;
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH04/hdfs%20%EC%8A%A4%EB%A7%88%ED%8A%B8%EC%B9%B4%20%EC%83%81%ED%83%9C%EC%A0%95%EB%B3%B4%ED%8C%8C%EC%9D%BC%20%ED%99%95%EC%9D%B81.png" alt=""> <br>
+<img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH04/hdfs%20%EC%8A%A4%EB%A7%88%ED%8A%B8%EC%B9%B4%20%EC%83%81%ED%83%9C%EC%A0%95%EB%B3%B4%ED%8C%8C%EC%9D%BC%20%ED%99%95%EC%9D%B82.png" alt=""></p>
 
-- 백그라운드로 실행했던 스마트카 로그 시뮬레이터 모두 종료
-```bash
-ps -ef | grep smartcar.log
-kill -9 [pid]
+<ul>
+  <li>이미지를 보면 각 행의 내용이 모두 “20160101”로 시작됨</li>
+  <li>로그 시뮬레이터 설정으로 스마트카 상태 정보 데이터를 “2016년 1월 1일”로 발생하게 했기 때문</li>
+  <li>또한, 각 행의 끝에 붙은 “20230109”는 수집일자 정보로서, 플럼의 Interceptor가 붙여넣은 추가 정보</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>백그라운드로 실행했던 스마트카 로그 시뮬레이터 모두 종료</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span> | <span class="nb">grep </span>smartcar.log
+<span class="nb">kill</span> <span class="nt">-9</span> <span class="o">[</span>pid]
 </code></pre></div></div>
 
 
@@ -1417,32 +1465,32 @@ kill -9 [pid]
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/algorithm/2023/07/12/chap7.html" title="정렬 문제">
-            정렬 문제<span class="post-badges">
+          <a class="post-link" href="/it%20issues/2023/05/25/severance.html" title="세브란스병원, 디지털 전환 '스마트병상 관리시스템' 도입">
+            세브란스병원, 디지털 전환 '스마트병상 관리시스템' 도입<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/04/08/1212.html" title="[BOJ] 1212. 8진수 2진수">
-            [BOJ] 1212. 8진수 2진수<span class="post-badges">
+          <a class="post-link" href="/infra/2023/08/25/aws-load-balancing.html" title="[AWS] AWS Load Balancing">
+            [AWS] AWS Load Balancing<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/it%20issues/2023/05/07/copilot.html" title="[IT] '빙 챗은 잊어라' 마이크로소프트 코파일럿, 얼마나 유능할까">
-            [IT] '빙 챗은 잊어라' 마이크로소프트 코파일럿, 얼마나 유능할까<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/06/machingLearning.html" title="[BoostCourse] 3. 머신러닝 기본 개념">
+            [BoostCourse] 3. 머신러닝 기본 개념<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/22/1296.html" title="[BOJ] 1296. 팀 이름 정하기">
-            [BOJ] 1296. 팀 이름 정하기<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/13/1271.html" title="[BOJ] 1271. 엄청난 부자2">
+            [BOJ] 1271. 엄청난 부자2<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

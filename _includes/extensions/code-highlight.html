@@ -14,7 +14,7 @@
 {%- assign badge_color = return -%}
 
 {%- assign name = 'code_badge.background_color' -%}
-{%- include functions.html func='get_value' default='#ff4e00' -%}
+{%- include functions.html func='get_value' default='#90a959' -%}
 {%- assign badge_background_color = return -%}
 
 {%- assign name = 'code_badge.text_transform' -%}
@@ -73,9 +73,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
   pre.badge::before {
     content: attr(data-lang);
     color: {{badge_color}};
-    background-color: {{badge_background_color}};
+    background-color: {{ badge_background_color }};
     padding: 0 .5em;
-    border-radius: 0 2px;
+    border-radius: 0.2px;
     text-transform: {{badge_text_transform}};
     text-align: center;
     min-width: 32px;

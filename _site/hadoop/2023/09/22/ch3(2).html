@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
   pre.badge::before {
     content: attr(data-lang);
     color: #fff;
-    background-color: #ff4e00;
+    background-color: #90a959;
     padding: 0 .5em;
-    border-radius: 0 2px;
+    border-radius: 0.2px;
     text-transform: uppercase;
     text-align: center;
     min-width: 32px;
@@ -956,7 +956,7 @@ function googleTranslateElementInit() {
 <h2 id="1-flume-설치">1. Flume 설치</h2>
 <ul>
   <li>CM 홈에서 [서비스 추가] - [Flume] 선택
-<img src="/img/CH03/flume%20%EC%84%A4%EC%B9%98.png" alt="">
+<img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/flume%20%EC%84%A4%EC%B9%98.png" alt="">
 </li>
   <li>서버 호스트 <code class="language-plaintext highlighter-rouge">server02.hadoop.com</code> 선택</li>
 </ul>
@@ -968,7 +968,7 @@ function googleTranslateElementInit() {
 <strong>Flume Heap Memory 수정</strong>
     <ul>
       <li>50Mib -&gt; <strong>100MiB</strong>
-  <img src="img/CH03/flume%20heap%20memory%20%EB%B3%80%EA%B2%BD.png" alt="">
+  <img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/flume%20heap%20memory%20%EB%B3%80%EA%B2%BD.png" alt="">
 </li>
     </ul>
   </li>
@@ -980,7 +980,7 @@ function googleTranslateElementInit() {
 <ul>
   <li>
     <p>CM 홈에서 [서비스 추가] - [Kafka] 선택
-<img src="img/CH03/kafka%20%EC%84%A4%EC%B9%98.png" alt=""></p>
+<img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/kafka%20%EC%84%A4%EC%B9%98.png" alt=""></p>
   </li>
   <li>
     <p>서버 호스트 <code class="language-plaintext highlighter-rouge">server02.hadoop.com</code> 선택</p>
@@ -995,7 +995,7 @@ function googleTranslateElementInit() {
     <ul>
       <li>
 <code class="language-plaintext highlighter-rouge">Data Retention Time</code> 7일 -&gt; <strong>10분</strong>
-  <img src="img/CH03/kafka%20data%20retention%20time%20%EB%B3%80%EA%B2%BD.png" alt="">
+  <img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/kafka%20data%20retention%20time%20%EB%B3%80%EA%B2%BD.png" alt="">
 </li>
     </ul>
   </li>
@@ -1028,7 +1028,7 @@ function googleTranslateElementInit() {
 <code class="language-plaintext highlighter-rouge">구성 파일</code> 항목 수정</li>
 </ul>
 
-<p><img src="img/CH03/flume%20agent%20%EC%83%9D%EC%84%B1.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/flume%20agent%20%EC%83%9D%EC%84%B1.png" alt=""></p>
 
 <p><br></p>
 
@@ -1120,7 +1120,7 @@ function googleTranslateElementInit() {
   <li>앞서 작성한 SmartCarInfo 에이전트 수정해서 Filter Interceptor 사용</li>
 </ul>
 
-<p><img src="img/CH03/flume%20interceptor%20%EC%B6%94%EA%B0%80.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/flume%20interceptor%20%EC%B6%94%EA%B0%80.png" alt=""></p>
 
 <p><br></p>
 
@@ -1222,6 +1222,7 @@ function googleTranslateElementInit() {
 <span class="n">SmartCar_Agent</span>.<span class="n">sources</span>.<span class="n">SmartCarInfo_SpoolSource</span>.<span class="n">channels</span> = <span class="n">SmartCarInfo_Channel</span>
 <span class="n">SmartCar_Agent</span>.<span class="n">sinks</span>.<span class="n">SmartCarInfo_LoggerSink</span>.<span class="n">channel</span> = <span class="n">SmartCarInfo_Channel</span>
 </code></pre></div></div>
+
 <ul>
   <li>#1
     <ul>
@@ -1350,14 +1351,13 @@ function googleTranslateElementInit() {
 <ul>
   <li>카프카가 설치되어 있는 Server02에서 카프카의 <code class="language-plaintext highlighter-rouge">CLI</code> 명령어를 이용해 다양한 카프카 기능 사용</li>
   <li>PuTTY로 Server02에 SSH 접속 - root 계정으로 로그인</li>
-  <li>아래 카프카 토픽 명령어로 <strong>SmartCar-Topic</strong> 생성
-    <div class="language-bash highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code>kafka-topics <span class="nt">--create</span> <span class="nt">--zookeeper</span> server02.hadoop.2181 <span class="nt">--replication-factor</span> 1 <span class="nt">--partitions</span> 1 <span class="nt">--topic</span> SmartCar-Topic
-</code></pre></div>    </div>
-  </li>
+  <li>아래 카프카 토픽 명령어로 <strong>SmartCar-Topic</strong> 생성</li>
 </ul>
 
-<p><img src="img/CH03/kafka%20topic%20%EC%83%9D%EC%84%B1.png" alt=""></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kafka-topics <span class="nt">--create</span> <span class="nt">--zookeeper</span> server02.hadoop.2181 <span class="nt">--replication-factor</span> 1 <span class="nt">--partitions</span> 1 <span class="nt">--topic</span> SmartCar-Topic
+</code></pre></div></div>
+
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/kafka%20topic%20%EC%83%9D%EC%84%B1.png" alt=""></p>
 
 <p><br></p>
 
@@ -1396,17 +1396,18 @@ function googleTranslateElementInit() {
 
 <h3 id="2-카프카-producer-사용">2) 카프카 Producer 사용</h3>
 <ul>
-  <li>Server02 SSH 접속 후 아래 명령 실행
-    <div class="language-bash highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code>kafka-console-producer <span class="nt">--broker-list</span> server02.hadoop.com:9092 <span class="nt">-topic</span> SmartCar-Topic
-</code></pre></div>    </div>
-  </li>
+  <li>Server02 SSH 접속 후 아래 명령 실행</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kafka-console-producer <span class="nt">--broker-list</span> server02.hadoop.com:9092 <span class="nt">-topic</span> SmartCar-Topic
+</code></pre></div></div>
+<ul>
   <li>이후 <code class="language-plaintext highlighter-rouge">Hello! BigData!</code> 를 입력하고 엔터 키를 누름</li>
   <li>에러 메시지가 없으면 <strong>SmartCar-Topic</strong>에 “Hello! BigData!” 메시지를 성공적으로 전송한 것</li>
 </ul>
 
-<p><img src="img/CH03/kafka%20producer(1).png" alt="">    <br>
-<img src="img/CH03/kafka%20producer(2).png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/kafka%20producer(1).png" alt="">    <br>
+<img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/kafka%20producer(2).png" alt=""></p>
 
 <p><br></p>
 
@@ -1414,7 +1415,7 @@ function googleTranslateElementInit() {
   <li>카프카 Producer와 Consumer 기능 점검</li>
 </ul>
 
-<p><img src="img/CH03/producer.jpg" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/producer.jpg" alt=""></p>
 
 <ul>
   <li>앞서 Producer가 전송한 “Hello! BigData!” 메시지는 아직 카프카 토픽에 머물러 있는 상태</li>
@@ -1425,12 +1426,11 @@ function googleTranslateElementInit() {
 
 <h3 id="3-카프카-consumer-사용">3) 카프카 Consumer 사용</h3>
 <ul>
-  <li>Server02에 SSH 터미널을 2개 열어서 각각에 아래 카프카 Consumer 명령 실행
-    <div class="language-bash highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code>kafka-console-consumer <span class="nt">--bootstrap-server</span> server02.hadoop.com:9092 <span class="nt">--topic</span> SmartCar-Topic <span class="nt">--partition</span> 0 <span class="nt">--from-beginning</span>
-</code></pre></div>    </div>
-  </li>
+  <li>Server02에 SSH 터미널을 2개 열어서 각각에 아래 카프카 Consumer 명령 실행</li>
 </ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kafka-console-consumer <span class="nt">--bootstrap-server</span> server02.hadoop.com:9092 <span class="nt">--topic</span> SmartCar-Topic <span class="nt">--partition</span> 0 <span class="nt">--from-beginning</span>
+</code></pre></div></div>
 
 <p><br></p>
 
@@ -1438,8 +1438,8 @@ function googleTranslateElementInit() {
   <li>실행과 동시에 Producer에서 입력했던 “Hello! BigData!”가 출력되는 것을 볼 수 있음</li>
 </ul>
 
-<p><img src="img/CH03/kafka%20consumer(1).png" alt="">
-<img src="img/CH03/kafka%20consumer(2).png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/kafka%20consumer(1).png" alt="">
+<img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/kafka%20consumer(2).png" alt=""></p>
 
 <ul>
   <li>위에서 “Hello! BigData!”를 입력했던 Producer 콘솔창에서 메시지를 전송할 때마다 2개의 Consumer 콘솔창에 브로드캐스트되어 동일 메시지가 수신됨</li>
@@ -1461,11 +1461,12 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h4 id="2-다음-명령으로-2개의-스마트카-로그-시뮬레이터를-백그라운드-방식으로-실행">2) 다음 명령으로 2개의 스마트카 로그 시뮬레이터를 백그라운드 방식으로 실행</h4>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.CarLogMain 20160101 3 &amp;
 java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.DriverLogMain 20160101 3 &amp;
 </code></pre></div></div>
 
-<p><img src="img/CH03/smartcar%20log%20%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%ED%84%B0%20%EC%9E%91%EB%8F%99.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/smartcar%20log%20%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%ED%84%B0%20%EC%9E%91%EB%8F%99.png" alt=""></p>
 
 <ul>
   <li>2016년 1월 1일에 3대의 스마트카에 대한 상태 정보와 운전자의 운행 정보 생성 시작</li>
@@ -1476,15 +1477,14 @@ java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bi
 <h4 id="3-정상적으로-시뮬레이터가-작동되고-있는지-아래-내용으로-확인">3) 정상적으로 시뮬레이터가 작동되고 있는지 아래 내용으로 확인</h4>
 <ul>
   <li>/home/pilot-pjt/working/SmartCar 경로에 SmartCarStatusInfo_20160101.txt 파일이 생성됐는지 확인</li>
-  <li>파일의 내용 확인해보면 3대의 스마트카 상태 정보가 기록된 것을 볼 수 있음
-    <div class="language-bash highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working/SmartCar
-vi SmartCarStatusInfo_20160101.txt
-</code></pre></div>    </div>
-  </li>
+  <li>파일의 내용 확인해보면 3대의 스마트카 상태 정보가 기록된 것을 볼 수 있음</li>
 </ul>
 
-<p><img src="img/CH03/smartcarstatusinfo%20%ED%8C%8C%EC%9D%BC%20%EC%83%9D%EC%84%B1%20%ED%99%95%EC%9D%B8.png" alt=""></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working/SmartCar
+vi SmartCarStatusInfo_20160101.txt
+</code></pre></div></div>
+
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/smartcarstatusinfo%20%ED%8C%8C%EC%9D%BC%20%EC%83%9D%EC%84%B1%20%ED%99%95%EC%9D%B8.png" alt=""></p>
 
 <p><br></p>
 
@@ -1497,7 +1497,7 @@ vi SmartCarStatusInfo_20160101.txt
 <span class="nb">tail</span> <span class="nt">-f</span> SmartCarDriverInfo.log
 </code></pre></div></div>
 
-<p><img src="img/CH03/smartcardriverinfo%20%ED%8C%8C%EC%9D%BC%20%EC%83%9D%EC%84%B1%20%ED%99%95%EC%9D%B8.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/smartcardriverinfo%20%ED%8C%8C%EC%9D%BC%20%EC%83%9D%EC%84%B1%20%ED%99%95%EC%9D%B8.png" alt=""></p>
 
 <p><br></p>
 
@@ -1506,7 +1506,7 @@ vi SmartCarStatusInfo_20160101.txt
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mv</span> /home/pilot-pjt/working/SmartCar/SmartCarStatusInfo_20160101.txt /home/pilot-pjt/working/car-batch-log/
 </code></pre></div></div>
 
-<p><img src="img/CH03/smartcarstatusinfo%20%ED%8C%8C%EC%9D%BC%20%EC%9D%B4%EB%8F%99.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/smartcarstatusinfo%20%ED%8C%8C%EC%9D%BC%20%EC%9D%B4%EB%8F%99.png" alt=""></p>
 
 <p><br></p>
 
@@ -1534,7 +1534,7 @@ vi SmartCarStatusInfo_20160101.txt
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kafka-console-consumer <span class="nt">--bootstrap-server</span> server02.hadoop.com:9092 <span class="nt">--topic</span> SmartCar-Topic <span class="nt">--partition</span> 0
 </code></pre></div></div>
 
-<p><img src="img/CH03/kafka%20consumer%20%EC%9E%91%EB%8F%99.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/kafka%20consumer%20%EC%9E%91%EB%8F%99.png" alt=""></p>
 
 <p><br></p>
 
@@ -1556,7 +1556,7 @@ vi SmartCarStatusInfo_20160101.txt
   <li>아래 그림처럼 수집된 스마트카의 상태값 데이터가 출력되면 성공적으로 수집되고 있는 것</li>
 </ul>
 
-<p><img src="img/CH03/%EC%88%98%EC%A7%91%EA%B8%B0%EB%8A%A5%EC%A0%90%EA%B2%80(1).png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/%EC%88%98%EC%A7%91%EA%B8%B0%EB%8A%A5%EC%A0%90%EA%B2%80(1).png" alt=""></p>
 
 <ul>
   <li>참고로 출력되고 있는 로그의 내용을 보면, 플럼의 데이터 전송 단위인 Event가 Header와 Body 구조로 분리된 것을 확인할 수 있음</li>
@@ -1578,7 +1578,7 @@ vi SmartCarStatusInfo_20160101.txt
   <li>아래와 같이 스마트카의 운전자 정보가 실시간으로 수집되고 있는지 확인할 수 있음</li>
 </ul>
 
-<p><img src="img/CH03/%EC%88%98%EC%A7%91%EA%B8%B0%EB%8A%A5%EC%A0%90%EA%B2%80(2).png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH03/%EC%88%98%EC%A7%91%EA%B8%B0%EB%8A%A5%EC%A0%90%EA%B2%80(2).png" alt=""></p>
 
 <p><br></p>
 
@@ -1589,12 +1589,11 @@ vi SmartCarStatusInfo_20160101.txt
 <p><br></p>
 
 <ul>
-  <li>위 명령어로 조회된 두 자바 프로세스 (CarLogMain, DriverLogMain)의 pid를 찾아 강제 종료
-    <div class="language-bash highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-9</span> <span class="o">[</span>pid]
-</code></pre></div>    </div>
-  </li>
+  <li>위 명령어로 조회된 두 자바 프로세스 (CarLogMain, DriverLogMain)의 pid를 찾아 강제 종료</li>
 </ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-9</span> <span class="o">[</span>pid]
+</code></pre></div></div>
 
 <p><br></p>
 
@@ -1643,32 +1642,32 @@ vi SmartCarStatusInfo_20160101.txt
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/it%20issues/2023/04/09/chatGPT.html" title="[IT] 챗GPT 열풍에 일상 속 AI서비스 인기">
-            [IT] 챗GPT 열풍에 일상 속 AI서비스 인기<span class="post-badges">
+          <a class="post-link" href="/cs/2023/04/14/debugging.html" title="[Algorithm] 디버깅">
+            [Algorithm] 디버깅<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/05/Join.html" title="[DBP] CH1-1. Join">
-            [DBP] CH1-1. Join<span class="post-badges">
+          <a class="post-link" href="/infra/2023/09/22/es.html" title="[ES] Elastic Search Basic">
+            [ES] Elastic Search Basic<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/01/1157.html" title="[BOJ] 1157. 단어 공부">
-            [BOJ] 1157. 단어 공부<span class="post-badges">
+          <a class="post-link" href="/algorithm/2023/06/30/chap1.html" title="효율, 분석, 차수">
+            효율, 분석, 차수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/hadoop/2023/09/22/ch4(2).html" title="[pilot] Ch4. 빅데이터 적재 실습">
-            [pilot] Ch4. 빅데이터 적재 실습<span class="post-badges">
+          <a class="post-link" href="/hadoop/2023/09/22/architecture2.html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2)">
+            [pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

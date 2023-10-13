@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
   pre.badge::before {
     content: attr(data-lang);
     color: #fff;
-    background-color: #ff4e00;
+    background-color: #90a959;
     padding: 0 .5em;
-    border-radius: 0 2px;
+    border-radius: 0.2px;
     text-transform: uppercase;
     text-align: center;
     min-width: 32px;
@@ -968,7 +968,7 @@ function googleTranslateElementInit() {
   <li>저자님의 깃허브에서 가상머신 2개 이미지 파일을 받을 수 있음</li>
 </ul>
 
-<p>https://drive.google.com/file/d/1oLikMIC6bzt0jNV0n49YNOM0foNPXDZh/view?usp=sharing</p>
+<p><a href="https://drive.google.com/file/d/1oLikMIC6bzt0jNV0n49YNOM0foNPXDZh/view?usp=sharing">https://drive.google.com/file/d/1oLikMIC6bzt0jNV0n49YNOM0foNPXDZh/view?usp=sharing</a></p>
 
 <p><br></p>
 
@@ -1107,14 +1107,15 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <blockquote>
-  <p>HDFS 명령어 <br>
-https://hadoop.apache.org/docs/r3.1.2/hadoop-project-dist/hadoop-common/FileSystemShell.html</p>
+  <p>HDFS 명령어</p>
 </blockquote>
+<p><a href="https://hadoop.apache.org/docs/r3.1.2/hadoop-project-dist/hadoop-common/FileSystemShell.html">https://hadoop.apache.org/docs/r3.1.2/hadoop-project-dist/hadoop-common/FileSystemShell.html</a></p>
 
 <p><br></p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hdfs dfs <span class="o">[</span>GENERIC_OPTIONS] <span class="o">[</span>COMMAND_OPTIONS]
 </code></pre></div></div>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># cat : 파일 읽어서 보여줌 (리눅스 cat과 동일)</span>
 hdfs dfs <span class="nt">-cat</span> <span class="o">[</span>경로]
 
@@ -1134,6 +1135,7 @@ hdfs dfs <span class="nt">-cp</span> <span class="o">[</span>소스 경로] <spa
 <p><br></p>
 
 <h3 id="2-파일-저장-및-확인">2) 파일 저장 및 확인</h3>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/bigdata
 hdfs dfs <span class="nt">-put</span> Sample.txt /tmp
 </code></pre></div></div>
@@ -1252,9 +1254,9 @@ delete /pilot-pjt
 </ul>
 
 <blockquote>
-  <p>참고 사이트   <br>
-https://engkimbs.tistory.com/660</p>
+  <p>참고 사이트</p>
 </blockquote>
+<p><a href="https://engkimbs.tistory.com/660">https://engkimbs.tistory.com/660</a></p>
 
 <p><br></p>
 
@@ -1316,12 +1318,14 @@ https://engkimbs.tistory.com/660</p>
 
 <ul>
   <li>
-<code class="language-plaintext highlighter-rouge">DriverLogMain.java</code> 먼저 실행
-    <div class="language-bash highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working
+<code class="language-plaintext highlighter-rouge">DriverLogMain.java</code> 먼저 실행</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working
 java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.DriverLogMain 20160101 10
-</code></pre></div>    </div>
-  </li>
+</code></pre></div></div>
+
+<ul>
   <li>java -cp [경로] [클래스 이름]  (현재 열려 있는 명령 창에서만 유효)
     <ul>
       <li>cp (classpath) : JVM이 프로그램을 실행할 때 클래스 파일을 찾는 데 기준이 되는 파일 경로, JVM의 매개 변수</li>
@@ -1337,14 +1341,12 @@ java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bi
 <p><br></p>
 
 <ul>
-  <li>
-<strong>시뮬레이터 작동 확인</strong>
-    <div class="language-bash highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working/driver-realtime-log
-<span class="nb">tail</span> <span class="nt">-f</span> SmartCarDriverInfo.log
-</code></pre></div>    </div>
-  </li>
+  <li><strong>시뮬레이터 작동 확인</strong></li>
 </ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working/driver-realtime-log
+<span class="nb">tail</span> <span class="nt">-f</span> SmartCarDriverInfo.log
+</code></pre></div></div>
 
 <p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F0Y5EV%2FbtrWzRZA0Hx%2FR9Jloh0FrZuJ8vSS2TO9L0%2Fimg.png" alt=""></p>
 
@@ -1359,13 +1361,14 @@ java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bi
 <p><br></p>
 
 <ul>
-  <li>
-<strong>CarLogMain.java 실행</strong>
-    <div class="language-bash highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working
+  <li><strong>CarLogMain.java 실행</strong></li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working
 java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.CarLogMain 20160101 10
-</code></pre></div>    </div>
-  </li>
+</code></pre></div></div>
+
+<ul>
   <li>코드 설명
     <ul>
       <li>첫번째 매개 변수: 실행 날짜</li>
@@ -1378,15 +1381,13 @@ java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bi
 <p><br></p>
 
 <ul>
-  <li>
-<strong>시뮬레이터 작동 확인</strong>
-    <div class="language-bash highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working/SmartCar
-<span class="nb">tail</span> <span class="nt">-f</span> SmartCarStatusInfo_20160101.txt
-</code></pre></div>    </div>
-    <p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fef6z6h%2FbtrWwgGOUHT%2FD1z6WrbOshWUdPvkjEiYCk%2Fimg.png" alt=""></p>
-  </li>
+  <li><strong>시뮬레이터 작동 확인</strong></li>
 </ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working/SmartCar
+<span class="nb">tail</span> <span class="nt">-f</span> SmartCarStatusInfo_20160101.txt
+</code></pre></div></div>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fef6z6h%2FbtrWwgGOUHT%2FD1z6WrbOshWUdPvkjEiYCk%2Fimg.png" alt=""></p>
 
 <p><br></p>
 
@@ -1407,32 +1408,32 @@ java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bi
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/java/2023/04/10/1292.html" title="[BOJ] 1292. 쉽게 푸는 문제">
-            [BOJ] 1292. 쉽게 푸는 문제<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/04/1085.html" title="[BOJ] 1085. 직사각형에서 탈출">
+            [BOJ] 1085. 직사각형에서 탈출<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/infra/2023/06/26/docker_advanced.html" title="[docker] 도커 심화">
-            [docker] 도커 심화<span class="post-badges">
+          <a class="post-link" href="/tableu/2023/06/24/map.html" title="[Tableu] 태블로 시작 &amp; 지도 시각화">
+            [Tableu] 태블로 시작 &amp; 지도 시각화<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/tableu/2023/06/24/practice.html" title="[Tableu] 기초 시각화 연습">
-            [Tableu] 기초 시각화 연습<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/08/1212.html" title="[BOJ] 1212. 8진수 2진수">
+            [BOJ] 1212. 8진수 2진수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/hadoop/2023/09/22/ch2.html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 이론">
-            [pilot] Ch2. 파일럿 프로젝트 아키텍처 이론<span class="post-badges">
+          <a class="post-link" href="/spark/2023/05/02/basic.html" title="[pyspark] 기본 문법">
+            [pyspark] 기본 문법<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

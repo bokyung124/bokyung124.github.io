@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
   pre.badge::before {
     content: attr(data-lang);
     color: #fff;
-    background-color: #ff4e00;
+    background-color: #90a959;
     padding: 0 .5em;
-    border-radius: 0 2px;
+    border-radius: 0.2px;
     text-transform: uppercase;
     text-align: center;
     min-width: 32px;
@@ -950,7 +950,7 @@ function googleTranslateElementInit() {
 
 <h2 id="1-빅데이터-실시간-적재-개요">1. 빅데이터 실시간 적재 개요</h2>
 
-<p><img src="img/CH05/1.jpg" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH05/1.jpg" alt=""></p>
 
 <ul>
   <li>앞장에 이어서 이번에는 스마트카 운전자의 실시간 운행 정보를 분석한 후 적재하는 영역 다룸</li>
@@ -1027,9 +1027,9 @@ function googleTranslateElementInit() {
 
 <ul>
   <li>
-<strong>클라이언트가 HBase에 데이터를 저장(put)하는 과정</strong>
-<img src="img/CH05/2.png" alt="">
-</li>
+    <p><strong>클라이언트가 HBase에 데이터를 저장(put)하는 과정</strong>
+<img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH05/2.png" alt=""></p>
+  </li>
   <li>클라이언트가 HBase 테이블에 특정 데이터를 저장하기 전, 주키퍼를 통해 HTable의 기본 정보와 해당 HRegion의 위치 정보를 알아냄</li>
   <li>해당 정보를 기반으로 클라이언트가 직접 HRegionServer로 연결되어 HRegion의 Memory 영역인 MemStore에 데이터 저장</li>
   <li>이때 MemStore에 저장된 데이터는 특정 시점이 되면 HFile로 HDFS에 플러시(Flush)되고, HFile은 HRegion의 상황에 따라 최적의 HFile로 재구성되는 작업이 이루어짐</li>
@@ -1049,7 +1049,8 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h2 id="4-hbase-활용-방안">4) HBase 활용 방안</h2>
-<p><img src="img/CH05/3.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH05/3.png" alt=""></p>
+
 <ul>
   <li>앞서 CH03에서 Flume을 이용해 수집한 스마트카 운전자의 운행 정보를 Kafka까지 전송했음</li>
   <li>이번 장에서는 Kafka에 저장되어 있는 데이터를 Storm이 받아서 HBase의 테이블에 모두 적재</li>
@@ -1115,7 +1116,7 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h4 id="1-레디스-아키텍처-1">1) 레디스 아키텍처 1</h4>
-<p><img src="img/CH05/4.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH05/4.png" alt=""></p>
 <ul>
   <li>Single Master 형식</li>
   <li>개발과 테스트 환경에 주로 사용됨</li>
@@ -1125,7 +1126,7 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h4 id="2-레디스-아키텍처-2">2) 레디스 아키텍처 2</h4>
-<p><img src="img/CH05/5.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH05/5.png" alt=""></p>
 <ul>
   <li>Single Master / Multi Slave 형식</li>
   <li>Master에 쓰여진 데이터는 복제를 통해 Slave 노드로 복제되면서 데이터 정합성 유지</li>
@@ -1136,7 +1137,7 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h4 id="3-레디스-아키텍처-3">3) 레디스 아키텍처 3</h4>
-<p><img src="img/CH05/6.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH05/6.png" alt=""></p>
 <ul>
   <li>버전 3.x부터 지원되는 HA 클러스터링 구조</li>
   <li>아키텍처 2는 두가지 문제점이 있음
@@ -1152,7 +1153,7 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h3 id="4-레디스-활용-방안">4) 레디스 활용 방안</h3>
-<p><img src="img/CH05/7.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH05/7.png" alt=""></p>
 <ul>
   <li>스마트카 운전자의 상태 정보를 실시간으로 분석</li>
   <li>분석한 결과를 빠르게 저장하면서 주변 시스템과 공유하기 위한 저장소로 레디스 활용</li>
@@ -1229,7 +1230,7 @@ function googleTranslateElementInit() {
 
 <h3 id="3-스톰-아키텍처">3) 스톰 아키텍처</h3>
 <h4 id="1-nimbus와-supervisor">1) Nimbus와 Supervisor</h4>
-<p><img src="img/CH05/s1.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH05/s1.png" alt=""></p>
 <ul>
   <li>Nimbus가 자바 프로그램으로 구성된 Topology Jar를 배포하기 위해 주키퍼로부터 Supervisor 정보 알아냄</li>
   <li>그 후 해당 Topology Jar 파일을 각 Supervisor에 전송하면 Supervisor는 해당 Node에서 Worker, Executor를 만들고, Spout과 Bolt가 수행되기 위한 Task도 할당함</li>
@@ -1249,7 +1250,7 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h3 id="4-스톰-활용-방안">4) 스톰 활용 방안</h3>
-<p><img src="img/CH05/s2.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH05/s2.png" alt=""></p>
 <ul>
   <li>파일럿 프로젝트에서 스톰은 스마트카 운전자의 실시간 운행 정보를 대상으로 <strong>데이터 라우팅과 스트리밍 처리</strong>에 활용될 것</li>
   <li>카프카의 Spout을 통해 유입되는 모든 운전자의 운행 정보 데이터는 두 개의 Bolt (HBase Bolt / Redis Bolt)로 나눠져서 처리됨
@@ -1309,7 +1310,7 @@ function googleTranslateElementInit() {
 
 <h3 id="3-에스퍼-아키텍처">3) 에스퍼 아키텍처</h3>
 <h4 id="1-에스퍼-아키텍처-1">1) 에스퍼 아키텍처 1</h4>
-<p><img src="img/CH05/e1.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH05/e1.png" alt=""></p>
 <ul>
   <li>에스퍼는 CEP(Complex Event Processing) 엔진</li>
   <li>
@@ -1320,7 +1321,7 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h4 id="2-에스퍼-아키텍처2">2) 에스퍼 아키텍처2</h4>
-<p><img src="img/CH05/e2.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH05/e2.png" alt=""></p>
 <ul>
   <li>에스퍼의 EPL을 이용해 대규모 분산 아키텍처를 구성할 때는 룰을 통합 관리하고, 분산 노드에 일관되게 적용하기 위해 위 이미지처럼 다소 복잡한 구성 필요</li>
   <li>이때 분산된 응용 서버에 에스퍼 엔진을 설치하고, 에스퍼 엔진들이 동일한 EPL 룰을 동작으로 일괄 로딩하기 위해 EPL 공유 저장소가 이용됨</li>
@@ -1329,7 +1330,7 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h3 id="4-에스퍼-활용-방안">4) 에스퍼 활용 방안</h3>
-<p><img src="img/CH05/e3.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH05/e3.png" alt=""></p>
 <ul>
   <li>파일럿 프로젝트에서는 운전자의 운행 데이터를 실시간으로 분석하기 위해 데스퍼 EPL 활용</li>
   <li>EPL은 30초 동안의 평균 시속을 체크해서 80km/h를 초과하는 운전자 이벤트 정보를 실시간으로 감지할 수 있도록 룰 정의</li>
@@ -1411,7 +1412,7 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h3 id="2-실시간-적재-아키텍처">2) 실시간 적재 아키텍처</h3>
-<p><img src="img/CH05/%EC%8B%A4%EC%8B%9C%EA%B0%84%EC%A0%81%EC%9E%AC%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH05/%EC%8B%A4%EC%8B%9C%EA%B0%84%EC%A0%81%EC%9E%AC%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98.png" alt=""></p>
 <ul>
   <li>CH03에서는 플럼의 DriverCarInfo 에이전트에서 수집한 운전자 운행 정보를 카프카의 토픽에 실시간으로 전송함</li>
   <li>Ch05에서는 스톰의 카프카-Spout을 이용해 카프카의 토픽에 저장되어 있는 운전자 운행 정보를 가져와 처리하고, 카프카-Bolt에서 이벤트 조건에 따라 레디스와 HBase에 각각 분리 적재함</li>
@@ -1469,7 +1470,7 @@ function googleTranslateElementInit() {
   </li>
 </ul>
 
-<p><img src="img/CH05/last.png" alt=""></p>
+<p><img src="https://github.com/bokyung124/hadoop-pilot-pjt/raw/main/img/CH05/last.png" alt=""></p>
 
 
   </div>
@@ -1482,32 +1483,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/infra/2023/08/25/aws-serverless.html" title="[AWS] AWS Serverless">
-            [AWS] AWS Serverless<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/11/1357.html" title="[BOJ] 1357. 뒤집힌 덧셈">
+            [BOJ] 1357. 뒤집힌 덧셈<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/infra/2023/06/28/docker_build.html" title="[docker] 이미지 빌드">
-            [docker] 이미지 빌드<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/06/1076.html" title="[BOJ] 1076. 저항">
+            [BOJ] 1076. 저항<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/02/1236.html" title="[BOJ] 1236. 성 지키기">
-            [BOJ] 1236. 성 지키기<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/08/1316.html" title="[BOJ] 1316. 그룹 단어 체커">
+            [BOJ] 1316. 그룹 단어 체커<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/it%20issues/2023/05/24/kaist.html" title="KAIST, 항암 백신 찾는 AI 모델 ‘딥네오’ 개발">
-            KAIST, 항암 백신 찾는 AI 모델 ‘딥네오’ 개발<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/11/1952.html" title="[BOJ] 1952. 달팽이2">
+            [BOJ] 1952. 달팽이2<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

@@ -41,6 +41,7 @@ tag: [study, Hadoop, 파일럿프로젝트]
 <br>
 
 ### 3) 고정 IP, 네트워크 설정
+
 ```bash
 vi /etc/sysconfig/network-scripts/ifcfg-eth0
 
@@ -105,6 +106,7 @@ service network restart
 <br>
 
 ### 5) Server01 고정 IP 확인
+
 ```bash
 ifconfig eth0
 ```
@@ -140,6 +142,7 @@ service network restart
 <br>
 
 ## 4. Server01 호스트 정보 수정
+
 ```bash
 vi /etc/hosts
 ```
@@ -147,11 +150,13 @@ vi /etc/hosts
 <br>
 
 __수정 전__
+
 ![before](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbdHhdM%2FbtrU541MdRM%2FVOiMPHIqWak5xqqkbWjxSk%2Fimg.png)   
 
 <br>
 
 __수정 후__
+
 ![after](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbQK7qe%2FbtrU550G5bc%2FPdHuRoIkvlISxU3C29FzIk%2Fimg.png)  
 
 <br>
@@ -162,6 +167,7 @@ __수정 후__
 <br>
 
 - __Server01 HOSTNAME 설정__   
+
 ```bash
 vi /etc/sysconfig/network
 ```
@@ -179,7 +185,8 @@ vi /etc/sysconfig/network
 
 <br>
 
-- __서비스 명령으로 네트워크 설정 재시작__   
+- __서비스 명령으로 네트워크 설정 재시작__
+
 ```bash
 service network restart
 ```
@@ -226,6 +233,7 @@ http://daplus.net/networking-centos-7%EC%97%90%EC%84%9C-iptables%EB%A5%BC-%EC%96
 
 
 ### 3) iptables 자동 시작 중지 명령
+
 ```bash
 chkconfig iptables off
 ```
@@ -337,17 +345,21 @@ reboot
 <br>
 
 - __5번 과정 명령어 모음__
+
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fz8RFD%2FbtrVex9BAqd%2F5Tdm9sADe6MJJcwtFM5Ik0%2Fimg.png)   
+
 <br>
 
 ## 6. 가상머신 복제
 
 ### 1) 복제 대상인 Server01 전원 끄고, 복제 작업이 완료될 때까지 시작하지 않음
+
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FOcwAr%2FbtrVe3OeRL1%2FkpcdQfKPapAZWMz7ux5kn0%2Fimg.png)
 
 ### 2) Server01 우클릭하여 "복제" 클릭
 
 ### 3) 이름은 "Server02"로, "모든 네트워크 카드의 MAC 주소 초기화" 체크
+
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FrpauD%2FbtrVgiqCAun%2F9ZCnvjBysq5MWNIU8KN1aK%2Fimg.png)   
 
 <br>
@@ -355,6 +367,7 @@ reboot
 ## 7. Server02 설정 수정
 
 ### 1) MAC 주소, 고정 IP 수정
+
 ```bash
 vi /etc/sysconfig/network-scripts/ifcfg-eth0
 ```
@@ -365,6 +378,7 @@ vi /etc/sysconfig/network-scripts/ifcfg-eth0
 
 
 ### 2) 리눅스가 자동으로 설정한 Server01 네트워크 룰 삭제
+
 ```bash
 vi /etc/udev/rules.d/70-persistent-net.rules
 ```
@@ -374,6 +388,7 @@ vi /etc/udev/rules.d/70-persistent-net.rules
 ### 3) Server02 종료 후 다시 시작 -> 새로운 네트워크 정보 할당
 
 ### 4) Server02 호스트 정보 수정
+
 ```bash
 vi /etc/hosts
 ```

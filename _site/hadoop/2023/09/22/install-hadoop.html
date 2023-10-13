@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
   pre.badge::before {
     content: attr(data-lang);
     color: #fff;
-    background-color: #ff4e00;
+    background-color: #90a959;
     padding: 0 .5em;
-    border-radius: 0 2px;
+    border-radius: 0.2px;
     text-transform: uppercase;
     text-align: center;
     min-width: 32px;
@@ -937,7 +937,7 @@ function googleTranslateElementInit() {
 
 
 
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 3 mins</span>
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 4 mins</span>
   </div>
 <div class="post-tags">
 <a class="post-tag" href="/tags.html#Hadoop">#Hadoop</a><a class="post-tag" href="/tags.html#%EC%84%A4%EC%B9%98">#설치</a>
@@ -989,7 +989,7 @@ java -version
 # openjdk version "11.0.19" 2023-04-18
 ``` -->
 
-<p>https://cwiki.apache.org/confluence/display/HADOOP/Hadoop+Java+Versions</p>
+<p><a href="https://cwiki.apache.org/confluence/display/HADOOP/Hadoop+Java+Versions">https://cwiki.apache.org/confluence/display/HADOOP/Hadoop+Java+Versions</a></p>
 
 <ul>
   <li>Java 8 설치 권장</li>
@@ -1036,21 +1036,21 @@ java <span class="nt">-version</span>
 
 <ul>
   <li>
-<code class="language-plaintext highlighter-rouge">~/.bash_profile</code> 파일에도 JAVA_HOME 추가
-```bash
-vi ~/.bash_profile</li>
+<code class="language-plaintext highlighter-rouge">~/.bash_profile</code> 파일에도 JAVA_HOME 추가</li>
 </ul>
 
-<p>export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home  # 추가</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi ~/.bash_profile
 
-<p>source ~/.bash_profile  # 적용</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-&lt;br&gt;
+<span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home  <span class="c"># 추가</span>
 
-## 3. Hadoop 환경 설정
+<span class="nb">source</span> ~/.bash_profile  <span class="c"># 적용</span>
+</code></pre></div></div>
 
-```bash
-cd $HADOOP_HOME/etc/hadoop
+<p><br></p>
+
+<h2 id="3-hadoop-환경-설정">3. Hadoop 환경 설정</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> <span class="nv">$HADOOP_HOME</span>/etc/hadoop
 </code></pre></div></div>
 
 <p><br></p>
@@ -1208,32 +1208,32 @@ jps
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/java/2023/05/24/1427.html" title="[BOJ] 1427. 소트인사이드">
-            [BOJ] 1427. 소트인사이드<span class="post-badges">
+          <a class="post-link" href="/kafka/2023/04/14/about-kafka.html" title="[kafka] 아파치 카프카 개요와 토픽">
+            [kafka] 아파치 카프카 개요와 토픽<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/tableu/2023/06/24/start.html" title="[Tableu] 초급 데이터 시각화 활용">
-            [Tableu] 초급 데이터 시각화 활용<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/05/1075.html" title="[BOJ] 1075.나누기">
+            [BOJ] 1075.나누기<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/06/Oracle-Func-3.html" title="[DBP] CH2-3. Oracle 기타 내장 함수">
-            [DBP] CH2-3. Oracle 기타 내장 함수<span class="post-badges">
+          <a class="post-link" href="/infra/2023/08/25/aws-load-balancing.html" title="[AWS] AWS Load Balancing">
+            [AWS] AWS Load Balancing<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/it%20issues/2023/05/25/severance.html" title="세브란스병원, 디지털 전환 '스마트병상 관리시스템' 도입">
-            세브란스병원, 디지털 전환 '스마트병상 관리시스템' 도입<span class="post-badges">
+          <a class="post-link" href="/cs/2023/04/04/RESTful-API.html" title="[CS] REST API, RESTful API">
+            [CS] REST API, RESTful API<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

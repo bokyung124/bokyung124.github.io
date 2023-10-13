@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
   pre.badge::before {
     content: attr(data-lang);
     color: #fff;
-    background-color: #ff4e00;
+    background-color: #90a959;
     padding: 0 .5em;
-    border-radius: 0 2px;
+    border-radius: 0.2px;
     text-transform: uppercase;
     text-align: center;
     min-width: 32px;
@@ -976,6 +976,7 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h3 id="3-고정-ip-네트워크-설정">3) 고정 IP, 네트워크 설정</h3>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/sysconfig/network-scripts/ifcfg-eth0
 
 <span class="c"># vi: 문서 편집 환경   </span>
@@ -1048,6 +1049,7 @@ https://velog.io/@zeesoo/Linux-vi-%ED%8E%B8%EC%A7%91%EA%B8%B0-%EC%82%AC%EC%9A%A9
 <p><br></p>
 
 <h3 id="5-server01-고정-ip-확인">5) Server01 고정 IP 확인</h3>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ifconfig eth0
 </code></pre></div></div>
 
@@ -1083,18 +1085,21 @@ service network restart
 <p><br></p>
 
 <h2 id="4-server01-호스트-정보-수정">4. Server01 호스트 정보 수정</h2>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/hosts
 </code></pre></div></div>
 
 <p><br></p>
 
-<p><strong>수정 전</strong>
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbdHhdM%2FbtrU541MdRM%2FVOiMPHIqWak5xqqkbWjxSk%2Fimg.png" alt="before"></p>
+<p><strong>수정 전</strong></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbdHhdM%2FbtrU541MdRM%2FVOiMPHIqWak5xqqkbWjxSk%2Fimg.png" alt="before"></p>
 
 <p><br></p>
 
-<p><strong>수정 후</strong>
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbQK7qe%2FbtrU550G5bc%2FPdHuRoIkvlISxU3C29FzIk%2Fimg.png" alt="after"></p>
+<p><strong>수정 후</strong></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbQK7qe%2FbtrU550G5bc%2FPdHuRoIkvlISxU3C29FzIk%2Fimg.png" alt="after"></p>
 
 <p><br></p>
 
@@ -1106,13 +1111,11 @@ service network restart
 <p><br></p>
 
 <ul>
-  <li>
-<strong>Server01 HOSTNAME 설정</strong>
-    <div class="language-bash highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code>vi /etc/sysconfig/network
-</code></pre></div>    </div>
-  </li>
+  <li><strong>Server01 HOSTNAME 설정</strong></li>
 </ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/sysconfig/network
+</code></pre></div></div>
 
 <p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcUpcif%2FbtrU37xJtmb%2F1QLkgnwQpxZA76kepjSlkk%2Fimg.png" alt=""></p>
 
@@ -1131,13 +1134,11 @@ service network restart
 <p><br></p>
 
 <ul>
-  <li>
-<strong>서비스 명령으로 네트워크 설정 재시작</strong>
-    <div class="language-bash highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code>service network restart
-</code></pre></div>    </div>
-  </li>
+  <li><strong>서비스 명령으로 네트워크 설정 재시작</strong></li>
 </ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service network restart
+</code></pre></div></div>
 
 <p><br></p>
 
@@ -1186,6 +1187,7 @@ service network restart
 <p><br></p>
 
 <h3 id="3-iptables-자동-시작-중지-명령">3) iptables 자동 시작 중지 명령</h3>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chkconfig iptables off
 </code></pre></div></div>
 
@@ -1316,21 +1318,23 @@ reboot
 <p><br></p>
 
 <ul>
-  <li>
-<strong>5번 과정 명령어 모음</strong>
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fz8RFD%2FbtrVex9BAqd%2F5Tdm9sADe6MJJcwtFM5Ik0%2Fimg.png" alt=""> <br>
-<br>
-</li>
+  <li><strong>5번 과정 명령어 모음</strong></li>
 </ul>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fz8RFD%2FbtrVex9BAqd%2F5Tdm9sADe6MJJcwtFM5Ik0%2Fimg.png" alt=""></p>
+
+<p><br></p>
 
 <h2 id="6-가상머신-복제">6. 가상머신 복제</h2>
 
 <h3 id="1-복제-대상인-server01-전원-끄고-복제-작업이-완료될-때까지-시작하지-않음">1) 복제 대상인 Server01 전원 끄고, 복제 작업이 완료될 때까지 시작하지 않음</h3>
+
 <p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FOcwAr%2FbtrVe3OeRL1%2FkpcdQfKPapAZWMz7ux5kn0%2Fimg.png" alt=""></p>
 
 <h3 id="2-server01-우클릭하여-복제-클릭">2) Server01 우클릭하여 “복제” 클릭</h3>
 
 <h3 id="3-이름은-server02로-모든-네트워크-카드의-mac-주소-초기화-체크">3) 이름은 “Server02”로, “모든 네트워크 카드의 MAC 주소 초기화” 체크</h3>
+
 <p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FrpauD%2FbtrVgiqCAun%2F9ZCnvjBysq5MWNIU8KN1aK%2Fimg.png" alt=""></p>
 
 <p><br></p>
@@ -1338,6 +1342,7 @@ reboot
 <h2 id="7-server02-설정-수정">7. Server02 설정 수정</h2>
 
 <h3 id="1-mac-주소-고정-ip-수정">1) MAC 주소, 고정 IP 수정</h3>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/sysconfig/network-scripts/ifcfg-eth0
 </code></pre></div></div>
 
@@ -1348,6 +1353,7 @@ reboot
 </ul>
 
 <h3 id="2-리눅스가-자동으로-설정한-server01-네트워크-룰-삭제">2) 리눅스가 자동으로 설정한 Server01 네트워크 룰 삭제</h3>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/udev/rules.d/70-persistent-net.rules
 </code></pre></div></div>
 
@@ -1358,6 +1364,7 @@ reboot
 <h3 id="3-server02-종료-후-다시-시작---새로운-네트워크-정보-할당">3) Server02 종료 후 다시 시작 -&gt; 새로운 네트워크 정보 할당</h3>
 
 <h3 id="4-server02-호스트-정보-수정">4) Server02 호스트 정보 수정</h3>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/hosts
 </code></pre></div></div>
 
@@ -1419,32 +1426,32 @@ reboot
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/java/2023/05/25/1312.html" title="[BOJ] 1312. 소수">
-            [BOJ] 1312. 소수<span class="post-badges">
+          <a class="post-link" href="/sql/2023/06/24/optimizer.html" title="[MySQL] SQL 옵티마이저">
+            [MySQL] SQL 옵티마이저<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/algorithm/2023/07/12/chap7.html" title="정렬 문제">
-            정렬 문제<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/04/1834.html" title="[BOJ] 1834. 나머지와 몫이 같은 수">
+            [BOJ] 1834. 나머지와 몫이 같은 수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/23/2033.html" title="[BOJ] 2033. 반올림">
-            [BOJ] 2033. 반올림<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/27/regularization.html" title="[BoostCourse] 4. Regularization">
+            [BoostCourse] 4. Regularization<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/06/eda.html" title="[BoostCourse] 1. 정형데이터와 EDA">
-            [BoostCourse] 1. 정형데이터와 EDA<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/03/1924.html" title="[BOJ] 1924. 2007년">
+            [BOJ] 1924. 2007년<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
