@@ -215,6 +215,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
@@ -995,7 +996,12 @@ function googleTranslateElementInit() {
 <a class="post-image" href="/infra/2023/09/22/k8s.html" style="flex: 0 1 38.2%">
       <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
     </a><a class="post-text" href="/infra/2023/09/22/k8s.html">
-      <p>참고자료 https://www.youtube.com/watch?v=Iu9ТС13vPQ&amp;list=PLApuRIvrZKohaBHVXAOhUD-RxDOuQ3z0c&amp;i... <span class="read_more">Read More</span></p>
+      <p>참고자료 https://www.youtube.com/watch?v=Iu9ТС13vPQ&amp;list=PLApuRIvrZKohaBHVXAOhUD-RxDOuQ3z0c&amp;index=8
+
+1. Kubernetes
+
+
+  도커 컨테이너를 위한 오픈소스 오케스트레이션... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -1100,7 +1106,13 @@ function googleTranslateElementInit() {
 
   분산 시스템 기반의 검색 엔진
   ex) 실시간 분석 시스템에서 저희가 취급하지 않는 쓰레기 데이터를 사전에 걸러낼 때
-  ex) 로그... <span class="read_more">Read More</span></p>
+  ex) 로그 데이터를 수집해서 이슈 대응을 효율적으로 하고 싶을 때
+
+
+
+
+
+  사용자가 원하는 정보... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -1206,7 +1218,12 @@ brew install hadoop
 
 brew info hadoop
 # 하둡 설치 위치
-## /opt/homebrew/Cellar/hado... <span class="read_more">Read More</span></p>
+## /opt/homebrew/Cellar/hadoop/3.3.6
+## Required: openjdk@11
+
+
+HADOOP 환경변수 설정
+... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -1315,7 +1332,8 @@ brew info hadoop
 
 
 
-  앞장에 이어서 이번에는 스마트카 운전자의 실시간 운행 정보를 분석한 후 적... <span class="read_more">Read More</span></p>
+  앞장에 이어서 이번에는 스마트카 운전자의 실시간 운행 정보를 분석한 후 적재하는 영역 다룸
+  실시간 로그 분석에는 작지만 대량으로 발생하는 메시지성 데이터를 실시... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -1425,7 +1443,8 @@ brew info hadoop
 
 
 
-  HBase의 Master와 RegionS... <span class="read_more">Read More</span></p>
+  HBase의 Master와 RegionServer 설치 위치 지정
+  Server01, Server02만 있는 상태이므로, 모든 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -1533,7 +1552,13 @@ brew info hadoop
 
 
   CH03에서 수집한 데이터를 어디에, 어떻게 저장할 것인가
-  수집한 데이터의 특징에... <span class="read_more">Read More</span></p>
+  수집한 데이터의 특징에 따라 처리 방식과 적재 위치가 달라질 수 있음
+
+
+
+
+
+  데이터 발생 주기에 따라 일괄... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -1642,7 +1667,16 @@ brew info hadoop
 
 
 
-  하둡 ... <span class="read_more">Read More</span></p>
+  하둡 웹 관리 화면
+
+http://server01.hadoop.com:9870
+
+
+
+
+
+
+  하... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -1750,7 +1784,8 @@ brew info hadoop
 
 1) 플럼
 
-  빅데이터를 __수집__할 때 다양한 수집 요구사항들을 해결하기 위한 기능으로 ... <span class="read_more">Read More</span></p>
+  빅데이터를 __수집__할 때 다양한 수집 요구사항들을 해결하기 위한 기능으로 구성된 소프트웨어
+  통신 프로토콜, 메시지 포맷, 발생 주기, 데이터 크기 등 데이터를 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -1853,7 +1888,15 @@ brew info hadoop
       <p>0. 이번 장에서 할 것
 
   빅데이터 아키텍처의 첫 번째 레이어인 수집 영역 구축
-  스마트카 시뮬레이터로 배치 파일(스마트카 상태 정보)과 실시간 로그(스마트카 운행 정보... <span class="read_more">Read More</span></p>
+  스마트카 시뮬레이터로 배치 파일(스마트카 상태 정보)과 실시간 로그(스마트카 운행 정보) 생성
+  이를 플러모가 카프카로 수집
+
+
+
+
+1. Flume 설치
+
+  CM 홈에서 [... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -1960,7 +2003,11 @@ brew info hadoop
 1. 요구사항 파악
 
 1) 차량의 다양한 장치로부터 발생하는 로그 파일을 수집해서 기능별 상태를 점검한다.
-2) 운전... <span class="read_more">Read More</span></p>
+2) 운전자의 운행 정보가 담긴 로그를 실시간으로 수집해서 주행 패턴을 분석한다.
+
+
+
+2. 데이터... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -2065,7 +2112,10 @@ brew info hadoop
 1. 클라우데라 매니저(CM) 설치
 
 
-  CM : 빅데이터 에코시스템을 쉽게 설치하고 관리해주는 빅데이터 시스템 자동화... <span class="read_more">Read More</span></p>
+  CM : 빅데이터 에코시스템을 쉽게 설치하고 관리해주는 빅데이터 시스템 자동화 도구
+  빅데이터 소프트웨어에 대한 프로비저닝, 매니지먼트, 모니터링 수행
+    
+  ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -2172,7 +2222,10 @@ brew info hadoop
 
   JAVA (Java SE 8u-)
   이클립스
-  Oracle Virtual Box... <span class="read_more">Read More</span></p>
+  Oracle Virtual Box
+  PuTTY (SSH 접속 프로그램)
+  FileZilla (FTP 접속 프로그램)
+ ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -2280,7 +2333,14 @@ brew info hadoop
 
 
 
-2. Client - Serv... <span class="read_more">Read More</span></p>
+2. Client - Server
+
+
+  Client
+    
+      네트워크의 말단에서
+      자원 요청
+  ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -2391,7 +2451,8 @@ brew info hadoop
   
     목적
     
-      트래픽을 여러 서버에 분산 -&gt; 더... <span class="read_more">Read More</span></p>
+      트래픽을 여러 서버에 분산 -&gt; 더 많은 리소스를 사용할 수 있도록
+      각각의 인스턴스에게 트래픽 -&gt; 로드 밸... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -2500,7 +2561,12 @@ brew info hadoop
   Instance
     
       가상 컴퓨터 환경
-      원하는 ... <span class="read_more">Read More</span></p>
+      원하는 만큼 구축 가능
+    
+  
+  Instance Type
+    
+      CPU, 메... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -2605,7 +2671,13 @@ brew info hadoop
   인접한 두 원소를 검사하여 정렬
   문제: 비내림차순으로 n개의 키 정렬
   입력: 양의 정수 n, 키의 배열 S[1..n]
-  출력: 비내림차순... <span class="read_more">Read More</span></p>
+  출력: 비내림차순으로 정렬된 키의 배열 S[1..n]
+
+
+
+
+의사코드
+void bubbleSort(int ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -2710,7 +2782,9 @@ brew info hadoop
   최적화 문제를 해결하기 위해 되추적 기법을 향상시킨 기법
     
       되추적 기버보가 마찬가지로 상태 공간 트리 사용
-      상태 공간 트리... <span class="read_more">Read More</span></p>
+      상태 공간 트리를 순회하는 방법이 제한되어 있지 않음!
+        
+          되추적 기법은 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -2813,7 +2887,10 @@ brew info hadoop
       <p>🐤 되추적 기법
 
   어떤 마디의 유망성을 점검한 후, 유망하지 않다고 판정 되면 그 마디의 부모 마디로 돌아가서 다음 후손 마디에 대한 검색을 계속 하는 절차
-  문제 풀이... <span class="read_more">Read More</span></p>
+  문제 풀이 과정을 트리로 나타낼 수 있음
+  유망성
+    
+      전혀 해답이 나올 가능성이 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -2917,7 +2994,8 @@ brew info hadoop
 
   어떤 선택을 해야 할 때 그 당시에 가장 최선의 선택을 하여 문제를 해결하는 알고리즘
   그 당시에 지역적으로 최적인 선택
-  이런 선... <span class="read_more">Read More</span></p>
+  이런 선택을 모은 최종적인 해답이 최적의 해답이라는 보장은 없음
+  따라서 해답을 얻은 후에 이 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -3020,7 +3098,13 @@ brew info hadoop
       <p>🍰 분할 정복법
 
 
-  문제의 사례를 2개 이상의 더 작은 사례로 나누어 divide 각 작은 사례에 대한 해답 conquer을 쉽게 얻을 수 있으면 이들의 해답을 결합 co... <span class="read_more">Read More</span></p>
+  문제의 사례를 2개 이상의 더 작은 사례로 나누어 divide 각 작은 사례에 대한 해답 conquer을 쉽게 얻을 수 있으면 이들의 해답을 결합 combine하여 원 문제의 해답을 얻는 방식
+
+
+
+
+
+  문제를 나누는 과정: 해답을 쉽게 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -3129,7 +3213,12 @@ brew info hadoop
 
 
 
-🍒 순... <span class="read_more">Read More</span></p>
+🍒 순차 검색
+
+알고리즘
+
+  문제: n개의 키로 구성된 배열 S에 키 x가 있는가?
+  입력:... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -3236,7 +3325,9 @@ brew info hadoop
   Dockerfile에 포함될 내용
     
       베이스 이미지: debian
-      컨테이너에 아래의 ... <span class="read_more">Read More</span></p>
+      컨테이너에 아래의 webpage.sh 파일 복사
+      컨테이너에 fortune 애플리케이션 설치
+   ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -3340,7 +3431,7 @@ brew info hadoop
 
 
   애플리케이션을 신속하게 구축, 테스트 및 배포할 수 있는 소프트웨어 플랫폼
-  소프트웨어를 컨테이너라는 표준화된 유닛으로 패키징하... <span class="read_more">Read More</span></p>
+  소프트웨어를 컨테이너라는 표준화된 유닛으로 패키징하며, 이 컨테이너에는 라이브러리, 시스템 도구, 코드, 런타임 등 소프트웨어를 실행하는데 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -3454,7 +3545,17 @@ brew info hadoop
 
 2. docker의 필요성
 
-1. ‘It works on my mach... <span class="read_more">Read More</span></p>
+1. ‘It works on my machine’ 문제
+
+  predictable
+  consistent
+
+
+
+
+
+
+2. DevOp... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -3562,7 +3663,11 @@ brew info hadoop
 
 3. 방탄소년단 앨범 워드 클라우드
 
-앨범을 선택하면 그에 따른 워드 클라우드... <span class="read_more">Read More</span></p>
+앨범을 선택하면 그에 따른 워드 클라우드 사진을 보여준다.
+워드 클라우드는 파이썬으로 만든 것이다.
+
+
+ <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -3667,7 +3772,15 @@ brew info hadoop
 1. 막대 차트
 
 
-2. 서버 데이터 - 구글 스... <span class="read_more">Read More</span></p>
+2. 서버 데이터 - 구글 스프레드 시트 활용하여 연결
+
+corona virus data
+
+
+
+
+
+3. 데이터 전처리,... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -3772,7 +3885,9 @@ brew info hadoop
 tableu
 
 태블로는 이곳에서 다운로드 받을 수 있다.
-원래는 구매를 해야 하는데, 대학생과 교수한테는 학교 이메일을 사용하면 무료로 프로그램을 제공... <span class="read_more">Read More</span></p>
+원래는 구매를 해야 하는데, 대학생과 교수한테는 학교 이메일을 사용하면 무료로 프로그램을 제공해준다.
+
+태블로는 비즈니스 인텔리전스와 분석 소프트웨어로, 데이터 시각화 프로그램이다. ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -4000,7 +4115,8 @@ SQL 실행 과정
 SQL 파싱은
 
 1) SQL 문장에 문법적 오류가 없는지 검사 (Syntax 검사)  
-2) 의미상 오류가 없... <span class="read_more">Read More</span></p>
+2) 의미상 오류가 없는지 검사 (Semantic 검사)  
+3) 사용자가 발생한 SQL과 그 실행계획시 라이브... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"><a class="post-tag" href="/tags.html#MySQL">#MySQL</a></div>
@@ -4106,7 +4222,12 @@ Convolution
 
 
   Continuous convolution 
-$(f*g)(t) = \int f(\... <span class="read_more">Read More</span></p>
+$(f*g)(t) = \int f(\tau)g(t-\tau)d\tau = \int f(t-\tau)g(t)d\tau$
+
+
+
+
+... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -4212,7 +4333,9 @@ $(f*g)(t) = \int f(\... <span class="read_more">Read More</span></p>
 
 문제
 
-은민이는 4와 7을 좋아하고, 나머지 숫자는 싫어한다. 금민수는 어떤 수가 4와 7로만 이루어진... <span class="read_more">Read More</span></p>
+은민이는 4와 7을 좋아하고, 나머지 숫자는 싫어한다. 금민수는 어떤 수가 4와 7로만 이루어진 수를 말한다.
+
+N이 주어졌을 때, N보다 작거나 같은 금민수 중 가장 큰 것을 출력하는... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -4317,7 +4440,18 @@ $(f*g)(t) = \int f(\... <span class="read_more">Read More</span></p>
 Regularization
 
 
-  학습 방해 -&gt; 학습 데이터뿐만 아니라 test data에도 잘 작동... <span class="read_more">Read More</span></p>
+  학습 방해 -&gt; 학습 데이터뿐만 아니라 test data에도 잘 작동하기 위해
+
+
+
+
+
+  
+    Early stopping  
+  
+  
+  
+    Pa... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -4424,7 +4558,8 @@ Regularization
 Gradient Descent
 
   Stochastic gradient descent : 하나의 data
- ... <span class="read_more">Read More</span></p>
+  Mini-batch gradient descent : data의 subset
+  batc... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -4534,7 +4669,13 @@ Gradient Descent
 
 
   정확하게 a개의 말은 참이다.
- ... <span class="read_more">Read More</span></p>
+  정확하게 b개의 말은 참이다.
+  정확하게 c개의 말은 참이다.
+  …
+  …
+  …
+
+... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -4640,7 +4781,16 @@ Introduction
 
 Gradient Descent
 
-  편미분을 통해 loss function의 loc... <span class="read_more">Read More</span></p>
+  편미분을 통해 loss function의 local minimum을 찾는 과정
+
+
+
+
+Important Concepts
+
+
+  
+    ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -4746,7 +4896,7 @@ Gradient Descent
 
 문제
 
-준표와 세준이는 서로 솔루션을 토론 하면서 다른 사람이 자신들의 솔루션을 듣지 못하게 하도록 서... <span class="read_more">Read More</span></p>
+준표와 세준이는 서로 솔루션을 토론 하면서 다른 사람이 자신들의 솔루션을 듣지 못하게 하도록 서로 메시지를 주고받을 때 메시지를 암호화 하여서 주고받았다. 암호를 만드는 방법은 다음과 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -4852,7 +5002,9 @@ Introduction
 
 
   AI: Mimic human intelligence
-  ML: Data-dri... <span class="read_more">Read More</span></p>
+  ML: Data-driven approach
+  DL: Neural networks
+  Deep Learning... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -4958,7 +5110,7 @@ Introduction
 
 문제
 
-피제수(분자) A와 제수(분모) B가 있다. 두 수를 나누었을 때, 소숫점 아래 N번째 자리수를... <span class="read_more">Read More</span></p>
+피제수(분자) A와 제수(분모) B가 있다. 두 수를 나누었을 때, 소숫점 아래 N번째 자리수를 구하려고 한다. 예를 들어, A=3, B=4, N=1이라면, A÷B=0.75 이므로 출력... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -5060,7 +5212,9 @@ Introduction
 
 
 
-세브란스병원이 ICT 기반의 병상 시스템을 구축해 환자 안전관... <span class="read_more">Read More</span></p>
+세브란스병원이 ICT 기반의 병상 시스템을 구축해 환자 안전관리 기능을 강화했다.
+
+세브란스병원은 최근 병실 재실자표와 환자 명찰을 진료시스템(u-Se... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -5167,7 +5321,10 @@ Introduction
 배열을 정렬하는 것은 쉽다. 수가 주어지면, 그 수의 각 자리수를 내림차순으로 정렬해보자.
 
 
-... <span class="read_more">Read More</span></p>
+
+입력
+
+첫째 줄에 정렬하려고 하는 수 N이 주어진다. N은 1,000,000,000보다 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -5273,7 +5430,7 @@ Introduction
 
 
 
-한국과학기술원(KAIST, 총장 이광형)은 ... <span class="read_more">Read More</span></p>
+한국과학기술원(KAIST, 총장 이광형)은 바이오및뇌공학과 최정균 교수가 펜타메딕스와의 공동연구를 통해 개인 맞춤 치료용 암 백신에 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -5377,7 +5534,7 @@ Introduction
 
 문제
 
-정수 N이 주어져 있을 때 이 수가 10보다 크면 일의 자리에서 반올림을 하고, 이 결과가 10... <span class="read_more">Read More</span></p>
+정수 N이 주어져 있을 때 이 수가 10보다 크면 일의 자리에서 반올림을 하고, 이 결과가 100보다 크면 다시 10의 자리에서 반올림을 하고, 또 이 수가 1000보다 크면 100의 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -5481,7 +5638,9 @@ Introduction
 
 문제
 
-연두는 프로그래밍 대회에 나갈 팀 이름을 정하려고 한다. 미신을 믿는 연두는 이환이에게 공식을 ... <span class="read_more">Read More</span></p>
+연두는 프로그래밍 대회에 나갈 팀 이름을 정하려고 한다. 미신을 믿는 연두는 이환이에게 공식을 하나 받아왔고, 이 공식을 이용해 우승할 확률이 가장 높은 팀 이름을 찾으려고 한다.
+
+이... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -5583,7 +5742,10 @@ Introduction
 
 
   
-    원본 데이터로부터 도메인 지식 등을 바탕으로 문제를 해결하는데 도움이 되는 Feature를 생성, 변환하고 이를 머신러닝 모델에 적합한 ... <span class="read_more">Read More</span></p>
+    원본 데이터로부터 도메인 지식 등을 바탕으로 문제를 해결하는데 도움이 되는 Feature를 생성, 변환하고 이를 머신러닝 모델에 적합한 형식으로 변환하는 작업
+  
+  
+    일반 머신러닝에서는 성능을 올리는데 가장 중요한 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -5689,7 +5851,7 @@ Introduction
 
 문제
 
-병현이는 지은이에게 문자 A, B, C, D, E, F, G, H 로 쓰여진 편지를 날마다 보내... <span class="read_more">Read More</span></p>
+병현이는 지은이에게 문자 A, B, C, D, E, F, G, H 로 쓰여진 편지를 날마다 보내는데, 컴퓨터로 보내는 비밀편지로, 한 문자마다 0 또는 1인 숫자 여섯 개를 사용하여 보... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -5793,7 +5955,7 @@ Introduction
 
 문제
 
-두 자연수 A와 B에 대해서, A의 배수이면서 B의 배수인 자연수를 A와 B의 공배수라고 한다.... <span class="read_more">Read More</span></p>
+두 자연수 A와 B에 대해서, A의 배수이면서 B의 배수인 자연수를 A와 B의 공배수라고 한다. 이런 공배수 중에서 가장 작은 수를 최소공배수라고 한다. 예를 들어, 6과 15의 공배수... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -5897,7 +6059,9 @@ Introduction
 
 문제
 
-크기가 N인 수열 A가 주어졌을 때, 세준이는 인접한 두 원소의 차이를 이용해서 크기가 N-1인... <span class="read_more">Read More</span></p>
+크기가 N인 수열 A가 주어졌을 때, 세준이는 인접한 두 원소의 차이를 이용해서 크기가 N-1인 수열 B를 만들 수 있다.
+
+예를 들어, A = {5, 6, 3, 9, -1} 이었을 때... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -6004,7 +6168,7 @@ Introduction
 M줄 N칸으로 되어 있는 표 위에, 달팽이 모양으로 선을 그리려고 한다. 
 
 
-위의 그림은 M=... <span class="read_more">Read More</span></p>
+위의 그림은 M=5, N=3의 예이다. 이제 표의 왼쪽 위 칸(ㅇ)에서 시작하여, 오른쪽으로 선을 그려 나... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -6112,7 +6276,9 @@ M줄 N칸으로 되어 있는 표 위에, 달팽이 모양으로 선을 그리�
 
 
 
-입... <span class="read_more">Read More</span></p>
+입력
+
+첫째 줄에는 두 개의 자연수가 주어진다. 이 둘은 10,000이하의 자연수이며 사이에... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -6216,7 +6382,14 @@ M줄 N칸으로 되어 있는 표 위에, 달팽이 모양으로 선을 그리�
 
 RNN vs DNN
 
-... <span class="read_more">Read More</span></p>
+
+
+
+
+
+  DNN
+    
+      input이 2개가 있다면 각 input이 서로 f... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -6327,6 +6500,8 @@ RNN
 
 
 
+  가진 데이터의 종류에 따라, 어떻게 학습시키고 싶은지에 따라
+  Many to One
   ... <span class="read_more">Read More</span></p>
     </a>
   </div>
@@ -6433,7 +6608,13 @@ RNN
 
 문제
 
-양수 A가 N의 진짜 약수가 되려면, N이 A의 배수이고, A가 1과 N이 아니어야 한다. 어떤... <span class="read_more">Read More</span></p>
+양수 A가 N의 진짜 약수가 되려면, N이 A의 배수이고, A가 1과 N이 아니어야 한다. 어떤 수 N의 진짜 약수가 모두 주어질 때, N을 구하는 프로그램을 작성하시오.
+
+
+
+입력
+
+... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -6537,7 +6718,7 @@ RNN
 
 문제
 
-그룹 단어란 단어에 존재하는 모든 문자에 대해서, 각 문자가 연속해서 나타나는 경우만을 말한다.... <span class="read_more">Read More</span></p>
+그룹 단어란 단어에 존재하는 모든 문자에 대해서, 각 문자가 연속해서 나타나는 경우만을 말한다. 예를 들면, ccazzzzbb는 c, a, z, b가 모두 연속해서 나타나고, kin도 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -6639,7 +6820,16 @@ RNN
 
   데이터를 머신러닝 모델에 입력하기 위해 적절히 처리하는 과정
   EDA / 모델이나 목적에 따라 달라지는 데이터 전처리
-  선형 모델인지, 트리인지,... <span class="read_more">Read More</span></p>
+  선형 모델인지, 트리인지, 딥러닝인지 등에 따라 방식 달라짐
+
+
+
+
+연속형 변수
+
+Scaling
+
+  데이터의 단위... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -6745,7 +6935,9 @@ RNN
 
 문제
 
-다섯 개의 자연수가 있다. 이 수의 적어도 대부분의 배수는 위의 수 중 적어도 세 개로 나누어 ... <span class="read_more">Read More</span></p>
+다섯 개의 자연수가 있다. 이 수의 적어도 대부분의 배수는 위의 수 중 적어도 세 개로 나누어 지는 가장 작은 자연수이다.
+
+서로 다른 다섯 개의 자연수가 주어질 때, 적어도 대부분의 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -6847,7 +7039,7 @@ RNN
 
 
 
-마이크로소프트가 과거에도 클리피(Clippy) 도우미 봇을 만들... <span class="read_more">Read More</span></p>
+마이크로소프트가 과거에도 클리피(Clippy) 도우미 봇을 만들었던 것을 고려하면 코파일럿(Copilot)의 AI 툴도 딱히 놀라운 무언가는 아니다. 그... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -6952,7 +7144,13 @@ fit
   
     데이터를 잘 설명할 수 있는 능력
   
-  Underfitting: 데이터를 설명하지 못함... <span class="read_more">Read More</span></p>
+  Underfitting: 데이터를 설명하지 못함
+  Overfitting: 데이터를 과하게 설명함
+
+
+
+
+  under - 적절 - ov... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -7056,7 +7254,15 @@ fit
 
   structured, tabular data
   엑셀 파일 형식이나 RDB 테이블에 담을 수 있는 데이터로, 행과 열로 표현 가능한 데이터
-  하나의 ... <span class="read_more">Read More</span></p>
+  하나의 행은 데이터 인스턴스
+  각 열은 데이터의 피처(속성)을 나타냄
+
+
+
+
+비정형 데이터
+
+ ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -7162,7 +7368,7 @@ fit
 
 문제
 
-세준이는 기말고사를 망쳤다. 세준이는 점수를 조작해서 집에 가져가기로 했다. 일단 세준이는 자기... <span class="read_more">Read More</span></p>
+세준이는 기말고사를 망쳤다. 세준이는 점수를 조작해서 집에 가져가기로 했다. 일단 세준이는 자기 점수 중에 최댓값을 골랐다. 이 값을 M이라고 한다. 그리고 나서 모든 점수를 점수/M*... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -7266,7 +7472,7 @@ fit
 
 문제
 
-오민식 선생님은 올해 형택초등학교 6학년 1반 담임을 맡게 되었다. 오민식 선생님은 우선 임시로... <span class="read_more">Read More</span></p>
+오민식 선생님은 올해 형택초등학교 6학년 1반 담임을 맡게 되었다. 오민식 선생님은 우선 임시로 반장을 정하고 학생들이 서로 친숙해진 후에 정식으로 선거를 통해 반장을 선출하려고 한다.... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -7370,7 +7576,7 @@ fit
 
 문제
 
-N으로 나누었을 때 나머지와 몫이 같은 모든 자연수의 합을 구하는 프로그램을 작성하시오. 예를 ... <span class="read_more">Read More</span></p>
+N으로 나누었을 때 나머지와 몫이 같은 모든 자연수의 합을 구하는 프로그램을 작성하시오. 예를 들어 N=3일 때, 나머지와 몫이 모두 같은 자연수는 4와 8 두 개가 있으므로, 그 합은... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -7474,7 +7680,13 @@ N으로 나누었을 때 나머지와 몫이 같은 모든 자연수의 합을 �
 
 문제
 
-오늘은 2007년 1월 1일 월요일이다. 그렇다면 2007년 x월 y일은 무슨 요일일까? 이를 ... <span class="read_more">Read More</span></p>
+오늘은 2007년 1월 1일 월요일이다. 그렇다면 2007년 x월 y일은 무슨 요일일까? 이를 알아내는 프로그램을 작성하시오.
+
+
+
+입력
+
+첫째 줄에 빈 칸을 사이에 두고 x(1 ≤ x... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -7577,7 +7789,8 @@ N으로 나누었을 때 나머지와 몫이 같은 모든 자연수의 합을 �
 SparkSession
 
 from pyspark.sql import SparkSession
-spark = SparkSession.builder.appName('Test')... <span class="read_more">Read More</span></p>
+spark = SparkSession.builder.appName('Test').getOrCreate()
+spark.conf.sest('spark.sql.executio... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -7683,7 +7896,9 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
 문제
 
-영식이는 직사각형 모양의 성을 가지고 있다. 성의 1층은 몇 명의 경비원에 의해서 보호되고 있다... <span class="read_more">Read More</span></p>
+영식이는 직사각형 모양의 성을 가지고 있다. 성의 1층은 몇 명의 경비원에 의해서 보호되고 있다. 영식이는 모든 행과 모든 열에 한 명 이상의 경비원이 있으면 좋겠다고 생각했다.
+
+성의... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -7786,7 +8001,13 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 1. 기존 단순회귀모형의 문제점
 
 
-  종속변수를 설명하는 독립변수가 2개일 때 단순회귀모형을 사용하면 모형 설정이 부정확하고, 종속변수에 대한 중요한 설명... <span class="read_more">Read More</span></p>
+  종속변수를 설명하는 독립변수가 2개일 때 단순회귀모형을 사용하면 모형 설정이 부정확하고, 종속변수에 대한 중요한 설명변수가 누락될 수 있음
+  즉, 계수추정량에 대해 bias가 발생
+
+
+
+
+2. 편향(Bia... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -7891,7 +8112,13 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
   독립변수 x에 대응하는 종속변수 y와 가장 유사한 값을 갖는 함수 f(x)를 찾는 과정 
 → f(x)를 통해 미래 사건 예측    
- ^y = f(x)... <span class="read_more">Read More</span></p>
+ ^y = f(x) ≈ y
+
+
+
+
+
+  회귀 분석을 통해 구한 함수 f(x)가 선형 함수일 때 f(x) = ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -7995,7 +8222,8 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
 1. 정의
 
-  모델 정확도를 높이기 위해 주어진 데이터를 예측 모델의 문제를 잘 표현할 수 있는 features로 변형시... <span class="read_more">Read More</span></p>
+  모델 정확도를 높이기 위해 주어진 데이터를 예측 모델의 문제를 잘 표현할 수 있는 features로 변형시키는 과정
+  머신러닝 알고리즘을 작동하기 위해 데이터의 도메인 지식을 활용해 featur... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -8101,7 +8329,13 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
 문제
 
-알파벳 대소문자로 된 단어가 주어지면, 이 단어에서 가장 많이 사용된 알파벳이 무엇인지 알아내는... <span class="read_more">Read More</span></p>
+알파벳 대소문자로 된 단어가 주어지면, 이 단어에서 가장 많이 사용된 알파벳이 무엇인지 알아내는 프로그램을 작성하시오. 단, 대문자와 소문자를 구분하지 않는다.
+
+
+
+입력
+
+알파벳 대소... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -8206,7 +8440,8 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
     특정 분석에 적합하게 데이터를 가공하는 작업
   
   완결성 필수로 기입되어 있어야 하는 데이터는 모두 입력되어야 한다.
-  유일성 동일한... <span class="read_more">Read More</span></p>
+  유일성 동일한 데이터가 불필요하게 중복되어 있으면 안된다.
+  통일성 데이터가 모두 동일한 형식으로 입... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -8312,7 +8547,7 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
   주변의 가장 가까운 K개의 데이터 를 보고 새로운 데이터를 판단하는 알고리즘
   N개의 특성을 가진 데이터는 n차원의 공간에 점으로 표현됨
   
-    ... <span class="read_more">Read More</span></p>
+    유사한 특성의 데이터는 거리가 가깝고, 다양한 거리 함수를 통해 데이터 간 거리를 구할 수... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -8416,7 +8651,10 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
 개념
 
-  프로시저와 함수는 그 실행이 외부적인 실행 명령에 의해 이루어지는데 반해, 트리거의 실행은 트리거링 사건(Triggering Event)에 의해 내부적... <span class="read_more">Read More</span></p>
+  프로시저와 함수는 그 실행이 외부적인 실행 명령에 의해 이루어지는데 반해, 트리거의 실행은 트리거링 사건(Triggering Event)에 의해 내부적으로 이루어짐
+  트리거를 일으키는 사건 (event)
+    
+      데이터베이스 테... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -8522,7 +8760,14 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
   매개 변수를 받을 수 있고, 반복해서 사용할 수 있는 이름이 있는 PL/SQL 블록
   return 값이 없음
-  연속 실행 또는 구현이 복잡한 트랜... <span class="read_more">Read More</span></p>
+  연속 실행 또는 구현이 복잡한 트랜잭션을 수행하는 PL/SQL 블록을 DB에 저장하기 위해 생성
+
+
+
+
+형식
+
+  CREAT... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -8630,7 +8875,8 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
   수강신청 입력 시 예외 처리가 많음
     
       이를 프로시저와 함수를 이용하여 작성
-      수강신청 입력 시 복... <span class="read_more">Read More</span></p>
+      수강신청 입력 시 복잡한 예외 처리를 그 때마다 할 필요 없이, 프로시저와 함수를 이용하여 쉽게 처리 가능
+ ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -8739,7 +8985,10 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
       매개 변수를 받을 수 있고, 반복해서 사용할 수 있는 이름이 있는 PL/SQL 블록
       return 값이 있음
     
-... <span class="read_more">Read More</span></p>
+  
+  용도
+    
+      연속 실행 또는 구현이 복잡한 트랜잭션을 수행하는 PL/... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -8843,7 +9092,8 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
 
 
-삼성전자 자사 스마트폰의 기본 검색 엔진 변경 검... <span class="read_more">Read More</span></p>
+삼성전자 자사 스마트폰의 기본 검색 엔진 변경 검토
+삼성전자가 자사 스마트폰의 기본 검색 엔진을 구글에서 마이크로소프트(MS)의 빙으로 교... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -8947,7 +9197,9 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
 문제
 
-어떤 단어를 뒤에서부터 읽어도 똑같다면 그 단어를 팰린드롬이라고 한다. ‘radar’, ‘see... <span class="read_more">Read More</span></p>
+어떤 단어를 뒤에서부터 읽어도 똑같다면 그 단어를 팰린드롬이라고 한다. ‘radar’, ‘sees’는 팰린드롬이다.
+
+수도 팰린드롬으로 취급할 수 있다. 수의 숫자들을 뒤에서부터 읽어도... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -9052,7 +9304,8 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 🐳 Kafka Broker
 
   카프카가 설치되어 있는 서버 단위
-  보통... <span class="read_more">Read More</span></p>
+  보통 3개 이상 브로커 사용 권장
+  파티션 1개, replication 1, 브로커 3대 -... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -9160,7 +9413,9 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
 카프카 이전
 
-  데이터를 전송하는 소스 애플리케이... <span class="read_more">Read More</span></p>
+  데이터를 전송하는 소스 애플리케이션과 데이터를 받는 타겟 애플리케이션
+  처음에는 단방향 통신
+  시간이 지나면서 소스 애... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -9268,7 +9523,13 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
 배열 A가 주어졌을 때, N번째 큰 값을 출력하는 프로그램을 작성하시오.
 
-배열 A의 크기는 항... <span class="read_more">Read More</span></p>
+배열 A의 크기는 항상 10이고, 자연수만 가지고 있다. N은 항상 3이다.
+
+
+
+입력
+
+첫째 줄에 테스트 케... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -9379,7 +9640,10 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
 
 
-시간... <span class="read_more">Read More</span></p>
+시간 복잡도 정의
+
+  빅-오메가: 최선일 때의 연산 횟수
+  빅-세타: 보통일 때의 연산 횟... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"><a class="post-tag" href="/tags.html#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a></div>
@@ -9489,7 +9753,8 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
 디버깅의 중요성
 
-  inde... <span class="read_more">Read More</span></p>
+  index 범위, 데이터 타입 잘못 지정하는 등의 실수 -&gt; 디버깅으로 해결 가능
+  디버깅... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -9595,7 +9860,9 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
 문제
 
-갑부 최백준 조교는 동전을 최소로 바꾸는데 성공했으나 김재홍 조교가 그 돈을 발견해서 최백준 조... <span class="read_more">Read More</span></p>
+갑부 최백준 조교는 동전을 최소로 바꾸는데 성공했으나 김재홍 조교가 그 돈을 발견해서 최백준 조교에게 그 돈을 나누자고 따진다.
+
+그 사실이 전 우주로 알려지자 우주에 있던 많은 생명체... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -9699,7 +9966,9 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
 문제
 
-정화는 N×M 크기의 초콜릿을 하나 가지고 있다. 초콜릿은 금이 가 있는 모양을 하고 있으며, ... <span class="read_more">Read More</span></p>
+정화는 N×M 크기의 초콜릿을 하나 가지고 있다. 초콜릿은 금이 가 있는 모양을 하고 있으며, 그 금에 의해 N×M개의 조각으로 나눠질 수 있다.
+
+초콜릿의 크기가 너무 크다고 생각한 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -9801,7 +10070,13 @@ spark = SparkSession.builder.appName('Test')... <span class="read_more">Read Mor
 
 
   SQL 처리 결과가 저장된 작업 영역에 이름을 지정하고, 저장된 정보에 접근할 수 있게 함
-  SQL 명령을 실행시키면 서버는 명령을 parse하고 실... <span class="read_more">Read More</span></p>
+  SQL 명령을 실행시키면 서버는 명령을 parse하고 실행하기 위한 메모리 영역을 open하는데, 이 영역을 cursor라고 부름
+
+
+
+
+
+  커... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -9912,7 +10187,8 @@ WHERE condition;
 
 
 
-... <span class="read_more">Read More</span></p>
+  반드시 하나의 행만을 추출
+  추출되는 데이터 행이 없거나 하나 이상일 경우 예외 발생... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -10024,7 +10300,8 @@ WHERE condition;
   
   
     
-      미리 정의된 오라클 서버 예외 &lt;/br&gt; (... <span class="read_more">Read More</span></p>
+      미리 정의된 오라클 서버 예외 &lt;/br&gt; (Predefined Exceptions)
+      PL/SQL에서 자주 발생하는 약 20... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -10130,7 +10407,7 @@ WHERE condition;
 
 문제
 
-어떤 수 X가 주어졌을 때, X의 모든 자리수가 역순이 된 수를 얻을 수 있다. Rev(X)를 ... <span class="read_more">Read More</span></p>
+어떤 수 X가 주어졌을 때, X의 모든 자리수가 역순이 된 수를 얻을 수 있다. Rev(X)를 X의 모든 자리수를 역순으로 만드는 함수라고 하자. 예를 들어, X=123일 때, Rev(... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -10234,7 +10511,9 @@ WHERE condition;
 
 문제
 
-동호는 내년에 초등학교를 입학한다. 그래서 동호 어머니는 수학 선행 학습을 위해 쉽게 푸는 문제... <span class="read_more">Read More</span></p>
+동호는 내년에 초등학교를 입학한다. 그래서 동호 어머니는 수학 선행 학습을 위해 쉽게 푸는 문제를 동호에게 주었다.
+
+이 문제는 다음과 같다. 1을 한 번, 2를 두 번, 3을 세 번,... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -10338,7 +10617,9 @@ WHERE condition;
 
 문제
 
-세준이와 세비는 온라인 게임을 즐겨한다. 이 온라인 게임에서는 군대를 서로 키울 수 있다. 세준... <span class="read_more">Read More</span></p>
+세준이와 세비는 온라인 게임을 즐겨한다. 이 온라인 게임에서는 군대를 서로 키울 수 있다. 세준이는 N명의 병사를 키웠고, 세비는 M명의 병사를 키웠다.
+
+이제 서로 전쟁을 하려고 한다... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -10442,7 +10723,7 @@ WHERE condition;
 
 문제
 
-시작 -&gt; 실행 -&gt; cmd를 쳐보자. 검정 화면이 눈에 보인다. 여기서 dir이라고... <span class="read_more">Read More</span></p>
+시작 -&gt; 실행 -&gt; cmd를 쳐보자. 검정 화면이 눈에 보인다. 여기서 dir이라고 치면 그 디렉토리에 있는 서브디렉토리와 파일이 모두 나온다. 이때 원하는 파일을 찾으려면... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -10546,7 +10827,7 @@ AI챗봇 장착한 마이크로소프트(MS) 검색엔진 ‘Bing’…이미지
 
 
 
-MS가 AI 챗봇을 장착해 새롭게 출시한 검색엔진 ‘빙’은 기존 키워드 검색... <span class="read_more">Read More</span></p>
+MS가 AI 챗봇을 장착해 새롭게 출시한 검색엔진 ‘빙’은 기존 키워드 검색의 한계를 넘어 대화방식을 통해 원하는 답변을 얻는다. 출시 한 달만에 일일 활성 사용자 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -10652,7 +10933,16 @@ https://www.inflearn.com/course/초보-백엔드-개발자-로드맵
 
 
 백엔드 로드맵 링크
-https://roadmap.sh/ba... <span class="read_more">Read More</span></p>
+https://roadmap.sh/backend
+
+
+
+🌼 인터넷
+
+
+인터넷 동작 방식
+
+  중앙에 라우터 라는 기계를 두고, 각... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"><a class="post-tag" href="/tags.html#BE%20%EC%9D%B4%EB%A1%A0">#BE 이론</a></div>
@@ -10762,7 +11052,13 @@ https://roadmap.sh/ba... <span class="read_more">Read More</span></p>
 
 입력
 
-첫째 줄에 8진수가... <span class="read_more">Read More</span></p>
+첫째 줄에 8진수가 주어진다. 주어지는 수의 길이는 333,334을 넘지 않는다.
+
+
+
+출력
+
+첫째 줄에 주... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -10866,7 +11162,7 @@ https://roadmap.sh/ba... <span class="read_more">Read More</span></p>
 
 문제
 
-체스판은 8×8크기이고, 검정 칸과 하얀 칸이 번갈아가면서 색칠되어 있다. 가장 왼쪽 위칸 (0... <span class="read_more">Read More</span></p>
+체스판은 8×8크기이고, 검정 칸과 하얀 칸이 번갈아가면서 색칠되어 있다. 가장 왼쪽 위칸 (0,0)은 하얀색이다. 체스판의 상태가 주어졌을 때, 하얀 칸 위에 말이 몇 개 있는지 출력... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -10969,7 +11265,9 @@ https://roadmap.sh/ba... <span class="read_more">Read More</span></p>
 개요 및 특징
 
   Oracle에서 제공하는 SQL을 확장한 절차적 프로그래밍 언어
-  SQL 문장에서 변수 정의, 조건 처리, 반복 처리 등 프로그래밍 언... <span class="read_more">Read More</span></p>
+  SQL 문장에서 변수 정의, 조건 처리, 반복 처리 등 프로그래밍 언어가 보이는 제어 구조 제공
+  SQL과 프로그래밍 언어의 통합 접근 중 한 형태
+  ES... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -11076,7 +11374,9 @@ https://roadmap.sh/ba... <span class="read_more">Read More</span></p>
 
 
 CREATE [OR REPLACE] VIEW view_name
-[col1, col2, ...... <span class="read_more">Read More</span></p>
+[col1, col2, ...]       -- 컬럼명 변경 시 정의
+AS
+SELECT statement;       ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -11185,7 +11485,15 @@ CHR
 
 select CHR(숫자) from dual;
 
-select CHR(65) fr... <span class="read_more">Read More</span></p>
+select CHR(65) from dual;
+--&gt; A
+
+
+
+
+ASCII
+
+  문자 -&gt; ASCII 코드 값... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -11292,7 +11600,8 @@ SYSDATE
   현재 날짜와 시간 반환
   format 변경
     
-      TO_CHAR(SYSDATE, HH24:MI:SS') : 24시간 포... <span class="read_more">Read More</span></p>
+      TO_CHAR(SYSDATE, HH24:MI:SS') : 24시간 포맷으로 시간만 반환
+      TO_CHAR(SYSDATE, HH:MI:SS') : 12시... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -11405,7 +11714,16 @@ select CEIL(숫자) from dual;
 
 
 select CEIL(7.6) from dual;
---&gt; ... <span class="read_more">Read More</span></p>
+--&gt; 8
+
+select CEIL(0.1) from dual;
+--&gt; 1
+
+
+
+
+FLOOR
+... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -11511,7 +11829,7 @@ select CEIL(7.6) from dual;
 
 문제
 
-전자 제품에는 저항이 들어간다. 저항은 색 3개를 이용해서 그 저항이 몇 옴인지 나타낸다. 처음... <span class="read_more">Read More</span></p>
+전자 제품에는 저항이 들어간다. 저항은 색 3개를 이용해서 그 저항이 몇 옴인지 나타낸다. 처음 색 2개는 저항의 값이고, 마지막 색은 곱해야 하는 값이다. 저항의 값은 다음 표를 이용... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -11616,7 +11934,12 @@ select CEIL(7.6) from dual;
   서브 질의의 결과는 주 질의에 의해 사용됨
 
 
-... <span class="read_more">Read More</span></p>
+
+
+
+  유형 : return 값이 어떤 유형인지
+    
+      단일 행(Single... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -11721,7 +12044,10 @@ select CEIL(7.6) from dual;
   하나 이상의 테이블을 연결하여 데이터를 검색하는 방법
     
       보통 두 개 이상의 행들의 공통된 값(기본키 및 외래키 값)을 사용하여 조인 실행
-  ... <span class="read_more">Read More</span></p>
+    
+  
+  ex)
+      SELECT table.column1 [, table.co... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -11826,7 +12152,8 @@ select CEIL(7.6) from dual;
 칼럼 레벨 제약 조건
 
   칼럼 선언할 때 datatype 옆에 정의
-  NOT NULL 제약 조건은 칼럼 레벨에서만 정의 가능!... <span class="read_more">Read More</span></p>
+  NOT NULL 제약 조건은 칼럼 레벨에서만 정의 가능!
+    Column datatype [CONSTRAINT constraint_name] ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags">
@@ -11932,7 +12259,7 @@ select CEIL(7.6) from dual;
 
 문제
 
-두 정수 N과 F가 주어진다. 지민이는 정수 N의 가장 뒤 두 자리를 적절히 바꿔서 N을 F로... <span class="read_more">Read More</span></p>
+두 정수 N과 F가 주어진다. 지민이는 정수 N의 가장 뒤 두 자리를 적절히 바꿔서 N을 F로 나누어 떨어지게 만들려고 한다. 만약 가능한 것이 여러 가지이면, 뒤 두 자리를 가능하면... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -12035,7 +12362,7 @@ select CEIL(7.6) from dual;
 
 
 문제
-한수는 지금 (x, y)에 있다. 직사각형은 각 변이 좌표축에 평행하고, 왼쪽 아래 꼭짓점은 (... <span class="read_more">Read More</span></p>
+한수는 지금 (x, y)에 있다. 직사각형은 각 변이 좌표축에 평행하고, 왼쪽 아래 꼭짓점은 (0, 0), 오른쪽 위 꼭짓점은 (w, h)에 있다. 직사각형의 경계선까지 가는 거리의 최... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -12138,7 +12465,7 @@ select CEIL(7.6) from dual;
 
 
 문제
-재용이는 최신 컴퓨터 10대를 가지고 있다. 어느 날 재용이는 많은 데이터를 처리해야 될 일이 ... <span class="read_more">Read More</span></p>
+재용이는 최신 컴퓨터 10대를 가지고 있다. 어느 날 재용이는 많은 데이터를 처리해야 될 일이 생겨서 각 컴퓨터에 1번부터 10번까지의 번호를 부여하고, 10대의 컴퓨터가 다음과 같은 ... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"></div>
@@ -12242,7 +12569,8 @@ select CEIL(7.6) from dual;
 
 
 
-  응용 프로그램에서 사용할 수 있도록 운영체제나 프로그래밍 언어가 제공하는 기능을 제어할... <span class="read_more">Read More</span></p>
+  응용 프로그램에서 사용할 수 있도록 운영체제나 프로그래밍 언어가 제공하는 기능을 제어할 수 있게 만든 인터페이스 (위키백과)
+  처음부터 개발하거나 유지보수할 필요가 없는 외부... <span class="read_more">Read More</span></p>
     </a>
   </div>
   <div class="post-tags"><a class="post-tag" href="/tags.html#BE%20%EC%9D%B4%EB%A1%A0">#BE 이론</a></div>
