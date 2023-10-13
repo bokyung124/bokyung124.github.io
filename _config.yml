@@ -138,7 +138,7 @@ yat:
 # it will be always kept on every visit (i.e. no matter
 # the browser is closed or not)
 #
-night_mode: "off"
+night_mode: "auto"
 
 # Code badge setting
 # You can enable or disable the code badge and so on
@@ -241,9 +241,9 @@ highlighter: rouge
 markdown: kramdown
 kmarkdown:
   input: GFM
-lsi: false
-excerpt_separator: "\n\n"
-incremental: false
+# lsi: false
+excerpt_separator: "\n"
+# incremental: false
 
 plugins:
   - jekyll-feed
@@ -251,3 +251,4 @@ plugins:
   - jekyll-sitemap
   - jekyll-paginate
   - jekyll-spaceship
+

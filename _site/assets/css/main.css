@@ -268,7 +268,7 @@ html[data-scroll-status=top] header.site-header-transparent.site-header .site-br
 }
 @media screen and (max-width: 800px) {
   html[data-scroll-status=top] header.site-header-transparent.site-header .page-link {
-    color: #373737;
+    color: #1d1d1f;
   }
   html[data-scroll-status=top] header.site-header-transparent.site-header .menu-icon > svg {
     fill: #fdfdfd;
@@ -337,7 +337,7 @@ html[data-scroll-status=down] .framework .sidebar {
   transition: 0.1s filter color;
 }
 .site-brand .site-brand-inner, .site-brand .site-brand-inner:visited {
-  color: #373737;
+  color: #1d1d1f;
 }
 .site-brand .site-brand-inner .site-favicon {
   display: inline-block;
@@ -360,7 +360,7 @@ html[data-scroll-status=down] .framework .sidebar {
 }
 .site-nav .page-link {
   line-height: 2;
-  color: #373737;
+  color: #1d1d1f;
   transition: 0.1s ease-in-out;
 }
 .site-nav .page-link:not(:last-child) {
@@ -386,7 +386,7 @@ html[data-scroll-status=down] .framework .sidebar {
     text-align: center;
   }
   .site-nav .menu-icon > svg {
-    fill: rgba(55, 55, 55, 0.8);
+    fill: rgba(29, 29, 31, 0.8);
     transition: 0.1s fill;
   }
   .site-nav input ~ .trigger {
@@ -402,7 +402,7 @@ html[data-scroll-status=down] .framework .sidebar {
   .site-nav .page-link {
     display: block;
     padding: 5px 10px;
-    color: rgba(55, 55, 55, 0.8);
+    color: rgba(29, 29, 31, 0.8);
     margin: 0 25px;
   }
 }
