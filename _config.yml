@@ -55,11 +55,11 @@ yat:
   date_format: "%b %d, %Y"
 
 # Site Footer
-user:
-  links:
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/bokyung124"
+# user:
+#   links:
+#     - label: "GitHub"
+#       icon: "fab fa-fw fa-github"
+#       url: "https://github.com/bokyung124"
 
 # If you want more debug log, you can set true
 # debug: false
