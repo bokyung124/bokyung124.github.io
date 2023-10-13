@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[Inflearn] 초보 백엔드 개발자 로드맵 | Your awesome title</title>
+<meta name="generator" content="Jekyll v4.3.2">
+<meta property="og:title" content="[Inflearn] 초보 백엔드 개발자 로드맵">
+<meta name="author" content="GitHub User">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Inflearn) 초보 백엔드 개발자 로드맵">
+<meta property="og:description" content="Inflearn) 초보 백엔드 개발자 로드맵">
+<link rel="canonical" href="http://localhost:4000/cs/2023/04/09/backend.html">
+<meta property="og:url" content="http://localhost:4000/cs/2023/04/09/backend.html">
+<meta property="og:site_name" content="Your awesome title">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-04-09T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[Inflearn] 초보 백엔드 개발자 로드맵">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"GitHub User"},"dateModified":"2023-04-10T06:30:00+09:00","datePublished":"2023-04-09T00:00:00+09:00","description":"Inflearn) 초보 백엔드 개발자 로드맵","headline":"[Inflearn] 초보 백엔드 개발자 로드맵","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/cs/2023/04/09/backend.html"},"url":"http://localhost:4000/cs/2023/04/09/backend.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="icon" href="">
+  <link rel="canonical" href="http://localhost:4000">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js" async></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js" async></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.info("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (el.src.trim() == "") {
+        return;
+      }
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/logo/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Your awesome title" src="" onerror="this.style.display='none'">
+  Your awesome title
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/">HOME</a><a class="page-link" href="/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[Inflearn] 초보 백엔드 개발자 로드맵</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-04-09T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 09, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+  </div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <p><br></p>
+
+<h2 id="-강의-링크-무료">🌼 강의 링크 (무료)</h2>
+<p><a href="https://www.inflearn.com/course/%EC%B4%88%EB%B3%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90-%EB%A1%9C%EB%93%9C%EB%A7%B5">https://www.inflearn.com/course/초보-백엔드-개발자-로드맵</a></p>
+
+<p><br></p>
+
+<h3 id="백엔드-로드맵-링크">백엔드 로드맵 링크</h3>
+<p><a href="https://roadmap.sh/backend">https://roadmap.sh/backend</a></p>
+
+<p><br></p>
+
+<h2 id="-인터넷">🌼 인터넷</h2>
+<hr>
+
+<h3 id="인터넷-동작-방식">인터넷 동작 방식</h3>
+<ul>
+  <li>중앙에 <strong>라우터</strong> 라는 기계를 두고, 각 컴퓨터를 라우터와 연결 -&gt; 단순하게 연결</li>
+  <li>라우터끼리도 연결 가능 -&gt; 네트워크 확장</li>
+  <li>인터넷 제공 장비: 모뎀</li>
+  <li>인터넷 제공 업체: ISP (Internet Service Provider)</li>
+  <li>인터넷으로 연결된 컴퓨터들은 <strong>IP 주소</strong>를 가짐</li>
+  <li>IP 주소를 사람이 알기 쉽게 알파벳과 숫자로 바꾼 것: DNS (도메인)</li>
+</ul>
+
+<p><br></p>
+
+<h4 id="terminal에서-google-찾기">terminal에서 google 찾기</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping google.com
+</code></pre></div></div>
+<p>-&gt; 구글 서버의 IP 주소 나옴</p>
+
+<p><br></p>
+
+<h3 id="웹소켓">웹소켓</h3>
+<ul>
+  <li>데이터를 주고 받을 때 HTTP로 주고 받음</li>
+  <li>HTTP
+    <ul>
+      <li>클라이언트가 서버에 요청해야 응답을 줄 수 있음</li>
+    </ul>
+  </li>
+  <li>웹소켓
+    <ul>
+      <li>HTTP의 단점 보강한 프로토콜</li>
+      <li>HTTP 위에서 구축</li>
+      <li>구동 단계
+        <ul>
+          <li>1) HTTP로 핸드쉐이크</li>
+          <li>2) 웹소켓으로 양방향 통신</li>
+          <li>3) 접속 끊기 (클라이언트/서버 아무나 끊을 수 있음)</li>
+        </ul>
+      </li>
+      <li>실시간 통신이 필요할 때, 채팅, 주식 같은 사이트에서 주로 사용</li>
+      <li>ex) 업비트</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-version-control">🌼 Version Control</h2>
+<hr>
+
+<h3 id="git">Git</h3>
+<ul>
+  <li>분산형 버전 관리 시스템</li>
+  <li>다른 버전 관리 시스템과 차별화: 협업 가능</li>
+  <li>로컬 머신의 코드와 분산 서버의 코드가 완전히 동일한 구조</li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">git push</code>: 로컬 머신 코드 업로드</p>
+  </li>
+  <li>영역
+    <ul>
+      <li>작업 디렉터리</li>
+      <li>staging area: 커밋을 하기 위해 <code class="language-plaintext highlighter-rouge">git add</code> 로 추가하면 올라가는 영역</li>
+      <li>repository: 커밋 완료 -&gt; 버전 관리가 가능해짐</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi test.txt
+git add test.txt
+git status
+ <span class="c"># 커밋할 변경 사항</span>
+
+git commit <span class="nt">-m</span> <span class="s1">'test'</span>
+
+git log <span class="nt">--oneline</span>
+
+git push  <span class="c"># 원격 서버로 올림</span>
+
+git pull  <span class="c"># 해당 파일 받음</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="github">Github</h3>
+<ul>
+  <li>git 기반 호스팅 사이트</li>
+  <li>
+<strong>pull request</strong>: 코드 관리자가 아닌 사람이 코드 변경 요청</li>
+  <li>
+<strong>action</strong>: 코드 저장소에 어떤 이벤트가 일어날 때 특정 작업이 일어나게 하거나, 주기적으로 어떤 작업을 반복 실행하고 싶은 경우</li>
+  <li>
+<strong>project</strong>: project 관리</li>
+  <li>
+<strong>insight</strong>: 저장소 운영 통계</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-개발-언어">🌼 개발 언어</h2>
+<hr>
+
+<ul>
+  <li>JavaScript / TypeScript</li>
+  <li>Java</li>
+  <li>
+    <p>Python</p>
+  </li>
+  <li>하나라도 잘 하기!</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-데이터-표현법">🌼 데이터 표현법</h2>
+<hr>
+
+<h3 id="json">JSON</h3>
+<ul>
+  <li>JavaScript Object Notation</li>
+  <li>JavaScript 오브젝트 표현법</li>
+  <li>많이 사용됨</li>
+  <li>문법 -&gt; <a href="http://json.org/json-ko.html">http://json.org/json-ko.html</a>
+</li>
+  <li>이름과 값 / 배열</li>
+  <li><code class="language-plaintext highlighter-rouge">{key:value}</code></li>
+</ul>
+
+<p><img width="622" alt="스크린샷 2023-04-09 오후 5 39 55" src="https://user-images.githubusercontent.com/53086873/230763020-8d1db8ba-a9af-43ac-9991-7819b3fe67e9.png"></p>
+
+<ul>
+  <li>거의 모든 프로젝트에서 지원</li>
+  <li>주석 넣을 수 없음</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="yaml">YAML</h3>
+<ul>
+  <li>마크업 언어가 아님</li>
+  <li><a href="http://learnxinyminutes.com/docs/yaml">http://learnxinyminutes.com/docs/yaml</a></li>
+  <li>JSON보다는 복잡</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">---</code>: 문서 구분</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">#</code>: 주석</li>
+  <li><code class="language-plaintext highlighter-rouge">key: value</code></li>
+  <li>true/false 구분 주의할 것</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-리눅스-명령어-ubuntu">🌼 리눅스 명령어 (Ubuntu)</h2>
+<hr>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 현재 위치</span>
+<span class="nb">pwd</span>
+
+<span class="c"># 현재 디렉터리의 파일과 디렉터리</span>
+<span class="nb">ls</span>
+
+<span class="c"># 디렉터리 이동, 생성, 복사</span>
+<span class="nb">cd</span> <span class="o">[</span><span class="nb">dir</span><span class="o">]</span>
+<span class="nb">mkdir</span> <span class="o">[</span><span class="nb">dir</span><span class="o">]</span>
+<span class="nb">cp</span> <span class="o">[</span>dir1] <span class="o">[</span>dir2]
+
+<span class="c"># 파일 열기</span>
+vi ~.txt
+
+<span class="c"># 디렉터리 변경</span>
+<span class="nb">mv </span>dir1 dir2 dir3
+
+<span class="c"># 파일 삭제</span>
+<span class="nb">rm</span> 
+
+<span class="c"># 파일 내용 확인</span>
+<span class="nb">cat</span>
+
+<span class="c"># 빈 파일 만들기</span>
+<span class="nb">touch</span> ~.txt
+
+<span class="c"># 화면에 글자 표시</span>
+<span class="nb">echo</span>
+
+<span class="c"># ip 정보</span>
+ip addr
+<span class="o">(</span>or<span class="o">)</span> ifconfig
+
+<span class="c"># 네트워크 상태</span>
+ss
+
+<span class="c"># 서버 포트 확인</span>
+nc localhost<span class="o">(</span><span class="nb">local </span>machine<span class="o">)</span> <span class="o">[</span>port]
+
+<span class="c"># 어떤 명령어가 어디 있는지</span>
+which <span class="o">[</span>명령어]
+
+<span class="c"># 파일 마지막 부분 표시</span>
+<span class="nb">tail</span> 
+
+<span class="c"># 파일, 디렉터리 찾음</span>
+find <span class="o">[]</span>
+
+<span class="c"># 프로세스 상태</span>
+ps <span class="nt">-aux</span>
+
+<span class="c"># 파일 내부에 패턴을 만족하는 문자열 있는지 확인</span>
+<span class="nb">grep</span> <span class="s1">' '</span> <span class="o">[</span>file]
+
+<span class="c"># 프로세스 죽임</span>
+<span class="nb">kill</span> <span class="o">[</span>pid]
+</code></pre></div></div>
+
+<p><br></p>
+
+<h2 id="-웹서버">🌼 웹서버</h2>
+<hr>
+
+<ul>
+  <li>애플리케이션 중간에 위치한 서버</li>
+  <li>유저 요청 -&gt; 웹서버 -&gt; 애플리케이션 서버 응답 -&gt; 웹서버 -&gt; 유저</li>
+  <li>유저가 원하는 정적 페이지 (HTML/jpg) 서비스할 때 이용하기도 함</li>
+  <li>ex) <strong>Nyinx</strong>, IIS, Apache</li>
+  <li>웹 개발할 때 웹서버도 같이 보게되는 경우가 많음</li>
+  <li>Kubernetes k8s - ingress: nyinx로 되어 있음</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-인증과-인가">🌼 인증과 인가</h2>
+<hr>
+
+<ul>
+  <li>인증 (Authenticattion)
+    <ul>
+      <li>신원 확인</li>
+      <li>ex) 로그인</li>
+    </ul>
+  </li>
+  <li>인가 (Authorization)
+    <ul>
+      <li>무엇을 할 수 있는지 정해주는 것</li>
+      <li>ex) 권한 지정</li>
+    </ul>
+  </li>
+  <li>보통은 인증과 인가 섞어서 쓰지만, 구분할 필요 있음!</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-프레임워크">🌼 프레임워크</h2>
+<hr>
+<ul>
+  <li>개발 시에 필요한 것들을 미리 만들어두어서 작업을 편하게 하는 코드 덩어리</li>
+  <li>종류
+    <ul>
+      <li>개발시에 설정을 어떻게 하고 코드는 어떻게 짜야하는지 제안</li>
+      <li>최소한의 코어만을 가지고 설정과 제약을 조금만 하는</li>
+    </ul>
+  </li>
+  <li>서버 측에서 API를 만드는 데 필요한 프레임워크
+    <ul>
+      <li>NestJS
+        <ul>
+          <li>아키텍처 구조 잡아줌</li>
+          <li>decorator로 추가적인 설정 파일을 두지 않고 라우터나 미들웨어 설정</li>
+          <li>아직 spring에 비해 기업용 프로그램을 작성하기에 부족한 부분이 있지만, 발전 가능성 있음</li>
+        </ul>
+      </li>
+      <li>Spring
+        <ul>
+          <li>기업용 애플리케이션을 만드는 데 필요한 것들을 모두 갖추고 있음</li>
+          <li>많은 학습 필요, 커뮤니티 활성화 되어 있음</li>
+          <li>JAVA 발전 더딘 편 - Kotlin이 나와서 어느정도 해소</li>
+        </ul>
+      </li>
+      <li>FastAPI
+        <ul>
+          <li>Python 커뮤니티에서 최근 유행</li>
+          <li>API만 작성하는 용도로 추천</li>
+          <li>최소한의 설정과 제약, 플라스크와 비슷</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-데이터베이스">🌼 데이터베이스</h2>
+<hr>
+
+<ul>
+  <li>검색과 축적이 쉽도록 정의된 데이터 모음</li>
+</ul>
+
+<h3 id="rdb">RDB</h3>
+<ul>
+  <li>관계형 DB, 기본키로 각 행 식별</li>
+  <li>질의, 수정, 삭제 용이하지만, 성능을 높이려면 분산 서버 생각해야 함</li>
+  <li>각 테이블 별 관계 지울 수 있음</li>
+  <li><strong>MySQL</strong></li>
+</ul>
+
+<h3 id="nosql">NoSQL</h3>
+<ul>
+  <li>MongoDB
+    <ul>
+      <li>document 저장에 용이</li>
+      <li>BSON 문서 모델 저장</li>
+      <li>클러스터 지원하여 확장이 용이</li>
+    </ul>
+  </li>
+  <li>redis
+    <ul>
+      <li>key-value 기반</li>
+      <li>분산 캐시</li>
+      <li>list, set, hash 등 다양하게 지원</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="db-지식들">DB 지식들</h3>
+<ul>
+  <li>ORM
+    <ul>
+      <li>Object Relation Mapping</li>
+      <li>클래스 오브젝트와 테이블의 관계를 클래스로 가져올 수 있도록</li>
+      <li>특정 클래스의 메소드를 실행하면 실행시에 쿼리 생성을 하거나 쿼리 실행</li>
+      <li>쿼리 작성 없이 DB 조작 가능</li>
+      <li>직관적으로 데이터 관리 가능</li>
+    </ul>
+  </li>
+  <li>ACID
+    <ul>
+      <li>원자성, 일관성, 격리성, 내구성</li>
+      <li>원자성: 트랜잭션을 구성하는 명령어 묶음이 모두 성공하거나 모두 실패하도록</li>
+      <li>일관성: 트랜잭션에 사용된 변경사항이 DB의 무결성조건 만족할 수 있도록</li>
+      <li>격리성: 두 개의 트랜잭션이 서로에게 영향을 미칠 수 없음</li>
+      <li>내구성: 트랜잭션이 성공적으로 끝나면 그 결과가 DB에 계속 유지됨</li>
+    </ul>
+  </li>
+  <li>트랜잭션
+    <ul>
+      <li>데이터베이스의 상태 변화를 시키기 위해 시키는 작업의 단위</li>
+      <li>동시 다발적으로 발생하는 데이터 변경 요청에도 데이터가 안전하게 변경될 수 있도록 해줌</li>
+    </ul>
+  </li>
+  <li>N + 1 문제
+    <ul>
+      <li>ORM 사용 시 많이 마주치는 문제</li>
+      <li>클래스 모델에 다른 클래스의 관계를 설정하고 해당 클래스를 조회할 때 데이터 개수만큼 쿼리가 발생하는 것</li>
+      <li>불필요하게 많은 쿼리 발생</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-api">🌼 API</h2>
+<hr>
+
+<h3 id="rest-방식">REST 방식</h3>
+<ul>
+  <li>Representational State Transfer</li>
+  <li>자원의 표현에 의한 상태 전달</li>
+  <li>자원은 HTTP URI 형식으로 자원 표현</li>
+  <li>HTTP Method를 사용하여 해당 자원에 대한 상태 전달
+    <ul>
+      <li>POST, GET, PUT, DELETE</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="graphql">GraphQL</h3>
+<ul>
+  <li>쿼리언어 스펙</li>
+  <li>클라이언트가 서버로부터 데이터를 효과적으로 가져오게 하는 것이 목적</li>
+  <li>endpoint가 하나만 있음
+    <ul>
+      <li>REST는 각각의 URI 만들어주어야 함</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    user(id: "1000") {
+        name
+        createDt
+    }
+}
+</code></pre></div></div>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/java/2023/04/08/1212.html" title="[BOJ] 1212. 8진수 2진수">[BOJ] 1212. 8진수 2진수</a><a class="next" href="/it%20issues/2023/04/09/chatGPT.html" title="[IT] 챗GPT 열풍에 일상 속 AI서비스 인기">[IT] 챗GPT 열풍에 일상 속 AI서비스...</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li class="">
+          <a class="post-link" href="/sql/2023/04/11/PL-SQL-2.html" title="[DBP] CH3-2. PL/SQL 내에서의 SQL문">
+            [DBP] CH3-2. PL/SQL 내에서의 SQL문<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/01/multi-linear-regression.html" title="[BITAmin] Multi Linear Regression">
+            [BITAmin] Multi Linear Regression<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/sql/2023/04/06/View.html" title="[DBP] CH2-4. View">
+            [DBP] CH2-4. View<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/hadoop/2023/09/22/architecture2.html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2)">
+            [pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+</ul>
+    </div>
+<div class="post-comments">
+      <script src="https://utteranc.es/client.js" repo="bokyung124/bokyung124.github.io" issue-term="pathname" label="comments" theme="github-light" crossorigin="anonymous" async>
+      </script>
+      
+      <!---->
+    </div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>Unpublished Work <span class="copyleft">©</span> 2017-2023 GitHub User</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

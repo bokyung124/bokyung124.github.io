@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[BoostCourse] 4. 피처 엔지니어링 | Your awesome title</title>
+<meta name="generator" content="Jekyll v4.3.2">
+<meta property="og:title" content="[BoostCourse] 4. 피처 엔지니어링">
+<meta name="author" content="GitHub User">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+<link rel="canonical" href="http://localhost:4000/ml%20&amp;%20dl/2023/05/16/fe.html">
+<meta property="og:url" content="http://localhost:4000/ml%20&amp;%20dl/2023/05/16/fe.html">
+<meta property="og:site_name" content="Your awesome title">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-05-16T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[BoostCourse] 4. 피처 엔지니어링">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"GitHub User"},"dateModified":"2023-05-17T02:20:00+09:00","datePublished":"2023-05-16T00:00:00+09:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[BoostCourse] 4. 피처 엔지니어링","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/ml%20&%20dl/2023/05/16/fe.html"},"url":"http://localhost:4000/ml%20&%20dl/2023/05/16/fe.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="icon" href="">
+  <link rel="canonical" href="http://localhost:4000">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js" async></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js" async></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.info("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (el.src.trim() == "") {
+        return;
+      }
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/logo/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Your awesome title" src="" onerror="this.style.display='none'">
+  Your awesome title
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/">HOME</a><a class="page-link" href="/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[BoostCourse] 4. 피처 엔지니어링</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-05-16T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 16, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 17 mins</span>
+  </div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <p><br></p>
+
+<h2 id="1-피처-엔지니어링">1. 피처 엔지니어링</h2>
+
+<ul>
+  <li>
+    <p>원본 데이터로부터 도메인 지식 등을 바탕으로 문제를 해결하는데 도움이 되는 Feature를 생성, 변환하고 이를 머신러닝 모델에 적합한 형식으로 변환하는 작업</p>
+  </li>
+  <li>
+    <p>일반 머신러닝에서는 성능을 올리는데 가장 중요한 핵심적인 단계</p>
+    <ul>
+      <li>딥러닝은 모델의 구조를 통해 데이터의 피처를 모델이 스스로 추출하지만 (end-to-end learning)</li>
+      <li>머신러닝은 피처를 스스로 추출할 수 없기 때문에 사람이 직접 데이터를 이해해서 피처를 만들어야 함</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="1-groupby--aggregation">1) groupby / aggregation</h3>
+<ul>
+  <li>
+    <p>Pandas의 groupby, aggregation 함수를 적용하여 새로운 피처 생성</p>
+  </li>
+  <li>
+    <p>EDA를 위한 Feature 생성 코드
+<img width="545" alt="스크린샷 2023-05-16 오후 12 36 42" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/81c03d89-6d27-45b8-8702-d2f475f460ec"></p>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>Feature 생성
+<img width="868" alt="스크린샷 2023-05-16 오후 12 39 02" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/4976619c-cd2e-4a18-8182-07e79fc9a547">
+</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>피처 엔지니어링 함수 정의</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sh">'''</span><span class="s">
+    입력인자로 받는 year_month와 변수 prev_ym 기준으로 train, test 데이터를 생성 하고
+    집계(aggregation) 함수를 사용하여 피처 엔지니어링을 하는 함수
+</span><span class="sh">'''</span>
+<span class="k">def</span> <span class="nf">feature_engineering1</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">year_month</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>
+    
+    <span class="c1"># year_month 이전 월 계산
+</span>    <span class="n">d</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="nf">strptime</span><span class="p">(</span><span class="n">year_month</span><span class="p">,</span> <span class="sh">"</span><span class="s">%Y-%m</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">prev_ym</span> <span class="o">=</span> <span class="n">d</span> <span class="o">-</span> <span class="n">dateutil</span><span class="p">.</span><span class="n">relativedelta</span><span class="p">.</span><span class="nf">relativedelta</span><span class="p">(</span><span class="n">months</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">prev_ym</span> <span class="o">=</span> <span class="n">prev_ym</span><span class="p">.</span><span class="nf">strftime</span><span class="p">(</span><span class="sh">'</span><span class="s">%Y-%m</span><span class="sh">'</span><span class="p">)</span>
+    
+    <span class="c1"># train, test 데이터 선택
+</span>    <span class="n">train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="sh">'</span><span class="s">order_date</span><span class="sh">'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">prev_ym</span><span class="p">]</span>
+    <span class="n">test</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="sh">'</span><span class="s">order_date</span><span class="sh">'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">year_month</span><span class="p">]</span>
+    
+    <span class="c1"># train, test 레이블 데이터 생성
+</span>    <span class="n">train_label</span> <span class="o">=</span> <span class="nf">generate_label</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">prev_ym</span><span class="p">)[[</span><span class="sh">'</span><span class="s">customer_id</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">year_month</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]]</span>
+    <span class="n">test_label</span> <span class="o">=</span> <span class="nf">generate_label</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">year_month</span><span class="p">)[[</span><span class="sh">'</span><span class="s">customer_id</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">year_month</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]]</span>
+    
+    <span class="c1"># group by aggregation 함수 선언
+</span>    <span class="n">agg_func</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">mean</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">max</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">min</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">sum</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">count</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">std</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">skew</span><span class="sh">'</span><span class="p">]</span>
+    <span class="n">all_train_data</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nc">DataFrame</span><span class="p">()</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tr_ym</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">train_label</span><span class="p">[</span><span class="sh">'</span><span class="s">year_month</span><span class="sh">'</span><span class="p">].</span><span class="nf">unique</span><span class="p">()):</span>
+        <span class="c1"># group by aggretation 함수로 train 데이터 피처 생성
+</span>        <span class="n">train_agg</span> <span class="o">=</span> <span class="n">train</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train</span><span class="p">[</span><span class="sh">'</span><span class="s">order_date</span><span class="sh">'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">tr_ym</span><span class="p">].</span><span class="nf">groupby</span><span class="p">([</span><span class="sh">'</span><span class="s">customer_id</span><span class="sh">'</span><span class="p">]).</span><span class="nf">agg</span><span class="p">(</span><span class="n">agg_func</span><span class="p">)</span>
+
+        <span class="c1"># 멀티 레벨 컬럼을 사용하기 쉽게 1 레벨 컬럼명으로 변경
+</span>        <span class="n">new_cols</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">train_agg</span><span class="p">.</span><span class="n">columns</span><span class="p">.</span><span class="n">levels</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">train_agg</span><span class="p">.</span><span class="n">columns</span><span class="p">.</span><span class="n">levels</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">new_cols</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s">-</span><span class="si">{</span><span class="n">stat</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+
+        <span class="n">train_agg</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">new_cols</span>
+        <span class="n">train_agg</span><span class="p">.</span><span class="nf">reset_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+        
+        <span class="n">train_agg</span><span class="p">[</span><span class="sh">'</span><span class="s">year_month</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">tr_ym</span>
+        
+        <span class="n">all_train_data</span> <span class="o">=</span> <span class="n">all_train_data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">train_agg</span><span class="p">)</span>
+    
+    <span class="n">all_train_data</span> <span class="o">=</span> <span class="n">train_label</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="n">all_train_data</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="sh">'</span><span class="s">customer_id</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">year_month</span><span class="sh">'</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="sh">'</span><span class="s">left</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">all_train_data</span><span class="p">.</span><span class="nf">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sh">'</span><span class="s">customer_id</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">year_month</span><span class="sh">'</span><span class="p">]).</span><span class="n">columns</span>
+    
+    <span class="c1"># group by aggretation 함수로 test 데이터 피처 생성
+</span>    <span class="n">test_agg</span> <span class="o">=</span> <span class="n">test</span><span class="p">.</span><span class="nf">groupby</span><span class="p">([</span><span class="sh">'</span><span class="s">customer_id</span><span class="sh">'</span><span class="p">]).</span><span class="nf">agg</span><span class="p">(</span><span class="n">agg_func</span><span class="p">)</span>
+    <span class="n">test_agg</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">new_cols</span>
+    
+    <span class="n">test_data</span> <span class="o">=</span> <span class="n">test_label</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="n">test_agg</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="sh">'</span><span class="s">customer_id</span><span class="sh">'</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="sh">'</span><span class="s">left</span><span class="sh">'</span><span class="p">)</span>
+
+    <span class="c1"># train, test 데이터 전처리
+</span>    <span class="n">x_tr</span><span class="p">,</span> <span class="n">x_te</span> <span class="o">=</span> <span class="nf">feature_preprocessing</span><span class="p">(</span><span class="n">all_train_data</span><span class="p">,</span> <span class="n">test_data</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span>
+    
+    <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">x_tr.shape</span><span class="sh">'</span><span class="p">,</span> <span class="n">x_tr</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="sh">'</span><span class="s">, x_te.shape</span><span class="sh">'</span><span class="p">,</span> <span class="n">x_te</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">x_tr</span><span class="p">,</span> <span class="n">x_te</span><span class="p">,</span> <span class="n">all_train_data</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">],</span> <span class="n">features</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h4 id="1-total-sum-feature">1) total-sum Feature</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sample1</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[(</span><span class="n">df_all</span><span class="p">[</span><span class="sh">'</span><span class="s">total-sum</span><span class="sh">'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1000</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="sh">'</span><span class="s">total-sum</span><span class="sh">'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">5000</span><span class="p">)]</span>
+<span class="n">sns</span><span class="p">.</span><span class="nf">distplot</span><span class="p">(</span><span class="n">sampel1</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sample1</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sh">'</span><span class="s">total-sum</span><span class="sh">'</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="sh">'</span><span class="s">label=0</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">sns</span><span class="p">.</span><span class="nf">distplot</span><span class="p">(</span><span class="n">sampel1</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sample1</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">'</span><span class="s">total-sum</span><span class="sh">'</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="sh">'</span><span class="s">label=1</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img width="373" alt="스크린샷 2023-05-16 오후 12 41 49" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/5759fe30-d9f1-466b-9cc1-f53d996f2f7b"></p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">total-sum</code> : label별 분포가 확연히 다르기 때문에 모델에서 사용하기 좋은 feature</li>
+</ul>
+
+<p><br></p>
+
+<h4 id="2-quantity-sum-feature">2) quantity-sum feature</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sample1</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[(</span><span class="n">df_all</span><span class="p">[</span><span class="sh">'</span><span class="s">quantity-sum</span><span class="sh">'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="sh">'</span><span class="s">quantity-sum</span><span class="sh">'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1500</span><span class="p">)]</span>
+<span class="n">sns</span><span class="p">.</span><span class="nf">distplot</span><span class="p">(</span><span class="n">sampel1</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sample1</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sh">'</span><span class="s">quantity-sum</span><span class="sh">'</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="sh">'</span><span class="s">label=0</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">sns</span><span class="p">.</span><span class="nf">distplot</span><span class="p">(</span><span class="n">sampel1</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sample1</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">'</span><span class="s">quantity-sum</span><span class="sh">'</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="sh">'</span><span class="s">label=1</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img width="446" alt="스크린샷 2023-05-16 오후 12 44 47" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/66c1510c-f92f-4684-aefe-e131a2a3d5d7"></p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">quantity-sum</code> : label별 분포가 확연히 다르기 때문에 모델에서 사용하기 좋은 feature</li>
+</ul>
+
+<p><br></p>
+
+<h4 id="3-price-sum-feature">3) price-sum feature</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sample1</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[(</span><span class="n">df_all</span><span class="p">[</span><span class="sh">'</span><span class="s">price-sum</span><span class="sh">'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="sh">'</span><span class="s">price-sum</span><span class="sh">'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">)]</span>
+<span class="n">sns</span><span class="p">.</span><span class="nf">distplot</span><span class="p">(</span><span class="n">sampel1</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sample1</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sh">'</span><span class="s">price-sum</span><span class="sh">'</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="sh">'</span><span class="s">label=0</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">sns</span><span class="p">.</span><span class="nf">distplot</span><span class="p">(</span><span class="n">sampel1</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sample1</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">'</span><span class="s">price-sum</span><span class="sh">'</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="sh">'</span><span class="s">label=1</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img width="387" alt="스크린샷 2023-05-16 오후 12 46 18" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/e9012c06-0235-4b46-b464-6f6c7fa13c48"></p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">price-sum</code> : label별 분포가 확연히 다르기 때문에 모델에서 사용하기 좋은 feature</li>
+</ul>
+
+<p><br></p>
+
+<h4 id="4-total-count-feature">4) total-count feature</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sample1</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[(</span><span class="n">df_all</span><span class="p">[</span><span class="sh">'</span><span class="s">total-count</span><span class="sh">'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="sh">'</span><span class="s">total-count</span><span class="sh">'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">200</span><span class="p">)]</span>
+<span class="n">sns</span><span class="p">.</span><span class="nf">distplot</span><span class="p">(</span><span class="n">sampel1</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sample1</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sh">'</span><span class="s">total-count</span><span class="sh">'</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="sh">'</span><span class="s">label=0</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">sns</span><span class="p">.</span><span class="nf">distplot</span><span class="p">(</span><span class="n">sampel1</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sample1</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">'</span><span class="s">total-count</span><span class="sh">'</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="sh">'</span><span class="s">label=1</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img width="418" alt="스크린샷 2023-05-16 오후 12 47 57" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/5a9b6f1b-43a2-459c-ac3e-e7bbf2ac5623"></p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">total-count</code> : label별 분포가 확연히 다르기 때문에 모델에서 사용하기 좋은 feature</li>
+</ul>
+
+<p><br></p>
+
+<h4 id="5-quantity-count-feature">5) quantity-count feature</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sample1</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[(</span><span class="n">df_all</span><span class="p">[</span><span class="sh">'</span><span class="s">quantity-count</span><span class="sh">'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="sh">'</span><span class="s">quantity-count</span><span class="sh">'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">200</span><span class="p">)]</span>
+<span class="n">sns</span><span class="p">.</span><span class="nf">distplot</span><span class="p">(</span><span class="n">sampel1</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sample1</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sh">'</span><span class="s">quantity-count</span><span class="sh">'</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="sh">'</span><span class="s">label=0</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">sns</span><span class="p">.</span><span class="nf">distplot</span><span class="p">(</span><span class="n">sampel1</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sample1</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">'</span><span class="s">quantity-count</span><span class="sh">'</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="sh">'</span><span class="s">label=1</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img width="459" alt="스크린샷 2023-05-16 오후 12 49 35" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/d0728cb6-87c2-4761-9159-8553d4e4b4f5"></p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">quantity-count</code> : label별 분포가 확연히 다르기 때문에 모델에서 사용하기 좋은 feature</li>
+</ul>
+
+<p><br></p>
+
+<h4 id="6-price-std-feature">6) price-std feature</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sample1</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[(</span><span class="n">df_all</span><span class="p">[</span><span class="sh">'</span><span class="s">price-std</span><span class="sh">'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="sh">'</span><span class="s">price-std</span><span class="sh">'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)]</span>
+<span class="n">sns</span><span class="p">.</span><span class="nf">distplot</span><span class="p">(</span><span class="n">sampel1</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sample1</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sh">'</span><span class="s">price-std</span><span class="sh">'</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="sh">'</span><span class="s">label=0</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">sns</span><span class="p">.</span><span class="nf">distplot</span><span class="p">(</span><span class="n">sampel1</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sample1</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">'</span><span class="s">price-std</span><span class="sh">'</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="sh">'</span><span class="s">label=1</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img width="372" alt="스크린샷 2023-05-16 오후 12 52 34" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/c965c01a-0318-43e3-896b-95d2f47ac253"></p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">price-std</code> : label별 분포가 큰 차이를 보이지 않음</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="2-cross-validation을-이용한-out-of-fold-예측">2. Cross Validation을 이용한 Out of Fold 예측</h2>
+
+<ul>
+  <li>모델 훈련시 Cross Validation을 적용해서 Out of Fold Validation 성능 측정 및 Test 데이터 예측을 통해 성능 향상</li>
+</ul>
+
+<p><img width="508" alt="스크린샷 2023-05-16 오후 12 54 23" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/adcb311e-2697-4bb4-ad99-f4fa2d801aad"></p>
+
+<ul>
+  <li>Out Of Fold
+    <ul>
+      <li>Fold마다 학습한 모델로 테스트 데이터를 예측하고, 이를 평균 앙상블하여 최종 예측값으로 사용하는 방법</li>
+      <li>대부분 이 기법 사용</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>LightGBM cross validation out of fold train/predict 함수 정의</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sh">'''</span><span class="s">
+    학습 데이터(x_tr), 검증 데이터(x_val), 테스트 데이터(test)로 LightGBM 모델을
+    학습, 교차(cross) 검증 및 테스트하고 사용된 피처들의 중요도를 반환하는 함수
+</span><span class="sh">'''</span>
+
+<span class="k">def</span> <span class="nf">make_lgb_oof_prediction</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">categorical_features</span><span class="o">=</span><span class="sh">'</span><span class="s">auto</span><span class="sh">'</span><span class="p">,</span> <span class="n">model_params</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">folds</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">x_train</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="n">features</span><span class="p">]</span>
+    <span class="n">x_test</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="n">features</span><span class="p">]</span>
+    
+    <span class="c1"># 테스트 데이터 예측값을 저장할 변수
+</span>    <span class="n">test_preds</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">zeros</span><span class="p">(</span><span class="n">x_test</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    
+    <span class="c1"># Out Of Fold Validation 예측 데이터를 저장할 변수
+</span>    <span class="n">y_oof</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">zeros</span><span class="p">(</span><span class="n">x_train</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    
+    <span class="c1"># 폴드별 평균 Validation 스코어를 저장할 변수
+</span>    <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="c1"># 피처 중요도를 저장할 데이터 프레임 선언
+</span>    <span class="n">fi</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nc">DataFrame</span><span class="p">()</span>
+    <span class="n">fi</span><span class="p">[</span><span class="sh">'</span><span class="s">feature</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">features</span>
+    
+    <span class="c1"># Stratified K Fold 선언
+</span>    <span class="n">skf</span> <span class="o">=</span> <span class="nc">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">folds</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">fold</span><span class="p">,</span> <span class="p">(</span><span class="n">tr_idx</span><span class="p">,</span> <span class="n">val_idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">skf</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y</span><span class="p">)):</span>
+        <span class="c1"># train index, validation index로 train 데이터를 나눔
+</span>        <span class="n">x_tr</span><span class="p">,</span> <span class="n">x_val</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">tr_idx</span><span class="p">,</span> <span class="n">features</span><span class="p">],</span> <span class="n">x_train</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">,</span> <span class="n">features</span><span class="p">]</span>
+        <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">tr_idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
+        
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">fold: </span><span class="si">{</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">, x_tr.shape: </span><span class="si">{</span><span class="n">x_tr</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s">, x_val.shape: </span><span class="si">{</span><span class="n">x_val</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+
+        <span class="c1"># LightGBM 데이터셋 선언
+</span>        <span class="n">dtrain</span> <span class="o">=</span> <span class="n">lgb</span><span class="p">.</span><span class="nc">Dataset</span><span class="p">(</span><span class="n">x_tr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">y_tr</span><span class="p">)</span>
+        <span class="n">dvalid</span> <span class="o">=</span> <span class="n">lgb</span><span class="p">.</span><span class="nc">Dataset</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">y_val</span><span class="p">)</span>
+        
+        <span class="c1"># LightGBM 모델 훈련
+</span>        <span class="n">clf</span> <span class="o">=</span> <span class="n">lgb</span><span class="p">.</span><span class="nf">train</span><span class="p">(</span>
+            <span class="n">model_params</span><span class="p">,</span>
+            <span class="n">dtrain</span><span class="p">,</span>
+            <span class="n">valid_sets</span><span class="o">=</span><span class="p">[</span><span class="n">dtrain</span><span class="p">,</span> <span class="n">dvalid</span><span class="p">],</span> <span class="c1"># Validation 성능을 측정할 수 있도록 설정
+</span>            <span class="n">categorical_feature</span><span class="o">=</span><span class="n">categorical_features</span><span class="p">,</span>
+            <span class="n">verbose_eval</span><span class="o">=</span><span class="mi">200</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Validation 데이터 예측
+</span>        <span class="n">val_preds</span> <span class="o">=</span> <span class="n">clf</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">x_val</span><span class="p">)</span>
+        
+        <span class="c1"># Validation index에 예측값 저장 
+</span>        <span class="n">y_oof</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">val_preds</span>
+        
+        <span class="c1"># 폴드별 Validation 스코어 측정
+</span>        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Fold </span><span class="si">{</span><span class="n">fold</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s"> | AUC: </span><span class="si">{</span><span class="nf">roc_auc_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">val_preds</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">-</span><span class="sh">'</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+
+        <span class="c1"># score 변수에 폴드별 평균 Validation 스코어 저장
+</span>        <span class="n">score</span> <span class="o">+=</span> <span class="nf">roc_auc_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">val_preds</span><span class="p">)</span> <span class="o">/</span> <span class="n">folds</span>
+        
+        <span class="c1"># 테스트 데이터 예측하고 평균해서 저장
+</span>        <span class="n">test_preds</span> <span class="o">+=</span> <span class="n">clf</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span> <span class="o">/</span> <span class="n">folds</span>
+        
+        <span class="c1"># 폴드별 피처 중요도 저장
+</span>        <span class="n">fi</span><span class="p">[</span><span class="sa">f</span><span class="sh">'</span><span class="s">fold_</span><span class="si">{</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">clf</span><span class="p">.</span><span class="nf">feature_importance</span><span class="p">()</span>
+
+        <span class="k">del</span> <span class="n">x_tr</span><span class="p">,</span> <span class="n">x_val</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_val</span>
+        <span class="n">gc</span><span class="p">.</span><span class="nf">collect</span><span class="p">()</span>
+        
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">Mean AUC = </span><span class="si">{</span><span class="n">score</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># 폴드별 Validation 스코어 출력
+</span>    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">OOF AUC = </span><span class="si">{</span><span class="nf">roc_auc_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_oof</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Out Of Fold Validation 스코어 출력
+</span>        
+    <span class="c1"># 폴드별 피처 중요도 평균값 계산해서 저장 
+</span>    <span class="n">fi_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">fi</span><span class="p">.</span><span class="n">columns</span> <span class="k">if</span> <span class="sh">'</span><span class="s">fold_</span><span class="sh">'</span> <span class="ow">in</span> <span class="n">col</span><span class="p">]</span>
+    <span class="n">fi</span><span class="p">[</span><span class="sh">'</span><span class="s">importance</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">fi</span><span class="p">[</span><span class="n">fi_cols</span><span class="p">].</span><span class="nf">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">y_oof</span><span class="p">,</span> <span class="n">test_preds</span><span class="p">,</span> <span class="n">fi</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h2 id="3-lightgbm-early-stopping-적용">3. LightGBM Early Stopping 적용</h2>
+
+<ul>
+  <li>Early Stopping
+    <ul>
+      <li>Iteration을 통해 반복학습이 가능한 머신러닝 모델에서 validation 성능 측정을 통해 validation 성능이 가장 좋은 하이퍼파라미터에서 학습을 조기 종료하는 regularization 기법</li>
+      <li>ex) Boosting 트리 모델의 트리 개수, 딥러닝의 Epoch 수</li>
+    </ul>
+  </li>
+  <li>LightGBM Early Stopping
+    <ul>
+      <li>LightGBM에서 몇 개의 트리를 만들지 <code class="language-plaintext highlighter-rouge">n_estimator</code>라는 하이퍼파라미터로 설정하고 이 개수만큼 트리를 만들지만, 이 개수가 최적의 값이라고 볼 수 없음</li>
+      <li>Early Stopping은 validation 데이터가 있을 시, LightGBM의 트리 개수인 <code class="language-plaintext highlighter-rouge">n_estimator</code>는 충분히 크게 설정하고, <code class="language-plaintext highlighter-rouge">early_stopping_rounds</code>를 적절한 값으로 설정</li>
+      <li>트리를 추가할 때마다 validation 성능을 측정하고, 이 성능이 <code class="language-plaintext highlighter-rouge">early_stopping_rounds</code> 값 이상 연속으로 성능이 좋아지지 않으면 더이상 트리를 만들지 않고, 가장 validation 성능이 좋은 트리 개수를 최종 트리 개수로 사용</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>LightGBM Early Stopping 적용</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">folds</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">model_params</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">n_estimators</span><span class="sh">'</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span> <span class="p">...}</span>   <span class="c1"># ligthgbm hyperparameter
+</span><span class="n">x_train</span> <span class="o">=</span> <span class="p">...</span>  <span class="c1"># train data
+</span><span class="n">x_test</span> <span class="o">=</span> <span class="p">...</span>   <span class="c1"># test data
+</span><span class="n">y</span> <span class="o">=</span> <span class="p">...</span>        <span class="c1"># train label
+</span>
+<span class="c1"># validation out of fold 예측값을 저장할 변수
+</span><span class="n">y_oof</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">zeros</span><span class="p">(</span><span class="n">x_train</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># test data 예측값을 저장할 변수
+</span><span class="n">y_preds</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">zeros</span><span class="p">(</span><span class="n">x_test</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">skf</span> <span class="o">=</span> <span class="nc">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">folds</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ranndom_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="c1"># stratified k fold split 함수로 train index, validation index 가져옴
+</span><span class="k">for</span> <span class="n">fold</span><span class="p">,</span> <span class="p">(</span><span class="n">tr_idx</span><span class="p">,</span> <span class="n">val_idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">skf</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y</span><span class="p">)):</span>
+    <span class="c1"># train, validation index로 train data split
+</span>    <span class="n">x_tr</span><span class="p">,</span> <span class="n">x_val</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">tr_idx</span><span class="p">],</span> <span class="n">x_train</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
+    <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">tr_idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
+    <span class="n">dtrain</span> <span class="o">=</span> <span class="n">lgb</span><span class="p">.</span><span class="nc">Dataset</span><span class="p">(</span><span class="n">x_Tr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">y_tr</span><span class="p">)</span>
+    <span class="n">dvalid</span> <span class="o">=</span> <span class="n">lgb</span><span class="p">.</span><span class="nc">Dataset</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">y_val</span><span class="p">)</span>
+
+    <span class="c1"># early stopping으로 lightgbm 모델 train
+</span>    <span class="n">clf</span> <span class="o">=</span> <span class="n">lgv</span><span class="p">.</span><span class="nf">train</span><span class="p">(</span><span class="n">model_params</span><span class="p">,</span> <span class="n">dtrain</span><span class="p">,</span> <span class="n">valid_sets</span><span class="o">=</span><span class="p">[</span><span class="n">dtrain</span><span class="p">,</span> <span class="n">dvalid</span><span class="p">],</span> <span class="n">early_stopping_rounds</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+    <span class="c1"># out of fold validation data 예측
+</span>    <span class="n">y_oof</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">clf</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">x_val</span><span class="p">)</span>
+    <span class="c1"># train된 모델로 test data 예측
+</span>    <span class="n">y_preds</span> <span class="o">+=</span> <span class="n">clf</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span> <span class="o">/</span> <span class="n">folds</span>
+
+<span class="c1"># 전체 fold loop 순회 후 out of fold validation 성능 측정
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">OOF AUC = </span><span class="si">{</span><span class="nf">roc_auc_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_oof</span><span class="p">)</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/java/2023/05/14/2596.html" title="[BOJ] 2596. 비밀편지">[BOJ] 2596. 비밀편지</a><a class="next" href="/java/2023/05/22/1296.html" title="[BOJ] 1296. 팀 이름 정하기">[BOJ] 1296. 팀 이름 정하기</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li class="">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/27/gradientDescent.html" title="[BoostCourse] 3. Gradient Descent Methods">
+            [BoostCourse] 3. Gradient Descent Methods<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/sql/2023/04/11/Exception.html" title="[DBP] CH3-4. Exception">
+            [DBP] CH3-4. Exception<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/java/2023/05/11/1952.html" title="[BOJ] 1952. 달팽이2">
+            [BOJ] 1952. 달팽이2<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/tableu/2023/06/24/start.html" title="[tableu] 초급 데이터 시각화 활용">
+            [tableu] 초급 데이터 시각화 활용<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+</ul>
+    </div>
+<div class="post-comments">
+      <script src="https://utteranc.es/client.js" repo="bokyung124/bokyung124.github.io" issue-term="pathname" label="comments" theme="github-light" crossorigin="anonymous" async>
+      </script>
+      
+      <!---->
+    </div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>Unpublished Work <span class="copyleft">©</span> 2017-2023 GitHub User</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

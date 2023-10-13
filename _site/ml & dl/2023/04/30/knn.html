@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[BITAmin] KNN | Your awesome title</title>
+<meta name="generator" content="Jekyll v4.3.2">
+<meta property="og:title" content="[BITAmin] KNN">
+<meta name="author" content="GitHub User">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="KNN">
+<meta property="og:description" content="KNN">
+<link rel="canonical" href="http://localhost:4000/ml%20&amp;%20dl/2023/04/30/knn.html">
+<meta property="og:url" content="http://localhost:4000/ml%20&amp;%20dl/2023/04/30/knn.html">
+<meta property="og:site_name" content="Your awesome title">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-04-30T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[BITAmin] KNN">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"GitHub User"},"dateModified":"2023-05-01T13:55:00+09:00","datePublished":"2023-04-30T00:00:00+09:00","description":"KNN","headline":"[BITAmin] KNN","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/ml%20&%20dl/2023/04/30/knn.html"},"url":"http://localhost:4000/ml%20&%20dl/2023/04/30/knn.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="icon" href="">
+  <link rel="canonical" href="http://localhost:4000">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js" async></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js" async></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.info("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (el.src.trim() == "") {
+        return;
+      }
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/logo/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Your awesome title" src="" onerror="this.style.display='none'">
+  Your awesome title
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/">HOME</a><a class="page-link" href="/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[BITAmin] KNN</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-04-30T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 30, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 14 mins</span>
+  </div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <p><br></p>
+
+<h2 id="1-k-nn">1. K-NN</h2>
+
+<ul>
+  <li>
+<strong>주변의 가장 가까운 K개의 데이터</strong> 를 보고 새로운 데이터를 판단하는 알고리즘</li>
+  <li>N개의 특성을 가진 데이터는 n차원의 공간에 점으로 표현됨</li>
+  <li>
+    <p>유사한 특성의 데이터는 거리가 가깝고, 다양한 거리 함수를 통해 데이터 간 거리를 구할 수 있음</p>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">KNN 분류</code>
+    <ul>
+      <li>종속변수 Y : <strong>범주형 데이터</strong>  <br>
+-&gt; 어떤 범주에 속하는지, K개 중 과반수 의결에 의해 분류</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">KNN 회귀</code>
+    <ul>
+      <li>종속변수 Y : <strong>연속형 데이터</strong> <br>
+ -&gt; K개의 최근접 이웃이 가진 평균</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="2-최적의-k-값-찾는-방법">2. 최적의 K 값 찾는 방법</h2>
+
+<ul>
+  <li>최적의 K값은 데이터에 의존적이며, 현실적으로 만족할만한 수준의 값을 찾음
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">Trial &amp; Error</code> → Python 반복문 사용</li>
+    </ul>
+  </li>
+  <li>매우 작은 K는 overfitting 초래: 데이터의 지역적 특성을 지나치게 반영함</li>
+  <li>매우 큰 K는 underfitting 초래: 모델이 과하게 정규화됨</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="1-방법">1) 방법</h3>
+<ul>
+  <li>K 후보군 결정 : 1부터 학습데이터 개수 -1까지, 데이터 개수가 많다면 1부터 √n까지</li>
+  <li>Train &amp; Test 도는 Validation 데이터에 대해 knn 에러율 구함</li>
+  <li>에러율이 가장 낮은 K 선택</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="2-종속변수가-범주형일-경우">2) 종속변수가 범주형일 경우</h3>
+<ul>
+  <li>Tie 문제를 막기 위해 K는 홀수 권장</li>
+  <li>짝수일 경우 2:2, 3:3 등으로 동일하게 나뉠 수 있기 때문</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="3-종속변수가-연속형일-경우">3) 종속변수가 연속형일 경우</h3>
+<ul>
+  <li>Inverse distance weighted average 고려 가능</li>
+  <li>거리가 가까운 관측치들에게 가중치를 부과해 가중평균으로 구하는 것</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="4-train--test-반복문으로-최적의-k값-구하기">4) train &amp; test 반복문으로 최적의 k값 구하기</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span> <span class="n">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="n">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+<span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">cancer</span> <span class="o">=</span> <span class="nf">load_breast_cancer</span><span class="p">()</span>
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="nf">train_test_split</span><span class="p">(</span><span class="n">cancer</span><span class="p">.</span><span class="n">data</span><span class="p">,</span> <span class="n">cancer</span><span class="p">.</span><span class="n">target</span><span class="p">,</span> 
+                                   <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">stratify</span> <span class="o">=</span> <span class="n">cancer</span><span class="p">.</span><span class="n">target</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+                                   
+<span class="n">training_accuracy</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">test_accuracy</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">neighbors_settings</span> <span class="o">=</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">n_neighbors</span> <span class="ow">in</span> <span class="n">neighbors_settings</span><span class="p">:</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="nc">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="n">n_neighbors</span><span class="p">)</span>
+    <span class="n">clf</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">training_accuracy</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">clf</span><span class="p">.</span><span class="nf">score</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
+    <span class="n">test_accuracy</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">clf</span><span class="p">.</span><span class="nf">score</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+    
+<span class="n">plt</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">neighbors_settings</span><span class="p">,</span> <span class="n">training_accuracy</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sh">'</span><span class="s">train_accuracy</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">neighbors_settings</span><span class="p">,</span> <span class="n">test_accuracy</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sh">'</span><span class="s">test_accuracy</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">accuracy</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">n_neighbors</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdkbY3A%2FbtrWWtdoytw%2FhkK9xKg9oRKYvgPdxwgqkK%2Fimg.png" alt="knn"></p>
+
+<p><br></p>
+
+<h2 id="3-k-nn-회귀">3. K-NN 회귀</h2>
+<ul>
+  <li>K개의 최근접 다변량 이웃 샘플로부터 연속 변수를 예측하기 위해 사용</li>
+  <li>
+<strong>이웃 샘플의 타겟값을 평균</strong> 하여 예측하고자 하는 데이터의 예측값으로 사용</li>
+  <li>다양한 회귀 모델의 평가지표를 통해 모델 성능 측정
+    <ul>
+      <li>결정계수(R²), MSE, RMSE, MAE, MAPE, MPE</li>
+    </ul>
+  </li>
+  <li>훈련 세트, 테스트 세트에 대한 평가 점수를 통해 과대 적합 / 과소 적합 / 적정 판단</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="1-장점">1) 장점</h3>
+<ul>
+  <li>학습 데이터의 노이즈에 크게 영향 받지 않음</li>
+  <li>학습 데이터의 수가 충분하다면 상당히 좋은 성능을 보임</li>
+  <li>훈련 단계가 빠름</li>
+  <li>데이터의 분산까지 고려하면 상당히 robust 해짐</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="2-단점">2) 단점</h3>
+<ul>
+  <li>모델을 따로 생성하지 않아 특징과 클래스 간의 관계를 이해하는 부분에 제약이 있음</li>
+  <li>최적 이웃 수와 사용할 거리 척도를 데이터 각각의 특성에 맞게 연구자가 임의로 설정해야 함</li>
+  <li>새 관측치와 각 학습 데이터 간의 거리를 전부 측정해야하므로 ‘분류, 예측’ 단계가 느림</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="3-사용시-유의점">3) 사용시 유의점</h3>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">combining rule</code> KNN은 주변 이웃의 분포에 따라 예측 결과가 달라짐
+    <ul>
+      <li>다수결</li>
+      <li>가중합 : 거리(유사도)가 가까울수록 더 큰 가중치 부여</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">정규화</code>
+    <ul>
+      <li>데이터 간 분포가 크게 다를 경우 각 변수의 차이를 해석하기 어려움</li>
+      <li>알고리즘의 적절한 적용을 위해 정규화 과정 필요</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="4-거리-함수">4. 거리 함수</h2>
+
+<h3 id="1-유클리드-거리euclidean-dstance--l2-distance">1) 유클리드 거리(Euclidean Dstance) = L2 Distance</h3>
+<ul>
+  <li>연속 변수에서 <strong>가장 일반적으로 사용</strong> 하는 거리 척도</li>
+  <li>관측치 사이의 최단거리</li>
+</ul>
+
+<p><br></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbvLiuP%2FbtrWSv4hjpB%2FpPoDFeeV4orkcKoycBFYS1%2Fimg.png" alt="L2 Distance"></p>
+
+<p><br></p>
+
+<p><code class="language-plaintext highlighter-rouge">2차원</code>
+$d = \sqrt{(a_1 - b_1)^2 + (a_2 - b_2)^2}$     <br>
+<code class="language-plaintext highlighter-rouge">n차원</code>
+$d = \sqrt{(a_1 - b_1)^2 + (a_2 - b_2)^2 + … + (a_n - b_n)^2}$</p>
+
+<p><br></p>
+
+<ul>
+  <li>유클리드 함수를 채택할 경우 K를 정하기 위해 반드시 <code class="language-plaintext highlighter-rouge">정규화</code>가 선행되어야 함</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="2-맨해튼-거리manhattan-distance--l1-distance">2) 맨해튼 거리(Manhattan Distance) = L1 Distance</h3>
+<ul>
+  <li>각 좌표축 방향으로만 이동할 경우에 계산되는 거리</li>
+</ul>
+
+<p><br></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdbXGfS%2FbtrWUHiNbPC%2FQi9hxmi0spdUeVk0RE4oI0%2Fimg.png" alt="L1 Distance"></p>
+
+<p><br></p>
+
+<p><code class="language-plaintext highlighter-rouge">2차원</code>
+$d = |a_1 - b_1| + |a_2 - b_2|$  <br>
+<code class="language-plaintext highlighter-rouge">n차원</code>
+$d = |a_1 - b_1| + |a_2 - b_2| + … + |a_n - b_n|$</p>
+
+<p><br></p>
+
+<h3 id="3-해밍-거리hamming-distance">3) 해밍 거리(Hamming Distance)</h3>
+<ul>
+  <li>두 개의 이진 데이터 문자열을 비교하기 위한 지표</li>
+  <li>두 문자열의 각 위치의 문자 비교 → 동일하지 않은 문자 수 = <code class="language-plaintext highlighter-rouge">해밍 거리</code>
+</li>
+  <li>길이가 같은 두 개의 이진 문자열 비교 시 해밍 거리는 두 비트가 다른 비트 위치의 개수</li>
+  <li>해밍 거리 $d$가 $d \ge 2a + 1$이면 a개의 오류를 정정할 수 있음</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li><strong>Feature를 벡터화할 때</strong></li>
+  <li>Clustering에서 독립변수가 범주형일 경우</li>
+  <li>네트워크를 통해 전송될 때 오류 감지 / 수정에 사용</li>
+  <li>자연어 처리에서 데이터 간 형태적 유사성(단어 간 거리)을 계산해 유사도 평가할 때</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="5-회귀-모델-평가-지표">5. 회귀 모델 평가 지표</h2>
+
+<h3 id="️-1-결정계수-r-score">✔️ 1) 결정계수 (R² Score)</h3>
+<ul>
+  <li>
+<strong>모델이 데이터를 얼마나 잘 예측하는지</strong> 에 대한 지표</li>
+  <li>실제 값의 분산 대비 예측 값의 분산 비율</li>
+  <li>평균으로 예측했을 때의 오차(총오차)보다 모델을 사용했을 때 얼마나 더 좋은 성능을 내는지 비율로 나타낸 값</li>
+  <li>결정계수 = 표본 상관계수$^2$</li>
+</ul>
+
+<p><br></p>
+
+<p>$R^2 = \frac{SSE}{SST} = 1 - \frac{SSR}{SST}$</p>
+
+<p><br></p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">총제곱합 SST</code>                     $SST = \sum_{i=1}^n (y_i - \bar y)²$</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">설명된 제곱합 SSE</code>           $SSE = \sum_{i=1}^n (\hat y_i - \bar y)²$</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">잔차 제곱합 SSR</code>               $SSR = \sum_{i=1}^n (\hat u_i)^2$
+    <ul>
+      <li>$\hat u_i$ 잔차 = 표본집단 회귀식에서 예측된 값 - 실제 관측값</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">R² = 0</code> x, y는 선형 관계 없음</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">R² = 1</code> x, y는 완벽한 선형 관계</li>
+  <li>R²가 1에 가까울수록 회귀 모형이 적합함</li>
+</ul>
+
+<p><br></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># sklearn
+</span><span class="nf">r2_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sample_weight</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">multioutput</span> <span class="o">=</span> <span class="sh">'</span><span class="s">uniform_average</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="c1"># y_true : 올바른 목표값
+# y_pred : 예상 목표값
+# sample_weight : 가중치
+# 'uniform_average' : 모든 출력의 오차를 평균 무게로 평균화
+</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="2-오차-제곱-평균-mse-mean-squared-error">2) 오차 제곱 평균 MSE (Mean Squared Error)</h3>
+<ul>
+  <li>예측 값과 실제 값의 차이의 제곱에 대해 평균을 낸 값</li>
+  <li><strong>이상치에 민감</strong></li>
+  <li>MSE 값이 작을수록 좋지만, 과대적합이 될 수 있음</li>
+  <li>MSE의 범위는 0~무한대</li>
+  <li>MSE가 100일 때 이 모형이 좋은지 기준이 없어 판단이 어려움  <br>
+→ MAPE의 퍼센트 값을 이용해 성능 평가하기도 함</li>
+</ul>
+
+<p><br></p>
+
+<p>$MSE = \frac{1}{N} \sum_{i=1}^n (y_i - \hat y_i)^2$</p>
+
+<p><br></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+
+<span class="n">mse</span> <span class="o">=</span> <span class="nf">mean_squared_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">mse = {:.3f}</span><span class="sh">"</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">mse_</span><span class="p">))</span>
+
+<span class="c1"># mse = 11.264
+</span></code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="3-평균-제곱근-오차-rmse-root-mean-squared-error">3) 평균 제곱근 오차 RMSE (Root Mean Squared Error)</h3>
+<ul>
+  <li>MSE에 루트를 씌운 값</li>
+  <li>MSE의 장단점을 거의 그대로 따라감</li>
+  <li>제곱 오차에 대한 왜곡 줄여줌 + robust함에서 강점을 보임</li>
+  <li>오류 지표를 루트를 통해 실제값과 유사한 단위로 변환하기 때문에 해석이 쉬움</li>
+  <li>실생활에서 쓰는 계산법을 벗어났기 때문에 ‘RMSE로 구한 에러값만큼 모델이 틀리다’고 말할 수는 없음</li>
+  <li>그럼에도 큰 오류값 차이에 대해 큰 패널티를 주는 이점</li>
+</ul>
+
+<p><br></p>
+
+<p>$RMSE = \sqrt{\sum_{i=1}^n \frac{(\hat y_i - y_i)^2}{n}}$</p>
+
+<p><br></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="4-평균-절대-오차-mae-mean-absolute-error">4) 평균 절대 오차 MAE (Mean Absolute Error)</h3>
+<ul>
+  <li>절대값을 취하기 때문에 가장 직관적으로 알 수 있는 지표</li>
+  <li>MSE보다 특이치에 robust (제곱하지 않아 이상치에 덜 민감)</li>
+  <li>절대값을 취하기 때문에 모델이 underperformance인지 overperformance인지 알 수 없음</li>
+</ul>
+
+<p><br></p>
+
+<p>$MAE = \frac{1}{n} \sum_{j=1}^n \left\lvert y_j - \hat{y_j} \right\rvert$</p>
+
+<p><br></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span>
+
+<span class="nf">mean_absolute_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="5-평균-절대비-오차-mape-mean-absolute-percentage-error">5) 평균 절대비 오차 MAPE (Mean Absolute Percentage Error)</h3>
+<ul>
+  <li>MAE와 마찬가지로 MSE보다 이상치에 robust</li>
+  <li>MAPE는 퍼센트값을 가지며 0에 가까울수록 회귀 모형의 성능이 좋다고 볼 수 있음</li>
+  <li>0~100% 의 값을 가지므로 성능 비교 해석 가능</li>
+  <li>추가적으로 모델에 대한 편향 존재  <br>
+→ MPE를 통해 대응 &amp; 0 근처의 값에 대해서는 사용하기 어려움</li>
+</ul>
+
+<p><br></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$MAPE = \frac{\sum</td>
+      <td>\frac{y - \hat y}{y}</td>
+      <td>}{n} * 100\%$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="6-mpe-mean-percentage-error">6) MPE (Mean Percentage Error)</h3>
+<ul>
+  <li>MAPE에서 절대값을 제외한 지표</li>
+  <li>과대평가인지 과소평가인지 알 수 있어 유용함</li>
+  <li>MAE, MSE는 절대 오차 측정 / MAPE, MPE는 상대 오차 측정</li>
+  <li>sklearn에서 구현된 것이 보이지 않음</li>
+</ul>
+
+<p><br></p>
+
+<p>$MPE = \frac{\sum (y - \hat y)}{n} * 100\%$</p>
+
+<p><br></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">MPE</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="nf">mean</span><span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">/</span> <span class="n">y_true</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="nc">MPE</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h2 id="6-knn-회귀-구현">6. KNN 회귀 구현</h2>
+
+<p><br></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">sklearn</span><span class="p">.</span><span class="n">neighbors</span><span class="p">.</span><span class="nc">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbhors</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="sh">'</span><span class="s">uniform</span><span class="sh">'</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="sh">'</span><span class="s">auto</span><span class="sh">'</span><span class="p">,</span> 
+                                            <span class="n">leaf_size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="sh">'</span><span class="s">minkowski</span><span class="sh">'</span><span class="p">,</span> <span class="n">metric_params</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+                                            
+<span class="sh">'''</span><span class="s">
+n_neighbors: 이웃의 수 K (defualt = 5)
+weights: 예측에 사용되는 가중 방법 결정 (default = </span><span class="sh">'</span><span class="s">uniform</span><span class="sh">'</span><span class="s">) or callable
+  </span><span class="sh">"</span><span class="s">uniform</span><span class="sh">"</span><span class="s"> : 각각의 이웃이 모두 동일한 가중치
+  </span><span class="sh">"</span><span class="s">distance</span><span class="sh">"</span><span class="s"> : 거리가 가까울수록 높은 가중치
+  callable : 사용자가 직접 정의한 함수 사용
+algorithm(</span><span class="sh">'</span><span class="s">auto</span><span class="sh">'</span><span class="s">, </span><span class="sh">'</span><span class="s">ball_tree</span><span class="sh">'</span><span class="s">, </span><span class="sh">'</span><span class="s">kd_tree</span><span class="sh">'</span><span class="s">, </span><span class="sh">'</span><span class="s">brute</span><span class="sh">'</span><span class="s">) : 가장 가까운 이웃을 계산할 때 사용할 알고리즘
+  </span><span class="sh">"</span><span class="s">auto</span><span class="sh">"</span><span class="s"> : 입력된 훈련 데이터에 기반해 가장 적절한 알고리즘 사용
+  </span><span class="sh">"</span><span class="s">ball_tree</span><span class="sh">"</span><span class="s"> : Ball-Tree 구조
+  </span><span class="sh">"</span><span class="s">kd_tree</span><span class="sh">"</span><span class="s"> : KD-Tree 구조
+  </span><span class="sh">"</span><span class="s">brute</span><span class="sh">"</span><span class="s"> : Brute-Force 탐색 사용
+leaf_size : Ball-Tree나 KD-Tree의 leaf size 결정 (default = 30)
+  - 트리를 저장하기 위한 메모리, 트리의 구성과 쿼리 처리 속도에 영향
+p : 민코프스키 미터법의 차수 결정 (1이면 맨해튼 거리, 2이면 유클리드 거리)
+</span><span class="sh">'''</span>
+
+<span class="kn">from</span> <span class="n">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborRegressor</span>
+
+<span class="n">knr</span> <span class="o">=</span> <span class="nc">KNeighborsRegressor</span><span class="p">()</span>
+
+<span class="n">knr</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">train_input</span><span class="p">,</span> <span class="n">train_target</span><span class="p">)</span>
+<span class="n">knr</span><span class="p">.</span><span class="nf">score</span><span class="p">(</span><span class="n">test_input</span><span class="p">,</span> <span class="n">test_target</span><span class="p">)</span>          <span class="c1"># 테스트 모델에 대한 평가
+# 0.9928094061
+</span><span class="n">test_prediction</span> <span class="o">=</span> <span class="n">knr</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">test_input</span><span class="p">)</span>   <span class="c1"># 테스트 세트에 대한 예측
+</span><span class="n">knr</span><span class="p">.</span><span class="nf">score</span><span class="p">(</span><span class="n">train_input</span><span class="p">,</span> <span class="n">train_target</span><span class="p">)</span>        <span class="c1"># 훈련 모델에 대한 평가
+# 0.9698823289                                이 경우는 과소적합 (훈련 &lt; 테스트 점수)
+</span>
+<span class="n">knr</span><span class="p">.</span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="mi">3</span>                         <span class="c1"># 모델을 훈련세트에 잘 맞게 하기 위해 k 줄임 (5→3)
+</span><span class="n">knr</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">train_input</span><span class="p">,</span> <span class="n">train_target</span><span class="p">)</span>          <span class="c1"># 재훈련
+</span><span class="n">knr</span><span class="p">.</span><span class="nf">score</span><span class="p">(</span><span class="n">train_input</span><span class="p">,</span> <span class="n">train_target</span><span class="p">)</span>
+<span class="c1"># 0.9804899950
+</span><span class="n">knr</span><span class="p">.</span><span class="nf">score</span><span class="p">(</span><span class="n">test_input</span><span class="p">,</span> <span class="n">test_target</span><span class="p">)</span>
+<span class="c1"># 0.9746459963                              # 훈련 &gt; 테스트 점수이고, 차이가 크지 않으므로 적합!
+</span>
+<span class="n">knr</span><span class="p">.</span><span class="nc">KNeighborRegressor</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">45</span><span class="p">).</span><span class="nf">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">knr</span><span class="p">.</span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">knr</span> <span class="o">=</span> <span class="nc">KNeighborsRegressor</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">45</span><span class="p">).</span><span class="nf">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>           <span class="c1"># 5에서 45까지 x 좌표 생성 
+</span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]:</span>
+    <span class="n">knr</span><span class="p">.</span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="n">knr</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">train_input</span><span class="p">,</span> <span class="n">train_target</span><span class="p">)</span>       <span class="c1"># 모델 훈련
+</span>    <span class="n">prediction</span> <span class="o">=</span> <span class="n">knr</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>              <span class="c1"># 지정한 범위 x에 대한 예측
+</span>    <span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">train_input</span><span class="p">,</span> <span class="n">train_target</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">prediction</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">'</span><span class="s">n_neighbors = {}</span><span class="sh">'</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">length</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">weight</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FBmxPu%2FbtrWR7biC9n%2Fk4gh4xTfDq5JbFokgkp9d1%2Fimg.png" alt="KNN"></p>
+
+<p><br></p>
+
+<h2 id="7-과대-적합--과소-적합">7. 과대 적합 / 과소 적합</h2>
+
+<h3 id="1-과대-적합-overfitting">1) 과대 적합 overfitting</h3>
+<ul>
+  <li>모델이 훈련 세트에는 좋은 성능을 내지만, 테스트 세트에서는 낮은 성능을 내는 경우</li>
+  <li>훈련 세트와 테스트 세트에서 측정한 성능 간격이 큼 = <strong>분산이 큼</strong>
+</li>
+  <li>주요 원인: 훈련 세트에 충분히 다양한 샘플이 포함되지 않음</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">해결 방법</code>
+    <ul>
+      <li>훈련 세트에 충분히 다양한 샘플 포함시키기</li>
+      <li>모델이 훈련 세트에 집착하지 않도록 가중치 제한하기 (모델의 복잡도 낮춤)</li>
+      <li>훈련 데이터의 잡음 줄이기 (outlier, error 제거)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="2-과소-적합-underfitting">2) 과소 적합 underfitting</h3>
+<ul>
+  <li>훈련 세트와 테스트 세트의 성능에는 차이가 크지 않지만 모두 낮은 성능을 내는 경우</li>
+  <li>훈련 세트와 테스트 세트의 성능이 서로 가까워지면 성능 자체가 낮음</li>
+  <li>편향이 큼</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">해결 방법</code>
+    <ul>
+      <li>복잡도가 더 높은 모델 사용</li>
+      <li>가중치 규제 완화</li>
+    </ul>
+  </li>
+</ul>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/sql/2023/04/20/Trigger.html" title="[DBP] CH4-3. PL/SQL - Trigger">[DBP] CH4-3. PL/SQL - Trigger</a><a class="next" href="/ml%20&amp;%20dl/2023/04/30/preprocessing.html" title="[BITAmin] 데이터 전처리">[BITAmin] 데이터 전처리</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li class="">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/07/preprocessing.html" title="[BoostCourse] 2. 정형데이터 전처리">
+            [BoostCourse] 2. 정형데이터 전처리<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/infra/2023/08/25/aws-load-balancing.html" title="[AWS] AWS Load Balancing">
+            [AWS] AWS Load Balancing<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/java/2023/04/12/2163.html" title="[BOJ] 2163. 초콜릿 자르기">
+            [BOJ] 2163. 초콜릿 자르기<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/01/fe.html" title="[BITAmin] Feature Engineering and Regularization">
+            [BITAmin] Feature Engineering and Regularization<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+</ul>
+    </div>
+<div class="post-comments">
+      <script src="https://utteranc.es/client.js" repo="bokyung124/bokyung124.github.io" issue-term="pathname" label="comments" theme="github-light" crossorigin="anonymous" async>
+      </script>
+      
+      <!---->
+    </div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>Unpublished Work <span class="copyleft">©</span> 2017-2023 GitHub User</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[BoostCourse] 4. Regularization | Your awesome title</title>
+<meta name="generator" content="Jekyll v4.3.2">
+<meta property="og:title" content="[BoostCourse] 4. Regularization">
+<meta name="author" content="GitHub User">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="https://www.boostcourse.org/ai111">
+<meta property="og:description" content="https://www.boostcourse.org/ai111">
+<link rel="canonical" href="http://localhost:4000/ml%20&amp;%20dl/2023/05/28/CNN.html">
+<meta property="og:url" content="http://localhost:4000/ml%20&amp;%20dl/2023/05/28/CNN.html">
+<meta property="og:site_name" content="Your awesome title">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-05-28T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[BoostCourse] 4. Regularization">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"GitHub User"},"dateModified":"2023-05-28T12:20:00+09:00","datePublished":"2023-05-28T00:00:00+09:00","description":"https://www.boostcourse.org/ai111","headline":"[BoostCourse] 4. Regularization","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/ml%20&%20dl/2023/05/28/CNN.html"},"url":"http://localhost:4000/ml%20&%20dl/2023/05/28/CNN.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="icon" href="">
+  <link rel="canonical" href="http://localhost:4000">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js" async></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js" async></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.info("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (el.src.trim() == "") {
+        return;
+      }
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/logo/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Your awesome title" src="" onerror="this.style.display='none'">
+  Your awesome title
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/">HOME</a><a class="page-link" href="/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[BoostCourse] 4. Regularization</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-05-28T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 28, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 4 mins</span>
+  </div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <p><a href="https://www.boostcourse.org/ai111">https://www.boostcourse.org/ai111</a></p>
+
+<p><br></p>
+
+<h2 id="convolution">Convolution</h2>
+
+<ul>
+  <li>Continuous convolution <br>
+$(f*g)(t) = \int f(\tau)g(t-\tau)d\tau = \int f(t-\tau)g(t)d\tau$</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>Discrete convolution <br>
+$(f*g)(t) = \sum_{i=-\infty}^{\infty} f(i)g(t-i) = \sum_{i=-\infty}^{\infty} f(t-i)g(i)$</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>2D image convolution <br>
+$(I*K)(i, j) = \sum_{m}\sum_{n} I(m,n)K(i-m,j-n) = \sum_{m}\sum_{n} I(i-m,i-n)K(m,n)$</li>
+</ul>
+
+<p><br></p>
+
+<p><img width="320" alt="스크린샷 2023-05-28 오후 11 07 20" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/f6e49ece-82fb-4981-8d04-d52fb947287d"></p>
+
+<p><img width="364" alt="스크린샷 2023-05-28 오후 11 07 35" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/dcf7cbf7-d43f-43c4-8de1-f43c6f78a228"></p>
+
+<ul>
+  <li>
+    <p>3x3 convolution filter를 7x7 image에 찍으면 해당 위치에 있는 convolution filter값과 이미지의 픽셀값을 곱해서 더하면 output의 $O_{11}$ 값이 됨</p>
+  </li>
+  <li>
+    <p>Blur, Emboss, Outline 등에 활용</p>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="rgb-image-convolution">RGB image convolution</h3>
+
+<p><img width="312" alt="스크린샷 2023-05-28 오후 11 30 57" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/0b016f55-6129-41fb-8d39-c105acdefc94"></p>
+
+<p><img width="347" alt="스크린샷 2023-05-28 오후 11 31 33" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/d9ffd1f2-65b8-4fb6-8f9c-066fd9b16ee0"></p>
+
+<ul>
+  <li>여러 개의 채널을 갖는 convolution feature map 생성됨
+    <ul>
+      <li>여러 개의 convolution filters</li>
+      <li>input channel과 output channel의 크기를 알면, 적용된 convolution filter의 개수 알 수 있음</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="stack-of-convolutions">stack of convolutions</h3>
+
+<p><img width="317" alt="스크린샷 2023-05-28 오후 11 33 00" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/e616c1b8-820e-4778-9a7a-594b60c24126"></p>
+
+<ul>
+  <li>한 번 convolution을 거치고 나면 nonlinear activition이 들어가게 됨</li>
+  <li>이 연산에 필요한 파라미터의 숫자를 항상 생각해야 함!</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="convolution-neural-networks">Convolution Neural Networks</h2>
+
+<ul>
+  <li>CNN consists of <strong>convoluiton layer</strong>, <strong>pooling layer</strong>, and <strong>fully connected layer</strong>
+    <ul>
+      <li>convolution &amp; pooling layers: feature extraction</li>
+      <li>fully connected layer: decision making (e.g., classification)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img width="332" alt="스크린샷 2023-05-28 오후 11 38 17" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/07cbec0a-0f8e-4818-9892-65ae9eb19cce"></p>
+
+<p><br></p>
+
+<ul>
+  <li>최근에는 fully connected layer를 없애는/최소화하는 추세
+    <ul>
+      <li>ML에서 일반적으로 학습하고자 하는 모델의 파라미터의 숫자가 늘어날수록 학습이 어렵고 generalization performance가 떨어진다고 알려져 있음</li>
+      <li>CNN - 같은 모델을 만들고 convolution layer를 많이 추가하여 deep하게 만들지만, 동시에 파라미터 수를 줄이는 데 집중</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="convolution-arithmetic-of-googlenet">Convolution Arithmetic of GoogleNet</h3>
+
+<p><img width="409" alt="스크린샷 2023-05-28 오후 11 41 17" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/3940651a-7664-484c-8971-077e666d0dbe"></p>
+
+<p><br></p>
+
+<h2 id="stride">Stride</h2>
+
+<p><img width="440" alt="스크린샷 2023-05-28 오후 11 42 23" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/12c72f18-7fc6-43d0-9900-d868fd568d12"></p>
+
+<ul>
+  <li>갖고 있는 convolution filter(kernel)을 몇 칸씩 옮기느냐</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="padding">Padding</h2>
+
+<p><img width="169" alt="스크린샷 2023-05-29 오전 1 25 20" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/e80a2ebc-86b7-4d4b-bda6-a719ca58434a"></p>
+
+<p><img width="463" alt="스크린샷 2023-05-29 오전 1 27 45" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/ba72f55a-f968-4092-9c23-b8bd46c8c62f"></p>
+
+<p><br></p>
+
+<h2 id="convoluiton-arithmetic">Convoluiton Arithmetic</h2>
+
+<p><img width="435" alt="스크린샷 2023-05-29 오전 1 28 18" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/1a2255a9-de60-4200-b3d5-df3642c20e1f"></p>
+
+<ul>
+  <li>필요한 파라미터 수: 3 x 3 x 128 x 64 = 73,728</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="exercise">exercise</h3>
+
+<ul>
+  <li>AlexNet</li>
+</ul>
+
+<p><img width="414" alt="스크린샷 2023-05-29 오전 1 33 25" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/db3d9d33-11d6-4f93-aa2b-3fe490143ab9"></p>
+
+<ul>
+  <li>Convolution 레이어(1): 11 x 11 x 3 x 48 * 2 ≈ 35K</li>
+  <li>Convolution 레이어(2): 5 x 5 x 28 x 128 * 2 ≈ 307K</li>
+  <li>Convolution 레이어(3): 3 x 3 x 128 * 2 x 192 * 2 ≈ 884K</li>
+  <li>Convolution 레이어(4): 3 x 3 x 192 x 192 * 2 ≈ 663K</li>
+  <li>
+    <p>Convolution 레이어(5): 3 x 3 x 192 x 128 * 2 ≈ 442K</p>
+  </li>
+  <li>Dense 레이어(1): 13 * 13 * 128 * 2 x 2048 * 2 ≈ 177M
+    <ul>
+      <li>fully connected -&gt; input 뉴런 개수 x output 뉴런 개수</li>
+    </ul>
+  </li>
+  <li>Dense 레이어(2): 2048 * 2 x 2048 * 2 ≈ 16M</li>
+  <li>Dense 레이어(3): 2048 * 2 x 1000 ≈ 4M</li>
+</ul>
+
+<p><br></p>
+
+<p><img width="416" alt="스크린샷 2023-05-29 오전 1 41 04" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/bc7a28c5-5dca-4410-87e8-43978a703d9e"></p>
+
+<p><br></p>
+
+<ul>
+  <li>Dense 레이어가 Convolution 레이어보다 훨씬 많은 파라미터 가짐
+    <ul>
+      <li>Convoluiton operator와 각각의 커널이 모든 위치에 대해 동일하게 적용됨
+        <ul>
+          <li>shared parameter</li>
+        </ul>
+      </li>
+      <li>파라미터 수를 줄이기 위해 convolution 레이어를 늘리고, fully connected 레이어를 줄이는 추세</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="1-x-1-convolution">1 X 1 Convolution</h2>
+
+<p><img width="206" alt="스크린샷 2023-05-29 오전 1 44 23" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/bdc4a107-97a2-4efb-9850-d33108f6e684"></p>
+
+<ul>
+  <li>이유
+    <ul>
+      <li>Dimension reduction (Dimension: channel)</li>
+      <li>convolution layer를 깊게 쌓으면서 파라미터를 줄일 수 있음</li>
+      <li>e.g., bottleneck architecture</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="alexnet">AlexNet</h2>
+
+<p><img width="412" alt="스크린샷 2023-05-29 오전 1 51 15" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/9104a20b-4782-4052-93a7-beaf399a1931"></p>
+
+<p><br></p>
+
+<ul>
+  <li>key ideas
+    <ul>
+      <li>ReLU (Rectified Linear Unit) activation</li>
+      <li>GPU implementation (2 GPUs)</li>
+      <li>Local response normalization (지금 많이 사용되지 않음), Overlapping pooling</li>
+      <li>Data augmentation</li>
+      <li>Dropout</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>ReLU activation <br>
+  <img width="144" alt="스크린샷 2023-05-29 오전 1 54 55" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/d77d5441-7d88-4d3f-be50-0cc5f9982b0a">
+    <ul>
+      <li>linear model의 장점을 갖는 nonlinear</li>
+      <li>gradient descent로 학습 용이</li>
+      <li>good generalization</li>
+      <li>vanishing gradient 문제 해결</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="vggnet">VGGNet</h2>
+
+<p><img width="228" alt="스크린샷 2023-05-29 오전 1 55 35" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/40d129ff-7cc3-4bf8-a4ef-7cef35e069ac"></p>
+
+<ul>
+  <li>
+<strong>3 X 3</strong> convolution filter만 사용</li>
+  <li>fully connected layer에 1 x 1 covolution 사용</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>3 X 3 convolution
+  <img width="346" alt="스크린샷 2023-05-29 오전 1 56 49" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/65c028f4-a7b8-455e-aa2e-ed03f528d6b5">
+    <ul>
+      <li>convolution layer의 크기가 커지면 한 번 찍을 때 고려되는 input의 크기가 커짐 : <strong>Receptive filed</strong>
+</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="googlenet">GoogLeNet</h2>
+
+<ul>
+  <li>1 X 1 convolution을 적절히 활용함
+    <ul>
+      <li>parameter 수 감소</li>
+    </ul>
+  </li>
+  <li>Inception Block</li>
+</ul>
+
+<p><img width="374" alt="스크린샷 2023-05-29 오전 2 01 46" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/58aac01c-6905-4dd2-8bec-1719f4ee82c5"></p>
+
+<p><br></p>
+
+<h2 id="resnet">ResNet</h2>
+
+<p><img width="414" alt="스크린샷 2023-05-29 오전 2 11 06" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/dc6101a7-32ee-4084-8ae6-96d2fd200db6"></p>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/java/2023/05/28/1526.html" title="[BOJ] 1526. 가장 큰 금민수">[BOJ] 1526. 가장 큰 금민수</a><a class="next" href="/sql/2023/06/24/optimizer.html" title="[MySQL] SQL 옵티마이저">[MySQL] SQL 옵티마이저</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li class="">
+          <a class="post-link" href="/infra/2023/06/26/docker_advanced.html" title="[docker] 도커 심화">
+            [docker] 도커 심화<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/cs/2023/04/09/backend.html" title="[Inflearn] 초보 백엔드 개발자 로드맵">
+            [Inflearn] 초보 백엔드 개발자 로드맵<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/algorithm/2023/07/12/chap7.html" title="정렬 문제">
+            정렬 문제<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/sql/2023/04/20/Procedure.html" title="[DBP] CH4-1. PL/SQL - Procedure">
+            [DBP] CH4-1. PL/SQL - Procedure<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+</ul>
+    </div>
+<div class="post-comments">
+      <script src="https://utteranc.es/client.js" repo="bokyung124/bokyung124.github.io" issue-term="pathname" label="comments" theme="github-light" crossorigin="anonymous" async>
+      </script>
+      
+      <!---->
+    </div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>Unpublished Work <span class="copyleft">©</span> 2017-2023 GitHub User</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

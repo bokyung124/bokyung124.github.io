@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[docker] 도커 기초 | Your awesome title</title>
+<meta name="generator" content="Jekyll v4.3.2">
+<meta property="og:title" content="[docker] 도커 기초">
+<meta name="author" content="GitHub User">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="docker basic">
+<meta property="og:description" content="docker basic">
+<link rel="canonical" href="http://localhost:4000/infra/2023/06/26/dockerBasic.html">
+<meta property="og:url" content="http://localhost:4000/infra/2023/06/26/dockerBasic.html">
+<meta property="og:site_name" content="Your awesome title">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-06-26T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[docker] 도커 기초">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"GitHub User"},"dateModified":"2023-06-26T22:45:00+09:00","datePublished":"2023-06-26T00:00:00+09:00","description":"docker basic","headline":"[docker] 도커 기초","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/infra/2023/06/26/dockerBasic.html"},"url":"http://localhost:4000/infra/2023/06/26/dockerBasic.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="icon" href="">
+  <link rel="canonical" href="http://localhost:4000">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js" async></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js" async></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.info("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (el.src.trim() == "") {
+        return;
+      }
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/logo/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Your awesome title" src="" onerror="this.style.display='none'">
+  Your awesome title
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/">HOME</a><a class="page-link" href="/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[docker] 도커 기초</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-06-26T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jun 26, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+  </div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="1-docker">1. docker</h2>
+<ul>
+  <li>code</li>
+  <li>services</li>
+  <li>database</li>
+  <li>libraries</li>
+</ul>
+
+<p><img width="545" alt="스크린샷 2023-06-21 오후 11 11 26" src="https://github.com/bokyung124/k8s-study/assets/53086873/c2462a0e-779b-4c94-b0e7-65e196ce8dea"></p>
+
+<p><br></p>
+
+<h2 id="2-docker의-필요성">2. docker의 필요성</h2>
+
+<h3 id="1-it-works-on-my-machine-문제">1. ‘It works on my machine’ 문제</h3>
+<ul>
+  <li>predictable</li>
+  <li>consistent</li>
+</ul>
+
+<p><img width="506" alt="스크린샷 2023-06-21 오후 11 12 25" src="https://github.com/bokyung124/k8s-study/assets/53086873/cde66978-e39a-4219-a3ea-08211363a13f"></p>
+
+<p><br></p>
+
+<h3 id="2-devops의-등장-마이크로서비스-아키텍처">2. DevOps의 등장, 마이크로서비스 아키텍처</h3>
+<ul>
+  <li>fast</li>
+  <li>scalable</li>
+</ul>
+
+<p><br></p>
+
+<h4 id="1-마이크로-서비스-아키텍처">1) 마이크로 서비스 아키텍처</h4>
+
+<p><img width="530" alt="스크린샷 2023-06-21 오후 11 14 34" src="https://github.com/bokyung124/k8s-study/assets/53086873/0de283df-f06c-49ef-9643-f92341cc74f6"></p>
+
+<p><img width="546" alt="스크린샷 2023-06-21 오후 11 17 40" src="https://github.com/bokyung124/k8s-study/assets/53086873/71598def-5f17-4e0c-9e09-d21e98ec1669"></p>
+
+<p><br></p>
+
+<ul>
+  <li>
+    <p>마이크로서비스 아키텍처는 애플리케이션이 서비스 모음으로 개발되는 애플리케이션 아키텍처의 한 유형</p>
+  </li>
+  <li>
+    <p>마이크로서비스를 사용하면 대규모 애플리케이션을 각각 담당 영역을 가진 소규모의 독립적인 구성요소로 구분할 수 있음</p>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="3-도커란">3. 도커란</h2>
+<ul>
+  <li>애플리케이션을 개발, 배포 및 실행하기 위한 오픈소스 플랫폼</li>
+  <li>가상화 기술 중 하나인 <strong>컨테이너화</strong> 기술을 사용하는 도구
+    <ul>
+      <li>가상화: 서버, 스토리지, 네트워크 및 기타 물리적 시스템에 대한 가상 표현을 생성하는 데 사용할 수 있는 기술</li>
+      <li>가상 소프트웨어는 물리적 하드웨어 기능을 모방하여 하나의 물리적 머신에서 여러 가상 시스템을 동시에 실행</li>
+    </ul>
+  </li>
+  <li>애플리케이션을 <strong>컨테이너</strong> 단위로 격리하고 번들링</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>기존 virtual machine과의 차이</li>
+</ul>
+
+<p><img width="604" alt="스크린샷 2023-06-21 오후 11 20 05" src="https://github.com/bokyung124/k8s-study/assets/53086873/5b459a0d-9711-4144-a05a-caa1921fdbdb"></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- vm과 다르게 Host OS를 공유
+- Bins/Libs도 공유
+- 기존의 가상화로만은 한계가 있어 등장한 것이 컨테이너화!
+</code></pre></div></div>
+
+<p><br></p>
+
+<h2 id="4-도커-아키텍처">4. 도커 아키텍처</h2>
+
+<p><img width="627" alt="스크린샷 2023-06-21 오후 11 51 50" src="https://github.com/bokyung124/k8s-study/assets/53086873/f14dbd53-ad47-4bc6-8fc3-67526726a4f9"></p>
+
+<p><br></p>
+
+<ul>
+  <li>레지스트리
+    <ul>
+      <li>도커 이미지를 저장하는 저장소 역할</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">docker pull</code>, <code class="language-plaintext highlighter-rouge">docker run</code>과 같은 명령어를 실행하면 도커는 사용자가 요청한 이미지를 도커 레지스트리에서 찾아옴</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">docker push</code> 명령어를 실행하면 도커는 이미지를 레지스트리에 저장</li>
+    </ul>
+  </li>
+  <li>도커 호스트</li>
+  <li>도커 클라이언트
+    <ul>
+      <li>도커 서버와 통신하기 위한 가장 중요한 기능 수행</li>
+      <li>도커 데몬에 명령 전달하기 위한 수단</li>
+      <li>도커 명령어를 사용하면 Docker API가 REST API 형식으로 데몬의 소켓에 전달됨</li>
+    </ul>
+  </li>
+  <li>이미지
+    <ul>
+      <li>컨테이너를 생성하기 위해 필요한 절차를 기록한 파일</li>
+      <li>레이어(명령어)를 중첩하여 쌓는 방식으로 생성</li>
+      <li>read-only</li>
+      <li>이미지를 만들기 위한 명령어 집합인 docker file을 빌드하여 생성</li>
+    </ul>
+  </li>
+  <li>컨테이너
+    <ul>
+      <li>이미지를 실행한 결과로 생성되는 인스턴스</li>
+      <li>사용자는 도커 클라이언트의 명령어를 호출함으로써 컨테이너를 관리할 수 있음</li>
+    </ul>
+  </li>
+  <li>도커 데몬 (dockerd)
+    <ul>
+      <li>클라이언트의 명령을 REST API로 받아 이미지, 컨테이너, 네트워크, 볼륨 등의 도커 오브젝트 관리</li>
+      <li>호스트에 설치됨</li>
+    </ul>
+  </li>
+  <li>도커 CLI</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="5-컨테이너-동작-방식">5. 컨테이너 동작 방식</h2>
+
+<p><img width="778" alt="스크린샷 2023-06-26 오전 7 52 18" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/c531bbbd-d078-455d-a59d-23a701027850"></p>
+
+<p><br></p>
+
+<ul>
+  <li>도커 호스트와 hub가 있음</li>
+  <li>hub는 컨테이너 이미지를 저장해 놓은 창고</li>
+  <li>
+    <p>도커 호스트 위에는 도커 데몬이 동작 중 -&gt; 도커 클라이언트 명령 실행 가능</p>
+  </li>
+  <li>
+    <p>도커 데몬에게 명령을 요청하는 <strong>도커 서치커맨드</strong>를 데몬에게 요청
+  <code class="language-plaintext highlighter-rouge">$ docker search nginx  # 도커 허브에 nginx가 있는지 찾아봐줘</code></p>
+  </li>
+  <li>
+    <p>도커 데몬은 도커 허브에 nginx가 있는지 확인해서, 있으면 리스트 출력</p>
+  </li>
+  <li>
+    <p>해당 <strong>컨테이너 이미지</strong> 가져옴
+  <code class="language-plaintext highlighter-rouge">$ docker pull nginx:latest</code></p>
+  </li>
+  <li>
+    <p>이미지의 레이어 수만큼의 폴더로 파일이 저장됨 (레이어 한 개당 폴더 한 개)</p>
+  </li>
+  <li>
+    <p>도커 <strong>컨테이너 동작</strong>
+  <code class="language-plaintext highlighter-rouge">$ docker run -d [--name web -p 80:80 nginx:latest]</code></p>
+  </li>
+  <li>이제 도커 컨테이너 이미지가 도커 데몬 위에서 컨테이너화되어 현재 실행중인 application이 됨</li>
+  <li>위의 예시의 경우, 80번 포트에(localhost, ip or host name) 연결하면 nginx가 웹페이지를 고객에게 보냄
+    <ul>
+      <li>고객이 접속할 수 있는 서버를 컨테이너 기반으로 만든 것!</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="6-도커-이미지-컨테이너-docker-files">6. 도커 이미지, 컨테이너, docker files</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>이미지</th>
+      <th>도커</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>컨테이너의 청사진</td>
+      <td>이미지를 실행한 객체</td>
+    </tr>
+    <tr>
+      <td>컨테이너를 빌드하기 위한 read-only files</td>
+      <td>호스트 머신의 다른 모든 프로세스와 격리된 머신의 sandboxed process</td>
+    </tr>
+    <tr>
+      <td>애플리케이션 및 사전 구성된 환경 패키지화 &lt;/br&gt; 모든 종속성, 구성, 스크립트, binary 등</td>
+      <td>자체 소프트웨어, binaries, configurations를 운영하고 실행하기 위해 이미지에서 제공하는 격리된 파일 시스템 사용</td>
+    </tr>
+    <tr>
+      <td>도커 파일로부터 만들어짐</td>
+      <td>도커 이미지로부터 만들어짐</td>
+    </tr>
+    <tr>
+      <td>서로 다른 환경(개발, 테스트, 프로덕션)에서 공유할 수 있고, 다른 팀 구성원 간에 또는 심지어 공개적으로 공유할 수 있는 재사용 가능한 구성 요소</td>
+      <td>일반적으로 개별 환경 또는 호스트에 연결</td>
+    </tr>
+    <tr>
+      <td>도커파일의 각각의 스텝은 이미지 안에 새로운 레이어 생성 &lt;/br&gt; 이 레이어들은 나눠져 저장되므로, 이미지 간 공유될 수 있고, 공간을 절약할 수 있음</td>
+      <td>컨테이너가 시작될 때 이미지의 모든 레이어가 메모리에 로드되므로, 컨테이너는 이미 이미지의 크기보다 더 많은 시스템 리소스를 사용할 수 있음</td>
+    </tr>
+    <tr>
+      <td>
+<strong>Immutable</strong> &lt;/br&gt; 일단 이미지가 생성되면 변경할 수 없음</td>
+      <td>상태를 가질 수 있음(start, stop, pause) &lt;/br&gt; 실행 중인 컨테이너에 명령을 실행하여 상태를 바꿀 수 있음</td>
+    </tr>
+    <tr>
+      <td colspan="2">
+</td>
+      
+    </tr>
+  </tbody>
+</table>
+
+<p><br></p>
+
+<p><img width="849" alt="스크린샷 2023-06-26 오전 8 05 03" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/b9423d80-5f14-460e-ac55-d249ebe07b71"></p>
+
+<p><br></p>
+
+<h2 id="7-자주-쓰이는-도커-명령어">7. 자주 쓰이는 도커 명령어</h2>
+
+<p><a href="https://docs.docker.com/engine/reference/commandline/cli/">docker docs</a></p>
+
+<p><br></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>명령어</th>
+      <th>설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>docker search</td>
+      <td>도커 허브에서 이미지 검색</td>
+      <td>docker search nginx</td>
+    </tr>
+    <tr>
+      <td>docker pull</td>
+      <td>docker 이미지를 레지스트리로부터 다운로드</td>
+      <td>doekr pull nginx:latest &lt;/br&gt; docker pull ubuntu:18.04</td>
+    </tr>
+    <tr>
+      <td>docker run</td>
+      <td>docker 이미지를 기반으로 새로운 컨테이너 실행</td>
+      <td>docker run -d -p 80:80 my_container nginx &lt;/br&gt; docker run -it ubuntu bash</td>
+    </tr>
+    <tr>
+      <td>docker ps</td>
+      <td>현재 실행중인 도커 컨테이너 보기</td>
+      <td>docker ps</td>
+    </tr>
+    <tr>
+      <td>docker stop</td>
+      <td>실행중인 도커 컨테이너 정지</td>
+      <td>docker stop my_container</td>
+    </tr>
+    <tr>
+      <td>docker rm</td>
+      <td>도커 컨테이너 삭제</td>
+      <td>docker rm my_container</td>
+    </tr>
+    <tr>
+      <td>docker rmi</td>
+      <td>도커 이미지 삭제</td>
+      <td>docker rmi nginx:latest</td>
+    </tr>
+    <tr>
+      <td>docker build</td>
+      <td>docker file을 기반으로 도커 이미지 생성</td>
+      <td>docker build -t my_image . &lt;/br&gt; docker build -t my_image:20.02 /workingdir</td>
+    </tr>
+    <tr>
+      <td>docker images</td>
+      <td>현재 시스템에 있는 도커 이미지 보기</td>
+      <td>docker images</td>
+    </tr>
+    <tr>
+      <td>docker exec</td>
+      <td>실행중인 도커 컨테이너에 명령 실행</td>
+      <td>docker exec -it ubuntu bash</td>
+    </tr>
+    <tr>
+      <td>docker logs</td>
+      <td>도커 컨테이너 로그</td>
+      <td>docker logs ubuntu</td>
+    </tr>
+    <tr>
+      <td>docker push</td>
+      <td>생성한 이미지를 원격 저장소(도커허브)에 업로드</td>
+      <td>docker push username/my_image:20.02</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br></p>
+
+<h2 id="8-dockerfile-작성하기">8. Dockerfile 작성하기</h2>
+<ul>
+  <li>이미지를 빌드하는 데 필요한 모든 명령이 순서대로 포함된 텍스트 파일</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># syntax=docker/dockerfile:1</span>
+FROM ubuntu:18.04
+COPY <span class="nb">.</span> /app
+RUN make /app
+CMD python /app/app.py
+</code></pre></div></div>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">FROM</code>: 컨테이너의 베이스 이미지 (운영환경)</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">COPY</code>: 도커 클라이언트의 현재 디렉터리에서 ‘/app’ 디렉터리로 파일 복사</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">RUN</code>: 컨테이너 빌드를 위해 베이스 이미지에서 실행할 명령어 (이 경우 <code class="language-plaintext highlighter-rouge">make /app</code>)</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">CMD</code>: 컨테이너 안에서 실행할 특정 명령어나 스크립트 지정</li>
+</ul>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/tableu/2023/06/24/start.html" title="[tableu] 초급 데이터 시각화 활용">[tableu] 초급 데이터 시각화 활용</a><a class="next" href="/infra/2023/06/26/docker_advanced.html" title="[docker] 도커 심화">[docker] 도커 심화</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li class="">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/01/fe.html" title="[BITAmin] Feature Engineering and Regularization">
+            [BITAmin] Feature Engineering and Regularization<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/sql/2023/04/06/Oracle-Func-3.html" title="[DBP] CH2-3. Oracle 기타 내장 함수">
+            [DBP] CH2-3. Oracle 기타 내장 함수<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/it%20issues/2023/04/09/chatGPT.html" title="[IT] 챗GPT 열풍에 일상 속 AI서비스 인기">
+            [IT] 챗GPT 열풍에 일상 속 AI서비스 인기<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/java/2023/05/02/1236.html" title="[BOJ] 1236. 성 지키기">
+            [BOJ] 1236. 성 지키기<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+</ul>
+    </div>
+<div class="post-comments">
+      <script src="https://utteranc.es/client.js" repo="bokyung124/bokyung124.github.io" issue-term="pathname" label="comments" theme="github-light" crossorigin="anonymous" async>
+      </script>
+      
+      <!---->
+    </div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>Unpublished Work <span class="copyleft">©</span> 2017-2023 GitHub User</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

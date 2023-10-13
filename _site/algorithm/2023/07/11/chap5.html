@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Backtracking | Your awesome title</title>
+<meta name="generator" content="Jekyll v4.3.2">
+<meta property="og:title" content="Backtracking">
+<meta name="author" content="GitHub User">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="되추적 기법">
+<meta property="og:description" content="되추적 기법">
+<link rel="canonical" href="http://localhost:4000/algorithm/2023/07/11/chap5.html">
+<meta property="og:url" content="http://localhost:4000/algorithm/2023/07/11/chap5.html">
+<meta property="og:site_name" content="Your awesome title">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-07-11T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Backtracking">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"GitHub User"},"dateModified":"2023-07-11T22:45:00+09:00","datePublished":"2023-07-11T00:00:00+09:00","description":"되추적 기법","headline":"Backtracking","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/algorithm/2023/07/11/chap5.html"},"url":"http://localhost:4000/algorithm/2023/07/11/chap5.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="icon" href="">
+  <link rel="canonical" href="http://localhost:4000">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js" async></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js" async></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.info("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (el.src.trim() == "") {
+        return;
+      }
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/logo/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Your awesome title" src="" onerror="this.style.display='none'">
+  Your awesome title
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/">HOME</a><a class="page-link" href="/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">Backtracking</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-07-11T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jul 11, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 17 mins</span>
+  </div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="-되추적-기법">🐤 되추적 기법</h2>
+<ul>
+  <li>어떤 마디의 유망성을 점검한 후, 유망하지 않다고 판정 되면 그 마디의 부모 마디로 돌아가서 다음 후손 마디에 대한 검색을 계속 하는 절차</li>
+  <li>문제 풀이 과정을 트리로 나타낼 수 있음</li>
+  <li>유망성
+    <ul>
+      <li>전혀 해답이 나올 가능성이 없음: 유망하지 않다 (non-promising)</li>
+      <li>해답이 나올 가능성이 있음: 유망하다 (promising)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>어떤 특정 집합에서 어떤 기준을 만족하도록 일련의 원소를 선택하는 문제를 해결할 때 사용
+    <ul>
+      <li>n-Queens 문제, 미로 문제 등</li>
+    </ul>
+  </li>
+  <li>깊이 우선 검색 (depth-first search)을 변형한 기술
+    <ul>
+      <li>루트부터 검색하여 그것의 자식 노드를 방문하면, 그 노드의 모든 후손 노드를 먼저 방문하여 검색하는 방법</li>
+      <li>보통 왼쪽 자식부터 먼저 방문</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-트리-순회">🐤 트리 순회</h2>
+<ul>
+  <li>트리 구조에서 각각의 노드를 정확히 한 번만, 체계적인 방법으로 방문하는 과정</li>
+  <li>노드를 방문하는 순서에 따라 분류</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>전위 순회 (preorder)
+    <ul>
+      <li>루트 노드에서 시작</li>
+      <li>노드 방문</li>
+      <li>왼쪽 서브 트리 전위 순회</li>
+      <li>오른쪽 서브트리 전위 순회</li>
+      <li>= 깊이 우선 순회
+        <div class="language-c highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="n">preorder</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">print</span> <span class="n">node</span><span class="p">.</span><span class="n">value</span>
+  <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="n">left</span> <span class="o">!=</span> <span class="n">null</span>
+  <span class="n">then</span> <span class="n">preorder</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="n">right</span> <span class="o">!=</span> <span class="n">null</span>
+  <span class="n">then</span> <span class="n">preorder</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>중위 순회 (inorder)
+    <ul>
+      <li>왼쪽 서브 트리 중위 순회</li>
+      <li>노드 방문</li>
+      <li>오른쪽 서브 트리 중위 순회
+        <div class="language-c highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="n">inorder</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="n">left</span> <span class="o">!=</span> <span class="n">null</span>
+  <span class="n">then</span> <span class="n">inorder</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">)</span>
+  <span class="n">print</span> <span class="n">node</span><span class="p">.</span><span class="n">value</span>
+  <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="n">right</span> <span class="o">!=</span> <span class="n">null</span>
+  <span class="n">then</span> <span class="n">inorder</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>후위 순회 (portorder)
+    <ul>
+      <li>왼쪽 서브 트리 후위 순회</li>
+      <li>오른쪽 서브 트리 후위 순회</li>
+      <li>노드 방문
+        <div class="language-c highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="n">postorder</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="n">left</span> <span class="o">!=</span> <span class="n">null</span>
+  <span class="n">then</span> <span class="n">postorder</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="n">right</span> <span class="o">!=</span> <span class="n">null</span>
+  <span class="n">then</span> <span class="n">postorder</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">)</span>
+  <span class="n">print</span> <span class="n">node</span><span class="p">.</span><span class="n">value</span>
+<span class="p">}</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>레벨 순서 순회
+    <ul>
+      <li>모든 노드를 낮은 레벨부터 차례대로 순회</li>
+      <li>인접한 노드부터 차례대로 순회</li>
+      <li>= 너비 우선 순회</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-깊이-우선-검색">🐤 깊이 우선 검색</h2>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">DepthFirstTreeSearch</span><span class="p">(</span><span class="n">node</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">node</span> <span class="n">u</span><span class="p">;</span>
+    <span class="n">visit</span> <span class="n">v</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">each</span> <span class="n">child</span> <span class="n">u</span> <span class="n">of</span> <span class="n">v</span><span class="p">)</span>
+        <span class="n">DepthFristTreeSearch</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="일반-되추적-알고리즘">일반 되추적 알고리즘</h3>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">checknode</span><span class="p">(</span><span class="n">node</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">promising</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">there</span> <span class="n">is</span> <span class="n">a</span> <span class="n">solution</span> <span class="n">at</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">write</span> <span class="n">the</span> <span class="n">solution</span><span class="p">;</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="k">for</span><span class="p">(</span><span class="n">each</span> <span class="n">child</span> <span class="n">u</span> <span class="n">of</span> <span class="n">v</span><span class="p">)</span>
+                <span class="n">checknode</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h2 id="-n-queens-문제">🐤 N-Queens 문제</h2>
+<ul>
+  <li>n*n 서양 장기판에서 배치한 Queen들이 서로 위협하지 않도록 n개의 Queen을 배치하는 문제</li>
+  <li>일련의 원소: Queen을 배치한 n개의 위치</li>
+  <li>기준: 어떤 두 Queen도 서로를 위협하지 않아야 함</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="상태-공간-트리-state-space-tree">상태 공간 트리 State Space Tree</h3>
+<ul>
+  <li>해답의 후보들의 모임: 해 모임 (solution space)</li>
+  <li>문제 해결 과정의 중간 상태를 각각 한 노드로 나타낸 트리</li>
+  <li>루트 마디에서 리프 마디까지의 경로는 <strong>해답 후보</strong>가 됨
+    <ul>
+      <li>깊이 우선 검색을 통해 그 해답 후보 중에서 해답을 찾을 수 있음</li>
+    </ul>
+  </li>
+  <li>그러나, 이 방법을 사용하는 해답이 될 가능성이 전혀 없는 마디의 후손 마디들도 모두 검색해야 하므로 비효율적임</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="4-queens-문제">4-Queens 문제</h3>
+<ul>
+  <li>4개의 Queen을 서로 상대방을 위협하지 않도록 4x4 체스 판에 위치시키는 문제</li>
+  <li>서로 상대방을 위협하지 않기 위해서는 같은 행이나, 같은 열이나, 같은 대각선 상에 위치하지 않아야 함</li>
+  <li>
+<strong>무작정 알고리즘</strong>
+    <ul>
+      <li>각 Queen을 각각 다른 행에 할당한 후에, 어떤 열에 위치해야 해답을 얻을 수 있는지 차례대로 점검하는 방법</li>
+    </ul>
+  </li>
+  <li>이 때, 각 Queen은 4개의 열 중에 한 열에 위치할 수 있기 때문에 점검해야 하는 경우의 수는 4 x 4 x 4 x 4 = 256가지</li>
+</ul>
+
+<p><br></p>
+
+<h4 id="관찰">관찰</h4>
+<ul>
+  <li>모든 후보를 검색하는 것은 비효율적</li>
+  <li>되추적 기법: 어떤 노드의 유망성을 점검한 후, 유망하지 않다고 결정되면 그 노드의 부모로 되돌아가 (backtracking) 다음 자식 노드를 이용하여 문제의 답을 찾는 기법</li>
+  <li>어떤 노드를 방문했을 때 그 노드를 포함한 경로가 해답의 가능성이 있으면 <strong>유망하다</strong>고 함</li>
+  <li>유망하지 않는 노드가 포함되는 경로는 더이상 고려하지 않으며, 이 과정을 가지치기(pruning)라고 함</li>
+  <li>방문한 노드만을 나타낸 상태 공간 트리: 가지친 상태 공간 트리</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="일반-되추적-알고리즘-1">일반 되추적 알고리즘</h3>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">checknode</span><span class="p">(</span><span class="n">node</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">node</span> <span class="n">u</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">promising</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">there</span> <span class="n">is</span> <span class="n">a</span> <span class="n">solution</span> <span class="n">at</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">write</span> <span class="n">the</span> <span class="n">solution</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="k">for</span><span class="p">(</span><span class="n">each</span> <span class="n">child</span> <span class="n">u</span> <span class="n">of</span> <span class="n">v</span><span class="p">)</span>
+                <span class="n">checknode</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>각 응용마다 promising 함수는 다름</li>
+</ul>
+
+<p><br></p>
+
+<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/1b149ab8-a565-4a18-a211-12ba0dff7c7e" alt="image"></p>
+
+<p><br></p>
+
+<h3 id="4-queen-상태-공간-트리">4-Queen 상태 공간 트리</h3>
+
+<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/ede115ca-01de-4447-b1ed-e7dcc5fe1968" alt="image"></p>
+
+<p><br></p>
+
+<ul>
+  <li>검색하는 마디의 개수
+    <ul>
+      <li>순수한 깊이 우선 검색: 155마디
+        <ul>
+          <li>1 <code class="language-plaintext highlighter-rouge">root</code> + 1 <code class="language-plaintext highlighter-rouge">(1,1)</code> + 4 <code class="language-plaintext highlighter-rouge">(1,1) 자식노드</code> + 16 <code class="language-plaintext highlighter-rouge">그 자식노드</code> + 64 <code class="language-plaintext highlighter-rouge">그 자식노드</code> <code class="language-plaintext highlighter-rouge">(1,1)로부터 내려오는 모든 노드</code> + 1 <code class="language-plaintext highlighter-rouge">(1,2)</code> + 3 <code class="language-plaintext highlighter-rouge">(2,1)-(2,3)</code> + 12 <code class="language-plaintext highlighter-rouge">그 세 개의 노드의 자식노드</code> + 48 <code class="language-plaintext highlighter-rouge">그 자식노드들</code> <code class="language-plaintext highlighter-rouge">(1,3)까지 합한 것</code> + 1 <code class="language-plaintext highlighter-rouge">(2,4)</code> + 1 <code class="language-plaintext highlighter-rouge">(3,1)</code> + 3 <code class="language-plaintext highlighter-rouge">(4,1)(4,2)(4,3)</code>
+</li>
+        </ul>
+      </li>
+      <li>되추적 기법: 27마디</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-n-queens-문제-1">🐤 n-Queens 문제</h2>
+
+<ul>
+  <li>4-Queens 문제를 확장</li>
+  <li>
+<strong>promising 함수</strong>
+    <ul>
+      <li>같은 열에 있으면 안됨</li>
+      <li>대각선에 있는 경우
+        <ul>
+          <li>
+<code class="language-plaintext highlighter-rouge">col[i]</code> : i번째 행에 있는 Queen의 열 위치 (이미 놓여짐)</li>
+          <li>col[6] - col[3] = 4 - 1 = 3 = 6 - 3</li>
+          <li>
+            <table>
+              <tbody>
+                <tr>
+                  <td>col[6] - col[2]</td>
+                  <td>=</td>
+                  <td>4 - 8</td>
+                  <td>=</td>
+                  <td>-4</td>
+                  <td>= 6-2</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/12dea5ec-22af-495d-86e6-086ce41f0327" width="200" height="200"></p>
+
+<p><br></p>
+
+<h3 id="promising-함수">promising 함수</h3>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="nf">promising</span><span class="p">(</span><span class="n">index</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">index</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">&amp;&amp;</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">col</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">col</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">||</span> <span class="n">abs</span><span class="p">(</span><span class="n">col</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">col</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">==</span> <span class="n">i</span><span class="o">-</span><span class="n">k</span><span class="p">)</span>   <span class="c1">// 같은 열인지 or 대각선인지 : 열의 차이 = 행의 차이</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="n">k</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="n-queens-알고리즘">n-Queens 알고리즘</h3>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">queens</span><span class="p">(</span><span class="n">index</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">index</span> <span class="n">j</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">promising</span><span class="p">(</span><span class="n">j</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span> 
+            <span class="n">print</span> <span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">through</span> <span class="n">col</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">col</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+                <span class="n">queens</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">j</code>는 각 행의 열</li>
+  <li>i = 0, 1 : 무조건 <code class="language-plaintext highlighter-rouge">true</code>
+</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="문제-분석">문제 분석</h3>
+<ul>
+  <li>n-Queens 문제의 모든 노드의 수 <br>
+$1 + n + n^2 + … + n^n = \frac{n^{n+1}-1}{n-1}$
+    <ul>
+      <li>ex) n = 8 -&gt; 19,173,961 개의 노드</li>
+      <li>실제로 모든 노드를 검사하지 않음</li>
+    </ul>
+  </li>
+  <li>유망한 노드의 수
+    <ul>
+      <li>
+<strong>두 개의 queen은 같은 열에 위치할 수 없음</strong> <br>
+  <strong>$1 + n + n(n-1) + n(n-1)(n-2) + … + n!$</strong>
+</li>
+      <li>ex) n = 8 -&gt; 46,233 개의 노드</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="정리">정리</h3>
+<ul>
+  <li>위 두가지 분석 방법(되추적)은 알고리즘의 복잡도를 정확히 표현해주지 못함</li>
+  <li>왜냐하면
+    <ul>
+      <li>대각선을 점검하는 경우를 고려하지 않음
+        <ul>
+          <li>실제 유망한 마디의 수는 더 적을 수 있음</li>
+        </ul>
+      </li>
+      <li>유망하지 않은 마디를 포함하고 있는데, 실제로 해석의 결과에 포함된 마디 중 유망하지 않은 마디가 훨씬 더 많을 수 있음</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-부분집합의-합-구하기-문제">🐤 부분집합의 합 구하기 문제</h2>
+<ul>
+  <li>
+    <p>문제: n개의 양의 정수 wi가 있을 때, 부분집합의 원소들의 합이 W가 되는 모든 부분집합을 찾는 문제</p>
+  </li>
+  <li>
+    <p>ex) n = 5, W = 21, w1 = 5, w2 = 6, w3 = 10, w4 = 11, w5 = 16</p>
+    <ul>
+      <li>w1 + w2 + w3 = 21</li>
+      <li>w1 + w5 = 21</li>
+      <li>w3 + w4 = 21</li>
+      <li>답: {w1, w2, w3}, {w1, w5}, {w3, w4}</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/f2c768dd-0b48-4411-ab68-01c9a375446c" width="300" height="200"></p>
+
+<ul>
+  <li>상태 공간 트리는 위 그림과 같음</li>
+  <li>이때 무게를 <strong>오름차순으로 정렬</strong>하여 접근하면 유망하지 않은 노드를 쉽게 식별할 수 있음</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>ex) n = 4, W = 13, w1 = 3, w2 = 4, w3 = 5, w4 = 6
+<img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/fa08c882-318b-4d9a-9bd4-3c7f596c2229" alt="image">
+</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="의사코드">의사코드</h3>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">SumOfSubsets</span><span class="p">(</span><span class="n">index</span> <span class="n">i</span><span class="p">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">,</span> <span class="kt">int</span> <span class="n">total</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">promising</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">weight</span> <span class="o">==</span> <span class="n">W</span><span class="p">)</span> <span class="err">결과</span> <span class="err">출력</span><span class="p">;</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="n">include</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>   <span class="c1">// 왼쪽 자식노드: 다음 숫자 포함</span>
+            <span class="n">SumOfSubset</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">weight</span><span class="o">+</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">total</span><span class="o">-</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
+            <span class="n">include</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>  <span class="c1">// 오른쪽 자식노드: 다음 숫자 포함X</span>
+            <span class="n">SumOfSubset</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">total</span><span class="o">-</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>include[i]: 어느 item을 방문했는지 true / false로 저장</li>
+</ul>
+
+<p><br></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="nf">promising</span><span class="p">(</span><span class="n">index</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">weight</span><span class="o">+</span><span class="n">total</span> <span class="o">&gt;=</span> <span class="n">W</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">weight</span><span class="o">==</span><span class="n">W</span> <span class="o">||</span> <span class="n">weight</span><span class="o">+</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">W</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>weight: 지금까지 포함한 wi 들의 합</li>
+  <li>total: 아직 고려하지 않은 wi 들의 합</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="문제-분석-1">문제 분석</h3>
+<ul>
+  <li>상태 공간 트리의 최대 노드 개수  <br>
+$1 + 2 + 2^2 + … + 2^n = 2^{n+1} -1$</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-그래프-색칠하기-문제">🐤 그래프 색칠하기 문제</h2>
+<ul>
+  <li>m-색칠하기 문제
+    <ul>
+      <li>인접한 노드는 같은 색으로 칠할 수 없다는 제약 조건 하에 무방향 그래프의 노드를 최대한 m개의 색으로 색칠하는 문제</li>
+    </ul>
+  </li>
+  <li>응용: 평면 그래프
+    <ul>
+      <li>임의의 두 간선이 서로 교차되지 않도록 그래프를 평면에 그릴 수 있는 경우</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/716bf18b-31d7-46f8-a8ad-78d47466045d" alt="image"></p>
+
+<p><br></p>
+
+<ul>
+  <li>그래프 색칠하기 문제의 상태 공간 트리</li>
+</ul>
+
+<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/55567943-78a3-4c73-9e8b-d36e64e6cecb" alt="image"></p>
+
+<p><br></p>
+
+<h3 id="알고리즘">알고리즘</h3>
+<ul>
+  <li>문제: 비방향 그래프에서 m개의 색만 사용하여 인접한 정점이 같은 색이 되지 않게 정점을 색칠하는 모든 방법을 구하라.</li>
+  <li>입력: 정점 n, 색 m, 인접행렬 W[i][j]</li>
+  <li>결과: 최대로 m개의 색을 가지고, 인접한 정점이 같은 색이 되지 않게 그래프에 색칠하는 가능한 모든 경우</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="의사코드-1">의사코드</h3>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">m_coloring</span><span class="p">(</span><span class="n">index</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">color</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">promising</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span>
+            <span class="n">print</span> <span class="n">output</span><span class="p">;</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="k">for</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">color</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">;</span> <span class="n">color</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// 다음 정점에 가능한 모든 색 시도</span>
+                <span class="n">vcolor</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span><span class="p">;</span>
+                <span class="n">m_coloring</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>0번, 1번 노드: true</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">vcolor</code>: 색의 종류</li>
+</ul>
+
+<p><br></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="nf">promising</span><span class="p">(</span><span class="n">index</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">index</span> <span class="n">j</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="k">switch</span><span class="p">;</span>
+    <span class="k">switch</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">&amp;&amp;</span> <span class="k">switch</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// 이미 칠해진 노드 확인</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">W</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">vcolor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">vcolor</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+            <span class="k">switch</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>    <span class="c1">// 인접한 노드가 같은 색일 경우</span>
+        <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">switch</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">j</code>: 이미 칠해진 노드</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">switch</code>: promising 여부</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="문제-분석-2">문제 분석</h3>
+<ul>
+  <li>상태 공간 트리 상의 마디의 총 수 (색의 수)   <br>
+$1 + m + m^2 + … + m^n = \frac{m^{n+1}-1}{m-1}$</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-해밀토니안-순환경로-문제">🐤 해밀토니안 순환경로 문제</h2>
+<ul>
+  <li>
+    <p>연결된 무방향 그래프에서 주어진 정점에서 출발하여 <strong>모든 정점</strong>을 정확하게 한 번 방문하고 출발한 정점으로 되돌아오는 경로</p>
+  </li>
+  <li>상태 공간 트리에서 노드의 유망 여부
+    <ul>
+      <li>경로에 있는 i번째 정점은 i-1번 정점과 인접해야 함</li>
+      <li>n-1번째 정점은 0번째 정점(출발 정점)과 인접해야 함</li>
+      <li>i번째 정점은 그 앞에 오는 i-1개의 정점들 중 하나가 될 수 없음</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">Vindex[n]</code> : 방문한 정점 리스트</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="알고리즘-1">알고리즘</h3>
+<ul>
+  <li>문제: 연결된 비방향 그래프에서 해밀턴 회로를 모두 구하라.</li>
+  <li>입력: 정점 수 n, 정점이 n개인 비방향 그래프 W[i][j];</li>
+  <li>결과: 해밀턴 회로를 이루는 모든 경로</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="의사코드-2">의사코드</h3>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">hamiltonian</span><span class="p">(</span><span class="n">index</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">index</span> <span class="n">j</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">promising</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">print</span> <span class="n">output</span><span class="p">;</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>      <span class="c1">// 다음에 오는 모든 정점들 시도</span>
+                <span class="n">vindex</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+                <span class="n">hamiltonian</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>   <span class="c1">// promising 여부 확인</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="nf">promising</span><span class="p">(</span><span class="n">index</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">index</span> <span class="n">j</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="k">switch</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">W</span><span class="p">[</span><span class="n">vindex</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]][</span><span class="n">vindex</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>  
+        <span class="k">switch</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>      <span class="c1">// n-1번째 정점과 0번째 정점 인접해야 함</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">W</span><span class="p">[</span><span class="n">vindex</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]][</span><span class="n">vinde</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+        <span class="k">switch</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>      <span class="c1">// root가 아닌 i번째 정점과 i-1번째 정점은 인접해야 함</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">&amp;&amp;</span> <span class="k">switch</span><span class="p">)</span> <span class="p">{</span>        <span class="c1">// 이미 선택된 정점인지 확인</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">vindex</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">vindex</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>    
+                <span class="k">switch</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">switch</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="문제-분석-3">문제 분석</h3>
+<ul>
+  <li>상태 공간 트리의 최대 노드 수  <br>
+$1 + (n-1) + (n-1)^2 + … + (n-1)^{(n-1)} = \frac{(n-1)^n -1}{n-2}$</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-몬테카를로-기법">🐤 몬테카를로 기법</h2>
+<ul>
+  <li>되추적 알고리즘의 수행시간 추정</li>
+  <li>어떤 입력이 주어졌을 때 점검하게 되는 상태 공간 트리의 “전형적인” 경로를 무작위로 생성하여 그 경로 상에 있는 마디의 수를 셈</li>
+  <li>
+    <p>이 과정을 여러 번 반복하여 나오는 결과의 평균치를 추정치로 함</p>
+  </li>
+  <li>다음 두 조건을 반드시 만족해야 함
+    <ul>
+      <li>상태 공간 트리의 같은 레벨에 있는 모든 마디의 유망성 여부를 점검하는 절차는 같아야 함</li>
+      <li>상태 공간 트리의 같은 레벨에 있는 모든 마디는 반드시 같은 수의 자식 마디를 가지고 있어야 함</li>
+    </ul>
+  </li>
+  <li>n-Queens 문제는 이 두 조건 만족</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>무작위로 경로 생성
+    <ul>
+      <li>루트(레벨 0)의 유망한 자식 마디의 개수를 $m_0$라고 함</li>
+      <li>상태 공간 트리의 레벨 1에서 유망한 마디를 하나 랜덤하게 정하고, 이 마디의 유망한 자식 마디의 개수를 $m_1$이라고 함</li>
+      <li>위에서 정한 마디의 유망한 마디를 하나 랜덤하게 정하고, 이 마디의 유망한 자식 마디의 개수를 $m_2$라고 함</li>
+      <li>…</li>
+      <li>더이상 유망한 자식 마디가 없을 때까지 이 과정 반복</li>
+    </ul>
+  </li>
+  <li>여기서 $m_i$는 수준 i에 있는 마디의 유망한 자식 마디 개수의 평균의 추정치</li>
+  <li>수준 i에 있는 한 마디의 자식 마디의 총 개수를 $t_i$라고 하면 (유망하지 않은 마디 포함), 되추적 기법에 의해 점검한 마디의 총 개수의 추정치는  <br>
+$1 + t_0 + m_0t_1 + m_0m_1t_2 + … + m_0m_1…m_{i-1}t_i + …$</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>ex) n-Queens 문제에 적용</li>
+</ul>
+
+<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/86ceac30-5df6-4408-a337-eae7c07f7c18" alt="image"></p>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/algorithm/2023/07/10/chap4.html" title="Greedy Algorithm">Greedy Algorithm</a><a class="next" href="/algorithm/2023/07/11/chap6.html" title="분기 한정법 Branch and Bound">분기 한정법 Branch and Bound</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li class="">
+          <a class="post-link" href="/it%20issues/2023/04/17/bing.html" title="[IT] 삼성, 갤럭시 검색엔진 '빙'으로 교체 검토하자 패닉 빠진 구글">
+            [IT] 삼성, 갤럭시 검색엔진 '빙'으로 교체 검토하자 패닉 빠진 구글<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/infra/2023/09/22/es.html" title="[ES] Elastic Search Basic">
+            [ES] Elastic Search Basic<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/hadoop/2023/09/22/ch3.html" title="[pilot] Ch3. 빅데이터 수집 이론">
+            [pilot] Ch3. 빅데이터 수집 이론<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/algorithm/2023/06/30/chap1.html" title="효율, 분석, 차수">
+            효율, 분석, 차수<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+</ul>
+    </div>
+<div class="post-comments">
+      <script src="https://utteranc.es/client.js" repo="bokyung124/bokyung124.github.io" issue-term="pathname" label="comments" theme="github-light" crossorigin="anonymous" async>
+      </script>
+      
+      <!---->
+    </div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>Unpublished Work <span class="copyleft">©</span> 2017-2023 GitHub User</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

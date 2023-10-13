@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[DBP] CH3. PL/SQL | Your awesome title</title>
+<meta name="generator" content="Jekyll v4.3.2">
+<meta property="og:title" content="[DBP] CH3. PL/SQL">
+<meta name="author" content="GitHub User">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="OracleDB) PL/SQL">
+<meta property="og:description" content="OracleDB) PL/SQL">
+<link rel="canonical" href="http://localhost:4000/sql/2023/04/07/PL-SQL.html">
+<meta property="og:url" content="http://localhost:4000/sql/2023/04/07/PL-SQL.html">
+<meta property="og:site_name" content="Your awesome title">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-04-07T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[DBP] CH3. PL/SQL">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"GitHub User"},"dateModified":"2023-04-07T14:56:00+09:00","datePublished":"2023-04-07T00:00:00+09:00","description":"OracleDB) PL/SQL","headline":"[DBP] CH3. PL/SQL","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/sql/2023/04/07/PL-SQL.html"},"url":"http://localhost:4000/sql/2023/04/07/PL-SQL.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="icon" href="">
+  <link rel="canonical" href="http://localhost:4000">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js" async></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js" async></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.info("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (el.src.trim() == "") {
+        return;
+      }
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/logo/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Your awesome title" src="" onerror="this.style.display='none'">
+  Your awesome title
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/">HOME</a><a class="page-link" href="/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[DBP] CH3. PL/SQL</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-04-07T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 07, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 16 mins</span>
+  </div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <p><br></p>
+
+<h2 id="-plsql">🍀 PL/SQL</h2>
+<hr>
+
+<h2 id="개요-및-특징">개요 및 특징</h2>
+<ul>
+  <li>Oracle에서 제공하는 SQL을 확장한 절차적 프로그래밍 언어</li>
+  <li>SQL 문장에서 변수 정의, 조건 처리, 반복 처리 등 프로그래밍 언어가 보이는 제어 구조 제공</li>
+  <li>SQL과 프로그래밍 언어의 통합 접근 중 한 형태</li>
+  <li>ESQL, SQLJ 등 기술과 달리, 상용 프로그래밍 언어가 아닌 Oracle 자체적인 프로그래밍 언어 사용</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="엔진-실행-구조">엔진 실행 구조</h3>
+<p><img src="https://user-images.githubusercontent.com/53086873/230436112-5d659694-c5da-4d7f-a332-560e9d1283ce.jpeg" alt="IMG_80840AD92F7D-1"></p>
+
+<p><br></p>
+
+<h3 id="언어-구조">언어 구조</h3>
+<ul>
+  <li>블록 단위 구조
+    <ul>
+      <li>임의의 수의 중첩된 하위 블록 포함</li>
+      <li>선언부 <code class="language-plaintext highlighter-rouge">DECLARE</code>, 실행부 <code class="language-plaintext highlighter-rouge">BEGIN ... END</code>, 예외처리부 <code class="language-plaintext highlighter-rouge">EXCEPTION</code> 으로 구성</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">DECLARE</span>    <span class="c1">-- 선택</span>
+    <span class="c1">-- 변수, 상수, 커서, 사용자 지정 예외 선언</span>
+
+<span class="k">BEGIN</span>      <span class="c1">-- 필수</span>
+    <span class="c1">-- SQL 문장</span>
+    <span class="c1">-- PL/SQL 제어 문장</span>
+
+<span class="n">EXCEPTION</span>  <span class="c1">-- 선택</span>
+    <span class="c1">-- 에러 발생시 수행될 액션</span>
+
+<span class="k">END</span><span class="p">;</span>       <span class="c1">-- 필수</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="블록-유형">블록 유형</h3>
+<ul>
+  <li>익명 (Anonymous)
+    <ul>
+      <li>이름이 없는 PL/SQL 블록</li>
+    </ul>
+  </li>
+  <li>저장 프로시저 (Stored Procedure) 및 함수 (Function)
+    <ul>
+      <li>매개 변수를 받을 수 있고, 반복해서 사용할 수 있는 이름이 있는 PL/SQL 블록</li>
+    </ul>
+  </li>
+  <li>패키지 (Package)
+    <ul>
+      <li>관련된 저장 프로시저, 함수를 모은 이름이 있는 PL/SQL 블록</li>
+    </ul>
+  </li>
+  <li>트리거 (Trigger)
+    <ul>
+      <li>데이터베이스의 테이블과 연결되어 자동적으로 실행되는 이름이 있는 PL/SQL 블록</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="식별자-identifiers">식별자 (Identifiers)</h3>
+<ul>
+  <li>첫 자리는 알파벳으로 시작</li>
+  <li>총 자릿수는 30자 이내</li>
+  <li>특수문자 사용 가능 (&amp;, -, /, space) 제외</li>
+  <li>대소문자 구별 X</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="연산자">연산자</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>연산자</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>+, -, *, /, **</td>
+      <td>덧셈, 뺄셈, 곱셈, 나눗셈, 지수 연산자</td>
+    </tr>
+    <tr>
+      <td>=, &lt;, &gt;, &lt;&gt;, !=, &lt;=, &gt;=</td>
+      <td>관계 연산자</td>
+    </tr>
+    <tr>
+      <td>(, )</td>
+      <td>식 또는 리스트 구분자</td>
+    </tr>
+    <tr>
+      <td>;</td>
+      <td>문장 끝마침 구분자</td>
+    </tr>
+    <tr>
+      <td>%</td>
+      <td>속성 인자</td>
+    </tr>
+    <tr>
+      <td>,</td>
+      <td>아이템 또는 문자열 구분자</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">=</td>
+      <td>지정(assignment) 연산자</td>
+    </tr>
+    <tr>
+      <td>..</td>
+      <td>범위(range) 연산자</td>
+    </tr>
+    <tr>
+      <td colspan="3">
+</td>
+      
+    </tr>
+    <tr>
+      <td>–</td>
+      <td>주석 연산자(한 라인 이하)</td>
+    </tr>
+    <tr>
+      <td>/* */</td>
+      <td>주석 연산자(복수 라인)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br></p>
+
+<h3 id="리터럴">리터럴</h3>
+<ul>
+  <li>숫자
+    <ul>
+      <li>정수의 일반 숫자 값 (123, -4.6)</li>
+      <li>지수로 표현된 숫자 값 (1.43E5)</li>
+    </ul>
+  </li>
+  <li>문자
+    <ul>
+      <li>작은 따옴표로 구분된 문자열 (‘STRING’)</li>
+      <li>NULL 값 표현 가능 (‘’)</li>
+    </ul>
+  </li>
+  <li>불리언
+    <ul>
+      <li>TRUE, FALSE, NULL</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="주석-comment">주석 (Comment)</h3>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">/* */</code>: 한 줄 이상의 줄 주석</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">--</code>: 한 줄 단위의 주석</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-plsql-사용">🍀 PL/SQL 사용</h2>
+<hr>
+
+<ul>
+  <li>SQL*PLUS에서 SQL 언어를 작성하는 것과 유사하게 작성
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">SQL&gt;</code> 프롬프트 상에서 사용</li>
+    </ul>
+  </li>
+  <li>대개의 경우 익명 블록 형태가 아닌 저장 프로시저, 함수, 트리거 등의 형태로 사용</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-plsql-결과-출력">🍀 PL/SQL 결과 출력</h2>
+<hr>
+
+<h3 id="plsql의-결과를-확인하기-위해-출력하는-방법">PL/SQL의 결과를 확인하기 위해 출력하는 방법</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- `Set ServerOutput On;`
+- `DBMS_OUTPUT.PUT_LINE(...)`
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="출력-방법">출력 방법</h3>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SQL</span><span class="o">&gt;</span> <span class="k">Set</span> <span class="n">ServerOutput</span> <span class="k">On</span><span class="p">;</span>
+<span class="k">SQL</span><span class="o">&gt;</span>
+<span class="k">BEGIN</span>
+    <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'HELLO'</span><span class="p">);</span>
+<span class="k">END</span><span class="p">;</span>
+<span class="o">/</span>
+</code></pre></div></div>
+
+<p>HELLO</p>
+
+<p><br></p>
+
+<h2 id="-plsql-데이터-타입">🍀 PL/SQL 데이터 타입</h2>
+<hr>
+
+<h3 id="개요">개요</h3>
+<ul>
+  <li>SQL에서 제공하는 모든 데이터 타입 + 추가 데이터 타입 제공</li>
+  <li>추가 데이터 타입
+    <ul>
+      <li>BOOLEAN</li>
+      <li>BINARY_INTEGER(부호 있는 정수), NATURAL(자연수), POSITIVE(양수)</li>
+      <li>%TYPE</li>
+      <li>%ROWTYPE</li>
+      <li>PL/SQL 테이블과 레코드</li>
+    </ul>
+  </li>
+  <li>데이터 타입 유형
+    <ul>
+      <li>스칼라(Scalar) 타입</li>
+      <li>복합(Composite) 타입</li>
+      <li>참조 타입</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="변수-선언">변수 선언</h3>
+<ul>
+  <li>형식
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="err">식별자</span> <span class="p">[</span><span class="n">CONSTANT</span><span class="p">]</span> <span class="err">데이터타입</span> <span class="p">[</span><span class="k">NOT</span> <span class="k">NULL</span><span class="p">]</span>
+  <span class="p">[</span> <span class="p">:</span><span class="o">=</span> <span class="err">상수값이나</span> <span class="err">표현식</span><span class="p">];</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>식별자: 변수나 상수의 이름</li>
+  <li>CONSTANT: 식별자가 그 값이 변할 수 없도록 선언, 반드시 초기화</li>
+  <li>데이터 타입: 스칼라 또는 복합 데이터 타입 선언시 사용</li>
+  <li>NOT NULL: NOT NULL로 제한된 변수는 반드시 초기화 필요</li>
+  <li>초기값을 정의하지 않으면 식별자는 <code class="language-plaintext highlighter-rouge">NULL</code> 값을 가짐</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="스칼라-데이터-타입">스칼라 데이터 타입</h3>
+<ul>
+  <li>단수 데이터 형으로 하나의 데이터 값을 저장하는 데이터 타입</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>데이터 타입</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BINARY_INTEGER</td>
+      <td>-2147483647, 2147483647 사이의 정수, 디폴트 값 = 1</td>
+    </tr>
+    <tr>
+      <td>NUMBER[(p,s)]</td>
+      <td>정수와 실수</td>
+    </tr>
+    <tr>
+      <td>CHAR[(최대길이)]</td>
+      <td>32767바이트까지의 고정 길이 문자<br>최대길이 미지정시 디폴트 길이는 1</td>
+    </tr>
+    <tr>
+      <td>LONG</td>
+      <td>32760바이트까지의 가변 길이 문자열</td>
+    </tr>
+    <tr>
+      <td>VARCHAR2(최대길이)</td>
+      <td>32767바이트까지의 가변 길이 문자 데이터</td>
+    </tr>
+    <tr>
+      <td>DATE</td>
+      <td>날짜와 시간 데이터</td>
+    </tr>
+    <tr>
+      <td>BOOLEAN</td>
+      <td>TRUE, FALSE, NULL 중 한 가지 값 저장</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br></p>
+
+<ul>
+  <li>ex)
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="n">v_gender</span> <span class="nb">CHAR</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">v_count</span> <span class="n">BINARY_INTEGER</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">v_total_sal</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">v_order_date</span> <span class="nb">DATE</span> <span class="p">:</span><span class="o">=</span> <span class="n">SYSDATE</span> <span class="o">+</span> <span class="mi">7</span><span class="p">;</span>
+<span class="n">c_tax_rate</span> <span class="n">CONSTANT</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="p">:</span><span class="o">=</span> <span class="mi">8</span><span class="p">.</span><span class="mi">25</span><span class="p">;</span>
+<span class="n">v_valid</span> <span class="nb">BOOLEAN</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="p">:</span><span class="o">=</span> <span class="k">TRUE</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h4 id="type">%TYPE</h4>
+<ul>
+  <li>데이터베이스 테이블의 컬럼 데이터 타입을 모를 경우 사용</li>
+  <li>데이터베이스 컬럼의 데이터 타입이 변경될 경우 다시 수정할 필요 없음</li>
+  <li>이미 선언된 다른 변수나 데이터베이스 컬럼의 데이터 타입을 이용하여 선언</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">%TYPE</code> 앞에 올 수 있는 것은 데이터베이스 테이블과 컬럼, 이미 선언한 변수명</li>
+  <li>ex)
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">v_empno emp.empno%TYPE := 7900;</code>
+        <ul>
+          <li>v_empno의 데이터 타입: emp 테이블의 empno 컬럼의 데이터타입</li>
+        </ul>
+      </li>
+      <li>
+<code class="language-plaintext highlighter-rouge">v_ename emp.ename%TYPE;</code>
+        <ul>
+          <li>v_ename의 데이터 타입: emp 테이블의 ename 컬럼의 데이터 타입</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>예시)
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="k">DECLARE</span>
+  <span class="n">v_empno</span> <span class="n">emp</span><span class="p">.</span><span class="n">empno</span><span class="o">%</span><span class="k">TYPE</span><span class="p">;</span>
+  <span class="n">v_ename</span> <span class="n">emp</span><span class="p">.</span><span class="n">ename</span><span class="o">%</span><span class="k">TYPE</span><span class="p">;</span>
+  <span class="n">v_sal</span> <span class="n">emp</span><span class="p">.</span><span class="n">sal</span><span class="o">%</span><span class="k">TYPE</span><span class="p">;</span>
+<span class="k">BEGIN</span>
+  <span class="k">SELECT</span> <span class="n">empno</span><span class="p">,</span> <span class="n">ename</span><span class="p">,</span> <span class="n">sal</span>
+  <span class="k">INTO</span> <span class="n">v_empno</span><span class="p">,</span> <span class="n">v_ename</span><span class="p">,</span> <span class="n">v_sal</span>
+  <span class="k">FROM</span> <span class="n">emp</span>
+  <span class="k">WHERE</span> <span class="n">empno</span> <span class="o">=</span> <span class="n">p_empno</span><span class="p">;</span>
+
+  <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'사원번호: '</span><span class="o">||</span><span class="n">v_empno</span><span class="p">);</span>
+  <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'사원이름: '</span><span class="o">||</span><span class="n">v_ename</span><span class="p">);</span>
+  <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'사원급여: '</span><span class="o">||</span><span class="n">v_sal</span><span class="p">);</span>
+<span class="k">END</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="복합-데이터-타입">복합 데이터 타입</h2>
+<ul>
+  <li>하나 이상의 데이터 값을 가지는 데이터 타입</li>
+  <li>PL/SQL 테이블과 레코드, %ROWTYPE</li>
+</ul>
+
+<p><br></p>
+
+<h4 id="rowtype">%ROWTYPE</h4>
+<ul>
+  <li>특징
+    <ul>
+      <li>테이블이나 뷰 내부의 컬럼 집합의 이름, 데이터 타입, 크기, 속성을 그대로 사용하여 선언</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">%ROWTYPE</code> 앞에 오는 것은 테이블명</li>
+    </ul>
+  </li>
+  <li>장점
+    <ul>
+      <li>데이터베이스의 컬럼들의 수나 데이터 타입을 모를 때 편리</li>
+      <li>해당 데이터베이스 컬럼들의 수나 데이터 타입이 변경될 경우 수정하지 않아도 됨</li>
+      <li>SELECT 문을 이용하여 하나의 행 조회할 때 편리</li>
+    </ul>
+  </li>
+  <li>예시)
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="k">DECLARE</span>
+  <span class="n">v_emp</span> <span class="n">emp</span><span class="o">%</span><span class="n">ROWTYPE</span><span class="p">;</span>
+<span class="k">BEGIN</span>
+  <span class="k">SELECT</span> <span class="n">empno</span><span class="p">,</span> <span class="n">ename</span><span class="p">;</span>
+  <span class="k">INTO</span> <span class="n">v_emp</span><span class="p">.</span><span class="n">empno</span><span class="p">,</span> <span class="n">v_emp</span><span class="p">.</span><span class="n">ename</span>
+  <span class="k">FROM</span> <span class="n">emp</span>
+  <span class="k">WHERE</span> <span class="n">empno</span> <span class="o">=</span> <span class="mi">7844</span><span class="p">;</span>
+
+  <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'번호: '</span><span class="o">||</span><span class="n">v_emp</span><span class="p">.</span><span class="n">empno</span><span class="p">);</span>
+  <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'이름: '</span><span class="o">||</span><span class="n">v_emp</span><span class="p">.</span><span class="n">ename</span><span class="p">);</span>
+<span class="k">END</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h4 id="plsql-테이블">PL/SQL 테이블</h4>
+<ul>
+  <li>특징
+    <ul>
+      <li>일차원 배열과 유사</li>
+      <li>테이블 크기는 제한이 없으며, ROW의 수는 데이터가 들어옴에 따라 자동 증가</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>형식
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="k">TYPE</span> <span class="n">type_name</span> <span class="k">IS</span> <span class="k">TABLE</span> <span class="k">OF</span> <span class="n">datatype</span> <span class="p">[</span><span class="k">NOT</span> <span class="k">NULL</span><span class="p">]</span>
+  <span class="p">[</span><span class="k">INDEX</span> <span class="k">BY</span> <span class="n">BINARY_INTEGER</span><span class="p">];</span>
+<span class="n">Identifier</span> <span class="n">type_name</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>예시)
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="k">DECLARE</span>
+  <span class="k">TYPE</span> <span class="n">empno_table</span> <span class="k">IS</span> <span class="k">TABLE</span> <span class="k">OF</span>  <span class="n">emp</span><span class="p">.</span><span class="n">empno</span><span class="o">%</span><span class="k">TYPE</span>
+      <span class="k">INDEX</span> <span class="k">BY</span> <span class="n">BINARY_INTEGER</span><span class="p">;</span>
+  <span class="k">TYPE</span> <span class="n">ename_table</span> <span class="k">IS</span> <span class="k">TABLE</span> <span class="k">OF</span> <span class="n">emp</span><span class="p">.</span><span class="n">ename</span><span class="o">%</span><span class="k">TYPE</span>
+      <span class="k">INDEX</span> <span class="k">BY</span> <span class="n">BINARY_INTEGER</span><span class="p">;</span>
+    
+  <span class="n">empno_tab</span> <span class="n">empno_table</span><span class="p">;</span>
+  <span class="n">ename_tab</span> <span class="n">ename_table</span><span class="p">;</span>
+
+  <span class="n">i</span> <span class="n">BINARY_INTEGER</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">BEGIN</span>
+  <span class="k">FOR</span> <span class="n">emp_list</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">empno</span><span class="p">,</span> <span class="n">ename</span>
+                   <span class="k">FROM</span> <span class="n">emp</span> <span class="k">WHERE</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+  <span class="n">LOOP</span>
+      <span class="n">i</span> <span class="p">:</span><span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+
+      <span class="n">empno_tab</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">:</span><span class="o">=</span> <span class="n">emp_list</span><span class="p">.</span><span class="n">empno</span><span class="p">;</span>
+      <span class="n">ename_tab</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">:</span><span class="o">=</span> <span class="n">emp_list</span><span class="p">.</span><span class="n">ename</span><span class="p">;</span>
+
+      <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'번호: '</span><span class="o">||</span><span class="n">empno_tab</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+      <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'이름: '</span><span class="o">||</span><span class="n">ename_tab</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+  <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+<span class="k">END</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>메소드
+    <ul>
+      <li>COUNT
+        <ul>
+          <li>PL/SQL 테이블의 전체 행 수 반환</li>
+          <li>ex) <code class="language-plaintext highlighter-rouge">i := ename_tab.COUNT;</code> : ename_tab에 저장된 전체 데이터 행의 수</li>
+        </ul>
+      </li>
+      <li>DELETE
+        <ul>
+          <li>PL/SQL 테이블의 특정 행 삭제</li>
+          <li>ex1) <code class="language-plaintext highlighter-rouge">ename_tab.DELETE(3);</code> : ename_tab의 인덱스가 3인 행 삭제</li>
+          <li>ex2) <code class="language-plaintext highlighter-rouge">ename_tab.DELETE;</code> : ename_tab의 전체 행 삭제</li>
+          <li>ex3) <code class="language-plaintext highlighter-rouge">ename_tab.DELETE(2,3);</code> : ename_tab의 2~3행 삭제</li>
+        </ul>
+      </li>
+      <li>EXISTS
+        <ul>
+          <li>PL/SQL 테이블의 특정 행이 존재하면 <code class="language-plaintext highlighter-rouge">TRUE</code>, 존재하지 않으면 <code class="language-plaintext highlighter-rouge">FALSE</code> 반환</li>
+          <li>ex) ename_tab에 1행이 존재하는지 검사
+            <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  <span class="n">IF</span> <span class="n">ename_tab</span><span class="p">.</span><span class="k">EXISTS</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">THEN</span>
+      <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'ename_tab(1) exists'</span><span class="p">);</span>
+  <span class="k">ELSE</span> 
+      <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'ename_tab(1) does not exist'</span><span class="p">);</span>
+  <span class="k">END</span> <span class="n">IF</span>
+</code></pre></div>            </div>
+          </li>
+        </ul>
+      </li>
+      <li>FIRST, LAST
+        <ul>
+          <li>
+<code class="language-plaintext highlighter-rouge">FIRST</code>는 PL/SQL 테이블의 첫번째 행 인덱스</li>
+          <li>
+<code class="language-plaintext highlighter-rouge">LAST</code>는 마지막 행의 인덱스 번호 반환 (인덱스는 0부터 시작하지 않아도 됨)</li>
+          <li>ex)
+            <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  <span class="n">ename_tab</span><span class="p">(</span><span class="mi">70</span><span class="p">)</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'이름1'</span><span class="p">;</span>
+  <span class="n">ename_tab</span><span class="p">(</span><span class="mi">75</span><span class="p">)</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'이름2'</span><span class="p">;</span>
+  <span class="n">ename_tab</span><span class="p">(</span><span class="mi">73</span><span class="p">)</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'이름3'</span><span class="p">;</span>
+  <span class="c1">-- 인덱스 번호 70을 v_index_first에 지정</span>
+  <span class="n">v_index_first</span> <span class="p">:</span><span class="o">=</span> <span class="n">ename_tab</span><span class="p">.</span><span class="k">FIRST</span><span class="p">;</span>  <span class="c1">-- 70</span>
+  <span class="c1">-- 인덱스 번호 75를 v_index_last에 지정</span>
+  <span class="n">v_index_last</span> <span class="p">:</span><span class="o">=</span> <span class="n">ename_tab</span><span class="p">.</span><span class="k">LAST</span><span class="p">;</span>    <span class="c1">-- 75</span>
+</code></pre></div>            </div>
+          </li>
+        </ul>
+      </li>
+      <li>NEXT, PRIOR
+        <ul>
+          <li>
+<code class="language-plaintext highlighter-rouge">NEXT</code>는 PL/SQL 테이블의 다음 행의 인덱스</li>
+          <li>
+<code class="language-plaintext highlighter-rouge">PRIOR</code>는 이전 행의 인덱스 번호 반환 (순서대로 되어있지 않을 수 있음)</li>
+          <li>ex)
+            <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  <span class="c1">-- 첫번째 인덱스 지정</span>
+  <span class="n">i</span> <span class="p">:</span><span class="o">=</span> <span class="n">ename_tab</span><span class="p">.</span><span class="k">FIRST</span><span class="p">;</span>
+  <span class="n">WHILE</span> <span class="n">i</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">LOOP</span>
+      <span class="c1">-- do something with ename_tab(i)</span>
+      <span class="c1">-- 현재 인덱스 번호의 다음 인덱스 번호 지정</span>
+      <span class="n">i</span> <span class="p">:</span><span class="o">=</span> <span class="n">ename_tab</span><span class="p">.</span><span class="k">NEXT</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>   <span class="c1">-- i는 현재 인덱스 번호</span>
+  <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+</code></pre></div>            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h4 id="plsql-레코드">PL/SQL 레코드</h4>
+<ul>
+  <li>특징
+    <ul>
+      <li>사용자 정의 레코드</li>
+      <li>여러 개의 데이터 타입을 가지는 변수들의 집합</li>
+      <li>데이터 처리를 위해 테이블에서 하나의 행씩 FETCH할 때 편리</li>
+      <li>개별 필드 이름 부여가 가능하고, 타입 선언시 초기화 가능</li>
+    </ul>
+  </li>
+  <li>
+    <p>형식</p>
+
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  <span class="k">TYPE</span> <span class="n">type_name</span> <span class="k">IS</span> <span class="n">RECORD</span>
+      <span class="p">(</span><span class="err">필드이름</span><span class="mi">1</span> <span class="err">필드타입</span> <span class="p">[</span><span class="k">NOT</span> <span class="k">NULL</span> <span class="p">{:</span><span class="o">=|</span><span class="k">DEFAULT</span><span class="p">}</span> <span class="err">식</span><span class="p">],</span>
+      <span class="err">필드이름</span><span class="mi">2</span> <span class="err">필드타입</span> <span class="p">[</span><span class="k">NOT</span> <span class="k">NULL</span> <span class="p">{:</span><span class="o">=|</span><span class="k">DEFAULT</span><span class="p">}</span> <span class="err">식</span><span class="p">],</span> <span class="p">...);</span>
+
+  <span class="n">Identifier</span> <span class="n">type_name</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>ex)</p>
+
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  <span class="k">DECLARE</span>
+      <span class="k">TYPE</span> <span class="n">emp_record</span> <span class="k">IS</span> <span class="n">RECORD</span>
+          <span class="p">(</span><span class="n">v_empno</span> <span class="n">NUMBER</span><span class="p">,</span>
+          <span class="n">v_ename</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">30</span><span class="p">));</span>
+        
+      <span class="n">emp_rec</span> <span class="n">emp_record</span><span class="p">;</span>
+
+  <span class="k">BEGIN</span>
+      <span class="k">SELECT</span> <span class="n">empno</span><span class="p">,</span> <span class="n">ename</span>
+      <span class="k">INTO</span> <span class="n">emp_rec</span><span class="p">.</span><span class="n">v_empno</span><span class="p">,</span> <span class="n">emp_rec</span><span class="p">.</span><span class="n">v_ename</span>
+      <span class="k">FROM</span> <span class="n">emp</span>
+      <span class="k">WHERE</span> <span class="n">empno</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+      <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'번호: '</span><span class="o">||</span><span class="n">emp_rec</span><span class="p">.</span><span class="n">v_empno</span><span class="p">);</span>
+      <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'이름: '</span><span class="o">||</span><span class="n">emp_rec</span><span class="p">.</span><span class="n">v_ename</span><span class="p">);</span>
+  <span class="k">END</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-plsql-제어-구조">🍀 PL/SQL 제어 구조</h2>
+<hr>
+<h2 id="개요-1">개요</h2>
+<ul>
+  <li>조건 제어
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">IF-THEN-ELSE</code></li>
+    </ul>
+  </li>
+  <li>반복 제어
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">LOOP</code>, <code class="language-plaintext highlighter-rouge">FOR-LOOP</code>, <code class="language-plaintext highlighter-rouge">WHILE-LOOP</code>
+</li>
+    </ul>
+  </li>
+  <li>순차 제어
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">GOTO</code>, <code class="language-plaintext highlighter-rouge">NULL</code>
+</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="조건-제어">조건 제어</h3>
+<ul>
+  <li>형식
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="n">IF</span> <span class="n">condition</span> <span class="k">THEN</span>
+  <span class="n">statements</span><span class="p">;</span>
+<span class="p">[</span><span class="n">ELSEIF</span> <span class="n">condition</span> <span class="k">THEN</span>
+  <span class="n">statements</span><span class="p">;]</span>
+<span class="p">[</span><span class="k">ELSE</span>
+  <span class="n">statements</span><span class="p">;]</span>
+<span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>ex)
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="k">DECLARE</span>
+  <span class="n">sMonth</span> <span class="nb">CHAR</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="k">BEGIN</span>
+  <span class="k">SELECT</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">SYSDATE</span><span class="p">,</span> <span class="s1">'MM'</span><span class="p">)</span>
+  <span class="k">INTO</span> <span class="n">sMonth</span>
+  <span class="k">FROM</span> <span class="n">DUAL</span><span class="p">;</span>
+
+  <span class="n">IF</span> <span class="p">(</span><span class="n">sMonth</span> <span class="o">&gt;=</span> <span class="s1">'03'</span> <span class="k">and</span> <span class="n">sMonth</span> <span class="o">&lt;=</span> <span class="s1">'08'</span><span class="p">)</span> <span class="k">THEN</span>
+      <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'1학기'</span><span class="p">);</span>
+  <span class="k">ELSE</span>
+      <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'2학기'</span><span class="p">);</span>
+  <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
+<span class="k">END</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="반복-제어">반복 제어</h3>
+<ul>
+  <li>
+<strong>LOOP 형식</strong>
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="n">LOOP</span>   
+  <span class="n">statements</span><span class="p">;</span>
+  <span class="p">...</span>
+<span class="n">EXIT</span> <span class="p">[</span><span class="k">WHEN</span> <span class="n">condition</span><span class="p">];</span>
+<span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>ex)
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  <span class="k">DECLARE</span> 
+      <span class="n">i</span> <span class="n">NUMBER</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">nSum</span> <span class="n">NUMBER</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>   
+  <span class="k">BEGIN</span>
+      <span class="n">LOOP</span>
+          <span class="n">i</span> <span class="p">:</span><span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="n">nSum</span> <span class="p">:</span><span class="o">=</span> <span class="n">nSum</span> <span class="o">+</span> <span class="n">i</span><span class="p">;</span>
+          <span class="n">EXIT</span> <span class="k">WHEN</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">100</span><span class="p">;</span>
+      <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+    
+      <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'1~100까지의 합: '</span><span class="o">||</span><span class="n">TO_CHAR</span><span class="p">(</span><span class="n">nSum</span><span class="p">));</span>
+  <span class="k">END</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>
+<strong>FOR-LOOP 형식</strong>
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="k">FOR</span> <span class="k">index</span> <span class="k">IN</span> <span class="p">[</span><span class="n">REVERSE</span><span class="p">]</span> <span class="err">시작값</span><span class="p">..</span><span class="err">끝값</span> <span class="n">LOOP</span>
+  <span class="n">statements</span><span class="p">;</span>
+  <span class="p">...</span>
+<span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>ex)
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  <span class="k">DECLARE</span> 
+      <span class="n">i</span> <span class="n">NUMBER</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">nSum</span> <span class="n">NUMBER</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>   
+  <span class="k">BEGIN</span>
+      <span class="k">FOR</span> <span class="n">i</span> <span class="k">IN</span> <span class="mi">1</span><span class="p">..</span><span class="mi">100</span> <span class="n">LOOP</span>
+          <span class="n">nSum</span> <span class="p">:</span><span class="o">=</span> <span class="n">nSum</span> <span class="o">+</span> <span class="n">i</span><span class="p">;</span>
+      <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+    
+      <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'1~100까지의 합: '</span><span class="o">||</span><span class="n">TO_CHAR</span><span class="p">(</span><span class="n">nSum</span><span class="p">));</span>
+  <span class="k">END</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>
+<strong>WHILE-LOOP 형식</strong>
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="n">WHILE</span> <span class="n">condition</span> <span class="n">LOOP</span>
+  <span class="n">statements</span><span class="p">;</span>
+  <span class="p">...</span>
+<span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>ex)
+    <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  <span class="k">DECLARE</span> 
+      <span class="n">i</span> <span class="n">NUMBER</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">nSum</span> <span class="n">NUMBER</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>   
+  <span class="k">BEGIN</span>
+      <span class="n">WHILE</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span> <span class="n">LOOP</span>
+          <span class="n">i</span> <span class="p">:</span><span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="n">nSum</span> <span class="p">:</span><span class="o">=</span> <span class="n">nSum</span> <span class="o">+</span> <span class="n">i</span><span class="p">;</span>
+      <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+    
+      <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'1~100까지의 합: '</span><span class="o">||</span><span class="n">TO_CHAR</span><span class="p">(</span><span class="n">nSum</span><span class="p">));</span>
+  <span class="k">END</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="순차-제어">순차 제어</h3>
+<ul>
+  <li>
+<strong>GOTO</strong>
+    <ul>
+      <li>제어가 건너뛰는 곳을 지정하는 레이블이 함께 쓰임</li>
+      <li>ex)
+        <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  <span class="k">DECLARE</span>
+  <span class="n">i</span> <span class="n">NUMBER</span><span class="p">;</span>
+  <span class="k">BEGIN</span>
+  <span class="k">FOR</span> <span class="n">i</span> <span class="k">IN</span> <span class="mi">1</span><span class="p">..</span><span class="mi">50</span> <span class="n">LOOP</span>
+      <span class="n">IF</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">30</span> <span class="k">THEN</span>
+          <span class="k">GOTO</span> <span class="n">my_label</span><span class="p">;</span>
+          <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
+  <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+
+  <span class="o">&lt;&lt;</span><span class="n">my_label</span><span class="o">&gt;&gt;</span>
+  <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'i = 30'</span><span class="p">);</span>
+  <span class="k">END</span><span class="p">;</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>
+<strong>NULL</strong>
+    <ul>
+      <li>실행하지 않음을 나타냄</li>
+      <li>ex)
+        <div class="language-sql highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  <span class="k">DECLARE</span>
+  <span class="n">i</span> <span class="n">NUMBER</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">nValue</span> <span class="n">NUMBER</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">BEGIN</span>
+  <span class="k">FOR</span> <span class="n">i</span> <span class="k">IN</span> <span class="mi">0</span><span class="p">..</span><span class="mi">100</span> <span class="n">LOOP</span>
+      <span class="n">nValue</span> <span class="p">:</span><span class="o">=</span> <span class="mi">1000</span><span class="o">/</span><span class="n">i</span><span class="p">;</span>
+  <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+  <span class="n">EXCEPTION</span>
+  <span class="k">WHEN</span> <span class="n">ZERO_DIVIDE</span> <span class="k">THEN</span>
+      <span class="k">NULL</span><span class="p">;</span>
+  <span class="k">END</span><span class="p">;</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/sql/2023/04/06/View.html" title="[DBP] CH2-4. View">[DBP] CH2-4. View</a><a class="next" href="/java/2023/04/08/1100.html" title="[BOJ] 1100. 하얀 칸">[BOJ] 1100. 하얀 칸</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li class="">
+          <a class="post-link" href="/infra/2023/08/25/aws-serverless.html" title="[AWS] AWS Serverless">
+            [AWS] AWS Serverless<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/sql/2023/04/06/View.html" title="[DBP] CH2-4. View">
+            [DBP] CH2-4. View<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/sql/2023/04/05/Sub-Query.html" title="[DBP] CH1-2. Sub Query">
+            [DBP] CH1-2. Sub Query<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/java/2023/05/04/1834.html" title="[BOJ] 1834. 나머지와 몫이 같은 수">
+            [BOJ] 1834. 나머지와 몫이 같은 수<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+</ul>
+    </div>
+<div class="post-comments">
+      <script src="https://utteranc.es/client.js" repo="bokyung124/bokyung124.github.io" issue-term="pathname" label="comments" theme="github-light" crossorigin="anonymous" async>
+      </script>
+      
+      <!---->
+    </div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>Unpublished Work <span class="copyleft">©</span> 2017-2023 GitHub User</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

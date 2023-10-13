@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>정렬 문제 | Your awesome title</title>
+<meta name="generator" content="Jekyll v4.3.2">
+<meta property="og:title" content="정렬 문제">
+<meta name="author" content="GitHub User">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="🐽 버블 정렬 알고리즘 인접한 두 원소를 검사하여 정렬 문제: 비내림차순으로 n개의 키 정렬 입력: 양의 정수 n, 키의 배열 S[1..n] 출력: 비내림차순으로 정렬된 키의 배열 S[1..n]">
+<meta property="og:description" content="🐽 버블 정렬 알고리즘 인접한 두 원소를 검사하여 정렬 문제: 비내림차순으로 n개의 키 정렬 입력: 양의 정수 n, 키의 배열 S[1..n] 출력: 비내림차순으로 정렬된 키의 배열 S[1..n]">
+<link rel="canonical" href="http://localhost:4000/algorithm/2023/07/12/chap7.html">
+<meta property="og:url" content="http://localhost:4000/algorithm/2023/07/12/chap7.html">
+<meta property="og:site_name" content="Your awesome title">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-07-12T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="정렬 문제">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"GitHub User"},"dateModified":"2023-07-12T15:45:00+09:00","datePublished":"2023-07-12T00:00:00+09:00","description":"🐽 버블 정렬 알고리즘 인접한 두 원소를 검사하여 정렬 문제: 비내림차순으로 n개의 키 정렬 입력: 양의 정수 n, 키의 배열 S[1..n] 출력: 비내림차순으로 정렬된 키의 배열 S[1..n]","headline":"정렬 문제","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/algorithm/2023/07/12/chap7.html"},"url":"http://localhost:4000/algorithm/2023/07/12/chap7.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="icon" href="">
+  <link rel="canonical" href="http://localhost:4000">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js" async></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js" async></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.info("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (el.src.trim() == "") {
+        return;
+      }
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/logo/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Your awesome title" src="" onerror="this.style.display='none'">
+  Your awesome title
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/">HOME</a><a class="page-link" href="/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">정렬 문제</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-07-12T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jul 12, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 15 mins</span>
+  </div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="-버블-정렬-알고리즘">🐽 버블 정렬 알고리즘</h2>
+<ul>
+  <li>인접한 두 원소를 검사하여 정렬</li>
+  <li>문제: 비내림차순으로 n개의 키 정렬</li>
+  <li>입력: 양의 정수 n, 키의 배열 S[1..n]</li>
+  <li>출력: 비내림차순으로 정렬된 키의 배열 S[1..n]</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="의사코드">의사코드</h3>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">bubbleSort</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">keytype</span> <span class="o">&amp;</span><span class="n">S</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="n">index</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">swap</span> <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="n">and</span> <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>큰 수일 경우 한 칸씩 뒤로</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="버블-정렬-분석---모든-경우">버블 정렬 분석 - 모든 경우</h3>
+<ul>
+  <li>단위 연산: 비교</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>i</th>
+      <th>j</th>
+      <th>횟수</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>1..</td>
+      <td>n-1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1..</td>
+      <td>n-2</td>
+    </tr>
+    <tr>
+      <td colspan="3">…</td>
+      
+      
+    </tr>
+    <tr>
+      <td>n</td>
+      <td>1..</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><strong>$T(n) = \frac{n(n-1)}{2}$</strong></li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-삽입-정렬-알고리즘">🐽 삽입 정렬 알고리즘</h2>
+<ul>
+  <li>이미 정렬된 배열에 항목을 끼워 넣음으로써 정렬하는 알고리즘</li>
+  <li>문제: 비내림차순으로 n개의 키 정렬</li>
+  <li>입력: 양의 정수 n, 키의 배열 S[1..n]</li>
+  <li>출력: 비내림차순으로 정렬된 키의 배열 S[1..n]</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="의사코드-1">의사코드</h3>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">insetionSort</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">keytype</span> <span class="n">S</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="n">index</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+    <span class="n">keytype</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+            <span class="n">j</span><span class="o">--</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="삽입-정렬-분석---최악의-경우">삽입 정렬 분석 - 최악의 경우</h3>
+<ul>
+  <li>기본 연산: 비교</li>
+  <li>i가 주어졌을 때, while loop에서 최대 i-1번의 비교 이루어짐</li>
+  <li><strong>$W(n) = \sum_{i=2}^{n} (i-1) = \frac{n(n-1)}{2}$</strong></li>
+</ul>
+
+<p><br></p>
+
+<h3 id="평균의-경우">평균의 경우</h3>
+<ul>
+  <li>i가 주어졌을 때 x가 삽입될 수 있는 장소: i개</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>삽입할 장소의 인덱스</th>
+      <th>비교 횟수</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>i</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>i-1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>i-1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>i-1</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>
+    <p>x를 삽입하는데 필요한 비교 횟수 <br>
+$1\frac{1}{i} + 2\frac{1}{i} + … + (i-1)\frac{1}{i} + (i-1)\frac{1}{i} = \frac{1}{i} \sum_{k=1}^{i-1} k + \frac{i-1}{i} = \frac{(i-1)i}{2i} + \frac{i-1}{i} = \frac{i+1}{2} - \frac{1}{i}$</p>
+  </li>
+  <li>
+    <p>정렬에 필요한 평균 비교 횟수  <br>
+<strong>$\sum_{i=2}^{n} (\frac{i+1}{2} - \frac{1}{i}) ≈ \frac{(n+4)(n-1)}{4} - ln^n ≈ \frac{n^2}{4} ∈ Θ(n^2)$</strong></p>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-교환-정렬-알고리즘">🐤 교환 정렬 알고리즘</h2>
+<ul>
+  <li>문제: n개의 수로 구성된 배열 S 오름차순 정렬</li>
+  <li>입력: 양의 정수 n, 배열 S</li>
+  <li>출력: 오름차순으로 정렬된 배열 S</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="의사코드-2">의사코드</h3>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">exchangeSort</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">number</span> <span class="n">S</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="n">index</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="n">swap</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="n">and</span> <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">swap</span><span class="p">(</span><span class="n">index</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">number</span> <span class="o">&amp;</span><span class="n">S</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="n">number</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+    <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="시간복잡도">시간복잡도</h3>
+<ul>
+  <li>단위 연산: 조건문 (S[j], S[i] 비교)</li>
+  <li>모든 경우 분석
+    <ul>
+      <li>j-loop가 수행될 때마다 조건문 1번씩 수행</li>
+      <li>조건문 총 수행 횟수
+        <ul>
+          <li>i=1, 2, 3, .., n-1 에 따라</li>
+          <li>j-loop n-1, n-2, n-3, …, 1 번 수행</li>
+        </ul>
+      </li>
+      <li><strong>$T(n) = (n-1) + (n-2) + … + 1 = \frac{(n-1)n}{2}$</strong></li>
+    </ul>
+  </li>
+  <li>최악의 경우
+    <ul>
+      <li>기본 연산: 할당</li>
+      <li>1번 교환하는데 3번 지정</li>
+      <li><strong>$W(n) = 3(n-1) + 3(n-2) + … + 3 = \frac{3n(n-1)}{2}$</strong></li>
+    </ul>
+  </li>
+  <li>평균의 경우
+    <ul>
+      <li>기본 연산: 할당</li>
+      <li>i와 j를 비교했을 때 i가 클 확률은 $\frac{1}{2}$, i가 클 때 지정이 발생하므로</li>
+      <li>지정의 횟수: $\frac{3(n-1)}{2}$</li>
+      <li><strong>$A(n) = \frac{3(n-1)}{2} + \frac{3(n-2)}{2} + … + \frac{3}{2} = \frac{3n(n-1)}{4}$</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-선택-정렬-알고리즘">🐽 선택 정렬 알고리즘</h2>
+<ul>
+  <li>문제: 비내림차순으로 n개의 키 정렬</li>
+  <li>입력: 양의 정수 n, 키의 배열 S[1..n]</li>
+  <li>출력; 비내림차순으로 정렬된 키의 배열 S[1..n]</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="의사코드-3">의사코드</h3>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">selectionSort</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">keytype</span> <span class="n">S</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="n">index</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">smallest</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">smallest</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">S</span><span class="p">[</span><span class="n">smallest</span><span class="p">])</span>   <span class="c1">// 기본연산: 비교</span>
+                <span class="n">smallest</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">exchange</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="n">and</span> <span class="n">S</span><span class="p">[</span><span class="n">smallest</span><span class="p">];</span>   <span class="c1">// 할당</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">exchange</span><span class="p">(</span><span class="n">index</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">number</span> <span class="o">&amp;</span><span class="n">S</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="n">number</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+    <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="선택-정렬-분석---모든-경우">선택 정렬 분석 - 모든 경우</h3>
+<ul>
+  <li>기본 연산: 비교</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>i</th>
+      <th>횟수</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>n-1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>n-2</td>
+    </tr>
+    <tr>
+      <td colspan="2">…</td>
+      
+    </tr>
+    <tr>
+      <td>n-1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>비교 횟수의 합: $\frac{n(n-1)}{2}$</li>
+  <li><strong>$T(n) = \frac{n^2}{2}$</strong></li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>기본 연산: 할당
+    <ul>
+      <li>1번 교환하는데 3번 지정</li>
+    </ul>
+  </li>
+  <li><strong>$T(n) = 3(n-1)$</strong></li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-힙-정렬">🐽 힙 정렬</h2>
+
+<h3 id="최대-힙-max-heap">최대 힙 Max Heap</h3>
+<ul>
+  <li>최대 트리
+    <ul>
+      <li>이진 트리에서 각 노드의 키 값이 그 자식 노드보다 큰 트리</li>
+    </ul>
+  </li>
+  <li>최대 힙
+    <ul>
+      <li>최대 트리이면서 완전 이진 트리</li>
+      <li>최대 트리에서 루트는 가장 큰 키 값을 가짐</li>
+      <li>각 노드의 키 값은 그 노드의 자식 노드에 저장된 값보다 크거나 같음</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>삽입 연산
+    <ul>
+      <li>완전 이진 트리의 조건을 만족하기 위해 새 노드는 트리의 마지막 위치에 삽입</li>
+      <li>최대 트리 조건을 만족하기 위해 새 노드는 상위 노드와 반복적으로 비교하여 알맞은 위치 찾음  <br>
+  <img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/cc29d546-9a25-4feb-8608-a4efb6be3b03" alt="image">
+</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>삭제 연산
+    <ul>
+      <li>최대 힙에서의 삭제는 루트 노드의 삭제</li>
+      <li>루트 노드를 return</li>
+      <li>가장 마지막 노드를 루트로 가져와서 최대 힙의 특성을 만족하도록 제 위치를 찾아줌 <code class="language-plaintext highlighter-rouge">shiftdown</code> <br>
+  <img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/c6761ba3-d6ff-4756-8fd7-d5717f2403b5" alt="image">
+</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="힙-정렬을-위한-데이터-구조">힙 정렬을 위한 데이터 구조</h3>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">shiftdown</code>: 힙의 특성을 만족하도록 키 값을 아래로 내리는 연산</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">root</code>: 루트 키를 return하고, 바닥 노드를 루트로 옮겨 shiftdown하여 힙을 복원함 (삭제 연산)</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">removekeys</code>: 힙의 키를 정렬된 순서로 배열에 위치시키는 알고리즘</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">makeheap</code>: 본질적으로 완전한 이진 트리를 힙 트리로 구성</li>
+</ul>
+
+<p><br></p>
+
+<h4 id="shiftdown">shiftdown()</h4>
+<ul>
+  <li>힙 구조 특성 만족하도록 구성</li>
+</ul>
+
+<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/d22ea69b-e11c-48f6-8163-e62e96edfebf" alt="image"></p>
+
+<p><br></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">shiftdown</span><span class="p">(</span><span class="n">heap</span><span class="o">&amp;</span> <span class="n">H</span><span class="p">,</span> <span class="n">index</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// i는 노드 번호</span>
+    <span class="n">index</span> <span class="n">parent</span><span class="p">,</span> <span class="n">largerchild</span><span class="p">;</span>
+    <span class="n">keytype</span> <span class="n">shiftkey</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">spotfound</span><span class="p">;</span>
+    <span class="n">shiftkey</span> <span class="o">=</span> <span class="n">H</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+    <span class="n">spotfound</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">parent</span> <span class="o">&lt;=</span> <span class="n">H</span><span class="p">.</span><span class="n">heapsize</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">spotfound</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// 자식 노드가 하나라도 있으면</span>
+        <span class="c1">// 자식 노드가 2개라면, 왼쪽/오른쪽 중 어느 자식 노드가 더 큰지 판별</span>
+        <span class="k">if</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">parent</span> <span class="o">&lt;</span> <span class="n">H</span><span class="p">.</span><span class="n">heapsize</span> <span class="o">&amp;&amp;</span> <span class="n">H</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">parent</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">H</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">parent</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>   
+            <span class="n">largerchild</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">parent</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>   <span class="c1">// 오른쪽</span>
+        <span class="k">else</span> <span class="n">largerchild</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">parent</span><span class="p">;</span>      <span class="c1">// 왼쪽</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">shiftkey</span> <span class="o">&lt;</span> <span class="n">H</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="n">largerchild</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">H</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="n">parent</span><span class="p">]</span> <span class="o">=</span> <span class="n">H</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="n">largerchild</span><span class="p">];</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="n">largerchild</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="n">spotfound</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">H</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="n">parent</span><span class="p">]</span> <span class="o">=</span> <span class="n">shiftkey</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="nc">heap</span><span class="p">{</span>
+    <span class="n">keytype</span> <span class="n">S</span><span class="p">[</span><span class="mf">1.</span><span class="p">.</span><span class="n">n</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">heapsize</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<ul>
+  <li>자식 노드 index: 적어도 부모 노드의 2배</li>
+</ul>
+
+<p><br></p>
+
+<h4 id="makeheap">makeheap()</h4>
+<ul>
+  <li>힙 구조 구성</li>
+</ul>
+
+<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/cceb115f-fa8d-4edc-9a0a-f4883d72a499" alt="image"></p>
+
+<p><br></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">makeheap</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">heap</span><span class="o">&amp;</span> <span class="n">H</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">index</span> <span class="n">i</span><span class="p">;</span>
+    <span class="n">H</span><span class="p">.</span><span class="n">heapsize</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="err">⌊</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="err">⌋</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> 
+        <span class="n">shiftdown</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h4 id="root">root()</h4>
+<ul>
+  <li>힙 구조의 루트 값 얻기 &amp; 힙 복원</li>
+</ul>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">keytype</span> <span class="nf">root</span><span class="p">(</span><span class="n">heap</span><span class="o">&amp;</span> <span class="n">H</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">keytype</span> <span class="n">keyout</span><span class="p">;</span>
+    <span class="n">keyout</span> <span class="o">=</span> <span class="n">H</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">H</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">H</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="n">heapsize</span><span class="p">];</span>      <span class="c1">// 가장 마지막 노드를 루트로</span>
+    <span class="n">H</span><span class="p">.</span><span class="n">heapsize</span> <span class="o">=</span> <span class="n">H</span><span class="p">.</span><span class="n">heapsize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">shiftdown</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>             <span class="c1">// 힙 트리 특성 만족하도록 구성</span>
+    <span class="k">return</span> <span class="n">keyout</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h4 id="removekeys">removekeys()</h4>
+<ul>
+  <li>정렬</li>
+  <li>힙 구조의 루트를 배열로 이동</li>
+</ul>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">removekeys</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">heap</span> <span class="n">H</span><span class="p">,</span> <span class="n">keytype</span> <span class="n">S</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="n">index</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span>
+        <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">root</span><span class="p">(</span><span class="n">H</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="힙-정렬-알고리즘">힙 정렬 알고리즘</h3>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">heapSort</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">heap</span><span class="o">&amp;</span> <span class="n">H</span><span class="p">,</span> <span class="n">keytype</span> <span class="n">S</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="n">makeheap</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">H</span><span class="p">);</span>        <span class="c1">// shiftdown()</span>
+    <span class="n">removeheap</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">S</span><span class="p">);</span>   <span class="c1">// shiftdown()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>makeheap과 removekeys 모두 shiftdown 호출하므로 따로 분석</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="makeheap-시간복잡도---최악의-경우">makeheap 시간복잡도 - 최악의 경우</h3>
+<ul>
+  <li>단위 연산: shiftdown 프로시저에서의 키 비교</li>
+  <li>$n = 2^k (= 2^d)$라 가정</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>depth</th>
+      <th>node 수</th>
+      <th>키가 shift되는 최대 횟수</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>$2^0$</td>
+      <td>d-1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>$2^1$</td>
+      <td>d-2</td>
+    </tr>
+    <tr>
+      <td>..</td>
+      <td>..</td>
+      <td>..</td>
+    </tr>
+    <tr>
+      <td>j</td>
+      <td>$2^j$</td>
+      <td>d-j-1</td>
+    </tr>
+    <tr>
+      <td>..</td>
+      <td>..</td>
+      <td>..</td>
+    </tr>
+    <tr>
+      <td>d-2</td>
+      <td>$2^{d-2}$</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>d-1</td>
+      <td>$2^{d-1}$</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>최대 횟수의 합  <br>
+$\sum_{j=0}^{d-1} 2^j (d-j-1)$  <br>
+= $2^d - d - 1$</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>깊이가 d인 경우 shiftdown 될 횟수의 상한값인 d를 더하면 $2^d - 1$이 됨</li>
+  <li>한 번 shiftdown될 때마다 2번씩 비교</li>
+  <li>실제 비교 횟수: <strong>$2(n-1)$</strong>
+</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="removekeys-시간복잡도---최악의-경우">removekeys 시간복잡도 - 최악의 경우</h3>
+<ul>
+  <li>$n = 2^k (= 2^d)$라 가정</li>
+  <li>총 shift 횟수: $\sum_{j=0}^{d-1} j2^j = nlg^n - 2n + 2$</li>
+  <li>한 번 shift될 때마다 2번씩 비교하므로 실제 비교 횟수: $2nlg^n - 4n + 4$</li>
+  <li>따라서, 최악의 경우: <strong>$W(n) ∈ Θ(nlg^n)$</strong>
+</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="힙-정렬-시간복잡도">힙 정렬 시간복잡도</h3>
+<ul>
+  <li>makeheap 시간복잡도 + removekeys 시간복잡도</li>
+  <li>최악의 경우: <strong>$W(n) ∈ Θ(nlg^n)$</strong>
+</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="-기수-정렬-radix">🐽 기수 정렬 RADIX</h2>
+<ul>
+  <li>d 개의 숫자로 표현한 k진법 체계의 수를 키로 표현하여 각 숫자에 따라 키를 분배하는 방식</li>
+</ul>
+
+<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/fc76b4eb-9c20-43e3-99fe-5f5e887ae6ed" alt="image"></p>
+
+<p><br></p>
+
+<h3 id="각-키의-가장-왼쪽-숫자부터-기준으로-삼는-경우">각 키의 가장 왼쪽 숫자부터 기준으로 삼는 경우</h3>
+
+<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/48897cea-0b30-43ba-853f-8a66b7362a41" alt="image"></p>
+
+<p><br></p>
+
+<h3 id="오른쪽-숫자부터-분배의-기준으로-삼는-경우">오른쪽 숫자부터 분배의 기준으로 삼는 경우</h3>
+
+<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/5d55936c-79d5-4cb4-a7e7-ed2860b7010c" alt="image"></p>
+
+<p><br></p>
+
+<h3 id="의사코드-4">의사코드</h3>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">radixsort</span><span class="p">(</span><span class="n">node_pointer</span><span class="o">&amp;</span> <span class="n">masterlist</span><span class="p">,</span> <span class="kt">int</span> <span class="n">numdigits</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// globally node_pointer list[0.9];</span>
+    <span class="n">index</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">numdigits</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">distribute</span><span class="p">(</span><span class="n">masterlist</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="n">coalesce</span><span class="p">(</span><span class="n">masterlist</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">distribute</span><span class="p">(</span><span class="n">node_pointer</span><span class="o">&amp;</span> <span class="n">masterlist</span><span class="p">,</span> <span class="n">index</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">index</span> <span class="n">j</span><span class="p">;</span>
+    <span class="n">node_pointer</span> <span class="n">p</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">list</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">masterlist</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">p</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-&gt;</span> <span class="n">key</span><span class="err">에서</span> <span class="err">오른쪽으로부터</span> <span class="n">i</span><span class="err">번째</span> <span class="err">숫자값</span><span class="p">;</span>
+        <span class="n">p</span><span class="err">를</span> <span class="n">list</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="err">의</span> <span class="err">끝에</span> <span class="err">링크</span><span class="p">;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-&gt;</span> <span class="n">link</span><span class="p">;</span>
+    <span class="p">}</span>       
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">coalesce</span><span class="p">(</span><span class="n">node_pointer</span><span class="o">&amp;</span> <span class="n">masterlist</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">index</span> <span class="n">j</span><span class="p">;</span>
+    <span class="n">masterlist</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">list</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="err">에</span> <span class="err">있는</span> <span class="err">마디들을</span> <span class="n">masterlist</span><span class="err">의</span> <span class="err">끝에</span> <span class="err">링크</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="기수-정렬-알고리즘-분석---모든-경우">기수 정렬 알고리즘 분석 - 모든 경우</h3>
+<ul>
+  <li>단위 연산: 뭉치에 수를 추가하는 연산 (링크 연산)</li>
+  <li>입력 크기: 정렬하는 정수 개수 n, 각 정수를 이루는 digit의 최대 개수 numdigits</li>
+  <li>모든 경우 시간복잡도   <br>
+$T(n) = numdigits(n + 10) ∈ Θ(numdigits * n)$</li>
+</ul>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/algorithm/2023/07/11/chap6.html" title="분기 한정법 Branch and Bound">분기 한정법 Branch and Bound</a><a class="next" href="/infra/2023/08/25/aws-basic.html" title="[AWS] AWS 기초">[AWS] AWS 기초</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li class="">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/06/machingLearning.html" title="[BoostCourse] 3. 머신러닝 기본 개념">
+            [BoostCourse] 3. 머신러닝 기본 개념<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/infra/2023/08/25/aws-serverless.html" title="[AWS] AWS Serverless">
+            [AWS] AWS Serverless<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/sql/2023/04/05/Integrity-Constraints.html" title="[DBP] CH1-3. Integrity Constraints">
+            [DBP] CH1-3. Integrity Constraints<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/java/2023/04/09/1524.html" title="[BOJ] 1524. 세준세비">
+            [BOJ] 1524. 세준세비<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+</ul>
+    </div>
+<div class="post-comments">
+      <script src="https://utteranc.es/client.js" repo="bokyung124/bokyung124.github.io" issue-term="pathname" label="comments" theme="github-light" crossorigin="anonymous" async>
+      </script>
+      
+      <!---->
+    </div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>Unpublished Work <span class="copyleft">©</span> 2017-2023 GitHub User</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

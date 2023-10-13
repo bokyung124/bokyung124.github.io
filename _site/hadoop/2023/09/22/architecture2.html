@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2) | Your awesome title</title>
+<meta name="generator" content="Jekyll v4.3.2">
+<meta property="og:title" content="[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2)">
+<meta name="author" content="GitHub User">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="[출처: 실무로 배우는 빅데이터 기술, 김강원 저]">
+<meta property="og:description" content="[출처: 실무로 배우는 빅데이터 기술, 김강원 저]">
+<link rel="canonical" href="http://localhost:4000/hadoop/2023/09/22/architecture2.html">
+<meta property="og:url" content="http://localhost:4000/hadoop/2023/09/22/architecture2.html">
+<meta property="og:site_name" content="Your awesome title">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-09-22T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2)">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"GitHub User"},"dateModified":"2023-09-23T04:46:00+09:00","datePublished":"2023-09-22T00:00:00+09:00","description":"[출처: 실무로 배우는 빅데이터 기술, 김강원 저]","headline":"[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/hadoop/2023/09/22/architecture2.html"},"url":"http://localhost:4000/hadoop/2023/09/22/architecture2.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="icon" href="">
+  <link rel="canonical" href="http://localhost:4000">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js" async></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js" async></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.info("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (el.src.trim() == "") {
+        return;
+      }
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/logo/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Your awesome title" src="" onerror="this.style.display='none'">
+  Your awesome title
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/">HOME</a><a class="page-link" href="/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2)</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-09-22T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Sep 22, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 8 mins</span>
+  </div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <p>[출처: 실무로 배우는 빅데이터 기술, 김강원 저]</p>
+
+<h2 id="1-클라우데라-매니저cm-설치">1. 클라우데라 매니저(CM) 설치</h2>
+
+<ul>
+  <li>CM : 빅데이터 에코시스템을 쉽게 설치하고 관리해주는 빅데이터 시스템 자동화 도구</li>
+  <li>빅데이터 소프트웨어에 대한 프로비저닝, 매니지먼트, 모니터링 수행
+    <ul>
+      <li>프로비저닝 : 하둡 에코시스템 편리하게 설치, 삭제, 수정 관리</li>
+      <li>매니지먼트 : 설치한 에코시스템의 설정 변경 및 최적화 지원</li>
+      <li>모니터링 : 하드웨어의 리소스 및 설치 컴포넌트의 상태 모니터링 / 대시보드</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h2 id="2-가상머신-서버-설치">2. 가상머신 서버 설치</h2>
+
+<ul>
+  <li>원래는 명령어를 이용하여 CM을 설치해야 하지만, 현재 CM 정책이 수정되어 책에 나와있는 명령어로 설치가 안됨</li>
+  <li>저자님의 깃허브에서 가상머신 2개 이미지 파일을 받을 수 있음</li>
+</ul>
+
+<p>https://drive.google.com/file/d/1oLikMIC6bzt0jNV0n49YNOM0foNPXDZh/view?usp=sharing</p>
+
+<p><br></p>
+
+<ul>
+  <li>기존에 설치했던 서버들을 지우고, 이 이미지 파일로 서버를 설치하면 됨</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="3-파일럿-pc-운영체제-호스트-파일-수정">3. 파일럿 pc 운영체제 호스트 파일 수정</h2>
+
+<ul>
+  <li>메모장 관리자 권한으로 실행</li>
+  <li>
+    <p>[파일] - [열기] 에서 C:\Windows\System32\drivers\etc 로 이동 후 hosts 파일 열기
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAAk4M%2FbtrVOztPphs%2FukJmfqv1cQbcxb0ehpKQT0%2Fimg.png" alt=""></p>
+  </li>
+  <li>가상머신에 설치한 리눅스 서버의 IP/도메인명 정보 입력 후 저장 (server01, server02만 입력)</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="4-크롬으로-cm-접속">4. 크롬으로 CM 접속</h2>
+
+<p><a href="http://server01.hadoop.com:7180"></a></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FoAePZ%2FbtrVQN5VGHq%2FL05FOfb1W8eRNb8GA3wuj0%2Fimg.png" alt=""></p>
+
+<ul>
+  <li>기동하는데 시간이 조금 걸리기 때문에 접속이 바로 안되더라도 여러 번 새로고침</li>
+  <li>사용자 이름, 암호 모두 admin</li>
+</ul>
+
+<p><br></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbGNmVJ%2FbtrVT73Coaa%2FYnPz6ZgiGsQ7C2dOwv0yj1%2Fimg.png" alt=""></p>
+<ul>
+  <li>CM 첫화면</li>
+  <li>우선은 HDFS, YARN, ZooKeeper 만 설치</li>
+</ul>
+
+<p><br></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiV0mK%2FbtrVUAK303T%2Fxxbj3ECFODv21OU24TFd61%2Fimg.png" alt=""></p>
+<ul>
+  <li>CM 홈화면</li>
+  <li>각 서버의 리소스(CPU,  메모리, 디스크, I/O 등)와 설치된 SW 모니터링하며 현재 상태값 보여줌</li>
+  <li>각 소프트웨어가 불량으로 표시되어도, 정지 상태가 아니라면 진행에 문제 없음 -&gt; 리소스 절약</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="5-hdfs-구성-변경">5. HDFS 구성 변경</h2>
+
+<h3 id="1-hdfs-복제-계수-설정">1) HDFS 복제 계수 설정</h3>
+<ul>
+  <li>하둡에서 원본 파일을 저장하면 안정성을 위해 2개의 복제본 추가로 생성해 총 3개의 파일 만들어짐</li>
+  <li>파일럿 프로젝트에서는 2개로도 충분하기 때문에 2개로 변경</li>
+  <li>복제 계수를 늘리면 여러 데이터노드에 파일이 분산 저장되어 분석 작업시 성능 극대화</li>
+</ul>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlO3FO%2FbtrVRCwsHuf%2FhovRKbctGPWa5QcvzHUVz0%2Fimg.png" alt=""></p>
+
+<p><br></p>
+
+<h3 id="2-hdfs-접근-권한-해제">2) HDFS 접근 권한 해제</h3>
+<ul>
+  <li>하둡 파일시스템에 대한 접근 권한 해제</li>
+  <li>테스트 환경을 고려한 설정. 실제 플젝에서는 계정별로 접근 권한 분리하여 적용
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcCb6vH%2FbtrVRDvmBcz%2F4AQhAt2qGnLGnALYknfuyK%2Fimg.png" alt="">
+</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="3-hdfs-블록-크기-변경">3) HDFS 블록 크기 변경</h2>
+<ul>
+  <li>128MB -&gt; <strong>64MB</strong>
+</li>
+  <li>파일럿 프로젝트에서 수집/적재하는 파일의 최대 크기는 110MB</li>
+  <li>하둡은 기본 블록 크기보다 작은 파일 처리시 효율성 떨어짐
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F0C4zG%2FbtrVUzSZKIw%2Fht8VbB1dOjxiisgA2Whpx0%2Fimg.png" alt="">
+</li>
+</ul>
+
+<p><br></p>
+
+<h2 id="6-yarn-구성-변경">6. YARN 구성 변경</h2>
+
+<ul>
+  <li>YARN 스케줄러와 리소스매니저 메모리 크기 설정
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb5XatB%2FbtrVTUKvbhZ%2F4CyGaZuuIF4YhlBQIlrzW1%2Fimg.png" alt="">
+</li>
+  <li>1 -&gt; <strong>1.5 GiB</strong>
+</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="2-yarn-스케줄러-변경">2) YARN 스케줄러 변경</h3>
+<ul>
+  <li>하둡에서 job이 실행될 때 YARN의 스케줄러가 분산 데이터노드의 리소스를 고려해 잡 스케줄링</li>
+  <li>FairScheduler -&gt; <strong>FIFOScheduler</strong>
+</li>
+  <li>Fair가 더 개선된 스케줄이지만, 개인의 pc로 이용하기에는 리소스 경합이 발생해 병목 현상 발생
+    <blockquote>
+      <p>병목 현상 : 두 구성 요소의 최대 성능의 차이로 인해 한 구성 요소가 다른 하드웨어의 잠재 성능을 제한하는 것</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcQSRkk%2FbtrVUmfmWGe%2Fj1RBAu5WxDgHe3RDrYkjm0%2Fimg.png" alt=""></p>
+
+<p><br></p>
+
+<h2 id="7-클러스터-재시작">7. 클러스터 재시작</h2>
+
+<ul>
+  <li>설정들 최종 반영하기 위해 클러스터 재시작</li>
+  <li>홈에서 [Cluster 1] - [작업] - [재시작]
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcQEJbM%2FbtrVT8oaLnU%2F7Dq2jSHGK5S9GSxY4zG58K%2Fimg.png" alt=""> <br>
+<br>
+</li>
+</ul>
+
+<h2 id="8-hdfs-예제-실습">8. HDFS 예제 실습</h2>
+
+<ul>
+  <li>저자님 깃허브에서 예제소스 폴더 다운로드 (제가 올려도 되는건지 모르겠어서 링크는 생략하겠습니다)</li>
+</ul>
+
+<h2 id="1-filezilla로-샘플-txt-파일---server02-homebigdata-로-전송">1) Filezilla로 샘플 txt 파일 -&gt; server02 /home/bigdata 로 전송</h2>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F7U9Wk%2FbtrVRDWCHvw%2F1LtsmVSqFnZmyaqunxumN1%2Fimg.png" alt=""> <br>
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FswFYF%2FbtrVUiYoJlt%2FWWsNvYz7QRfLkS5exLtJd0%2Fimg.png" alt=""></p>
+
+<p><br></p>
+
+<blockquote>
+  <p>HDFS 명령어 <br>
+https://hadoop.apache.org/docs/r3.1.2/hadoop-project-dist/hadoop-common/FileSystemShell.html</p>
+</blockquote>
+
+<p><br></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hdfs dfs <span class="o">[</span>GENERIC_OPTIONS] <span class="o">[</span>COMMAND_OPTIONS]
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># cat : 파일 읽어서 보여줌 (리눅스 cat과 동일)</span>
+hdfs dfs <span class="nt">-cat</span> <span class="o">[</span>경로]
+
+<span class="c"># count : 폴더, 파일, 파일 사이즈</span>
+hdfs dfs <span class="nt">-count</span> <span class="o">[</span>경로]
+
+<span class="c"># ls : 디렉터리 내부 파일</span>
+hdfs dfs <span class="nt">-ls</span> <span class="o">[</span>디렉터리]
+
+<span class="c"># mkdir : 특정 path에 디렉터리 생성</span>
+hdfs dfs <span class="nt">-mkdir</span> <span class="o">(</span><span class="nt">-p</span><span class="o">)</span> <span class="o">[</span>path]
+
+<span class="c"># cp : 파일 복사</span>
+hdfs dfs <span class="nt">-cp</span> <span class="o">[</span>소스 경로] <span class="o">[</span>복사 경로]
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="2-파일-저장-및-확인">2) 파일 저장 및 확인</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/bigdata
+hdfs dfs <span class="nt">-put</span> Sample.txt /tmp
+</code></pre></div></div>
+<ul>
+  <li>Sample.txt 파일이 HDFS의 /tmp 디렉터리로 저장됨</li>
+</ul>
+
+<p><br></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hdfs dfs <span class="nt">-ls</span> /tmp
+</code></pre></div></div>
+<ul>
+  <li>파일 목록에 Sample.txt 존재</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="3-파일-내용-보기">3) 파일 내용 보기</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hdfs dfs <span class="nt">-cat</span> /tmp/Sample.txt
+</code></pre></div></div>
+<p><br></p>
+
+<h3 id="4-저장한-파일-상태-확인">4) 저장한 파일 상태 확인</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hdfs dfs <span class="nt">-stat</span> <span class="s1">'%b %o %r %u %n'</span> /tmp/Sample.txt
+</code></pre></div></div>
+<ul>
+  <li>파일 크기, 파일 블록 크기, 복제 수, 소유자명, 파일명 정보 보여줌</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="5-파일-이름-바꾸기">5) 파일 이름 바꾸기</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hdfs dfs <span class="nt">-mv</span> /tmp/Sample.txt /tmp/Sample2.txt
+</code></pre></div></div>
+<ul>
+  <li>Sample.txt -&gt; <strong>Sample2.txt</strong> 로 변경</li>
+</ul>
+
+<p><br></p>
+
+<h3 id="6-파일-시스템-상태-검사">6) 파일 시스템 상태 검사</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hdfs fsck /
+</code></pre></div></div>
+<ul>
+  <li>전체 크기, 디렉터리 수, 파일 수, 노트 수 등 파일 시스템의 전체 상태 보여줌</li>
+</ul>
+
+<p><br></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hdfs dfsadmin <span class="nt">-report</span>
+</code></pre></div></div>
+<ul>
+  <li>하둡 파일시스템의 기본 정보 및 통계 보여줌</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>HDFS 파일의 비정상 상태
+    <ul>
+      <li>HDFS 점검 명령을 실행할 때 파일 시스템에 문제가 발생할 경우 “CORRUPT FILES”, “MISSING BLOCKS”, “MISSING SIZE”, “CORRUPT BLOCKS” 등의 항목에 숫자가 표기됨</li>
+      <li>이 같은 상태가 지속되면 하둡은 물론 HBase, 하이브 등에 부분적인 문제 발생 가능</li>
+      <li>HDFS는 비정상적인 파일 블록 발견한 경우 다른 노드에 복구하려고 시도, 사용자가 직접 삭제/이동 명령 조치할 수 있음</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 강제로 안전모드 해제</span>
+hdfs dfsadmin <span class="nt">-safemode</span> leave
+
+<span class="c"># 손상된 파일 강제로 삭제</span>
+hdfs fsck / <span class="nt">-delete</span>
+
+<span class="c"># 손상된 파일을 /lost + found 디렉터리로 이동</span>
+hdfs fsck / <span class="nt">-move</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<h2 id="9-주키퍼-클라이언트-명령을-이용한-설치-확인">9. 주키퍼 클라이언트 명령을 이용한 설치 확인</h2>
+
+<h3 id="1-zookeeper-client-실행">1) zookeeper-client 실행</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zookeeper-client
+</code></pre></div></div>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb1RBT0%2FbtrWzRkXLZN%2FjQqdo6KAYMCJBPd38wNgOK%2Fimg.png" alt=""> <br>
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FFYtuR%2FbtrWw73p7Oj%2F57nMmLAg60caCRCEGR1nMK%2Fimg.png" alt=""></p>
+
+<p><br></p>
+
+<h3 id="2-주키퍼-z노드-등록조회삭제">2) 주키퍼 z노드 등록/조회/삭제</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>create /pilot-pjt bigdata
+<span class="nb">ls</span> /
+get /pilot-pjt
+delete /pilot-pjt
+</code></pre></div></div>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcjgD2u%2FbtrWxquRFRa%2F8ZblaH486UKM7KSZhepIE0%2Fimg.png" alt=""></p>
+
+<ul>
+  <li>bigdata를 담고 있는 pilot-pjt 라는 znode 생성, 조회, 삭제</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>zookeeper와 znode
+    <ul>
+      <li>zookeeper : 분산 어플리케이션을 구성하기 쉽게 도와주는 시스템 (znode로 구성된 분산 데이터 모델을 지원하는 시스템)</li>
+      <li>z노드 : 클러스터를 구성하고 있는 각각의 서버</li>
+      <li>주키퍼는 데이터를 디렉터리 구조로 관리하며, key-value 스토리지처럼 key로 접근 가능</li>
+      <li>디렉터리 구조의 각 데이터 노드가 znode</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>참고 사이트   <br>
+https://engkimbs.tistory.com/660</p>
+</blockquote>
+
+<p><br></p>
+
+<h2 id="10-스마트카-로그-시뮬레이터-설치">10. 스마트카 로그 시뮬레이터 설치</h2>
+
+<h3 id="1-server02에-작업-폴더-생성">1) server02에 작업 폴더 생성</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home
+<span class="nb">mkdir</span> <span class="nt">-p</span> /home/pilot-pjt/working/car-batch-log
+<span class="nb">mkdir</span> /home/pilot-pjt/working/driver-realtime-log
+<span class="nb">chmod </span>777 <span class="nt">-R</span> /home/pilot-pjt
+</code></pre></div></div>
+
+<p><br></p>
+
+<h3 id="2-자바-컴파일-실행-환경-변경-17---18">2) 자바 컴파일, 실행 환경 변경 (1.7 -&gt; 1.8)</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> /usr/bin/java
+<span class="nb">rm</span> /usr/bin/javac
+<span class="nb">ln</span> <span class="nt">-s</span> /usr/java/jdk1.8.0_181-cloudera/bin/javac /usr/bin/javac
+<span class="nb">ln</span> <span class="nt">-s</span> /usr/java/jdk1.8.0_181-cloudera/bin/java /usr/bin/java
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-version</span>
+</code></pre></div></div>
+<ul>
+  <li>1.8.0_181 확인</li>
+</ul>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FDuWeE%2FbtrWv8B0NEs%2FjCK9ED53KM8zf0y46hF8G0%2Fimg.png" alt=""></p>
+
+<p><br></p>
+
+<h3 id="3-자바로-만들어진-스마트카-로그-시뮬레이터-프로그램-server02에-업로드">3) 자바로 만들어진 스마트카 로그 시뮬레이터 프로그램 server02에 업로드</h3>
+<ul>
+  <li>
+    <p>파일질라 이용
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FceNJHe%2FbtrWxtrCjBC%2FkF7u4u2kDS90Gnx38nQYK1%2Fimg.png" alt=""></p>
+  </li>
+  <li>
+    <p>bigdata.smartcar.loggen-1.0.jar 파일을 /home/pilot-pjt/working에 업로드</p>
+  </li>
+</ul>
+
+<p><br></p>
+
+<h3 id="4-스마트카-로그-시뮬레이터-실행">4) 스마트카 로그 시뮬레이터 실행</h3>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">bigdata.smartcar.loggen-1.0.jar</code> 파일에 두 개의 메인 자바프로그램이 있음
+    <ul>
+      <li>스마트카 운전자의 운행 정보를 실시간으로 발생시키는 <code class="language-plaintext highlighter-rouge">DriverLogMain.java</code>
+</li>
+      <li>스마트카의 상태 정보를 주기적으로 발생시키는 <code class="language-plaintext highlighter-rouge">CarLoginMain.java</code>
+</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">DriverLogMain.java</code> 먼저 실행
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working
+java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.DriverLogMain 20160101 10
+</code></pre></div>    </div>
+  </li>
+  <li>java -cp [경로] [클래스 이름]  (현재 열려 있는 명령 창에서만 유효)
+    <ul>
+      <li>cp (classpath) : JVM이 프로그램을 실행할 때 클래스 파일을 찾는 데 기준이 되는 파일 경로, JVM의 매개 변수</li>
+      <li>자바에서 외부 라이브러리 파일이나 jar 파일 포함하여 컴파일하기 위해서는 classpath 이용</li>
+    </ul>
+  </li>
+  <li>
+<strong>bigdata.smartcar.loggen-1.0.jar</strong> : 포함하고자 하는 라이브러리나 jar 파일 (필요한 클래스 파일들)</li>
+  <li>
+<strong>com.wikibook.bigdata.smartcar.loggen.DriverLogMain</strong> : 컴파일 할 파일</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>
+<strong>시뮬레이터 작동 확인</strong>
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working/driver-realtime-log
+<span class="nb">tail</span> <span class="nt">-f</span> SmartCarDriverInfo.log
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F0Y5EV%2FbtrWzRZA0Hx%2FR9Jloh0FrZuJ8vSS2TO9L0%2Fimg.png" alt=""></p>
+
+<p><br></p>
+
+<ul>
+  <li><strong>데이터 형식 정의</strong></li>
+</ul>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiqEGG%2FbtrWx8Hv5jU%2FWCKW0a6yZ6GUqpKRrZKitK%2Fimg.png" alt=""></p>
+
+<p><br></p>
+
+<ul>
+  <li>
+<strong>CarLogMain.java 실행</strong>
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working
+java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.CarLogMain 20160101 10
+</code></pre></div>    </div>
+  </li>
+  <li>코드 설명
+    <ul>
+      <li>첫번째 매개 변수: 실행 날짜</li>
+      <li>두번째 매개 변수: 스마트카 대 수
+  -&gt; 2016년 1월 1일 기준으로 10대의 스마트카에 대한 로그 파일인 SmartCarStatusInfo_20160101.txt 생성됨</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>
+<strong>시뮬레이터 작동 확인</strong>
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/pilot-pjt/working/SmartCar
+<span class="nb">tail</span> <span class="nt">-f</span> SmartCarStatusInfo_20160101.txt
+</code></pre></div>    </div>
+    <p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fef6z6h%2FbtrWwgGOUHT%2FD1z6WrbOshWUdPvkjEiYCk%2Fimg.png" alt=""></p>
+  </li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li><strong>데이터 형식 정의</strong></li>
+</ul>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbu0fNq%2FbtrWx5c0MEM%2FU9JS4am5kifZ5iqA58Bk50%2Fimg.png" alt=""></p>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/hadoop/2023/09/22/architecture.html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계">[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계...</a><a class="next" href="/hadoop/2023/09/22/ch2.html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 이론">[pilot] Ch2. 파일럿 프로젝트 아키텍처 이론...</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li class="">
+          <a class="post-link" href="/java/2023/05/11/1952.html" title="[BOJ] 1952. 달팽이2">
+            [BOJ] 1952. 달팽이2<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/27/regularization.html" title="[BoostCourse] 4. Regularization">
+            [BoostCourse] 4. Regularization<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/algorithm/2023/07/01/chap2.html" title="분할정복법 Divide and Conquer">
+            분할정복법 Divide and Conquer<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/java/2023/05/23/2033.html" title="[BOJ] 2033. 반올림">
+            [BOJ] 2033. 반올림<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+</ul>
+    </div>
+<div class="post-comments">
+      <script src="https://utteranc.es/client.js" repo="bokyung124/bokyung124.github.io" issue-term="pathname" label="comments" theme="github-light" crossorigin="anonymous" async>
+      </script>
+      
+      <!---->
+    </div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>Unpublished Work <span class="copyleft">©</span> 2017-2023 GitHub User</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
