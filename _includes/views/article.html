@@ -1,11 +1,11 @@
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
-    <div class="post-content e-content" itemprop="articleBody">
+  {%- include views/post-header.html -%}
 
-      {%- include views/post-header.html -%}
+  <div class="post-content e-content" itemprop="articleBody">
 
-      {{ content }}
+    {{ content }}
 
-    </div>
+  </div>
 
 </article>
