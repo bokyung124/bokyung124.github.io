@@ -1,2 +1,2 @@
 # bokyung124.github.io
-study archives
+CS study archives

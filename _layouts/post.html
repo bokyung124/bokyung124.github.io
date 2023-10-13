@@ -70,7 +70,16 @@ sidebar:
     {%- assign result = hidden | where_exp: "item", "item == 'comments'" -%}
     {%- if result.size == 0 -%}
     <div class="post-comments">
-      {%- if page.comments != false -%}
+      <script src="https://utteranc.es/client.js"
+        repo="bokyung124/bokyung124.github.io"
+        issue-term="pathname"
+        label="comments"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+      </script>
+      
+      <!-- {%- if page.comments != false -%}
 
       {%- if site.disqus.shortname -%}
       {%- include extensions/comments/disqus.html -%}
@@ -84,7 +93,7 @@ sidebar:
       {%- include extensions/comments/utterances.html -%}
       {%- endif -%}
 
-      {%- endif -%}
+      {%- endif -%} -->
     </div>
     {%- endif -%}
 

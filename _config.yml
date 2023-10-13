@@ -24,9 +24,9 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Your awesome title
-email: your-email@domain.com
-author: GitHub User
+title: 갱로그
+email: leebk1124@gmail.com
+author: BoKyung
 
 # Copyright setting
 # You can use any html code, currently below placeholders are available:
@@ -43,12 +43,10 @@ author: GitHub User
 copyright: "Unpublished Work (cleft) 2017-{currentYear} {author}"
 
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  "bokyung's blog"
 
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. https://example.com
+url: "https://bokyung124.github.io" # the base hostname & protocol for your site, e.g. https://example.com
 favicon: "" # the favicon for your site
 
 # Yat date format
@@ -140,7 +138,7 @@ yat:
 # it will be always kept on every visit (i.e. no matter
 # the browser is closed or not)
 #
-# night_mode: "auto"
+night_mode: "off"
 
 # Code badge setting
 # You can enable or disable the code badge and so on
@@ -169,7 +167,7 @@ yat:
 # Banner default settings
 # These banner settings are for global banner default, but you can also
 # config it by the front matter for one specific post
-# banner:
+banner:
 #   video: null             # Video banner source
 #   loop: true              # Video loop
 #   volume: 0               # Video volume (100% is 1.0)
@@ -177,7 +175,7 @@ yat:
 #   image: null             # Image banner source
 #   opacity: 1.0            # Banner opacity (100% is 1.0)
 #   background: "rgba(0, 0, 0, 0.8)"  # Banner background (Could be a image)
-#   height: "640px"         # Banner default height
+  height: "300px"         # Banner default height
 #   min_height: null        # Banner minimum height
 #   heading_style: null     # Custom heading style (e.g. "font-weight: bold; text-decoration: underline")
 #   subheading_style: null  # Custom subheading style (e.g. color: gold)
@@ -239,9 +237,13 @@ yat:
 
 # Build settings
 # highlighter: none
+highlighter: rouge
 markdown: kramdown
-kramdown:
+kmarkdown:
   input: GFM
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
 
 plugins:
   - jekyll-feed
