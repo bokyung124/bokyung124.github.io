@@ -447,6 +447,8 @@ html {
       @include media-query($on-laptop) {
         @include relative-font-size(1.75);
       }
+      
+      border-bottom: 1px solid $text-color;
     }
 
     h3 {

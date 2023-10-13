@@ -40,7 +40,7 @@ author: BoKyung
 #   "Copyright (c) 2017-{currentYear} <a href="https://example.com">{author}</a>"
 #   "Copyright © 2017-2021 Foobar"
 #
-copyright: "Unpublished Work (cleft) 2017-{currentYear} {author}"
+copyright: "User's Github <a href="https://github.com/bokyung124"></a>"
 
 description: >- # this means to ignore newlines until "baseurl:"
   "bokyung's blog"
@@ -53,6 +53,13 @@ favicon: "" # the favicon for your site
 # refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
 yat:
   date_format: "%b %d, %Y"
+
+# Site Footer
+user:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/bokyung124"
 
 # If you want more debug log, you can set true
 # debug: false
@@ -189,7 +196,7 @@ banner:
 #   text_size: 350          # Words default size
 
 # Pagination setting
-# paginate: 5
+paginate: 5
 
 # Photo previewer settings (PhotoSwipe 5)
 # the options please refer to: https://photoswipe.com/options/

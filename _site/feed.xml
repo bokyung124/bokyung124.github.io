@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-10-13T12:51:08+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><author><name>GitHub User</name></author><entry><title type="html">[k8s] Kubernetes Basic</title><link href="http://localhost:4000/infra/2023/09/22/k8s.html" rel="alternate" type="text/html" title="[k8s] Kubernetes Basic" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T07:00:00+09:00</updated><id>http://localhost:4000/infra/2023/09/22/k8s</id><content type="html" xml:base="http://localhost:4000/infra/2023/09/22/k8s.html"><![CDATA[<p>참고자료 https://www.youtube.com/watch?v=Iu9ТС13vPQ&amp;list=PLApuRIvrZKohaBHVXAOhUD-RxDOuQ3z0c&amp;index=8</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-10-13T14:22:31+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">갱로그</title><subtitle>&quot;bokyung&apos;s blog&quot;</subtitle><author><name>BoKyung</name></author><entry><title type="html">[k8s] Kubernetes Basic</title><link href="http://localhost:4000/infra/2023/09/22/k8s.html" rel="alternate" type="text/html" title="[k8s] Kubernetes Basic" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T07:00:00+09:00</updated><id>http://localhost:4000/infra/2023/09/22/k8s</id><content type="html" xml:base="http://localhost:4000/infra/2023/09/22/k8s.html"><![CDATA[<p>참고자료 <a href="https://www.youtube.com/watch?v=Iu9ТС13vPQ&amp;list=PLApuRIvrZKohaBHVXAOhUD-RxDOuQ3z0c&amp;index=8">https://www.youtube.com/watch?v=Iu9ТС13vPQ&amp;list=PLApuRIvrZKohaBHVXAOhUD-RxDOuQ3z0c&amp;index=8</a></p>
 
 <h2 id="1-kubernetes">1. Kubernetes</h2>
 
@@ -891,7 +891,7 @@ image: nginx:1.20.2
   <li>5G 진출을 가능하게 함</li>
   <li>인프라와 애플리케이션 계층 분리 -&gt; 시스템 의존성이 적으며, 애플리케이션 계층에서 기능 구현이 더 쉬워짐</li>
   <li>서로 다른 환경에서 동일한 테스트 여러 번 진행할 필요 없음 -&gt; 제품 출시 시간 절약</li>
-</ul>]]></content><author><name>GitHub User</name></author><category term="Infra" /><summary type="html"><![CDATA[참고자료 https://www.youtube.com/watch?v=Iu9ТС13vPQ&amp;list=PLApuRIvrZKohaBHVXAOhUD-RxDOuQ3z0c&amp;index=8]]></summary></entry><entry><title type="html">[pilot] Ch5. 빅데이터 적재 이론 (2)</title><link href="http://localhost:4000/hadoop/2023/09/22/ch5.html" rel="alternate" type="text/html" title="[pilot] Ch5. 빅데이터 적재 이론 (2)" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T05:20:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/ch5</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/ch5.html"><![CDATA[<p>[출처: 실무로 배우는 빅데이터 기술, 김강원 저]</p>
+</ul>]]></content><author><name>BoKyung</name></author><category term="Infra" /><summary type="html"><![CDATA[참고자료 https://www.youtube.com/watch?v=Iu9ТС13vPQ&amp;list=PLApuRIvrZKohaBHVXAOhUD-RxDOuQ3z0c&amp;index=8]]></summary></entry><entry><title type="html">[pilot] Ch5. 빅데이터 적재 이론 (2)</title><link href="http://localhost:4000/hadoop/2023/09/22/ch5.html" rel="alternate" type="text/html" title="[pilot] Ch5. 빅데이터 적재 이론 (2)" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T05:20:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/ch5</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/ch5.html"><![CDATA[<p>[출처: 실무로 배우는 빅데이터 기술, 김강원 저]</p>
 
 <p><br /></p>
 
@@ -1384,7 +1384,7 @@ image: nginx:1.20.2
   </li>
 </ul>
 
-<p><img src="img/CH05/last.png" alt="" /></p>]]></content><author><name>GitHub User</name></author><category term="Hadoop" /><summary type="html"><![CDATA[[출처: 실무로 배우는 빅데이터 기술, 김강원 저]]]></summary></entry><entry><title type="html">MAC 하둡 설치</title><link href="http://localhost:4000/hadoop/2023/09/22/install-hadoop.html" rel="alternate" type="text/html" title="MAC 하둡 설치" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T04:20:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/install-hadoop</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/install-hadoop.html"><![CDATA[<h2 id="1-homebrew로-하둡-설치">1. Homebrew로 하둡 설치</h2>
+<p><img src="img/CH05/last.png" alt="" /></p>]]></content><author><name>BoKyung</name></author><category term="Hadoop" /><summary type="html"><![CDATA[[출처: 실무로 배우는 빅데이터 기술, 김강원 저]]]></summary></entry><entry><title type="html">MAC 하둡 설치</title><link href="http://localhost:4000/hadoop/2023/09/22/install-hadoop.html" rel="alternate" type="text/html" title="MAC 하둡 설치" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T04:20:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/install-hadoop</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/install-hadoop.html"><![CDATA[<h2 id="1-homebrew로-하둡-설치">1. Homebrew로 하둡 설치</h2>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>hadoop
 
@@ -1631,7 +1631,7 @@ jps
 <span class="c"># 97924 NameNode</span>
 <span class="c"># 98452 ResourceManager</span>
 <span class="c"># 98170 SecondaryNameNode</span>
-</code></pre></div></div>]]></content><author><name>GitHub User</name></author><category term="Hadoop" /><summary type="html"><![CDATA[Hadoop 설치]]></summary></entry><entry><title type="html">[pilot] Ch5. 빅데이터 적재 실습 (2)</title><link href="http://localhost:4000/hadoop/2023/09/22/ch5(2).html" rel="alternate" type="text/html" title="[pilot] Ch5. 빅데이터 적재 실습 (2)" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T05:30:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/ch5(2)</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/ch5(2).html"><![CDATA[<h2 id="1-실시간-적재-환경-구성">1. 실시간 적재 환경 구성</h2>
+</code></pre></div></div>]]></content><author><name>BoKyung</name></author><category term="Hadoop" /><summary type="html"><![CDATA[Hadoop 설치]]></summary></entry><entry><title type="html">[pilot] Ch5. 빅데이터 적재 실습 (2)</title><link href="http://localhost:4000/hadoop/2023/09/22/ch5(2).html" rel="alternate" type="text/html" title="[pilot] Ch5. 빅데이터 적재 실습 (2)" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T05:30:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/ch5(2)</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/ch5(2).html"><![CDATA[<h2 id="1-실시간-적재-환경-구성">1. 실시간 적재 환경 구성</h2>
 <h3 id="1-hbase-설치">1) HBase 설치</h3>
 <ul>
   <li>CM 홈 - [서비스 추가] - [HBase] 선택 - [계속]
@@ -3222,7 +3222,7 @@ storm jar bigdata.smartcar.storm-1.0.jar com.wikibook.bigdata.smartcar.storm.Sma
 </code></pre></div>    </div>
     <p><img src="img/CH05/storm%20topology%20%EC%9E%AC%EB%B0%B0%ED%8F%AC.png" alt="" /></p>
   </li>
-</ul>]]></content><author><name>GitHub User</name></author><category term="Hadoop" /><summary type="html"><![CDATA[1. 실시간 적재 환경 구성 1) HBase 설치 CM 홈 - [서비스 추가] - [HBase] 선택 - [계속]]]></summary></entry><entry><title type="html">[pilot] Ch4. 빅데이터 적재 이론</title><link href="http://localhost:4000/hadoop/2023/09/22/ch4.html" rel="alternate" type="text/html" title="[pilot] Ch4. 빅데이터 적재 이론" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T05:00:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/ch4</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/ch4.html"><![CDATA[<p>[출처: 실무로 배우는 빅데이터 기술, 김강원 저]</p>
+</ul>]]></content><author><name>BoKyung</name></author><category term="Hadoop" /><summary type="html"><![CDATA[1. 실시간 적재 환경 구성]]></summary></entry><entry><title type="html">[pilot] Ch4. 빅데이터 적재 이론</title><link href="http://localhost:4000/hadoop/2023/09/22/ch4.html" rel="alternate" type="text/html" title="[pilot] Ch4. 빅데이터 적재 이론" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T05:00:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/ch4</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/ch4.html"><![CDATA[<p>[출처: 실무로 배우는 빅데이터 기술, 김강원 저]</p>
 
 <p><br /></p>
 
@@ -3632,7 +3632,7 @@ storm jar bigdata.smartcar.storm-1.0.jar com.wikibook.bigdata.smartcar.storm.Sma
 <p><br /></p>
 
 <h2 id="5-적재-환경-구성">5. 적재 환경 구성</h2>
-<p><img src="img/CH04/collection2.png" alt="" /></p>]]></content><author><name>GitHub User</name></author><category term="Hadoop" /><summary type="html"><![CDATA[[출처: 실무로 배우는 빅데이터 기술, 김강원 저]]]></summary></entry><entry><title type="html">[pilot] Ch4. 빅데이터 적재 실습</title><link href="http://localhost:4000/hadoop/2023/09/22/ch4(2).html" rel="alternate" type="text/html" title="[pilot] Ch4. 빅데이터 적재 실습" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T05:10:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/ch4(2)</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/ch4(2).html"><![CDATA[<h2 id="1-하둡-설치">1. 하둡 설치</h2>
+<p><img src="img/CH04/collection2.png" alt="" /></p>]]></content><author><name>BoKyung</name></author><category term="Hadoop" /><summary type="html"><![CDATA[[출처: 실무로 배우는 빅데이터 기술, 김강원 저]]]></summary></entry><entry><title type="html">[pilot] Ch4. 빅데이터 적재 실습</title><link href="http://localhost:4000/hadoop/2023/09/22/ch4(2).html" rel="alternate" type="text/html" title="[pilot] Ch4. 빅데이터 적재 실습" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T05:10:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/ch4(2)</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/ch4(2).html"><![CDATA[<h2 id="1-하둡-설치">1. 하둡 설치</h2>
 <ul>
   <li>이미 CH02에서 CM을 통해 설치 완료</li>
   <li>하둡은 수집, 적재, 처리, 분석의 전 영역에 걸쳐 모든 컴포넌트와 연결되어 설치 구성됨</li>
@@ -4090,7 +4090,7 @@ hdfs dfs -cat “출력된 디렉터리/파일명.log”</li>
 ```bash
 ps -ef | grep smartcar.log
 kill -9 [pid]
-</code></pre></div></div>]]></content><author><name>GitHub User</name></author><category term="Hadoop" /><summary type="html"><![CDATA[1. 하둡 설치 이미 CH02에서 CM을 통해 설치 완료 하둡은 수집, 적재, 처리, 분석의 전 영역에 걸쳐 모든 컴포넌트와 연결되어 설치 구성됨]]></summary></entry><entry><title type="html">[pilot] Ch3. 빅데이터 수집 이론</title><link href="http://localhost:4000/hadoop/2023/09/22/ch3.html" rel="alternate" type="text/html" title="[pilot] Ch3. 빅데이터 수집 이론" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T04:50:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/ch3</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/ch3.html"><![CDATA[<p>[출처: 실무로 배우는 빅데이터 기술, 김강원 저]</p>
+</code></pre></div></div>]]></content><author><name>BoKyung</name></author><category term="Hadoop" /><summary type="html"><![CDATA[1. 하둡 설치]]></summary></entry><entry><title type="html">[pilot] Ch3. 빅데이터 수집 이론</title><link href="http://localhost:4000/hadoop/2023/09/22/ch3.html" rel="alternate" type="text/html" title="[pilot] Ch3. 빅데이터 수집 이론" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T04:50:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/ch3</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/ch3.html"><![CDATA[<p>[출처: 실무로 배우는 빅데이터 기술, 김강원 저]</p>
 
 <p><br /></p>
 
@@ -4443,7 +4443,7 @@ kill -9 [pid]
 <ul>
   <li><code class="language-plaintext highlighter-rouge">Flume Stdout</code> : 플럼의 Logger-Sink를 통해 표준 출력 로그가 출력됨</li>
   <li><code class="language-plaintext highlighter-rouge">Kafka Topic</code> : 플럼의 Kafka-Sink는 수집된 실시간 로그를 임시 적재함</li>
-</ul>]]></content><author><name>GitHub User</name></author><category term="Hadoop" /><summary type="html"><![CDATA[[출처: 실무로 배우는 빅데이터 기술, 김강원 저]]]></summary></entry><entry><title type="html">[pilot] Ch3. 빅데이터 수집 실습</title><link href="http://localhost:4000/hadoop/2023/09/22/ch3(2).html" rel="alternate" type="text/html" title="[pilot] Ch3. 빅데이터 수집 실습" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T04:55:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/ch3(2)</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/ch3(2).html"><![CDATA[<h2 id="0-이번-장에서-할-것">0. 이번 장에서 할 것</h2>
+</ul>]]></content><author><name>BoKyung</name></author><category term="Hadoop" /><summary type="html"><![CDATA[[출처: 실무로 배우는 빅데이터 기술, 김강원 저]]]></summary></entry><entry><title type="html">[pilot] Ch3. 빅데이터 수집 실습</title><link href="http://localhost:4000/hadoop/2023/09/22/ch3(2).html" rel="alternate" type="text/html" title="[pilot] Ch3. 빅데이터 수집 실습" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T04:55:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/ch3(2)</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/ch3(2).html"><![CDATA[<h2 id="0-이번-장에서-할-것">0. 이번 장에서 할 것</h2>
 <ul>
   <li>빅데이터 아키텍처의 첫 번째 레이어인 <strong>수집 영역</strong> 구축</li>
   <li>스마트카 시뮬레이터로 배치 파일(스마트카 상태 정보)과 실시간 로그(스마트카 운행 정보) 생성</li>
@@ -5100,7 +5100,7 @@ vi SmartCarStatusInfo_20160101.txt
       <li>손상된 파일을 /lost + found 디렉터리로 이동 : <code class="language-plaintext highlighter-rouge">hdfs fsck / -move</code></li>
     </ul>
   </li>
-</ul>]]></content><author><name>GitHub User</name></author><category term="Hadoop" /><summary type="html"><![CDATA[0. 이번 장에서 할 것 빅데이터 아키텍처의 첫 번째 레이어인 수집 영역 구축 스마트카 시뮬레이터로 배치 파일(스마트카 상태 정보)과 실시간 로그(스마트카 운행 정보) 생성 이를 플러모가 카프카로 수집]]></summary></entry><entry><title type="html">[pilot] Ch2. 파일럿 프로젝트 아키텍처 이론</title><link href="http://localhost:4000/hadoop/2023/09/22/ch2.html" rel="alternate" type="text/html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 이론" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T04:30:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/ch2</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/ch2.html"><![CDATA[<p>[출처: 실무로 배우는 빅데이터 기술, 김강원 저]</p>
+</ul>]]></content><author><name>BoKyung</name></author><category term="Hadoop" /><summary type="html"><![CDATA[0. 이번 장에서 할 것]]></summary></entry><entry><title type="html">[pilot] Ch2. 파일럿 프로젝트 아키텍처 이론</title><link href="http://localhost:4000/hadoop/2023/09/22/ch2.html" rel="alternate" type="text/html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 이론" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T04:30:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/ch2</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/ch2.html"><![CDATA[<p>[출처: 실무로 배우는 빅데이터 기술, 김강원 저]</p>
 
 <p><br /></p>
 
@@ -5206,7 +5206,7 @@ vi SmartCarStatusInfo_20160101.txt
   <li>빅데이터 자동화 관리 툴</li>
   <li>하둡을 포함한 에코시스템 17개 편리하게 설치 및 관리
 <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdgrhZY%2FbtrUKYOQmH2%2Fkn9pfO6wlfXFhPPAYhI7U1%2Fimg.png" alt="cm" /></li>
-</ul>]]></content><author><name>GitHub User</name></author><category term="Hadoop" /><summary type="html"><![CDATA[[출처: 실무로 배우는 빅데이터 기술, 김강원 저]]]></summary></entry><entry><title type="html">[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2)</title><link href="http://localhost:4000/hadoop/2023/09/22/architecture2.html" rel="alternate" type="text/html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2)" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T04:46:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/architecture2</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/architecture2.html"><![CDATA[<p>[출처: 실무로 배우는 빅데이터 기술, 김강원 저]</p>
+</ul>]]></content><author><name>BoKyung</name></author><category term="Hadoop" /><summary type="html"><![CDATA[[출처: 실무로 배우는 빅데이터 기술, 김강원 저]]]></summary></entry><entry><title type="html">[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2)</title><link href="http://localhost:4000/hadoop/2023/09/22/architecture2.html" rel="alternate" type="text/html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계(2)" /><published>2023-09-22T00:00:00+09:00</published><updated>2023-09-23T04:46:00+09:00</updated><id>http://localhost:4000/hadoop/2023/09/22/architecture2</id><content type="html" xml:base="http://localhost:4000/hadoop/2023/09/22/architecture2.html"><![CDATA[<p>[출처: 실무로 배우는 빅데이터 기술, 김강원 저]</p>
 
 <h2 id="1-클라우데라-매니저cm-설치">1. 클라우데라 매니저(CM) 설치</h2>
 
@@ -5636,4 +5636,4 @@ java <span class="nt">-cp</span> bigdata.smartcar.loggen-1.0.jar com.wikibook.bi
   <li><strong>데이터 형식 정의</strong></li>
 </ul>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbu0fNq%2FbtrWx5c0MEM%2FU9JS4am5kifZ5iqA58Bk50%2Fimg.png" alt="" /></p>]]></content><author><name>GitHub User</name></author><category term="Hadoop" /><summary type="html"><![CDATA[[출처: 실무로 배우는 빅데이터 기술, 김강원 저]]]></summary></entry></feed>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbu0fNq%2FbtrWx5c0MEM%2FU9JS4am5kifZ5iqA58Bk50%2Fimg.png" alt="" /></p>]]></content><author><name>BoKyung</name></author><category term="Hadoop" /><summary type="html"><![CDATA[[출처: 실무로 배우는 빅데이터 기술, 김강원 저]]]></summary></entry></feed>
