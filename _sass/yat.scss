@@ -23,7 +23,7 @@ $white-color: #fdfdfd !default;
 $table-text-align: left !default;
 
 $header-height: $base-line-height * $base-font-size * 2.85 !default;
-$header-text-color: $text-color !default;
+$header-text-color: $grey-color-dark !default;
 $header-background-color: $theme-color !default;
 
 $footer-height: $header-height * 1.05 !default;
@@ -38,7 +38,7 @@ $banner-background: rgba(0,0,0,0.8) !default;
 // $content-width:    920px !default;
 
 $on-palm:          600px !default;
-$on-laptop:        800px !default;
+$on-laptop:        900px !default;
 
 // Use media queries like this:
 // @include media-query($on-palm) {
