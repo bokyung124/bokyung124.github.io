@@ -12,8 +12,6 @@ published: true
 tag: [study, Boostcourse, DL]
 ---
 
-<br>
-
 ## 1. Underfitting & Overfitting
 
 ### fit

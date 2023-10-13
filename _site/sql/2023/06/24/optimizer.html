@@ -942,7 +942,9 @@ function googleTranslateElementInit() {
 <div class="post-tags"><a class="post-tag" href="/tags.html#MySQL">#MySQL</a></div></header>
 <div class="post-content e-content" itemprop="articleBody">
 
-    <p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/aa6f0ede-6803-4329-aa87-7d8639e3c5c5" alt="image"></p>
+    <p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fm94Oz%2FbtqTNBsMZ9x%2FHkuOTKjJ2Kv94M0wz8BtM0%2Fimg.png" alt="image"></p>
+
+<p>SQL 실행 과정</p>
 
 <p><br></p>
 
@@ -1057,7 +1059,7 @@ function googleTranslateElementInit() {
 
 <p>비용을 기반으로 최적화를 수행하는 방식이다. 이때 비용이란 쿼리를 수행하는데 소요되는 일의 양 또는 시간 예상치이다.</p>
 
-<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/754e6d9a-bc99-4f99-8d2e-f67fed0370e3" alt="image"></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F9DJ6V%2FbtqTPxKrhJW%2FaH5NoMZxKZqUmKBKTq8X40%2Fimg.png" alt="image"></p>
 
 <p>딕셔너리에서 테이블과 인덱스를 통해 레코드 개수, 블록 개수, 평균 행 길이, 칼럼 값의 수, 칼럼 값 분포, 인덱스 높이, 클러스터링 팩터 등의 통계값을 기반으로 비용을 예측하는 방식이다.  <br>
 이 예측된 비용에 따라 최적의 실행 계획을 도출한다.   <br>
@@ -1084,7 +1086,7 @@ function googleTranslateElementInit() {
 <strong>연산 (Operation)</strong> : 크다, 작다, 함수, MAX, MIN 등</li>
 </ul>
 
-<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/9bd51865-792b-4edc-9dce-1ccfcf1a1096" alt="image"></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbh8nE1%2FbtqTJlLfEkR%2F3l0j9puo2LQl9JvSGUlYg1%2Fimg.png" alt="image"></p>
 
 <p><br></p>
 
@@ -1119,12 +1121,12 @@ function googleTranslateElementInit() {
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">DESC</span> <span class="n">kaggle</span><span class="p">.</span><span class="n">titanic</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/2b6cfcaa-031b-491e-83cf-48f434bede9f" alt="image"></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FztOUG%2FbtqTIpNTltA%2FXCdVBuryjbNcVqW14hYr31%2Fimg.png" alt="image"></p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">EXPLAIN</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">kaggle</span><span class="p">.</span><span class="n">titanic</span> <span class="k">WHERE</span> <span class="nv">`Age`</span> <span class="o">=</span> <span class="mi">23</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/be6c265f-7b9d-40cf-a1f9-da58e6dbbe58" alt="image"></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpWY0Y%2FbtqTJTOvjTu%2FPBDVHZw24vbLj7k41kYeXK%2Fimg.png" alt="image"></p>
 
 <blockquote>
   <p>Age가 23인 데이터를 찾기 위해 418개의 rows를 모두 검색하는 것이 플랜임을 알 수 있다.</p>
@@ -1137,7 +1139,7 @@ function googleTranslateElementInit() {
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">DESC</span> <span class="n">kaggle</span><span class="p">.</span><span class="n">titanic</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/71793e0d-b57d-45f9-bf97-550115cafd89" alt="image"></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FkUFeb%2FbtqTYRH4XIT%2F7RMbV1JZebylOsyqoGs4PK%2Fimg.png" alt="image"></p>
 
 <blockquote>
   <p>Age에 인덱스가 생성된 것을 확인할 수 있다.</p>
@@ -1146,7 +1148,7 @@ function googleTranslateElementInit() {
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">EXPLAIN</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">kaggle</span><span class="p">.</span><span class="n">titanic</span> <span class="k">WHERE</span> <span class="nv">`Age`</span> <span class="o">=</span> <span class="mi">23</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p><img src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/4605752d-5dd0-45cd-b88b-a97e392ce185" alt="image"></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc8UAoG%2FbtqTNzuXuCI%2FMWPmcZGR8JCTZYz0BDjf2k%2Fimg.png" alt="image"></p>
 
 <blockquote>
   <p>IDX_AGE를 사용해서 reference를 통해서 쿼리를 실행하는 것이 플랜임을 알 수 있다.
@@ -1164,32 +1166,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/sql/2023/04/11/PL-SQL-2.html" title="[DBP] CH3-2. PL/SQL 내에서의 SQL문">
-            [DBP] CH3-2. PL/SQL 내에서의 SQL문<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/01/1157.html" title="[BOJ] 1157. 단어 공부">
+            [BOJ] 1157. 단어 공부<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/14/2596.html" title="[BOJ] 2596. 비밀편지">
-            [BOJ] 2596. 비밀편지<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/25/dl.html" title="[BoostCourse] 1. 딥러닝 기본">
+            [BoostCourse] 1. 딥러닝 기본<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/11/Exception.html" title="[DBP] CH3-4. Exception">
-            [DBP] CH3-4. Exception<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/22/1296.html" title="[BOJ] 1296. 팀 이름 정하기">
+            [BOJ] 1296. 팀 이름 정하기<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/20/Function.html" title="[DBP] CH4-2. PL/SQL - Function">
-            [DBP] CH4-2. PL/SQL - Function<span class="post-badges">
+          <a class="post-link" href="/sql/2023/06/24/optimizer.html" title="[MySQL] SQL 옵티마이저">
+            [MySQL] SQL 옵티마이저<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

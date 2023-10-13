@@ -947,7 +947,6 @@ function googleTranslateElementInit() {
     <p><br></p>
 
 <h2 id="sparksession">SparkSession</h2>
-<hr>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
 <span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="p">.</span><span class="n">builder</span><span class="p">.</span><span class="nf">appName</span><span class="p">(</span><span class="sh">'</span><span class="s">Test</span><span class="sh">'</span><span class="p">).</span><span class="nf">getOrCreate</span><span class="p">()</span>
@@ -957,7 +956,6 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h2 id="read-csv">read csv</h2>
-<hr>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sparkDF</span> <span class="o">=</span> <span class="n">spark</span><span class="p">.</span><span class="n">read</span><span class="p">.</span><span class="nf">csv</span><span class="p">(</span><span class="sh">'</span><span class="s">hdfs://localhost:9000/housing.csv</span><span class="sh">'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="sh">'</span><span class="s">cp949</span><span class="sh">'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inferSchema</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">sparkDF</span> <span class="o">=</span> <span class="n">spark</span><span class="p">.</span><span class="n">read</span><span class="p">.</span><span class="nf">option</span><span class="p">(</span><span class="sh">'</span><span class="s">header</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">true</span><span class="sh">'</span><span class="p">).</span><span class="nf">option</span><span class="p">(</span><span class="sh">'</span><span class="s">encoding</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">cp949</span><span class="sh">'</span><span class="p">).</span><span class="nf">csv</span><span class="p">(</span><span class="sh">'</span><span class="s">hdfs://localhost:9000/housing.csv</span><span class="sh">'</span><span class="p">,</span> <span class="n">inferSchema</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -989,7 +987,6 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h2 id="hadoop---pandas">Hadoop -&gt; Pandas</h2>
-<hr>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">house</span> <span class="o">=</span> <span class="n">sparkDF</span><span class="p">.</span><span class="nf">toPandas</span><span class="p">()</span>
 </code></pre></div></div>
@@ -997,7 +994,6 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h2 id="dataframe-출력">DataFrame 출력</h2>
-<hr>
 
 <h3 id="상위-20개-데이터-출력">상위 20개 데이터 출력</h3>
 
@@ -1048,7 +1044,6 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h2 id="describe">describe()</h2>
-<hr>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">emp</span><span class="p">.</span><span class="nf">describe</span><span class="p">().</span><span class="nf">show</span><span class="p">()</span>
 </code></pre></div></div>
@@ -1056,7 +1051,6 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h2 id="컬럼">컬럼</h2>
-<hr>
 
 <h3 id="컬럼-추가">컬럼 추가</h3>
 
@@ -1089,7 +1083,7 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h2 id="filter-operations">Filter Operations</h2>
-<hr>
+
 <p><code class="language-plaintext highlighter-rouge">&amp;</code>, <code class="language-plaintext highlighter-rouge">|</code>, <code class="language-plaintext highlighter-rouge">~</code></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">emp</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="sh">'</span><span class="s">salary &lt;= 30000</span><span class="sh">'</span><span class="p">).</span><span class="nf">show</span><span class="p">()</span>
@@ -1107,7 +1101,6 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h2 id="groupby-agg">groupBy, .agg()</h2>
-<hr>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">emp</span><span class="p">.</span><span class="nf">groupBy</span><span class="p">(</span><span class="sh">'</span><span class="s">gender</span><span class="sh">'</span><span class="p">).</span><span class="nf">count</span><span class="p">().</span><span class="nf">show</span><span class="p">()</span>                       <span class="c1"># 그룹별 카운트
 </span> 
@@ -1141,7 +1134,6 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h2 id="정렬">정렬</h2>
-<hr>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">emp</span><span class="p">.</span><span class="nf">orderBy</span><span class="p">(</span><span class="sh">'</span><span class="s">salary</span><span class="sh">'</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">).</span><span class="nf">show</span><span class="p">()</span>
 
@@ -1151,7 +1143,6 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h2 id="데이터프레임-복사">데이터프레임 복사</h2>
-<hr>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">emp_copy</span> <span class="o">=</span> <span class="n">emp</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="sh">'</span><span class="s">*</span><span class="sh">'</span><span class="p">)</span>
 </code></pre></div></div>
@@ -1159,7 +1150,6 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h2 id="pyspark-built-in-func">pyspark built-in func.</h2>
-<hr>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 표준화
 </span><span class="kn">from</span> <span class="n">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">arg</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">stddev</span>
@@ -1181,7 +1171,6 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h2 id="데이터-저장-및-불러오기">데이터 저장 및 불러오기</h2>
-<hr>
 
 <h3 id="csv">csv</h3>
 
@@ -1245,32 +1234,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/cs/2023/04/14/time-complexity.html" title="[Algorithm] 시간 복잡도">
-            [Algorithm] 시간 복잡도<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/07/preprocessing.html" title="[BoostCourse] 2. 정형데이터 전처리">
+            [BoostCourse] 2. 정형데이터 전처리<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/28/CNN.html" title="[BoostCourse] 4. Regularization">
-            [BoostCourse] 4. Regularization<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/05/Integrity-Constraints.html" title="[DBP] CH1-3. Integrity Constraints">
+            [DBP] CH1-3. Integrity Constraints<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/06/machingLearning.html" title="[BoostCourse] 3. 머신러닝 기본 개념">
-            [BoostCourse] 3. 머신러닝 기본 개념<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/03/1924.html" title="[BOJ] 1924. 2007년">
+            [BOJ] 1924. 2007년<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/hadoop/2023/09/22/architecture.html" title="[pilot] Ch2. 파일럿 프로젝트 아키텍처 설계">
-            [pilot] Ch2. 파일럿 프로젝트 아키텍처 설계<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/09/1524.html" title="[BOJ] 1524. 세준세비">
+            [BOJ] 1524. 세준세비<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

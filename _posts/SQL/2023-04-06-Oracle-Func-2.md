@@ -12,10 +12,7 @@ mathjax: true
 tag: [lecture, OracleSQL]
 ---
 
-<br>
-
 ## 🍈 숫자 처리 함수
----
 
 <br>
 

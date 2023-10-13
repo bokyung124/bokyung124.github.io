@@ -12,8 +12,6 @@ published: true
 tag: [study, Boostcourse, DL]
 ---
 
-<br>
-
 ## 1. 데이터 전처리
 - 데이터를 머신러닝 모델에 입력하기 위해 적절히 처리하는 과정
 - EDA / 모델이나 목적에 따라 달라지는 데이터 전처리

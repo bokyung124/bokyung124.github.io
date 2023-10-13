@@ -13,8 +13,6 @@ published: true
 tag: [study, BITAmin, DL]
 ---
 
-<br>
-
 ## 1. 데이터 전처리
 
 - 특정 분석에 적합하게 데이터를 가공하는 작업

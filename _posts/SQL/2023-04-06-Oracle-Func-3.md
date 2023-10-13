@@ -12,10 +12,8 @@ mathjax: true
 tag: [lecture, OracleSQL]
 ---
 
-<br>
-
 ## 🍈 날짜 처리 함수
----
+
 
 ### SYSDATE
 - 현재 날짜와 시간 반환
@@ -110,7 +108,6 @@ select NEXT_DAY(SYSDATE, 1) from dual;
 <br>
 
 ## 🍈 변환 함수
----
 
 ### TO_CHAR
 - 날짜, 숫자 등의 값을 문자열로 변환
@@ -175,7 +172,6 @@ from dual;
 <br>
 
 ## 🍈 기타 함수
----
 
 ### NVL
 - NULL 처리 함수

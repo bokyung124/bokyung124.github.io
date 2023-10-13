@@ -13,10 +13,7 @@ published: true
 tag: [study, BITAmin, DL]
 ---
 
-<br>
-
 ## 다중 선형 회귀
----
 
 ### 1. 기존 단순회귀모형의 문제점
 

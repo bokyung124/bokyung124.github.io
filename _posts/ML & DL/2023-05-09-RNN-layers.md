@@ -18,7 +18,6 @@ tag: [study, Udemy, DL]
 <br>
 
 ## RNN 
----
 
 <img width="1219" alt="스크린샷 2023-05-09 오후 2 03 31" src="https://user-images.githubusercontent.com/53086873/236998654-8acb7a8c-8d10-47a3-8032-2f93fe867761.png">
 
@@ -38,7 +37,7 @@ tag: [study, Udemy, DL]
 <br>
 
 ## Gradient vanishing 문제
----
+
 
 <img width="687" alt="스크린샷 2023-05-09 오후 2 08 00" src="https://user-images.githubusercontent.com/53086873/236999233-38fda2db-eae5-4ab6-a05c-07e9d365e721.png">
 
@@ -55,7 +54,7 @@ tag: [study, Udemy, DL]
 <br>
 
 ## LSTM, GRU Layer
----
+
 
 - LSTM (Long Term Short Memory)
     - Gradient Vanishing 문제를 해결할 수 있도록 RNN Cell을 변형한 구조
@@ -77,7 +76,7 @@ model.add(GRU(256))
 <br>
 
 ## Input, Output shape
----
+
 
 <img width="936" alt="스크린샷 2023-05-09 오후 2 32 28" src="https://user-images.githubusercontent.com/53086873/237002963-98d16e82-59a9-4ef8-b771-f6ec9b561882.png">
 

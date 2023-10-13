@@ -13,8 +13,6 @@ mathjax: true
 tag: [lecture, OracleSQL]
 ---
 
-<br>
-
 ## 🍏 Integrity Constraints
 
 ### 칼럼 레벨 제약 조건

@@ -142,7 +142,7 @@ pre {
 pre > code {
   display: inline-block;
   padding: 20px !important;
-  background-color: #eee;
+  background-color: #fdfdfd;
   border: 0;
 }
 pre table, pre pre {
@@ -189,13 +189,13 @@ table {
   overflow: auto;
 }
 table tr:nth-child(even) {
-  background-color: #ececec;
+  background-color: white;
 }
 table th, table td {
   padding: 10px 15px;
 }
 table th {
-  background-color: #e5e5e5;
+  background-color: white;
   border: 1px solid lightgray;
   border-bottom-color: #bebebe;
 }
@@ -1534,7 +1534,7 @@ html[data-theme=dark] .click-to-top {
 }
 
 .highlight .gi {
-  color: #95a52b;
+  color: #90a959;
 }
 
 .highlight .gd {
@@ -1600,11 +1600,11 @@ html[data-theme=dark] .click-to-top {
 }
 
 .highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
-  color: #95a52b;
+  color: #90a959;
 }
 
 .highlight .ss {
-  color: #95a52b;
+  color: #90a959;
 }
 
 /*# sourceMappingURL=main.css.map */

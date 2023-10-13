@@ -12,10 +12,8 @@ mathjax: true
 tag: [lecture, OracleSQL]
 ---
 
-<br>
-
 ## 📋 수강신청 입력
----
+
 
 ### 프로시저 및 함수 적용
 
@@ -58,7 +56,7 @@ tag: [lecture, OracleSQL]
 <br>
 
 ## 📋 수강신청 입력 프로시저: InsertEnroll
----
+
 
 ### InsertEnroll(p1, p2, p3, p4)
 - `IN` 파라미터
@@ -110,7 +108,7 @@ tag: [lecture, OracleSQL]
 <br>
 
 ## 📋 수강신청 결과 확인 : 프로시저
----
+
 
 - **명시적 커서**를 이용한 프로시저 실습
 
@@ -155,7 +153,7 @@ end;
 <br>
 
 ## 📋 수강신청 입력 및 입력 후 결과 확인
----
+
 
 - InsertEnroll() 프로시저의 입력 결과 확인
     - InsertEnroll() 프로시저 호출
@@ -213,7 +211,7 @@ PL/SQL procedure successfully completed.
 <br>
 
 ## 📋 사용자 정보 수정: 트리거 적용
----
+
 
 - 사용자 정보 수정시 패스워드에 대한 부분의 처리
     - 참조 무결성과 데이터 무결성 그 밖의 다른 제약 조건으로 정의할 수 없는 복잡한 요구 사항에 대한 제약 조건
@@ -239,7 +237,7 @@ PL/SQL procedure successfully completed.
 <br>
 
 ## 📋 사용자 정보 수정 트리거: BeforeUpdateStudent
----
+
 
 ## BeforeUpdateStudent
 - 관련 테이블: student

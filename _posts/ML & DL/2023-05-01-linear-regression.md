@@ -13,8 +13,6 @@ published: true
 tag: [study, BITAmin, DL]
 ---
 
-<br>
-
 ## 1. 회귀 분석
 
 - 독립변수 x에 대응하는 종속변수 y와 가장 유사한 값을 갖는 함수 f(x)를 찾는 과정   
