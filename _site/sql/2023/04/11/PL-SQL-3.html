@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 </head>
 <body>
 
@@ -1340,32 +1364,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/java/2023/04/08/1212.html" title="[BOJ] 1212. 8진수 2진수">
-            [BOJ] 1212. 8진수 2진수<span class="post-badges">
+          <a class="post-link" href="/it%20issues/2023/05/07/copilot.html" title="[IT] '빙 챗은 잊어라' 마이크로소프트 코파일럿, 얼마나 유능할까">
+            [IT] '빙 챗은 잊어라' 마이크로소프트 코파일럿, 얼마나 유능할까<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/08/1316.html" title="[BOJ] 1316. 그룹 단어 체커">
-            [BOJ] 1316. 그룹 단어 체커<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/06/1546.html" title="[BOJ] 1546. 평균">
+            [BOJ] 1546. 평균<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/26/optimization.html" title="[BoostCourse] 2. 최적화">
-            [BoostCourse] 2. 최적화<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/07/1145.html" title="[BOJ] 1145. 적어도 대부분의 배수">
+            [BOJ] 1145. 적어도 대부분의 배수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/algorithm/2023/07/10/chap4.html" title="Greedy Algorithm">
-            Greedy Algorithm<span class="post-badges">
+          <a class="post-link" href="/spark/2023/05/02/basic.html" title="[pyspark] 기본 문법">
+            [pyspark] 기본 문법<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

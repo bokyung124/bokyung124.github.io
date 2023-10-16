@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 </head>
 <body>
 
@@ -973,32 +997,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/sql/2023/04/05/Integrity-Constraints.html" title="[DBP] CH1-3. Integrity Constraints">
-            [DBP] CH1-3. Integrity Constraints<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/05/Join.html" title="[DBP] CH1-1. Join">
+            [DBP] CH1-1. Join<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/infra/2023/08/25/aws-serverless.html" title="[AWS] AWS Serverless">
-            [AWS] AWS Serverless<span class="post-badges">
+          <a class="post-link" href="/infra/2023/08/25/aws-load-balancing.html" title="[AWS] AWS Load Balancing">
+            [AWS] AWS Load Balancing<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/04/04/1009.html" title="[BOJ] 1009. 분산처리">
-            [BOJ] 1009. 분산처리<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/07/PL-SQL.html" title="[DBP] CH3. PL/SQL">
+            [DBP] CH3. PL/SQL<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/tableu/2023/06/24/map.html" title="[Tableu] 태블로 시작 &amp; 지도 시각화">
-            [Tableu] 태블로 시작 &amp; 지도 시각화<span class="post-badges">
+          <a class="post-link" href="/infra/2023/09/22/es.html" title="[ES] Elastic Search Basic">
+            [ES] Elastic Search Basic<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 <script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
@@ -1287,8 +1311,16 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/infra/2023/09/22/es.html" title="[ES] Elastic Search Basic">
-            [ES] Elastic Search Basic<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/06/Oracle-Func-3.html" title="[DBP] CH2-3. Oracle 기타 내장 함수">
+            [DBP] CH2-3. Oracle 기타 내장 함수<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/java/2023/05/07/1145.html" title="[BOJ] 1145. 적어도 대부분의 배수">
+            [BOJ] 1145. 적어도 대부분의 배수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
@@ -1303,16 +1335,8 @@ function googleTranslateElementInit() {
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/06/machingLearning.html" title="[BoostCourse] 3. 머신러닝 기본 개념">
-            [BoostCourse] 3. 머신러닝 기본 개념<span class="post-badges">
-  <span class="post-badge badge-top">TOP</span>
-  <span class="post-badge badge-new">NEW</span>
-</span>
-</a>
-        </li>
-<li class="">
-          <a class="post-link" href="/java/2023/05/07/1145.html" title="[BOJ] 1145. 적어도 대부분의 배수">
-            [BOJ] 1145. 적어도 대부분의 배수<span class="post-badges">
+          <a class="post-link" href="/it%20issues/2023/05/24/kaist.html" title="KAIST, 항암 백신 찾는 AI 모델 ‘딥네오’ 개발">
+            KAIST, 항암 백신 찾는 AI 모델 ‘딥네오’ 개발<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

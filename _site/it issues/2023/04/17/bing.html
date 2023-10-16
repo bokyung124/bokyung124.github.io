@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 </head>
 <body>
 
@@ -1042,16 +1066,8 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/06/eda.html" title="[BoostCourse] 1. 정형데이터와 EDA">
-            [BoostCourse] 1. 정형데이터와 EDA<span class="post-badges">
-  <span class="post-badge badge-top">TOP</span>
-  <span class="post-badge badge-new">NEW</span>
-</span>
-</a>
-        </li>
-<li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/01/fe.html" title="[BITAmin] Feature Engineering and Regularization">
-            [BITAmin] Feature Engineering and Regularization<span class="post-badges">
+          <a class="post-link" href="/it%20issues/2023/04/17/bing.html" title="[IT] 삼성, 갤럭시 검색엔진 '빙'으로 교체 검토하자 패닉 빠진 구글">
+            [IT] 삼성, 갤럭시 검색엔진 '빙'으로 교체 검토하자 패닉 빠진 구글<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
@@ -1066,8 +1082,16 @@ function googleTranslateElementInit() {
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/28/CNN.html" title="[BoostCourse] 4. Regularization">
-            [BoostCourse] 4. Regularization<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/14/2596.html" title="[BOJ] 2596. 비밀편지">
+            [BOJ] 2596. 비밀편지<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/cs/2023/04/09/backend.html" title="[Inflearn] 초보 백엔드 개발자 로드맵">
+            [Inflearn] 초보 백엔드 개발자 로드맵<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

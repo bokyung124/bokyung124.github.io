@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 </head>
 <body>
 
@@ -1082,32 +1106,32 @@ B
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/java/2023/05/02/1236.html" title="[BOJ] 1236. 성 지키기">
-            [BOJ] 1236. 성 지키기<span class="post-badges">
+          <a class="post-link" href="/it%20issues/2023/04/17/bing.html" title="[IT] 삼성, 갤럭시 검색엔진 '빙'으로 교체 검토하자 패닉 빠진 구글">
+            [IT] 삼성, 갤럭시 검색엔진 '빙'으로 교체 검토하자 패닉 빠진 구글<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/05/Join.html" title="[DBP] CH1-1. Join">
-            [DBP] CH1-1. Join<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/27/regularization.html" title="[BoostCourse] 4. Regularization">
+            [BoostCourse] 4. Regularization<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/26/1855.html" title="[BOJ] 1855. 암호">
-            [BOJ] 1855. 암호<span class="post-badges">
+          <a class="post-link" href="/cs/2023/04/14/time-complexity.html" title="[Algorithm] 시간 복잡도">
+            [Algorithm] 시간 복잡도<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/infra/2023/08/25/aws-basic.html" title="[AWS] AWS 기초">
-            [AWS] AWS 기초<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/01/linear-regression.html" title="[BITAmin] Linear Regression">
+            [BITAmin] Linear Regression<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

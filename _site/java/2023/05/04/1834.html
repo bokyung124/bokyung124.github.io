@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 </head>
 <body>
 
@@ -1008,32 +1032,32 @@ n = 4 -&gt; 5, 10, 15  <br>
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/java/2023/05/10/2609.html" title="[BOJ] 2609. 최대공약수와 최소공배수">
-            [BOJ] 2609. 최대공약수와 최소공배수<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/13/1271.html" title="[BOJ] 1271. 엄청난 부자2">
+            [BOJ] 1271. 엄청난 부자2<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/11/Exception.html" title="[DBP] CH3-4. Exception">
-            [DBP] CH3-4. Exception<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/16/fe.html" title="[BoostCourse] 4. 피처 엔지니어링">
+            [BoostCourse] 4. 피처 엔지니어링<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/hadoop/2023/09/22/ch5.html" title="[pilot] Ch5. 빅데이터 적재 이론 (2)">
-            [pilot] Ch5. 빅데이터 적재 이론 (2)<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/25/dl.html" title="[BoostCourse] 1. 딥러닝 기본">
+            [BoostCourse] 1. 딥러닝 기본<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/28/1526.html" title="[BOJ] 1526. 가장 큰 금민수">
-            [BOJ] 1526. 가장 큰 금민수<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/05/1268.html" title="[BOJ] 1268. 임시 반장 정하기">
+            [BOJ] 1268. 임시 반장 정하기<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

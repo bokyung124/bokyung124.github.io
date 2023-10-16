@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 </head>
 <body>
 
@@ -1041,8 +1065,16 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/hadoop/2023/09/22/ch4.html" title="[pilot] Ch4. 빅데이터 적재 이론">
-            [pilot] Ch4. 빅데이터 적재 이론<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/04/1834.html" title="[BOJ] 1834. 나머지와 몫이 같은 수">
+            [BOJ] 1834. 나머지와 몫이 같은 수<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/tableu/2023/06/24/chart.html" title="[Tableu] 기초 시각화 연습2">
+            [Tableu] 기초 시각화 연습2<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
@@ -1057,16 +1089,8 @@ function googleTranslateElementInit() {
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/infra/2023/09/22/es.html" title="[ES] Elastic Search Basic">
-            [ES] Elastic Search Basic<span class="post-badges">
-  <span class="post-badge badge-top">TOP</span>
-  <span class="post-badge badge-new">NEW</span>
-</span>
-</a>
-        </li>
-<li class="">
-          <a class="post-link" href="/infra/2023/06/28/docker_build.html" title="[docker] 이미지 빌드">
-            [docker] 이미지 빌드<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/24/1427.html" title="[BOJ] 1427. 소트인사이드">
+            [BOJ] 1427. 소트인사이드<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

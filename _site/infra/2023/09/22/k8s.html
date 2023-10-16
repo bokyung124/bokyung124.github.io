@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 </head>
 <body>
 
@@ -1875,32 +1899,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/java/2023/04/08/1212.html" title="[BOJ] 1212. 8진수 2진수">
-            [BOJ] 1212. 8진수 2진수<span class="post-badges">
+          <a class="post-link" href="/kafka/2023/04/14/about-kafka.html" title="[kafka] 아파치 카프카 개요와 토픽">
+            [kafka] 아파치 카프카 개요와 토픽<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/06/eda.html" title="[BoostCourse] 1. 정형데이터와 EDA">
-            [BoostCourse] 1. 정형데이터와 EDA<span class="post-badges">
+          <a class="post-link" href="/hadoop/2023/09/22/ch4(2).html" title="[pilot] Ch4. 빅데이터 적재 실습">
+            [pilot] Ch4. 빅데이터 적재 실습<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/27/regularization.html" title="[BoostCourse] 4. Regularization">
-            [BoostCourse] 4. Regularization<span class="post-badges">
+          <a class="post-link" href="/algorithm/2023/06/30/chap1.html" title="효율, 분석, 차수">
+            효율, 분석, 차수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/algorithm/2023/07/11/chap5.html" title="Backtracking">
-            Backtracking<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/11/PL-SQL-2.html" title="[DBP] CH3-2. PL/SQL 내에서의 SQL문">
+            [DBP] CH3-2. PL/SQL 내에서의 SQL문<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

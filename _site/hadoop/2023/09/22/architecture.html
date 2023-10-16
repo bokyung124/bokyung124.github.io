@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 </head>
 <body>
 
@@ -1426,32 +1450,32 @@ reboot
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/26/optimization.html" title="[BoostCourse] 2. 최적화">
-            [BoostCourse] 2. 최적화<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/27/regularization.html" title="[BoostCourse] 4. Regularization">
+            [BoostCourse] 4. Regularization<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/06/1546.html" title="[BOJ] 1546. 평균">
-            [BOJ] 1546. 평균<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/07/1145.html" title="[BOJ] 1145. 적어도 대부분의 배수">
+            [BOJ] 1145. 적어도 대부분의 배수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/tableu/2023/06/24/map.html" title="[Tableu] 태블로 시작 &amp; 지도 시각화">
-            [Tableu] 태블로 시작 &amp; 지도 시각화<span class="post-badges">
+          <a class="post-link" href="/hadoop/2023/09/22/install-hadoop.html" title="MAC 하둡 설치">
+            MAC 하둡 설치<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/08/1316.html" title="[BOJ] 1316. 그룹 단어 체커">
-            [BOJ] 1316. 그룹 단어 체커<span class="post-badges">
+          <a class="post-link" href="/hadoop/2023/09/22/ch5.html" title="[pilot] Ch5. 빅데이터 적재 이론 (2)">
+            [pilot] Ch5. 빅데이터 적재 이론 (2)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

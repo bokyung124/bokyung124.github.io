@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 <script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
@@ -1766,32 +1790,32 @@ $\lim_{n→∞} \frac{log_a^n}{log_b^n} = \lim_{n→∞} \frac{1/(n ln^a)}{1/(n 
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/java/2023/04/11/1357.html" title="[BOJ] 1357. 뒤집힌 덧셈">
-            [BOJ] 1357. 뒤집힌 덧셈<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/16/fe.html" title="[BoostCourse] 4. 피처 엔지니어링">
+            [BoostCourse] 4. 피처 엔지니어링<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/algorithm/2023/07/10/chap4.html" title="Greedy Algorithm">
-            Greedy Algorithm<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/14/2596.html" title="[BOJ] 2596. 비밀편지">
+            [BOJ] 2596. 비밀편지<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/04/05/1075.html" title="[BOJ] 1075.나누기">
-            [BOJ] 1075.나누기<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/06/Oracle-Func-2.html" title="[DBP] CH2-2. Oracle 숫자 처리 함수">
+            [DBP] CH2-2. Oracle 숫자 처리 함수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/04/06/1076.html" title="[BOJ] 1076. 저항">
-            [BOJ] 1076. 저항<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/09/RNN.html" title="[Udemy] RNN (1)">
+            [Udemy] RNN (1)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

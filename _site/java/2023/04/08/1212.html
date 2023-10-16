@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 </head>
 <body>
 
@@ -1028,32 +1052,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/25/dl.html" title="[BoostCourse] 1. 딥러닝 기본">
-            [BoostCourse] 1. 딥러닝 기본<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/26/optimization.html" title="[BoostCourse] 2. 최적화">
+            [BoostCourse] 2. 최적화<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/27/regularization.html" title="[BoostCourse] 4. Regularization">
-            [BoostCourse] 4. Regularization<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/26/1855.html" title="[BOJ] 1855. 암호">
+            [BOJ] 1855. 암호<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/11/Exception.html" title="[DBP] CH3-4. Exception">
-            [DBP] CH3-4. Exception<span class="post-badges">
+          <a class="post-link" href="/cs/2023/04/09/backend.html" title="[Inflearn] 초보 백엔드 개발자 로드맵">
+            [Inflearn] 초보 백엔드 개발자 로드맵<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/04/16/1259.html" title="[BOJ] 1259. 팰린드롬수">
-            [BOJ] 1259. 팰린드롬수<span class="post-badges">
+          <a class="post-link" href="/sql/2023/06/24/optimizer.html" title="[MySQL] SQL 옵티마이저">
+            [MySQL] SQL 옵티마이저<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

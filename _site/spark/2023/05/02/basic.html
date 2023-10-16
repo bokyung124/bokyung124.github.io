@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 </head>
 <body>
 
@@ -1234,32 +1258,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/01/multi-linear-regression.html" title="[BITAmin] Multi Linear Regression">
-            [BITAmin] Multi Linear Regression<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/07/1145.html" title="[BOJ] 1145. 적어도 대부분의 배수">
+            [BOJ] 1145. 적어도 대부분의 배수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/01/fe.html" title="[BITAmin] Feature Engineering and Regularization">
-            [BITAmin] Feature Engineering and Regularization<span class="post-badges">
+          <a class="post-link" href="/tableu/2023/06/24/practice.html" title="[Tableu] 기초 시각화 연습">
+            [Tableu] 기초 시각화 연습<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/22/1296.html" title="[BOJ] 1296. 팀 이름 정하기">
-            [BOJ] 1296. 팀 이름 정하기<span class="post-badges">
+          <a class="post-link" href="/cs/2023/04/14/debugging.html" title="[Algorithm] 디버깅">
+            [Algorithm] 디버깅<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/04/06/1076.html" title="[BOJ] 1076. 저항">
-            [BOJ] 1076. 저항<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/06/Oracle-Func-2.html" title="[DBP] CH2-2. Oracle 숫자 처리 함수">
+            [DBP] CH2-2. Oracle 숫자 처리 함수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

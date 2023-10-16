@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 <script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
@@ -1976,32 +2000,32 @@ T(n) = 2(n-1)(n-1) ∈ $Θ(n^2)$</li>
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/sql/2023/04/20/Procedure-exercise.html" title="[DBP] CH5. PL/SQL - 수강신청 시스템 실습">
-            [DBP] CH5. PL/SQL - 수강신청 시스템 실습<span class="post-badges">
+          <a class="post-link" href="/algorithm/2023/07/11/chap6.html" title="분기 한정법 Branch and Bound">
+            분기 한정법 Branch and Bound<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/hadoop/2023/09/22/ch4(2).html" title="[pilot] Ch4. 빅데이터 적재 실습">
-            [pilot] Ch4. 빅데이터 적재 실습<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/27/gradientDescent.html" title="[BoostCourse] 3. Gradient Descent Methods">
+            [BoostCourse] 3. Gradient Descent Methods<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/06/machingLearning.html" title="[BoostCourse] 3. 머신러닝 기본 개념">
-            [BoostCourse] 3. 머신러닝 기본 개념<span class="post-badges">
+          <a class="post-link" href="/tableu/2023/06/24/map.html" title="[Tableu] 태블로 시작 &amp; 지도 시각화">
+            [Tableu] 태블로 시작 &amp; 지도 시각화<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/16/fe.html" title="[BoostCourse] 4. 피처 엔지니어링">
-            [BoostCourse] 4. 피처 엔지니어링<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/11/PL-SQL-3.html" title="[DBP] CH3-3. PL/SQL - Cursor">
+            [DBP] CH3-3. PL/SQL - Cursor<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

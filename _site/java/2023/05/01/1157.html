@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 </head>
 <body>
 
@@ -1009,32 +1033,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/sql/2023/06/24/optimizer.html" title="[MySQL] SQL 옵티마이저">
-            [MySQL] SQL 옵티마이저<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/16/1259.html" title="[BOJ] 1259. 팰린드롬수">
+            [BOJ] 1259. 팰린드롬수<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/tableu/2023/06/24/map.html" title="[Tableu] 태블로 시작 &amp; 지도 시각화">
-            [Tableu] 태블로 시작 &amp; 지도 시각화<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/11/Exception.html" title="[DBP] CH3-4. Exception">
+            [DBP] CH3-4. Exception<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/04/13/1271.html" title="[BOJ] 1271. 엄청난 부자2">
-            [BOJ] 1271. 엄청난 부자2<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/01/multi-linear-regression.html" title="[BITAmin] Multi Linear Regression">
+            [BITAmin] Multi Linear Regression<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/20/Procedure.html" title="[DBP] CH4-1. PL/SQL - Procedure">
-            [DBP] CH4-1. PL/SQL - Procedure<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/04/1009.html" title="[BOJ] 1009. 분산처리">
+            [BOJ] 1009. 분산처리<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

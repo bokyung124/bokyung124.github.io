@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 </head>
 <body>
 
@@ -976,32 +1000,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/algorithm/2023/07/11/chap6.html" title="분기 한정법 Branch and Bound">
-            분기 한정법 Branch and Bound<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/10/1292.html" title="[BOJ] 1292. 쉽게 푸는 문제">
+            [BOJ] 1292. 쉽게 푸는 문제<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/09/RNN-layers.html" title="[Udemy] RNN (2)">
-            [Udemy] RNN (2)<span class="post-badges">
+          <a class="post-link" href="/hadoop/2023/09/22/ch3.html" title="[pilot] Ch3. 빅데이터 수집 이론">
+            [pilot] Ch3. 빅데이터 수집 이론<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/04/30/preprocessing.html" title="[BITAmin] 데이터 전처리">
-            [BITAmin] 데이터 전처리<span class="post-badges">
+          <a class="post-link" href="/java/2023/04/04/1009.html" title="[BOJ] 1009. 분산처리">
+            [BOJ] 1009. 분산처리<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/tableu/2023/06/24/chart.html" title="[Tableu] 기초 시각화 연습2">
-            [Tableu] 기초 시각화 연습2<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/09/RNN.html" title="[Udemy] RNN (1)">
+            [Udemy] RNN (1)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>

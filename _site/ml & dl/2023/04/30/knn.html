@@ -216,6 +216,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
 <script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
@@ -1445,32 +1469,32 @@ p : 민코프스키 미터법의 차수 결정 (1이면 맨해튼 거리, 2이�
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/tableu/2023/06/24/map.html" title="[Tableu] 태블로 시작 &amp; 지도 시각화">
-            [Tableu] 태블로 시작 &amp; 지도 시각화<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/24/1427.html" title="[BOJ] 1427. 소트인사이드">
+            [BOJ] 1427. 소트인사이드<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/kafka/2023/04/14/about-kafka.html" title="[kafka] 아파치 카프카 개요와 토픽">
-            [kafka] 아파치 카프카 개요와 토픽<span class="post-badges">
+          <a class="post-link" href="/algorithm/2023/07/11/chap6.html" title="분기 한정법 Branch and Bound">
+            분기 한정법 Branch and Bound<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/cs/2023/04/14/time-complexity.html" title="[Algorithm] 시간 복잡도">
-            [Algorithm] 시간 복잡도<span class="post-badges">
+          <a class="post-link" href="/infra/2023/08/25/aws-load-balancing.html" title="[AWS] AWS Load Balancing">
+            [AWS] AWS Load Balancing<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/hadoop/2023/09/22/install-hadoop.html" title="MAC 하둡 설치">
-            MAC 하둡 설치<span class="post-badges">
+          <a class="post-link" href="/java/2023/05/26/1855.html" title="[BOJ] 1855. 암호">
+            [BOJ] 1855. 암호<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
