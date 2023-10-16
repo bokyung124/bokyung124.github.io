@@ -994,20 +994,18 @@ function googleTranslateElementInit() {
           <li>원하는 상태 그 자체를 선언하는 방식</li>
           <li>YAML 파일을 통해 원하는 구성요소의 상태 기술 -&gt; <code class="language-plaintext highlighter-rouge">kubectl apply -f &lt;file.yaml</code> 형태의 명령어로 적용</li>
           <li>관리자가 선언한 특정한 형태를 시스템이 스스로 파악하여 반영하는 프로세스
-  ```yaml
-  apiVersion: v1
-  kind: Pod
-  metadata:
-  name: nginx
-  labels:
-      app: nginx
-  spec:
-  containers:
-            <ul>
-              <li>name: nginx-container
-image: nginx:1.20.2
-  ```</li>
-            </ul>
+            <div class="language-yaml highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  <span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+  <span class="na">kind</span><span class="pi">:</span> <span class="s">Pod</span>
+  <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">nginx</span>
+      <span class="na">labels</span><span class="pi">:</span>
+          <span class="na">app</span><span class="pi">:</span> <span class="s">nginx</span>
+  <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">nginx-container</span>
+      <span class="na">image</span><span class="pi">:</span> <span class="s">nginx:1.20.2</span>
+</code></pre></div>            </div>
           </li>
           <li>적용하고자 하는 yaml 파일이
             <ul>
@@ -1058,41 +1056,48 @@ image: nginx:1.20.2
 <h2 id="3-간단-용어">3. 간단 용어</h2>
 
 <ul>
-  <li>Cluster
+  <li>
+<strong>Cluster</strong>
     <ul>
       <li>Node라고 불리는 머신들의 집합</li>
       <li>K8s가 관리하는 컨테이너화된 애플리케이션들을 기동</li>
     </ul>
   </li>
-  <li>Deployment
+  <li>
+<strong>Deployment</strong>
     <ul>
       <li>복제된 애플리케이션을 관리하는 API 객체</li>
       <li>각 레플리카는 각각 하나의 pod로 대표되며, 지정된 레플리카 수만큼 pod 수를 생성 및 유지</li>
     </ul>
   </li>
-  <li>ReplicaSet
+  <li>
+<strong>ReplicaSet</strong>
     <ul>
       <li>특정 수의 pod replica들이 동시에 구동되도록 하는 객체</li>
     </ul>
   </li>
-  <li>Node
+  <li>
+<strong>Node</strong>
     <ul>
       <li>K8s의 워커 머신</li>
       <li>pod를 구동하기 위해 필요한 서비스들을 가지며, master 컴포넌트에 의해 관리됨</li>
     </ul>
   </li>
-  <li>Pod
+  <li>
+<strong>Pod</strong>
     <ul>
       <li>K8s의 최소 단위 객체</li>
       <li>클러스터 상에서 동작하는 컨테이너 집합</li>
     </ul>
   </li>
-  <li>Service
+  <li>
+<strong>Service</strong>
     <ul>
       <li>pod 집합과 같은 애플리케이션들에 접근하는 방법을 기술하는 API객체</li>
     </ul>
   </li>
-  <li>Namespace
+  <li>
+<strong>Namespace</strong>
     <ul>
       <li>동일한 물리 클러스터에서 여러 가상 클러스터를 지원하기 위해 K8s가 사용하는 추상화 기법</li>
     </ul>
@@ -1167,21 +1172,19 @@ image: nginx:1.20.2
 
 <p>1) 여러 컨테이너 빌드 (main UI 생성, 로그인, 상품 주문 등)    <br>
 2) <strong>도커 명령</strong> -&gt; 도커 허브에 push  <br>
-3) <strong>쿠버네티스 명령</strong> -&gt; 컨테이너 실행</p>
-<ul>
-  <li>yaml</li>
-  <li>CLI</li>
-  <li>
-<code class="language-plaintext highlighter-rouge">kubectl create deploy web \ --image=hub.example.com/nginx</code>  <br>
-4) <strong>kubectl 명령</strong> -&gt; master node에게 전달  <br>
+3) <strong>쿠버네티스 명령</strong> -&gt; 컨테이너 실행 <br>
+    - yaml  <br>
+    - CLI  <br>
+    - <code class="language-plaintext highlighter-rouge">kubectl create deploy web \ --image=hub.example.com/nginx</code></p>
+
+<p>4) <strong>kubectl 명령</strong> -&gt; master node에게 전달  <br>
 5) <strong>master node</strong>의 API가 kubectl 명령어 요청 받음 <br>
 6) <strong>API</strong>: 요청에 따라 컨테이너를 어느 노드에 배치할지 스케줄러에게 요청  <br>
 7) <strong>스케줄러</strong>: 노드들의 상태를 보고 컨테이너를 실행한 노드를 선택하여 응답  <br>
 8) <strong>API</strong>: 해당 노드의 kubelet에게 명령어 실행 요청 보냄  <br>
 9) <strong>해당 노드의 kubelet</strong>: 해당 요청을 docker 명령어로 바꿔서 도커 데몬에게 실제 컨테이너 실행 요청   <br>
 10) <strong>도커 데몬</strong>: 명령어에 정의되어 있는 허브에 해당 컨테이너가 있는지 검색, 있으면 받아와서 노드에 컨테이너로 실행   <br>
-11) <strong>쿠버네티스</strong>: 이렇게 동작하는 컨테이너를 pod 라는 단위로 관리</li>
-</ul>
+11) <strong>쿠버네티스</strong>: 이렇게 동작하는 컨테이너를 pod 라는 단위로 관리</p>
 
 <p><br></p>
 
@@ -1495,10 +1498,13 @@ image: nginx:1.20.2
       <li>완벽하진 않지만 이에 대한 해결책으로 statefulSet 오브젝트 제공</li>
     </ul>
   </li>
-  <li>문제가 생긴 pod와 같은 이름, 같은 IP를 가진 pod로 교체</li>
+  <li>
+    <p>문제가 생긴 pod와 같은 이름, 같은 IP를 가진 pod로 교체</p>
+  </li>
+  <li>stateless vs. stateful
+<img width="754" alt="스크린샷 2023-09-22 오후 9 29 37" src="https://github.com/bokyung124/infra-study/assets/53086873/4d628f80-38b2-4a06-9bc5-772508285fbc">
+</li>
 </ul>
-
-<p><img width="754" alt="스크린샷 2023-09-22 오후 9 29 37" src="https://github.com/bokyung124/infra-study/assets/53086873/4d628f80-38b2-4a06-9bc5-772508285fbc"></p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
@@ -1799,8 +1805,6 @@ image: nginx:1.20.2
   </li>
 </ul>
 
-<p><br></p>
-
 <h3 id="default-namespace">Default Namespace</h3>
 
 <ul>
@@ -1832,7 +1836,7 @@ image: nginx:1.20.2
 
 <h2 id="13-case-study">13. Case Study</h2>
 
-<p>1) 인공지능 연구소 OpenAI</p>
+<p>**1) 인공지능 연구소 OpenAI **</p>
 <ul>
   <li>자체 데이터 센터에서 실험을 실행하고, 쉽게 확장할 수 있는 딥러닝을 위한 인프라 필요</li>
   <li>주로 배치 스케줄링 시스템으로 사용</li>
@@ -1845,7 +1849,7 @@ image: nginx:1.20.2
 
 <p><br></p>
 
-<p>2) 통신 네트워크 솔루션 회사 NOKIA</p>
+<p><strong>2) 통신 네트워크 솔루션 회사 NOKIA</strong></p>
 <ul>
   <li>통신 네트워크를 종단간 구축하는 것</li>
   <li>여러 통신 사업자에게 소프트웨어 제공, 소프트웨어를 인프라에 넣어야 함
@@ -1871,32 +1875,32 @@ image: nginx:1.20.2
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/java/2023/05/04/1834.html" title="[BOJ] 1834. 나머지와 몫이 같은 수">
-            [BOJ] 1834. 나머지와 몫이 같은 수<span class="post-badges">
+          <a class="post-link" href="/algorithm/2023/07/11/chap5.html" title="Backtracking">
+            Backtracking<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/25/dl.html" title="[BoostCourse] 1. 딥러닝 기본">
-            [BoostCourse] 1. 딥러닝 기본<span class="post-badges">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/05/06/eda.html" title="[BoostCourse] 1. 정형데이터와 EDA">
+            [BoostCourse] 1. 정형데이터와 EDA<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/java/2023/05/05/1268.html" title="[BOJ] 1268. 임시 반장 정하기">
-            [BOJ] 1268. 임시 반장 정하기<span class="post-badges">
+          <a class="post-link" href="/infra/2023/08/25/aws-serverless.html" title="[AWS] AWS Serverless">
+            [AWS] AWS Serverless<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/it%20issues/2023/04/17/bing.html" title="[IT] 삼성, 갤럭시 검색엔진 '빙'으로 교체 검토하자 패닉 빠진 구글">
-            [IT] 삼성, 갤럭시 검색엔진 '빙'으로 교체 검토하자 패닉 빠진 구글<span class="post-badges">
+          <a class="post-link" href="/sql/2023/04/11/PL-SQL-2.html" title="[DBP] CH3-2. PL/SQL 내에서의 SQL문">
+            [DBP] CH3-2. PL/SQL 내에서의 SQL문<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
