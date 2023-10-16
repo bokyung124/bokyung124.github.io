@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-10-16T15:20:44+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">갱로그</title><subtitle>&quot;bokyung&apos;s blog&quot;</subtitle><author><name>BoKyung</name></author><entry><title type="html">[DEV] 1주차. 자료구조/알고리즘(1)</title><link href="http://localhost:4000/data%20engineering/2023/10/16/1016.html" rel="alternate" type="text/html" title="[DEV] 1주차. 자료구조/알고리즘(1)" /><published>2023-10-16T00:00:00+09:00</published><updated>2023-10-17T02:00:00+09:00</updated><id>http://localhost:4000/data%20engineering/2023/10/16/1016</id><content type="html" xml:base="http://localhost:4000/data%20engineering/2023/10/16/1016.html"><![CDATA[<h2 id="1-파이썬-데이터타입과-알고리즘">1. 파이썬 데이터타입과 알고리즘</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-10-16T15:22:40+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">갱로그</title><subtitle>&quot;bokyung&apos;s blog&quot;</subtitle><author><name>BoKyung</name></author><entry><title type="html">[DEV] 1주차. 자료구조/알고리즘(1)</title><link href="http://localhost:4000/data%20engineering/2023/10/16/1016.html" rel="alternate" type="text/html" title="[DEV] 1주차. 자료구조/알고리즘(1)" /><published>2023-10-16T00:00:00+09:00</published><updated>2023-10-17T02:00:00+09:00</updated><id>http://localhost:4000/data%20engineering/2023/10/16/1016</id><content type="html" xml:base="http://localhost:4000/data%20engineering/2023/10/16/1016.html"><![CDATA[<h2 id="1-파이썬-데이터타입과-알고리즘">1. 파이썬 데이터타입과 알고리즘</h2>
 
 <h3 id="데이터타입">데이터타입</h3>
 <ul>
@@ -65,14 +65,14 @@
 <h4 id="리스트의-길이에-비례-선형-시간--on">리스트의 길이에 비례 (선형 시간) : <strong>$O(n)$</strong></h4>
 <ul>
   <li>L = [20, 37, 58, 72, 91]</li>
-  <li>원소 삽입 <code class="language-plaintext highlighter-rouge">L.insert(3, 65)</code>
+  <li><strong>원소 삽입</strong> <code class="language-plaintext highlighter-rouge">L.insert(3, 65)</code>
     <ul>
       <li>index 3의 위치에 원소 65 삽입</li>
       <li>L = [20, 37, 58, 65, 72, 91]</li>
       <li>원소를 삽입하고, 뒤의 원소들을 한 칸씩 오른쪽으로 옮기는 원리</li>
     </ul>
   </li>
-  <li>원소 삭제 <code class="language-plaintext highlighter-rouge">del(L[2])</code>
+  <li><strong>원소 삭제</strong> <code class="language-plaintext highlighter-rouge">del(L[2])</code>
     <ul>
       <li>index 2 위치 원소 삭제 (58)</li>
       <li>L = [20, 37, 65, 72, 91]</li>
@@ -85,7 +85,7 @@
       <li>pop은 삭제 후 삭제한 원소 반환</li>
     </ul>
   </li>
-  <li>원소 탐색 <code class="language-plaintext highlighter-rouge">L.index(72)</code>
+  <li><strong>원소 탐색</strong> <code class="language-plaintext highlighter-rouge">L.index(72)</code>
     <ul>
       <li>72라는 원소의 인덱스 번호 반환 (3)</li>
     </ul>
