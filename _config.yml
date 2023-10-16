@@ -248,9 +248,9 @@ highlighter: rouge
 markdown: kramdown
 kmarkdown:
   input: GFM
-# lsi: false
+  lsi: false
 excerpt_separator: "\n"
-# incremental: false
+incremental: false
 
 plugins:
   - jekyll-feed
