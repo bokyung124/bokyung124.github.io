@@ -961,7 +961,7 @@ function googleTranslateElementInit() {
 
 
 
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 8 mins</span>
   </div>
 <div class="post-tags">
 <a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
@@ -1292,11 +1292,112 @@ function googleTranslateElementInit() {
 <ul>
   <li>HTML5부터 태그를 의미있게 사용하기 위해 <strong>Semantic(시맨틱)</strong> 태그를 사용하여 문서 구조를 작성</li>
   <li>단순히 의미 구분자인 <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code>를 남발하지 않고, 적절한 태그를 사용하여 웹 문서가 담은 정보와 구조를 의미있게 전달</li>
-  <li>
-    <p>시맨틱하게 마크업을 함으로싸 검색엔진의 검색 순위에 가산점을 얻거나 홈페이지의 로딩 속도를 높임</p>
-  </li>
-  <li>2-5.</li>
+  <li>시맨틱하게 마크업을 함으로싸 검색엔진의 검색 순위에 가산점을 얻거나 홈페이지의 로딩 속도를 높임</li>
 </ul>
+
+<h2 id="6-컨텐츠">6. 컨텐츠</h2>
+
+<h3 id="1-제목-태그-h1--h6">1) 제목 태그 (h1 ~ h6)</h3>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> ~ <code class="language-plaintext highlighter-rouge">&lt;h6&gt;</code>
+</li>
+  <li>문서 <strong>구획 제목</strong>을 나타내는 태그로, heading (헤딩) 태그라고 부름
+    <ul>
+      <li>h1부터 h6까지 사용 가능</li>
+      <li>h1 태그는 페이지 내에 <strong>한번만</strong> 사용되어야 하고, <strong>구획의 순서</strong>는 지켜져야 함
+        <ul>
+          <li>ex) <code class="language-plaintext highlighter-rouge">&lt;h3&gt;</code> 태그 다음에 <code class="language-plaintext highlighter-rouge">&lt;h5&gt;</code> 태그가 나올 수 없음</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-문단-태그-p">2) 문단 태그 (p)</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&lt;p&gt;</code></li>
+  <li>문서에서 하나의 <strong>문단</strong> (paragraph) 을 나타내는 태그
+    <ul>
+      <li>제목 태그와 함께 사용되기도 하고 단독으로 사용되기도 함</li>
+      <li>레이아웃처럼 사용하면 안됨!</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="3-서식-태그-bstrong-iem-u-sdel">3) 서식 태그 (b/strong, i/em, u, s/del)</h3>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">&lt;b&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;strong&gt;</code>
+</li>
+  <li>글씨의 <strong>두께</strong> 조절
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">&lt;b&gt;</code> 태그는 의미를 가지지 않고 단순히 굵은 글씨로 변경만 해줌</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">&lt;strong&gt;</code> 태그는 굵은 글씨로 변경 후 <strong>강조</strong>의 의미 부여</li>
+      <li>시각적으로 굵은 효과는 같지만, 의미가 다르므로 사용에 주의!</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">&lt;i&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;em&gt;</code>
+</li>
+  <li>글씨의 <strong>기울기</strong> 조절
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">&lt;i&gt;</code> 태그는 기울임과 동시에 텍스트가 문단의 내용과 구분되어야 하는 경우 사용
+        <ul>
+          <li>ex) 등장인물 이름, 외국어 구절, 기술 용어 등</li>
+        </ul>
+      </li>
+      <li>
+<code class="language-plaintext highlighter-rouge">&lt;em&gt;</code> 태그는 기울임과 동시에 내용의 <strong>강조</strong>를 나타냄</li>
+      <li>시각적으로 기울림은 같지만, 의미가 다르므로 사용에 주의!</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;u&gt;</code></li>
+  <li>글씨에 <strong>밑줄</strong>을 넣고 주석을 가지는 단어임을 나타냄
+    <ul>
+      <li>CSS로 스타일링하여 빨간 밑줄을 넣는 것으로 “오타”를 나타내는 것처럼 사용할 수 있음</li>
+      <li>단순하게 “밑줄”만 긋는 용도로는 사용하면 안됨</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">&lt;s&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;del&gt;</code>
+</li>
+  <li>글씨에 <strong>취소선</strong> 추가
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">&lt;s&gt;</code> 태그는 단순히 시각적인 취소선만 추기되고, 접근성 기기에 취소에 대한 안내는 하지 않음</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">&lt;del&gt;</code> 태그는 문서에서 제거된 텍스트를 나타낼 수 있음
+        <ul>
+          <li>
+<code class="language-plaintext highlighter-rouge">&lt;ins&gt;</code> 태그를 함께 사용하면 제거된 텍스트 옆에 추가된 텍스트를표현할 수 있음</li>
+          <li><code class="language-plaintext highlighter-rouge">&lt;del&gt;캐ㅍ&lt;/del&gt;&lt;ins&gt;캐스퍼&lt;/ins&gt;입니다.</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="3-링크-이동">3) 링크 이동</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&lt;a&gt;</code></li>
+  <li>클릭하면 페이지를 이동할 수 있는 링크 요소 생성
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">href</code> 속성을 사용해서 이동하고자 하는 파일 혹은 URL 작성</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">target</code> 속성을 사용해서 이동해야 할 링크를 새창(_blank), 현재창(_self) 등 원하는 타겟 지정 가능</li>
+    </ul>
+  </li>
+</ul>
+
 
 
   </div>
@@ -1309,32 +1410,32 @@ function googleTranslateElementInit() {
       <div>Related Articles</div>
       <ul>
         <li class="">
-          <a class="post-link" href="/data%20engineering/2023/10/24/1024.html" title="[DEV] 2주차. 파이썬으로 웹 다루기(2)">
-            [DEV] 2주차. 파이썬으로 웹 다루기(2)<span class="post-badges">
+          <a class="post-link" href="/kafka/2023/04/14/broker-replication.html" title="[kafka] 브로커, 복제, ISR(In-Sync-Replication)">
+            [kafka] 브로커, 복제, ISR(In-Sync-Replication)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/sql/2023/04/20/Procedure.html" title="[DBP] CH4-1. PL/SQL - Procedure">
-            [DBP] CH4-1. PL/SQL - Procedure<span class="post-badges">
+          <a class="post-link" href="/tableu/2023/06/24/start.html" title="[Tableu] 초급 데이터 시각화 활용">
+            [Tableu] 초급 데이터 시각화 활용<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/infra/2023/06/28/docker_build.html" title="[docker] 이미지 빌드">
-            [docker] 이미지 빌드<span class="post-badges">
+          <a class="post-link" href="/it%20issues/2023/05/25/severance.html" title="세브란스병원, 디지털 전환 '스마트병상 관리시스템' 도입">
+            세브란스병원, 디지털 전환 '스마트병상 관리시스템' 도입<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
         </li>
 <li class="">
-          <a class="post-link" href="/it%20issues/2023/04/09/chatGPT.html" title="[IT] 챗GPT 열풍에 일상 속 AI서비스 인기">
-            [IT] 챗GPT 열풍에 일상 속 AI서비스 인기<span class="post-badges">
+          <a class="post-link" href="/hadoop/2023/09/22/ch3.html" title="[pilot] Ch3. 빅데이터 수집 이론">
+            [pilot] Ch3. 빅데이터 수집 이론<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
