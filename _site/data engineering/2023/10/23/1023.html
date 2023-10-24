@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[DEV] 2주차. 파이썬으로 웹 다루기(1) | 갱로그</title>
+<meta name="generator" content="Jekyll v4.3.2">
+<meta property="og:title" content="[DEV] 2주차. 파이썬으로 웹 다루기(1)">
+<meta name="author" content="BoKyung">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="1. HTML">
+<meta property="og:description" content="1. HTML">
+<link rel="canonical" href="http://localhost:4000/data%20engineering/2023/10/23/1023.html">
+<meta property="og:url" content="http://localhost:4000/data%20engineering/2023/10/23/1023.html">
+<meta property="og:site_name" content="갱로그">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-10-23T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[DEV] 2주차. 파이썬으로 웹 다루기(1)">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"BoKyung"},"dateModified":"2023-10-24T03:00:00+09:00","datePublished":"2023-10-23T00:00:00+09:00","description":"1. HTML","headline":"[DEV] 2주차. 파이썬으로 웹 다루기(1)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/data%20engineering/2023/10/23/1023.html"},"url":"http://localhost:4000/data%20engineering/2023/10/23/1023.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="icon" href="">
+  <link rel="canonical" href="http://localhost:4000">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="갱로그">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #90a959;
+    padding: 0 .5em;
+    border-radius: 0.2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js" async></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js" async></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.info("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (el.src.trim() == "") {
+        return;
+      }
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/logo/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="갱로그" src="" onerror="this.style.display='none'">
+  갱로그
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/">HOME</a><a class="page-link" href="/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('off' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting"><header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[DEV] 2주차. 파이썬으로 웹 다루기(1)</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-10-23T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Oct 23, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+  </div>
+<div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div></header>
+<div class="post-content e-content" itemprop="articleBody">
+
+    <h2 id="1-html">1. HTML</h2>
+<ul>
+  <li>Hypertext Markup Language</li>
+  <li>웹 브라우저가 이해할 수 있는 언어</li>
+</ul>
+
+<h2 id="2-html-기본-문법">2. HTML 기본 문법</h2>
+
+<h3 id="태그">태그</h3>
+<ul>
+  <li>컨텐츠를 가지는 태그
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">&lt;div&gt; 컨텐츠 &lt;/div&gt;</code></li>
+    </ul>
+  </li>
+  <li>컨텐츠를 가지지 않는 태그
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">&lt;br /&gt;</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="속성과-값">속성과 값</h3>
+<p><code class="language-plaintext highlighter-rouge">&lt;div title="제목"&gt;Content&lt;/div&gt;</code></p>
+<ul>
+  <li>title : 속성</li>
+  <li>“제목” : 값</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;a href="https://naver.com"&gt;네이버 바로가기&lt;/a&gt;</code></p>
+<ul>
+  <li>href : 속성</li>
+  <li>“https://naver.com” : 값</li>
+  <li>네이버 바로가기 : 콘텐츠</li>
+</ul>
+
+<h3 id="html-기본-문서">HTML 기본 문서</h3>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>     <span class="c">&lt;!-- 문서 버전 --&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"KO"</span><span class="nt">&gt;</span>    <span class="c">&lt;!-- HTML 문서 시작 선언 및 문서 기본 언어 설정 --&gt;</span>
+    <span class="nt">&lt;head&gt;</span>      <span class="c">&lt;!-- 문서에 필요한 정보가 기입되는 곳 --&gt;</span>
+        <span class="nt">&lt;title&gt;</span>문서 제목<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+
+    <span class="nt">&lt;body&gt;</span>       <span class="c">&lt;!-- 실제 사용자가 눈으로 볼 수 있는 문서의 내용이 입력되는 곳 --&gt;</span>
+        안녕하세요!
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="부모요소-자식요소">부모요소 자식요소</h3>
+<p><code class="language-plaintext highlighter-rouge">html</code>     <br>
+|- <code class="language-plaintext highlighter-rouge">head</code>     <br>
+|      ㄴ <code class="language-plaintext highlighter-rouge">title</code>     <br>
+ㄴ <code class="language-plaintext highlighter-rouge">body</code></p>
+
+<ul>
+  <li>올바른 코드의 depth 를 지키는 것이 아주 중요함!</li>
+</ul>
+
+<h3 id="주석">주석</h3>
+<ul>
+  <li>
+    <p>개발자가 코드 내에 입력한 메모
+<code class="language-plaintext highlighter-rouge">&lt;!-- comment --&gt;</code></p>
+  </li>
+  <li>주석 안에 주석은 안됨!</li>
+  <li>소스 보기나 개발자 도구로 보면 코드가 보이니 중요한 정보는 작성하면 안됨!</li>
+</ul>
+
+<h2 id="3-head">3. HEAD</h2>
+
+<h3 id="head-태그">head 태그</h3>
+
+<ul>
+  <li>
+    <p>사람의 눈에는 보이지 않지만 <strong>문서의 정보</strong>가 담기는 영역</p>
+  </li>
+  <li>
+    <p>ex</p>
+  </li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>문서 제목<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+</code></pre></div></div>
+
+<h4 id="head-태그가-가질-수-있는-정보의-종류">head 태그가 가질 수 있는 정보의 종류</h4>
+
+<ul>
+  <li>
+    <p>타이틀</p>
+  </li>
+  <li>
+    <p>메타 데이터</p>
+    <ul>
+      <li>인코딩 정보
+        <ul>
+          <li>
+<code class="language-plaintext highlighter-rouge">charset</code>은 문서에서 허용하는 문자의 집합</li>
+          <li>
+<code class="language-plaintext highlighter-rouge">charset</code>에 선언된 <strong>문자의 집합</strong> 규칙에 따라 문서에서 사용할 수 있는 문자가 제한됨</li>
+        </ul>
+      </li>
+      <li>문서 설명</li>
+      <li>문서 작성자</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>문서 제목<span class="nt">&lt;/title&gt;</span>
+
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"description"</span> <span class="na">content=</span><span class="s">"이 문서는 실습 문서입니다."</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"author"</span> <span class="na">content=</span><span class="s">"bokyung"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>CSS, Script</li>
+</ul>
+
+<h3 id="style-link-script-태그">style, link, script 태그</h3>
+<ul>
+  <li>문서 내용의 외형에 영향을 주는 태그들</li>
+</ul>
+
+<h4 id="style-태그">style 태그</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;style&gt;</span>
+        <span class="nt">p</span> <span class="p">{</span>
+            <span class="nl">color</span><span class="p">:</span> <span class="no">blue</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+</code></pre></div></div>
+
+<h4 id="link-태그">link 태그</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">rel</code>: 지금 링크된 파일</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">href</code> : 링크할 파일 (stylesheet)의 경로</li>
+</ul>
+
+<h4 id="script-태그">script 태그</h4>
+
+<ul>
+  <li>콘텐츠 방식</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span>
+    <span class="kd">const</span> <span class="nx">hello</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">world</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">hello</span><span class="p">)</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>링크 방식
+    <ul>
+      <li>컨텐츠를 가지지 않지만, 반드시 종료태그 <code class="language-plaintext highlighter-rouge">&lt;/script&gt;</code> 를 작성해야 함</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"script.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<h2 id="4-body">4. BODY</h2>
+
+<h3 id="body-태그">body 태그</h3>
+
+<ul>
+  <li>사람의 눈에 실제로 보이는 컨텐츠 영역</li>
+</ul>
+
+<h3 id="block-레벨-요소">block 레벨 요소</h3>
+
+<ul>
+  <li>레고 블록처럼 차곡차곡 쌓이고, 화면 너비가 꽉 차는 요소
+    <ul>
+      <li>블록의 크기와 내/외부에 여백을 지정할 수 있고, 일반적으로 <strong>페이지의 구조적 요소</strong>를 나타냄</li>
+      <li>인라인 요소를 포함할 수 있으나, 인라인 요소에 포함될 수 없음</li>
+    </ul>
+  </li>
+  <li>대표적인 블록 레벨 요소
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">&lt;div&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;section&gt;</code>, …</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="예시">예시</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"KO"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>문서 제목<span class="nt">&lt;/title&gt;</span>
+        
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div&gt;</span>블록1<span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div&gt;</span>블록2<span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div&gt;</span>블록3<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p><img width="1440" alt="스크린샷 2023-10-24 오후 3 43 33" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/718e5154-d85b-4548-816e-ecbb0a36eb40"></p>
+
+<h3 id="inline-레벨-요소">inline 레벨 요소</h3>
+<ul>
+  <li>블록 요소 내에 포함되는 요소
+    <ul>
+      <li>주로 문장, 단어같은 작은 부분에 사용되며, 한 줄에 나열됨</li>
+      <li>크기는 줄 수 없고, 좌/우에 여백을 넣는 것만 허용됨</li>
+    </ul>
+  </li>
+  <li>대표적인 인라인 레벨 요소
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">&lt;span&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;a&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;strong&gt;</code>
+</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="예시-1">예시</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"KO"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>문서 제목<span class="nt">&lt;/title&gt;</span>
+        
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;span&gt;</span>인라인<span class="nt">&lt;/span&gt;</span> 인라인 옆 글자
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">body</span> <span class="p">{</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="no">blue</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">span</span> <span class="p">{</span>
+    <span class="nl">padding-left</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">padding-top</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>   <span class="c">/* 적용되지 않음 */</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img width="1440" alt="스크린샷 2023-10-24 오후 3 45 49" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/b1a8c872-0ba6-4816-bbe5-f715be216362"></p>
+
+<h3 id="inline-block-레벨-요소">inline-block 레벨 요소</h3>
+<ul>
+  <li>글자처럼 취급되나, block 태그의 성질을 가지는 요소
+    <ul>
+      <li>block과 마찬가지로 크기와 내/외부 여백 지정할 수 있음</li>
+      <li>CSS로 성질을 바꾼 것이기 때문에 의미상 인라인 레벨 요소임</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="5-레이아웃">5. 레이아웃</h2>
+
+<h3 id="div-태그">div 태그</h3>
+<ul>
+  <li>가장 흔히 사용되는 레이아웃 태그로, 단순히 구역을 나누기 위한 태그</li>
+</ul>
+
+<h3 id="header-태그">header 태그</h3>
+<ul>
+  <li>블로그 글, 제목, 작성일 등의 주요 정보를 담는 태그</li>
+</ul>
+
+<h3 id="footer-태그">footer 태그</h3>
+<ul>
+  <li>페이지의 바닥줄에 사용되며 저작권 정보, 연락처 등 부차적인 정보를 담는 태그</li>
+</ul>
+
+<h3 id="main-태그">main 태그</h3>
+<ul>
+  <li>페이지의 가장 큰 부분으로 사이트의 내용, 즉 주요 컨텐츠를 담는 태그</li>
+  <li>한 페이지에 한 번만 나와야 함!
+    <ul>
+      <li>header, footer는 여러 번 가능</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="section-태그">section 태그</h3>
+<ul>
+  <li>컨텐츠의 구역을 나누는 태그</li>
+</ul>
+
+<h3 id="article-태그">article 태그</h3>
+<ul>
+  <li>section의 구역 안에서 작성된, 블로그 포스트, 뉴스 기사와 같은 독립적인 문서를 전달하는 태그</li>
+</ul>
+
+<h3 id="aside-태그">aside 태그</h3>
+<ul>
+  <li>문서의 주요 내용에 간접적인 정보를 전달하는 태그
+    <ul>
+      <li>쇼핑몰 오른쪽에 따라다니는 “오늘 본 상품” 과 같은 것으로 사용할 수 있음</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="레이아웃-태그를-알아야-하는-이유">레이아웃 태그를 알아야 하는 이유</h3>
+<ul>
+  <li>HTML5부터 태그를 의미있게 사용하기 위해 <strong>Semantic(시맨틱)</strong> 태그를 사용하여 문서 구조를 작성</li>
+  <li>단순히 의미 구분자인 <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code>를 남발하지 않고, 적절한 태그를 사용하여 웹 문서가 담은 정보와 구조를 의미있게 전달</li>
+  <li>
+    <p>시맨틱하게 마크업을 함으로싸 검색엔진의 검색 순위에 가산점을 얻거나 홈페이지의 로딩 속도를 높임</p>
+  </li>
+  <li>2-5.</li>
+</ul>
+
+
+  </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/data%20engineering/2023/10/20/gpt.html" title="[DEV] ChatGPT 활용하기">[DEV] ChatGPT 활용하기</a><a class="next" href="/data%20engineering/2023/10/24/1024.html" title="[DEV] 2주차. 파이썬으로 웹 다루기(2)">[DEV] 2주차. 파이썬으로 웹 다루기(2)</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li class="">
+          <a class="post-link" href="/data%20engineering/2023/10/24/1024.html" title="[DEV] 2주차. 파이썬으로 웹 다루기(2)">
+            [DEV] 2주차. 파이썬으로 웹 다루기(2)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/sql/2023/04/20/Procedure.html" title="[DBP] CH4-1. PL/SQL - Procedure">
+            [DBP] CH4-1. PL/SQL - Procedure<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/infra/2023/06/28/docker_build.html" title="[docker] 이미지 빌드">
+            [docker] 이미지 빌드<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/it%20issues/2023/04/09/chatGPT.html" title="[IT] 챗GPT 열풍에 일상 속 AI서비스 인기">
+            [IT] 챗GPT 열풍에 일상 속 AI서비스 인기<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+</ul>
+    </div>
+<div class="post-comments">
+      <script src="https://utteranc.es/client.js" repo="bokyung124/bokyung124.github.io" issue-term="pathname" label="comments" theme="github-light" crossorigin="anonymous" async>
+      </script>
+      
+      <!---->
+    </div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 30px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div><a href="https://github.com/bokyung124">User's Github</a></div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <!-- <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a></div> -->
+    </div>
+  </div>
+</footer>
+</body>
+</html>
