@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[DEV] 4주차. 장고 활용한 API서버 만들기(2) | 갱로그</title>
+<meta name="generator" content="Jekyll v4.3.2">
+<meta property="og:title" content="[DEV] 4주차. 장고 활용한 API서버 만들기(2)">
+<meta name="author" content="BoKyung">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="1. Views">
+<meta property="og:description" content="1. Views">
+<link rel="canonical" href="http://localhost:4000/data%20engineering/2023/10/31/1031.html">
+<meta property="og:url" content="http://localhost:4000/data%20engineering/2023/10/31/1031.html">
+<meta property="og:site_name" content="갱로그">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-10-31T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[DEV] 4주차. 장고 활용한 API서버 만들기(2)">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"BoKyung"},"dateModified":"2023-11-01T03:00:00+09:00","datePublished":"2023-10-31T00:00:00+09:00","description":"1. Views","headline":"[DEV] 4주차. 장고 활용한 API서버 만들기(2)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/data%20engineering/2023/10/31/1031.html"},"url":"http://localhost:4000/data%20engineering/2023/10/31/1031.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="icon" href="">
+  <link rel="canonical" href="http://localhost:4000">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="갱로그">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #90a959;
+    padding: 0 .5em;
+    border-radius: 0.2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js" async></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js" async></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.info("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (el.src.trim() == "") {
+        return;
+      }
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/logo/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+          alert("Math Processing Error: "+message[1]);
+        });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="갱로그" src="" onerror="this.style.display='none'">
+  갱로그
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/">HOME</a><a class="page-link" href="/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('off' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting"><header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[DEV] 4주차. 장고 활용한 API서버 만들기(2)</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2023-10-31T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Oct 31, 2023
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 26 mins</span>
+  </div>
+<div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div></header>
+<div class="post-content e-content" itemprop="articleBody">
+
+    <h2 id="1-views">1. Views</h2>
+
+<ul>
+  <li>models : DB에 정보를 저장하고 읽어옴</li>
+  <li>view : 읽어온 모델의 정보들 활용</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">polls/view.py</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="n">.models</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">latest_question_list</span> <span class="o">=</span> <span class="n">Question</span><span class="p">.</span><span class="n">objects</span><span class="p">.</span><span class="nf">order_by</span><span class="p">(</span><span class="sh">"</span><span class="s">-pub_date</span><span class="sh">"</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="sh">'</span><span class="s">, </span><span class="sh">'</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="n">q</span><span class="p">.</span><span class="n">question_text</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">latest_question_list</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nc">HttpResponse</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img width="996" alt="스크린샷 2023-11-02 오후 8 04 58" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/2f67b10c-41b9-4409-805d-5f7a3a116a1c"></p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">polls/urls.py</code> 에서 <a href="http://127.0.0.1:8000/polls/">http://127.0.0.1:8000/polls/</a> 를 접속했을 때 <code class="language-plaintext highlighter-rouge">views.index</code> 를 표시하도록 했기 때문에 위와 같이 나옴</li>
+</ul>
+
+<h2 id="2-templates">2. Templates</h2>
+
+<ul>
+  <li>
+    <p>HTML로 데이터를 잘 표시해주는 도구</p>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">polls/templates/polls</code> 폴더 생성</li>
+  <li>그 안에 <code class="language-plaintext highlighter-rouge">index.html</code> 생성</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;</span>text<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">polls/views.py</code></li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="n">.models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="n">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">latest_question_list</span> <span class="o">=</span> <span class="n">Question</span><span class="p">.</span><span class="n">objects</span><span class="p">.</span><span class="nf">order_by</span><span class="p">(</span><span class="sh">"</span><span class="s">-pub_date</span><span class="sh">"</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="sh">'</span><span class="s">, </span><span class="sh">'</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="n">q</span><span class="p">.</span><span class="n">question_text</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">latest_question_list</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/index.html</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img width="500" alt="스크린샷 2023-11-02 오후 8 14 41" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/a275ea75-6bd5-4797-a82d-0e8e0bcbb927"></p>
+
+<p><br></p>
+
+<h3 id="모델의-값-출력하기">모델의 값 출력하기</h3>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">polls/views.py</code>
+    <ul>
+      <li>render import</li>
+      <li>context 변수 값을 템플릿에 넘겨줌</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="n">.models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="n">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">latest_question_list</span> <span class="o">=</span> <span class="n">Question</span><span class="p">.</span><span class="n">objects</span><span class="p">.</span><span class="nf">order_by</span><span class="p">(</span><span class="sh">"</span><span class="s">-pub_date</span><span class="sh">"</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">first_question</span><span class="sh">'</span><span class="p">:</span> <span class="n">latest_question_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]}</span>
+    <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/index.html</span><span class="sh">'</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">templates/polls/index.html</code>
+    <ul>
+      <li><strong>변수는 <code class="language-plaintext highlighter-rouge">{{중괄호}}</code> 두개!</strong></li>
+      <li>first_question 변수에 들어있는 값 출력
+        <ul>
+          <li>Question 모델의 <code class="language-plaintext highlighter-rouge">__str__</code> 값</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;</span> {{first_question}} <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span> 
+</code></pre></div></div>
+
+<p><img width="500" alt="스크린샷 2023-11-02 오후 8 18 01" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/ccbaebcf-7ae3-4b6b-ba53-6f3d96a25ee9"></p>
+
+<h3 id="반복문">반복문</h3>
+
+<ul>
+  <li>django shell 에서</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">polls.models</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">latest_question_list</span> <span class="o">=</span> <span class="n">Question</span><span class="p">.</span><span class="n">objects</span><span class="p">.</span><span class="nf">order_by</span><span class="p">(</span><span class="sh">'</span><span class="s">-pub_date</span><span class="sh">'</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">question</span> <span class="ow">in</span> <span class="n">latest_question_list</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">question</span><span class="p">.</span><span class="n">question_list</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>휴가 계획이 있나요?      <br>
+커피 vs 녹차       <br>
+가장 좋아하는 디저트는?       <br>
+휴가를 어디서 보내고 싶으세요?</p>
+
+<p><br></p>
+
+<ul>
+  <li>
+    <p>templates 으로</p>
+  </li>
+  <li>indexing
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">questions.0</code></li>
+    </ul>
+  </li>
+  <li><strong>제어문</strong></li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="n">.models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="n">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">latest_question_list</span> <span class="o">=</span> <span class="n">Question</span><span class="p">.</span><span class="n">objects</span><span class="p">.</span><span class="nf">order_by</span><span class="p">(</span><span class="sh">"</span><span class="s">-pub_date</span><span class="sh">"</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">questions</span><span class="sh">'</span><span class="p">:</span> <span class="n">latest_question_list</span><span class="p">}</span>
+    <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/index.html</span><span class="sh">'</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+     {% for question in questions %} 
+        <span class="nt">&lt;li&gt;</span> {{question}} <span class="nt">&lt;/li&gt;</span>
+     {% endfor %} 
+<span class="nt">&lt;/ul&gt;</span> 
+</code></pre></div></div>
+
+<p><img width="499" alt="스크린샷 2023-11-02 오후 8 26 36" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/58ce5576-2d0f-428f-bc0a-ba47d842a602"></p>
+
+<h3 id="조건문">조건문</h3>
+
+<ul>
+  <li>question이 없다면 ‘no questions’ 출력</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code> {% if questions %} 
+
+<span class="nt">&lt;ul&gt;</span>
+     {% for question in questions %} 
+        <span class="nt">&lt;li&gt;</span> {{question}} <span class="nt">&lt;/li&gt;</span>
+     {% endfor %} 
+<span class="nt">&lt;/ul&gt;</span> 
+
+ {% else %} 
+<span class="nt">&lt;p&gt;</span>no questions<span class="nt">&lt;/p&gt;</span>
+ {% endif %} 
+</code></pre></div></div>
+
+<p><img width="997" alt="스크린샷 2023-11-02 오후 8 29 54" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/2b885528-3d31-44b4-a045-f40aa30622fb"></p>
+
+<h2 id="3-상세페이지">3. 상세페이지</h2>
+
+<ul>
+  <li>question id로 질문 내용 출력하기</li>
+</ul>
+
+<h3 id="pollsurlspy"><code class="language-plaintext highlighter-rouge">polls/urls.py</code></h3>
+<ul>
+  <li>url에 숫자 입력받는 방법
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">&lt;int: &gt;</code></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="n">.</span> <span class="kn">import</span> <span class="n">views</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nf">path</span><span class="p">(</span><span class="sh">''</span><span class="p">,</span> <span class="n">views</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sh">'</span><span class="s">index</span><span class="sh">'</span><span class="p">),</span>
+    <span class="nf">path</span><span class="p">(</span><span class="sh">'</span><span class="s">&lt;int:question_id&gt;/</span><span class="sh">'</span><span class="p">,</span> <span class="n">views</span><span class="p">.</span><span class="n">detail</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sh">'</span><span class="s">detail</span><span class="sh">'</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="pollsviewspy"><code class="language-plaintext highlighter-rouge">polls/views.py</code></h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="n">.models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="n">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+
+<span class="k">def</span> <span class="nf">detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="n">Question</span><span class="p">.</span><span class="n">objects</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/detail.html</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">question</span><span class="sh">'</span><span class="p">:</span> <span class="n">question</span><span class="p">})</span>
+</code></pre></div></div>
+
+<h3 id="templatespollsdetailhtml"><code class="language-plaintext highlighter-rouge">templates/polls/detail.html</code></h3>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">question.choice_set.all</code> 뒤에 괄호 넣지 않음</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h1&gt;&lt;/h1&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+ {% for choice in question.choice_set.all %} 
+    <span class="nt">&lt;li&gt;</span> {{choice.choice_text}} <span class="nt">&lt;/li&gt;</span>
+ {% endfor %} 
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+
+<p><img width="500" alt="스크린샷 2023-11-02 오후 9 22 50" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/b3e069c1-8676-4732-aa7f-728a7fef124f"></p>
+
+<h2 id="4-상세-페이지로-링크-추가">4. 상세 페이지로 링크 추가</h2>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">&lt;a&gt;</code> 태그, <code class="language-plaintext highlighter-rouge">url</code> 태그 이용!</li>
+</ul>
+
+<h3 id="url에-앱-이름-설정">url에 앱 이름 설정</h3>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">polls/urls.py</code>
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">app_name = 'polls'</code> 추가</li>
+      <li>꼭 앱의 이름으로 해야하는 것이 아닌, 임의로 지정하는 값임!</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="n">.</span> <span class="kn">import</span> <span class="n">views</span>
+
+<span class="n">app_name</span> <span class="o">=</span> <span class="sh">'</span><span class="s">polls</span><span class="sh">'</span>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nf">path</span><span class="p">(</span><span class="sh">''</span><span class="p">,</span> <span class="n">views</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sh">'</span><span class="s">index</span><span class="sh">'</span><span class="p">),</span>
+    <span class="nf">path</span><span class="p">(</span><span class="sh">'</span><span class="s">&lt;int:question_id&gt;/</span><span class="sh">'</span><span class="p">,</span> <span class="n">views</span><span class="p">.</span><span class="n">detail</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sh">'</span><span class="s">detail</span><span class="sh">'</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="templatespollsindexhtml"><code class="language-plaintext highlighter-rouge">templates/polls/index.html</code></h3>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% if questions %} 
+<span class="nt">&lt;ul&gt;</span>
+     {% for question in questions %} 
+         <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"{% url 'polls:detail' question.id%}"</span><span class="nt">&gt;</span>{{question.question_text}}<span class="nt">&lt;/li&gt;</span> 
+     {% endfor %}  
+<span class="nt">&lt;/ul&gt;</span> 
+{% else %} 
+<span class="nt">&lt;p&gt;</span>no questions<span class="nt">&lt;/p&gt;</span>
+{% endif %} 
+</code></pre></div></div>
+
+<ul>
+  <li>url 태그로 앱 이름이 <code class="language-plaintext highlighter-rouge">polls</code> 이고, path 이름이 <code class="language-plaintext highlighter-rouge">detail</code> 인 url을 불러옴</li>
+  <li>전달하는 인자는 <code class="language-plaintext highlighter-rouge">question.id</code> 이고, 출력하는 값은 <code class="language-plaintext highlighter-rouge">question.question_text</code>
+</li>
+</ul>
+
+<p><img width="499" alt="스크린샷 2023-11-02 오후 9 33 44" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/b146644c-09ed-4639-9279-4d336b5f8e0d"></p>
+
+<p>/polls 기본 화면</p>
+
+<p><br></p>
+
+<p><img width="1000" alt="스크린샷 2023-11-02 오후 9 34 06" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/a035eae2-ea19-4c5c-806f-0babdba55e7c"></p>
+
+<p>링크를 타고 들어간 화면 - <code class="language-plaintext highlighter-rouge">question.id</code> : 5가 전달됨     <br>
+<code class="language-plaintext highlighter-rouge">detail</code> view에서 detail.html 불러옴       <br>
+detail.html에 의해 <code class="language-plaintext highlighter-rouge">question.choice_set.all</code> 이 출력됨</p>
+
+<h2 id="5-404-에러-처리">5. 404 에러 처리</h2>
+
+<p><code class="language-plaintext highlighter-rouge">polls/views.py</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="n">Question</span><span class="p">.</span><span class="n">objects</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/detail.html</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">question</span><span class="sh">'</span><span class="p">:</span> <span class="n">question</span><span class="p">})</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">questino = Question.objects.get(pk=100000)</code>
+    <ul>
+      <li>pk가 100000인 데이터가 없을 경우 Error를 발생시킴</li>
+      <li>에러가 발생했을 경우 서버는 <strong>500</strong> 에러 코드를 내림</li>
+      <li>이를 설명할 수 있는 <strong>404</strong> 에러로 바꿀 것</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img width="1440" alt="스크린샷 2023-11-02 오후 9 51 32" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/09ec3a7d-0558-4c34-b31c-dc061cc7467d"></p>
+
+<p><br></p>
+
+<h3 id="try-except-구문-활용">
+<code class="language-plaintext highlighter-rouge">try-except</code> 구문 활용</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">django.http</span> <span class="kn">import</span> <span class="n">Http404</span>
+
+<span class="k">def</span> <span class="nf">detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">question</span> <span class="o">=</span> <span class="n">Question</span><span class="p">.</span><span class="n">objects</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">Question</span><span class="p">.</span><span class="n">DeosNotExist</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nc">Http404</span><span class="p">(</span><span class="sh">'</span><span class="s">Question does not exist</span><span class="sh">'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/detail.html</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">question</span><span class="sh">'</span><span class="p">:</span> <span class="n">question</span><span class="p">})</span>
+</code></pre></div></div>
+
+<p><img width="1439" alt="스크린샷 2023-11-02 오후 9 53 05" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/acbb3daf-a419-448b-b3bb-7dd8e8aca87f"></p>
+
+<h3 id="shortcuts-활용">shortcuts 활용</h3>
+
+<ul>
+  <li>훨씬 간결한 코드!</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">get_object_or_404</span>
+
+<span class="k">def</span> <span class="nf">detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="nf">get_object_or_404</span><span class="p">(</span><span class="n">Question</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/detail.html</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">question</span><span class="sh">'</span><span class="p">:</span> <span class="n">question</span><span class="p">})</span>
+</code></pre></div></div>
+
+<p><img width="1438" alt="스크린샷 2023-11-02 오후 9 54 38" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/6d07b39a-ad7c-4fc9-8bd8-4f5d75edef6e"></p>
+
+<h2 id="6-폼-forms">6. 폼 Forms</h2>
+
+<h3 id="선택-옵션-radio-버튼으로">선택 옵션 Radio 버튼으로</h3>
+
+<p><code class="language-plaintext highlighter-rouge">templates/polls/detail.html</code></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">'#'</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>{{question.question_text}}<span class="nt">&lt;/h1&gt;</span>
+ 
+     {% for choice in question.choice_set.all %} 
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"choice"</span> <span class="na">id=</span><span class="s">"choice "</span> <span class="na">value=</span><span class="s">""</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"choice{{ forloop.counter }}"</span><span class="nt">&gt;</span>
+            {{choice.choice_text}}
+        <span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;br&gt;</span> 
+     {% endfor %} 
+    
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Vote"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p><img width="824" alt="스크린샷 2023-11-02 오후 10 00 42" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/f3cd042a-168e-4143-b909-15e37bd4a64b"></p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">forloop.counter</code>
+    <ul>
+      <li>반복문을 돌면서 1부터 1씩 증가하는 값</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="token">token</h3>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">vote</code> 버튼을 누르면 <code class="language-plaintext highlighter-rouge">403 Error - CSRF verification failed.</code> 발생
+    <ul>
+      <li>제출할 토큰이 없는데 제출한 경우</li>
+    </ul>
+  </li>
+  <li>token
+    <ul>
+      <li>서버에서 그려준 폼에서만 값을 제출할 수 있도록 방어하는 역할</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">templates/polls/detail.html</code>
+    <ul>
+      <li>form 태그 밑에  <code class="language-plaintext highlighter-rouge">{% csrf_token %}</code>  추가</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">'#'</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+      {% csrf_token %} 
+    <span class="nt">&lt;h1&gt;</span>{{question.question_text}}<span class="nt">&lt;/h1&gt;</span>
+ 
+      {% for choice in question.choice_set.all %} 
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"choice"</span> <span class="na">id=</span><span class="s">"choice {{ forloop.counter }}"</span> <span class="na">value=</span><span class="s">"{{choice.id}}"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"choice{{ forloop.counter }}"</span><span class="nt">&gt;</span>
+            {{choice.choice_text}}
+        <span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;br&gt;</span>
+      {% endfor %} 
+
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Vote"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p><img width="1272" alt="스크린샷 2023-11-02 오후 10 06 52" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/4425c72f-991b-472a-9fad-83003112000e"></p>
+
+<h3 id="제출-내용-받기">제출 내용 받기</h3>
+
+<h4 id="pollsurlspy-1"><code class="language-plaintext highlighter-rouge">polls/urls.py</code></h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="n">.</span> <span class="kn">import</span> <span class="n">views</span>
+
+<span class="n">app_name</span> <span class="o">=</span> <span class="sh">'</span><span class="s">polls</span><span class="sh">'</span>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nf">path</span><span class="p">(</span><span class="sh">''</span><span class="p">,</span> <span class="n">views</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sh">'</span><span class="s">index</span><span class="sh">'</span><span class="p">),</span>
+    <span class="nf">path</span><span class="p">(</span><span class="sh">'</span><span class="s">&lt;int:question_id&gt;/</span><span class="sh">'</span><span class="p">,</span> <span class="n">views</span><span class="p">.</span><span class="n">detail</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sh">'</span><span class="s">detail</span><span class="sh">'</span><span class="p">),</span>
+    <span class="nf">path</span><span class="p">(</span><span class="sh">'</span><span class="s">&lt;int:question_id&gt;/vote/</span><span class="sh">'</span><span class="p">,</span> <span class="n">views</span><span class="p">.</span><span class="n">vote</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sh">'</span><span class="s">vote</span><span class="sh">'</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<h4 id="pollsviewspy-1"><code class="language-plaintext highlighter-rouge">polls/views.py</code></h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span><span class="p">,</span> <span class="n">HttpResponseRedirect</span>
+<span class="kn">from</span> <span class="n">.models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="n">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">get_object_or_404</span>
+<span class="kn">from</span> <span class="n">django.urls</span> <span class="kn">import</span> <span class="n">reverse</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">latest_question_list</span> <span class="o">=</span> <span class="n">Question</span><span class="p">.</span><span class="n">objects</span><span class="p">.</span><span class="nf">order_by</span><span class="p">(</span><span class="sh">"</span><span class="s">-pub_date</span><span class="sh">"</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">questions</span><span class="sh">'</span><span class="p">:</span> <span class="n">latest_question_list</span><span class="p">}</span>
+    <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/index.html</span><span class="sh">'</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="nf">get_object_or_404</span><span class="p">(</span><span class="n">Question</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/detail.html</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">question</span><span class="sh">'</span><span class="p">:</span> <span class="n">question</span><span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">vote</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="nf">get_object_or_404</span><span class="p">(</span><span class="n">Question</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="n">selected_choice</span> <span class="o">=</span> <span class="n">question</span><span class="p">.</span><span class="n">choice_set</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">POST</span><span class="p">[</span><span class="sh">'</span><span class="s">choice</span><span class="sh">'</span><span class="p">])</span>  
+        <span class="c1"># choice는 detail.html 에서 지정한 name // value 값이 들어옴
+</span>    <span class="n">selected_choice</span><span class="p">.</span><span class="n">votes</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">selected_choice</span><span class="p">.</span><span class="nf">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nc">HttpResponseRedirect</span><span class="p">(</span><span class="nf">reverse</span><span class="p">(</span><span class="sh">'</span><span class="s">polls:index</span><span class="sh">'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h4 id="templatespollsdetailhtml-1"><code class="language-plaintext highlighter-rouge">templates/polls/detail.html</code></h4>
+
+<ul>
+  <li>form 태그의 <code class="language-plaintext highlighter-rouge">action</code> 옵션에 뷰 지정</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">{%</span> <span class="na">url</span> <span class="err">'</span><span class="na">polls:vote</span><span class="err">'</span> <span class="na">question.id</span> <span class="err">%}</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span> 
+     {% csrf_token %} 
+    <span class="nt">&lt;h1&gt;</span>{{question.question_text}}<span class="nt">&lt;/h1&gt;</span>
+ 
+     {% for choice in question.choice_set.all %} 
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"choice"</span> <span class="na">id=</span><span class="s">"choice {{ forloop.counter }}"</span> <span class="na">value=</span><span class="s">"{{choice.id}}"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"choice{{ forloop.counter }}"</span><span class="nt">&gt;</span>
+            {{choice.choice_text}}
+        <span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;br&gt;</span>
+     {% endfor %} 
+
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Vote"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p><img width="1438" alt="스크린샷 2023-11-02 오후 10 15 36" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/712c76c2-697c-4f96-92fb-a84f6c7c5734"></p>
+
+<p><img width="1439" alt="스크린샷 2023-11-02 오후 10 15 24" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/d3a18ca5-133f-48c4-bf26-7451f2160b31"></p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">네</code>를 누르고 admin 페이지에서 vote 값을 확인해보면 1 증가한 것을 볼 수 있음</li>
+</ul>
+
+<h3 id="아무것도-안누르고-제출했을-때-오류-방어">아무것도 안누르고 제출했을 때 오류 방어</h3>
+
+<p><code class="language-plaintext highlighter-rouge">polls/views.py</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span><span class="p">,</span> <span class="n">HttpResponseRedirect</span>
+<span class="kn">from</span> <span class="n">.models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="n">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">get_object_or_404</span>
+<span class="kn">from</span> <span class="n">django.urls</span> <span class="kn">import</span> <span class="n">reverse</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">latest_question_list</span> <span class="o">=</span> <span class="n">Question</span><span class="p">.</span><span class="n">objects</span><span class="p">.</span><span class="nf">order_by</span><span class="p">(</span><span class="sh">"</span><span class="s">-pub_date</span><span class="sh">"</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">questions</span><span class="sh">'</span><span class="p">:</span> <span class="n">latest_question_list</span><span class="p">}</span>
+    <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/index.html</span><span class="sh">'</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="nf">get_object_or_404</span><span class="p">(</span><span class="n">Question</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/detail.html</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">question</span><span class="sh">'</span><span class="p">:</span> <span class="n">question</span><span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">vote</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="nf">get_object_or_404</span><span class="p">(</span><span class="n">Question</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">selected_choice</span> <span class="o">=</span> <span class="n">question</span><span class="p">.</span><span class="n">choice_set</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">POST</span><span class="p">[</span><span class="sh">'</span><span class="s">choice</span><span class="sh">'</span><span class="p">])</span>  <span class="c1"># detail.html 에서 지정한 name // value 값이 들어옴
+</span>    <span class="nf">except </span><span class="p">(</span><span class="nb">KeyError</span><span class="p">,</span> <span class="n">Choice</span><span class="p">.</span><span class="n">DoesNotExist</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/detail.html</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">question</span><span class="sh">'</span><span class="p">:</span> <span class="n">question</span><span class="p">,</span> <span class="sh">'</span><span class="s">error_message</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">선택이 없습니다</span><span class="sh">'</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>   
+        <span class="n">selected_choice</span><span class="p">.</span><span class="n">votes</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">selected_choice</span><span class="p">.</span><span class="nf">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nc">HttpResponseRedirect</span><span class="p">(</span><span class="nf">reverse</span><span class="p">(</span><span class="sh">'</span><span class="s">polls:index</span><span class="sh">'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<ul>
+  <li>error message 표시
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">templates/polls/detail.html</code> 에 if문 추가</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">{%</span> <span class="na">url</span> <span class="err">'</span><span class="na">polls:vote</span><span class="err">'</span> <span class="na">question.id</span> <span class="err">%}</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span> 
+     {% csrf_token %} 
+    <span class="nt">&lt;h1&gt;</span>{{question.question_text}}<span class="nt">&lt;/h1&gt;</span>
+    
+     {% if error_message %} 
+        <span class="nt">&lt;p&gt;&lt;strong&gt;</span>{{ error_message }}<span class="nt">&lt;/strong&gt;&lt;/p&gt;</span>
+     {% endif %} 
+ 
+     {% for choice in question.choice_set.all %} 
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"choice"</span> <span class="na">id=</span><span class="s">"choice {{ forloop.counter }}"</span> <span class="na">value=</span><span class="s">"{{choice.id}}"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"choice{{ forloop.counter }}"</span><span class="nt">&gt;</span>
+            {{choice.choice_text}}
+        <span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;br&gt;</span>
+     {% endfor %} 
+
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Vote"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p><img width="383" alt="스크린샷 2023-11-02 오후 10 20 51" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/f1679f9f-aa24-4523-a917-f1ef08f31021"></p>
+
+<h3 id="급-render-함수에-대한-궁금증">급 render 함수에 대한 궁금증</h3>
+
+<p><strong>django.shortcuts 의 render 라이브러리에 대해 설명해줄래?</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">django.shortcuts</code>는 Django 웹 프레임워크에서 자주 사용되는 뷰 함수를 작성할 때 도움을 주는 유틸리티 라이브러리입니다. 이 라이브러리는 간단한 HTTP 응답 생성 및 다양한 렌더링 작업을 수행하는 데 사용됩니다. 가장 일반적으로 사용되는 함수 중 하나는 <code class="language-plaintext highlighter-rouge">render</code> 함수입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">render</code> 함수는 HTML 템플릿을 사용하여 클라이언트에게 렌더링된 페이지를 제공하는 데 사용됩니다. 주로 뷰 함수 내에서 사용되며, 다음과 같은 인자를 받습니다:</p>
+
+<ul>
+  <li>request (필수): 요청 객체. 이 객체는 웹 브라우저로부터 받은 요청에 대한 정보를 포함하고 있습니다.</li>
+  <li>템플릿 이름 (필수): 렌더링할 HTML 템플릿 파일의 경로 및 이름을 지정합니다. 예를 들어, “myapp/mytemplate.html”와 같이 템플릿 파일의 경로를 문자열로 제공합니다.</li>
+  <li>context (선택적): 템플릿에 전달할 데이터를 포함하는 딕셔너리. 이 데이터는 템플릿에서 변수로 사용됩니다.</li>
+  <li>content_type (선택적): 렌더링된 응답의 콘텐츠 유형을 나타내는 문자열. 기본값은 “text/html”입니다.</li>
+  <li>status (선택적): HTTP 응답 상태 코드를 나타내는 정수. 기본값은 200 (OK)입니다.</li>
+  <li>using (선택적): 사용할 템플릿 엔진을 지정하는 문자열. 기본적으로 Django는 설정에서 설정한 템플릿 엔진을 사용합니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">render</code> 함수는 템플릿을 렌더링하고, <code class="language-plaintext highlighter-rouge">context</code>로 전달된 데이터를 템플릿 변수와 함께 사용하여 최종 HTML 응답을 생성합니다. 이후 이 응답은 클라이언트에게 반환됩니다. 이렇게 함으로써 Django 개발자는 웹 애플리케이션의 다양한 페이지를 생성하고 데이터를 동적으로 표시하는 작업을 쉽게 수행할 수 있습니다.</p>
+
+<hr>
+
+<p><strong>html에서 보여지는 부분을 그려주는 함수라고 이해하면 될까?</strong></p>
+
+<p>네, <code class="language-plaintext highlighter-rouge">render</code> 함수는 HTML에서 보여지는 부분을 그려주는 함수로 이해할 수 있습니다. 이 함수는 Django 뷰에서 사용되며, HTML 템플릿을 렌더링하여 클라이언트에게 전달되는 웹 페이지의 내용을 생성합니다.</p>
+
+<p>일반적으로 Django 웹 애플리케이션에서 다음과 같은 작업을 수행합니다:</p>
+
+<ul>
+  <li>사용자의 요청을 처리하는 뷰 함수를 작성합니다.</li>
+  <li>해당 뷰 함수에서 <code class="language-plaintext highlighter-rouge">render</code> 함수를 사용하여 HTML 템플릿을 렌더링합니다.</li>
+  <li>템플릿에 데이터를 전달하여 동적으로 생성된 페이지를 만듭니다.</li>
+  <li>이 페이지를 HTTP 응답으로 반환하여 클라이언트에게 보여집니다.</li>
+</ul>
+
+<p>따라서 <code class="language-plaintext highlighter-rouge">render</code> 함수는 HTML 페이지의 내용을 그리고 사용자에게 보여주는 역할을 합니다. 이를 통해 Django 애플리케이션은 사용자 인터페이스를 동적으로 구성하고, 데이터베이스와 상호작용하여 웹 페이지를 생성할 수 있습니다.</p>
+
+<h2 id="7-에러-방어하기">7. 에러 방어하기</h2>
+
+<h3 id="1-중간에-선택-옵션이-없어지는-경우">1) 중간에 선택 옵션이 없어지는 경우</h3>
+
+<ul>
+  <li>‘휴가 계획이 있나요?’ 질문에 ‘네’, ‘아니오’ 옵션이 있음</li>
+  <li>사용자가 선택하려는 와중에 ‘네’ 옵션이 사라짐</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">polls/views.py</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">vote</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="nf">get_object_or_404</span><span class="p">(</span><span class="n">Question</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">selected_choice</span> <span class="o">=</span> <span class="n">question</span><span class="p">.</span><span class="n">choice_set</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">POST</span><span class="p">[</span><span class="sh">'</span><span class="s">choice</span><span class="sh">'</span><span class="p">])</span>  
+    <span class="nf">except </span><span class="p">(</span><span class="nb">KeyError</span><span class="p">,</span> <span class="n">Choice</span><span class="p">.</span><span class="n">DoesNotExist</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/detail.html</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">question</span><span class="sh">'</span><span class="p">:</span> <span class="n">question</span><span class="p">,</span> <span class="sh">'</span><span class="s">error_message</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">선택이 없습니다</span><span class="sh">'</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>   
+        <span class="n">selected_choice</span><span class="p">.</span><span class="n">votes</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">selected_choice</span><span class="p">.</span><span class="nf">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nc">HttpResponseRedirect</span><span class="p">(</span><span class="nf">reverse</span><span class="p">(</span><span class="sh">'</span><span class="s">polls:index</span><span class="sh">'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">except</code> 구문에 <code class="language-plaintext highlighter-rouge">Choice.DoesNotExist</code> 에러를 포함함으로써 에러 처리</li>
+</ul>
+
+<h3 id="2-서버가-정확한-값을-전달해주지-않는-경우">2) 서버가 정확한 값을 전달해주지 않는 경우</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">vote</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="nf">get_object_or_404</span><span class="p">(</span><span class="n">Question</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">selected_choice</span> <span class="o">=</span> <span class="n">question</span><span class="p">.</span><span class="n">choice_set</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">POST</span><span class="p">[</span><span class="sh">'</span><span class="s">choice</span><span class="sh">'</span><span class="p">])</span>  <span class="c1"># detail.html 에서 지정한 name // value 값이 들어옴
+</span>    <span class="nf">except </span><span class="p">(</span><span class="nb">KeyError</span><span class="p">,</span> <span class="n">Choice</span><span class="p">.</span><span class="n">DoesNotExist</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/detail.html</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">question</span><span class="sh">'</span><span class="p">:</span> <span class="n">question</span><span class="p">,</span> <span class="sh">'</span><span class="s">error_message</span><span class="sh">'</span><span class="p">:</span> <span class="sa">f</span><span class="sh">"</span><span class="s">선택이 없습니다. id=</span><span class="si">{</span><span class="n">request</span><span class="p">.</span><span class="n">POST</span><span class="p">[</span><span class="sh">'</span><span class="s">choice</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>   
+        <span class="n">selected_choice</span><span class="p">.</span><span class="n">votes</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">selected_choice</span><span class="p">.</span><span class="nf">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nc">HttpResponseRedirect</span><span class="p">(</span><span class="nf">reverse</span><span class="p">(</span><span class="sh">'</span><span class="s">polls:index</span><span class="sh">'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">return render(request, 'polls/detail.html', {'question': question, 'error_message': f"선택이 없습니다. id={request.POST['choice']}"})</code> 구문으로 id 값을 같이 출력해주어 에러 원인 확인</li>
+</ul>
+
+<h3 id="3-같은-db를-사용하는-두-서버에서-동시에-버튼을-누를-경우">3) 같은 DB를 사용하는 두 서버에서 동시에 버튼을 누를 경우</h3>
+
+<ul>
+  <li>vote 값이 1만 증가할 것</li>
+  <li>1 증가하는 연산을 서버에서 하는 것이 아니라 DB에서 하도록!
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">F</code> 함수 사용</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">F</code> : 값을 DB에서 읽어서 사용해라</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">vote</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="nf">get_object_or_404</span><span class="p">(</span><span class="n">Question</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">selected_choice</span> <span class="o">=</span> <span class="n">question</span><span class="p">.</span><span class="n">choice_set</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">POST</span><span class="p">[</span><span class="sh">'</span><span class="s">choice</span><span class="sh">'</span><span class="p">])</span>  <span class="c1"># detail.html 에서 지정한 name // value 값이 들어옴
+</span>    <span class="nf">except </span><span class="p">(</span><span class="nb">KeyError</span><span class="p">,</span> <span class="n">Choice</span><span class="p">.</span><span class="n">DoesNotExist</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/detail.html</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">question</span><span class="sh">'</span><span class="p">:</span> <span class="n">question</span><span class="p">,</span> <span class="sh">'</span><span class="s">error_message</span><span class="sh">'</span><span class="p">:</span> <span class="sa">f</span><span class="sh">"</span><span class="s">선택이 없습니다. id=</span><span class="si">{</span><span class="n">request</span><span class="p">.</span><span class="n">POST</span><span class="p">[</span><span class="sh">'</span><span class="s">choice</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>   
+        <span class="n">selected_choice</span><span class="p">.</span><span class="n">votes</span> <span class="o">=</span> <span class="nc">F</span><span class="p">(</span><span class="sh">'</span><span class="s">votes</span><span class="sh">'</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">selected_choice</span><span class="p">.</span><span class="nf">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nc">HttpResponseRedirect</span><span class="p">(</span><span class="nf">reverse</span><span class="p">(</span><span class="sh">'</span><span class="s">polls:index</span><span class="sh">'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="8-결과-조회-페이지">8. 결과 조회 페이지</h2>
+
+<p>1) <code class="language-plaintext highlighter-rouge">polls/views.py</code> 에 view 추가    <br>
+2) <code class="language-plaintext highlighter-rouge">polls/urls.py</code> 에 path 추가    <br>
+3) <code class="language-plaintext highlighter-rouge">polls/templates/polls</code> 에 템플릿 추가    <br>
+4) <code class="language-plaintext highlighter-rouge">polls/views.py</code> 에서 이 페이지로 이동하는 코드 추가</p>
+
+<p><br></p>
+
+<p>1)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="nf">get_object_or_404</span><span class="p">(</span><span class="n">Question</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/result.html</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">question</span><span class="sh">'</span><span class="p">:</span> <span class="n">question</span><span class="p">})</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<p>2)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">app_name</span> <span class="o">=</span> <span class="sh">'</span><span class="s">polls</span><span class="sh">'</span>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nf">path</span><span class="p">(</span><span class="sh">''</span><span class="p">,</span> <span class="n">views</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sh">'</span><span class="s">index</span><span class="sh">'</span><span class="p">),</span>
+    <span class="nf">path</span><span class="p">(</span><span class="sh">'</span><span class="s">&lt;int:question_id&gt;/</span><span class="sh">'</span><span class="p">,</span> <span class="n">views</span><span class="p">.</span><span class="n">detail</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sh">'</span><span class="s">detail</span><span class="sh">'</span><span class="p">),</span>
+    <span class="nf">path</span><span class="p">(</span><span class="sh">'</span><span class="s">&lt;int:question_id&gt;/vote/</span><span class="sh">'</span><span class="p">,</span> <span class="n">views</span><span class="p">.</span><span class="n">vote</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sh">'</span><span class="s">vote</span><span class="sh">'</span><span class="p">),</span>
+    <span class="nf">path</span><span class="p">(</span><span class="sh">'</span><span class="s">&lt;int:question_id&gt;/result/</span><span class="sh">'</span><span class="p">,</span> <span class="n">views</span><span class="p">.</span><span class="n">result</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sh">'</span><span class="s">result</span><span class="sh">'</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p><br></p>
+
+<p>3)</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h1&gt;</span>{{question.question_text}}<span class="nt">&lt;/h1&gt;&lt;br&gt;</span>
+ {% for choice in question.choice_set.all %} 
+    <span class="nt">&lt;label&gt;</span>
+        {{choice.choice_text}} -- {{choice.votes}}
+    <span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+ {% endfor %} 
+</code></pre></div></div>
+
+<p><br></p>
+
+<p>4)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">vote</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="nf">get_object_or_404</span><span class="p">(</span><span class="n">Question</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">selected_choice</span> <span class="o">=</span> <span class="n">question</span><span class="p">.</span><span class="n">choice_set</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">POST</span><span class="p">[</span><span class="sh">'</span><span class="s">choice</span><span class="sh">'</span><span class="p">])</span>  <span class="c1"># detail.html 에서 지정한 name // value 값이 들어옴
+</span>    <span class="nf">except </span><span class="p">(</span><span class="nb">KeyError</span><span class="p">,</span> <span class="n">Choice</span><span class="p">.</span><span class="n">DoesNotExist</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sh">'</span><span class="s">polls/detail.html</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">question</span><span class="sh">'</span><span class="p">:</span> <span class="n">question</span><span class="p">,</span> <span class="sh">'</span><span class="s">error_message</span><span class="sh">'</span><span class="p">:</span> <span class="sa">f</span><span class="sh">"</span><span class="s">선택이 없습니다. id=</span><span class="si">{</span><span class="n">request</span><span class="p">.</span><span class="n">POST</span><span class="p">[</span><span class="sh">'</span><span class="s">choice</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>   
+        <span class="n">selected_choice</span><span class="p">.</span><span class="n">votes</span> <span class="o">=</span> <span class="nc">F</span><span class="p">(</span><span class="sh">'</span><span class="s">votes</span><span class="sh">'</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">selected_choice</span><span class="p">.</span><span class="nf">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nc">HttpResponseRedirect</span><span class="p">(</span><span class="nf">reverse</span><span class="p">(</span><span class="sh">'</span><span class="s">polls:result</span><span class="sh">'</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">question_id</span><span class="p">,)))</span>
+</code></pre></div></div>
+
+<ul>
+  <li>vote view에서 <code class="language-plaintext highlighter-rouge">vote</code> 버튼을 누르면 result view로 이동하도록!</li>
+  <li>
+<strong>주의</strong> 인자를 전달하는 <code class="language-plaintext highlighter-rouge">args=()</code> 옵션을 추가할 때 꼭 뒤에 <code class="language-plaintext highlighter-rouge">,</code> 를 넣어주어야 함!</li>
+</ul>
+
+<p><br></p>
+
+<ul>
+  <li>vote를 누르고 status code = <strong>302</strong>
+    <ul>
+      <li>302 : Redirect status code</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img width="1116" alt="스크린샷 2023-11-03 오전 12 34 49" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/a71b7afb-40ae-415b-9c8b-237c0b8591c3"></p>
+
+<h2 id="9-admin-페이지-편집">9. admin 페이지 편집</h2>
+
+<p><code class="language-plaintext highlighter-rouge">polls/admin.py</code></p>
+
+<h3 id="편집-페이지-커스터마이징">편집 페이지 커스터마이징</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="n">.models</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">admin</span><span class="p">.</span><span class="n">site</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="n">Choice</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ChoiceInline</span><span class="p">(</span><span class="n">admin</span><span class="p">.</span><span class="n">TabularInline</span><span class="p">):</span>
+    <span class="c1"># stackedInline : 수직
+</span>    <span class="c1"># TabularInline : 수평
+</span>    <span class="n">model</span> <span class="o">=</span> <span class="n">Choice</span>
+    <span class="n">extra</span> <span class="o">=</span> <span class="mi">3</span>       <span class="c1"># 추가로 등록할 옵션의 개수
+</span>
+<span class="k">class</span> <span class="nc">QuestionAdmin</span><span class="p">(</span><span class="n">admin</span><span class="p">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="c1"># 섹션 나누기, 순서 바꾸기
+</span>    <span class="n">fieldsets</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="sh">'</span><span class="s">질문 섹션</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">fields</span><span class="sh">'</span><span class="p">:</span> <span class="p">[</span><span class="sh">'</span><span class="s">question_text</span><span class="sh">'</span><span class="p">]}),</span>
+        <span class="p">(</span><span class="sh">'</span><span class="s">생성일</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">fields</span><span class="sh">'</span><span class="p">:</span> <span class="p">[</span><span class="sh">'</span><span class="s">pub_date</span><span class="sh">'</span><span class="p">],</span> <span class="sh">'</span><span class="s">classes</span><span class="sh">'</span><span class="p">:</span> <span class="p">[</span><span class="sh">'</span><span class="s">collapse</span><span class="sh">'</span><span class="p">]}),</span>  <span class="c1"># 숨김처리
+</span>    <span class="p">]</span>
+    <span class="c1"># 읽기 전용 설정
+</span>    <span class="n">readonly_fields</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">pub_date</span><span class="sh">'</span><span class="p">]</span>
+    <span class="c1"># inline 적용
+</span>    <span class="n">inlines</span> <span class="o">=</span> <span class="p">[</span><span class="n">ChoiceInline</span><span class="p">]</span>
+
+<span class="n">admin</span><span class="p">.</span><span class="n">site</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="n">Question</span><span class="p">,</span> <span class="n">QuestionAdmin</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img width="1620" alt="스크린샷 2023-11-03 오전 12 48 25" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/b7ee71c1-7eb9-4559-80a7-9ad12f7555b2"></p>
+
+<h3 id="목록-페이지-커스터마이징">목록 페이지 커스터마이징</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="n">.models</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># admin.site.register(Choice)
+</span>
+<span class="k">class</span> <span class="nc">ChoiceInline</span><span class="p">(</span><span class="n">admin</span><span class="p">.</span><span class="n">TabularInline</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Choice</span>
+    <span class="n">extra</span> <span class="o">=</span> <span class="mi">3</span>       
+
+<span class="k">class</span> <span class="nc">QuestionAdmin</span><span class="p">(</span><span class="n">admin</span><span class="p">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="c1"># 섹션 나누기, 순서 바꾸기
+</span>    <span class="n">fieldsets</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="sh">'</span><span class="s">질문 섹션</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">fields</span><span class="sh">'</span><span class="p">:</span> <span class="p">[</span><span class="sh">'</span><span class="s">question_text</span><span class="sh">'</span><span class="p">]}),</span>
+        <span class="p">(</span><span class="sh">'</span><span class="s">생성일</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">fields</span><span class="sh">'</span><span class="p">:</span> <span class="p">[</span><span class="sh">'</span><span class="s">pub_date</span><span class="sh">'</span><span class="p">],</span> <span class="sh">'</span><span class="s">classes</span><span class="sh">'</span><span class="p">:</span> <span class="p">[</span><span class="sh">'</span><span class="s">collapse</span><span class="sh">'</span><span class="p">]}),</span> 
+    <span class="p">]</span>
+    <span class="c1"># 목록 편집
+</span>    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="sh">'</span><span class="s">question_text</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">pub_date</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">was_published_recently</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">readonly_fields</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">pub_date</span><span class="sh">'</span><span class="p">]</span>
+    <span class="n">inlines</span> <span class="o">=</span> <span class="p">[</span><span class="n">ChoiceInline</span><span class="p">]</span>
+    <span class="c1"># filter 생성
+</span>    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">pub_date</span><span class="sh">'</span><span class="p">]</span>
+    <span class="c1"># 리스트로 표현할 수 없는 값 검색
+</span>    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">question_text</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">choice__choice_text</span><span class="sh">'</span><span class="p">]</span>
+
+<span class="n">admin</span><span class="p">.</span><span class="n">site</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="n">Question</span><span class="p">,</span> <span class="n">QuestionAdmin</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img width="719" alt="스크린샷 2023-11-03 오전 1 04 37" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/7c4ebb09-be9a-4ecc-8d35-867690f94ac6"></p>
+
+<p><img width="723" alt="스크린샷 2023-11-03 오전 1 05 11" src="https://github.com/bokyung124/bokyung124.github.io/assets/53086873/526a6fd2-e856-4168-8bf4-d407f6e09e1d"></p>
+
+<p>옵션으로도 검색 가능</p>
+
+
+  </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/data%20engineering/2023/10/30/1030.html" title="[DEV] 4주차. 장고 활용한 API서버 만들기(1)">[DEV] 4주차. 장고 활용한 API서버 만들기(1)...</a><a class="next" href="/data%20engineering/2023/11/01/1101.html" title="[DEV] 4주차. 장고 활용한 API서버 만들기(3)">[DEV] 4주차. 장고 활용한 API서버 만들기(3)...</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li class="">
+          <a class="post-link" href="/ml%20&amp;%20dl/2023/04/30/preprocessing.html" title="[BITAmin] 데이터 전처리">
+            [BITAmin] 데이터 전처리<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/java/2023/05/06/1546.html" title="[BOJ] 1546. 평균">
+            [BOJ] 1546. 평균<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/sql/2023/04/20/Procedure.html" title="[DBP] CH4-1. PL/SQL - Procedure">
+            [DBP] CH4-1. PL/SQL - Procedure<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/it%20issues/2023/04/17/bing.html" title="[IT] 삼성, 갤럭시 검색엔진 '빙'으로 교체 검토하자 패닉 빠진 구글">
+            [IT] 삼성, 갤럭시 검색엔진 '빙'으로 교체 검토하자 패닉 빠진 구글<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+</ul>
+    </div>
+<div class="post-comments">
+      <script src="https://utteranc.es/client.js" repo="bokyung124/bokyung124.github.io" issue-term="pathname" label="comments" theme="github-light" crossorigin="anonymous" async>
+      </script>
+      
+      <!---->
+    </div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 30px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div><a href="https://github.com/bokyung124">User's Github</a></div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <!-- <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a></div> -->
+    </div>
+  </div>
+</footer>
+</body>
+</html>

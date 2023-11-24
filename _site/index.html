@@ -983,8 +983,1984 @@ function googleTranslateElementInit() {
 
 <li class="post-item ">
   <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/11/17/1117.html">
+      [DEV] 6주차. 데이터 웨어하우스와 SQL과 데이터분석(5)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Nov 17, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 9 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/11/17/1117.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/11/17/1117.html">
+      <p>1. 사용자별로 처음 채널과 마지막 채널 알아내기
+
+
+  ROW_NUMBER 이용
+
+
+CTE를 빌딩블록으로
+
+WITH first AS (
+    SELECT userid, ts, channel, ROW_NUMBER() OVER(PARTITION BY userid ... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/11/16/1116.html">
+      [DEV] 6주차. 데이터 웨어하우스와 SQL과 데이터분석(4)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Nov 16, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/11/16/1116.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/11/16/1116.html">
+      <p>1. JOIN
+
+
+  2개 이상의 테이블들을 공통 필드를 가지고 머지하는 데 사용됨
+  
+    star schema로 구성된 테이블들로 분산되어 있던 정보를 통합
+  
+  JOIN 방식에 따라 어떤 레코드들이 선택되는지, 어떤 필드들이 채워지는지가 달라짐
+
+
+고... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/11/15/1115.html">
+      [DEV] 6주차. 데이터 웨어하우스와 SQL과 데이터분석(3)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Nov 15, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/11/15/1115.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/11/15/1115.html">
+      <p>1. GROUP BY &amp; Aggregate 함수
+
+
+  테이블의 레코드들을 그룹핑하여 그룹별로 다양한 정보 계산
+  단계
+    
+      먼저 그룹핑을 할 필드 결정 (하나 이상의 필드가 될 수 있음)
+      다음 그룹별로 계산할 내용 결정
+    ... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/11/14/1114.html">
+      [DEV] 6주차. 데이터 웨어하우스와 SQL과 데이터분석(2)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Nov 14, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 3 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/11/14/1114.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/11/14/1114.html">
+      <p>1. Redshift 론치 데모
+
+
+  aws에서 AWS Redshift 클러스터 생성
+  실습용이기 때문에 가장 저렴한 dc2.large 선택
+  노드는 1개
+  샘플 데이터 X
+  추가 구성 기본값 사용 해제
+    
+      네트워크 및 보안에서 퍼블릭 액... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/11/13/1113.html">
+      [DEV] 6주차. 데이터 웨어하우스와 SQL과 데이터분석(1)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Nov 13, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 9 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/11/13/1113.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/11/13/1113.html">
+      <p>1. 데이터 분야에서 SQL
+
+  큰 데이터를 processing하여 작은 데이터로 변환
+  주어진 문제를 답하기 위해서 데이터 분석을 하기 위한 관점에서 사용
+  서버에서의 DB와는 목적이 조금 다름
+    
+      사용자들에 대한 정보, 상품에 대한 정보,... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/11/11/queryset.html">
+      [DEV] Django ORM QuerySet<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Nov 11, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/11/11/queryset.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/11/11/queryset.html">
+      <p>QuerySet
+
+
+  DB에서 전달받은 객체들의 모음 (list)
+  Python으로 작성한 코드가 SQL로 mapping되어 QuerySet 자료형으로 넘어옴
+  Django에서는 속성이 column, 속성에 부여된 값이 row 임 -&gt; dictionar... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#Django">#Django</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/11/11/project(1).html">
+      [DEV] Django &amp; Plotly 연동<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Nov 11, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 23 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/11/11/project(1).html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/11/11/project(1).html">
+      <p>1. 배경
+
+
+  18개의 기업 별 테그 블로그를 크롤링해서 태그 별 빈도수 시각화 &amp; 글 모아 보여주기
+  ERD
+
+
+
+
+2. 전체 태그 빈도수 시각화
+
+views.py
+
+from .models import *
+from django.http import ... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8">#프로젝트</a><a class="post-tag" href="/tags.html#KDT">#KDT</a><a class="post-tag" href="/tags.html#Django">#Django</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/11/10/clean_code.html">
+      [DEV] 좋은 코드를 작성하려면<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Nov 10, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/11/10/clean_code.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/11/10/clean_code.html">
+      <p>1. 효과적인 학습 방법
+
+
+  긍정적인 감정 이입하기
+    
+      잘 모르는 용어나 개념도 반복해서 듣고 사용하다 보면 익숙해짐
+      계속해서 새로운 개념들이 나오는 분야이기 때문에 모르는 용어, 주제도 긍정적으로 바라보는 자세를 가져야 함!
+   ... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#%ED%8A%B9%EA%B0%95">#특강</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/11/09/django_git.html">
+      [DEV] Django 협업<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Nov 09, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/11/09/django_git.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/11/09/django_git.html">
+      <p>1. 배경
+
+
+  Django 프로젝트에서 팀원이 이미 개발하고 있던 웹 프로젝트를 받아서 협업해야 하는 상황
+  가상환경 위에서 개발 중이어서 그 가상환경을 그대로 이용하면 되겠다고 생각했는데, vscode에서 파이썬 인터프리터를 인식하지 못함
+  검색해보니 내... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#Web">#Web</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/11/03/1103.html">
+      [DEV] 4주차. 장고 활용한 API서버 만들기(5)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Nov 03, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 31 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/11/03/1103.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/11/03/1103.html">
+      <p>1. RelatedField
+
+
+  polls_api/serializers.py
+    
+      UserSerializer 수정
+    
+  
+
+
+1) StringRelatedField
+
+
+  model의 str 값으로 표현
+
+
+class UserSeriali... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/11/02/git.html">
+      [DEV] Git/Github 익히기<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Nov 02, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 9 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/11/02/git.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/11/02/git.html">
+      <p>1. 소프트웨어 개발 Plan
+
+
+  요구조건은 계속해서 변화함
+  디자인 시 모든 문제를 미리 알 수 없음
+  water-fall 모델은 소프트웨어 개발에 부적합
+    
+      속도에 더 치중하는 것이 일반적
+    
+  
+
+
+애자일 개발 방법론 (Agil... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#%ED%8A%B9%EA%B0%95">#특강</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/11/02/1102.html">
+      [DEV] 4주차. 장고 활용한 API서버 만들기(4)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Nov 02, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 11 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/11/02/1102.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/11/02/1102.html">
+      <p>1. User 추가 및 관리
+
+
+  polls/models.py
+    
+      owner = models.ForeignKey('auth.User', related_name='questions', on_delete=models.CASCADE, null=True... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/11/01/1101.html">
+      [DEV] 4주차. 장고 활용한 API서버 만들기(3)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Nov 01, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 20 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/11/01/1101.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/11/01/1101.html">
+      <p>1. Serializers
+
+
+  Serialize
+    
+      모델 인스턴스나 QuerySet과 같은 데이터를 JSON 형식의 파일로 변환하는 작업
+    
+  
+  Deserialize
+    
+      JSON 형식의 데이터를 정의된 포맷에 맞추어 ... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/10/31/1031.html">
+      [DEV] 4주차. 장고 활용한 API서버 만들기(2)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Oct 31, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 26 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/10/31/1031.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/10/31/1031.html">
+      <p>1. Views
+
+
+  models : DB에 정보를 저장하고 읽어옴
+  view : 읽어온 모델의 정보들 활용
+
+
+polls/view.py
+
+from django.http import HttpResponse
+from .models import *
+
+def ind... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/10/30/1030.html">
+      [DEV] 4주차. 장고 활용한 API서버 만들기(1)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Oct 30, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 14 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/10/30/1030.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/10/30/1030.html">
+      <p>1. 가상환경 생성 및 접속
+
+python -m venv django-venv
+source django-venv/bin/activate
+
+# 비활성화
+deactivate
+
+
+2. Django 설치
+
+pip install django
+
+## 버전 확인
+python ... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/10/27/1027.html">
+      [DEV] 3주차. 파이썬으로 웹 다루기(5)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Oct 27, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 12 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/10/27/1027.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/10/27/1027.html">
+      <p>1. 기상청 날씨 스크래핑
+
+https://www.weather.go.kr/w/weather/forecast/short-term.do
+
+기온 정보 스크래핑
+
+from selenium import webdriver
+from selenium.webdriver impo... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/10/26/1026.html">
+      [DEV] 3주차. 파이썬으로 웹 다루기(4)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Oct 26, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 10 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/10/26/1026.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/10/26/1026.html">
+      <p>1. 정적 vs. 동적 웹사이트
+
+
+  
+    어떻게 생성되냐에 따라 구분
+  
+  정적(static) 웹사이트
+    
+      HTML 내용이 고정됨
+      같은 주소로 요청을 보내면 항상 같은 응답을 받을 수 있음
+      웹 스크래퍼 적용이 쉬움
+... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
+    <a class="post-link" href="/data%20engineering/2023/10/25/1025.html">
+      [DEV] 3주차. 파이썬으로 웹 다루기(3)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+  </h2>
+  <div class="post-meta">
+    <span class="post-date"><i class="fa fa-calendar"></i> Oct 25, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span>
+  </div>
+  <div class="post-excerpt">
+<a class="post-image" href="/data%20engineering/2023/10/25/1025.html" style="flex: 0 1 38.2%">
+      <div style="background-image: url(/assets/images/default-image.jpeg); height: 160px"></div>
+    </a><a class="post-text" href="/data%20engineering/2023/10/25/1025.html">
+      <p>1. DOM (Document Object Model)
+
+
+  브라우저의 렌더링 엔진은 웹 문서를 로드한 후, 파싱을 진행
+  
+    파싱
+
+  
+  파싱으로 만들어진 모델을 DOM이라고 함!
+
+
+
+
+브라우저가 HTML을 DOM으로 바꾸어 사용하는 이유
+
+
+  ... <span class="read_more">Read More</span></p>
+    </a>
+  </div>
+  <div class="post-tags">
+<a class="post-tag" href="/tags.html#DevCourse">#DevCourse</a><a class="post-tag" href="/tags.html#TIL">#TIL</a><a class="post-tag" href="/tags.html#DE">#DE</a><a class="post-tag" href="/tags.html#KDT">#KDT</a>
+</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="post-item ">
+  <h2 class="post-title">
     <a class="post-link" href="/data%20engineering/2023/10/24/1024.html">
-      [DEV] 2주차. 파이썬으로 웹 다루기(2)<span class="post-badges">
+      [DEV] 3주차. 파이썬으로 웹 다루기(2)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
@@ -1096,14 +3072,14 @@ function googleTranslateElementInit() {
 <li class="post-item ">
   <h2 class="post-title">
     <a class="post-link" href="/data%20engineering/2023/10/23/1023.html">
-      [DEV] 2주차. 파이썬으로 웹 다루기(1)<span class="post-badges">
+      [DEV] 3주차. 파이썬으로 웹 다루기(1)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
 </a>
   </h2>
   <div class="post-meta">
-    <span class="post-date"><i class="fa fa-calendar"></i> Oct 23, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 8 mins</span>
+    <span class="post-date"><i class="fa fa-calendar"></i> Oct 23, 2023</span><span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 22 mins</span>
   </div>
   <div class="post-excerpt">
 <a class="post-image" href="/data%20engineering/2023/10/23/1023.html" style="flex: 0 1 38.2%">
@@ -1324,7 +3300,7 @@ LLM
 <li class="post-item ">
   <h2 class="post-title">
     <a class="post-link" href="/data%20engineering/2023/10/20/1020.html">
-      [DEV] 1주차. 자료구조/알고리즘(5)<span class="post-badges">
+      [DEV] 2주차. 자료구조/알고리즘(5)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
@@ -1438,7 +3414,7 @@ Heaps
 <li class="post-item ">
   <h2 class="post-title">
     <a class="post-link" href="/data%20engineering/2023/10/19/1019.html">
-      [DEV] 1주차. 자료구조/알고리즘(4)<span class="post-badges">
+      [DEV] 2주차. 자료구조/알고리즘(4)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
@@ -1547,7 +3523,7 @@ Heaps
 <li class="post-item ">
   <h2 class="post-title">
     <a class="post-link" href="/data%20engineering/2023/10/18/1018.html">
-      [DEV] 1주차. 자료구조/알고리즘(3)<span class="post-badges">
+      [DEV] 2주차. 자료구조/알고리즘(3)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
@@ -1655,7 +3631,7 @@ Heaps
 <li class="post-item ">
   <h2 class="post-title">
     <a class="post-link" href="/data%20engineering/2023/10/17/1017.html">
-      [DEV] 1주차. 자료구조/알고리즘(2)<span class="post-badges">
+      [DEV] 2주차. 자료구조/알고리즘(2)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
@@ -1768,7 +3744,7 @@ Heaps
 <li class="post-item ">
   <h2 class="post-title">
     <a class="post-link" href="/data%20engineering/2023/10/16/1016.html">
-      [DEV] 1주차. 자료구조/알고리즘(1)<span class="post-badges">
+      [DEV] 2주차. 자료구조/알고리즘(1)<span class="post-badges">
   <span class="post-badge badge-top">TOP</span>
   <span class="post-badge badge-new">NEW</span>
 </span>
@@ -13507,7 +15483,7 @@ FLOOR
   <ul>
     <li>
       <a href="/index.html">
-        All<span>115</span>
+        All<span>133</span>
       </a>
     </li>
 
@@ -13526,7 +15502,7 @@ FLOOR
     
       <li>
         <a href="/categories.html#h-Data%20Engineering">
-          Data Engineering <span>8</span>
+          Data Engineering <span>26</span>
         </a>
       </li>
     
