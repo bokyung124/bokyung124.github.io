@@ -43,11 +43,12 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.3
-          bundler-cache: true
+          bundler-cache: false
 
       - name: Build site (site-chirpy subdir)
         run: |
           cd site-chirpy
+          bundle lock --add-platform x86_64-linux
           bundle install
           bundle exec jekyll b -d "../_site${{ steps.pages.outputs.base_path }}"
         env:
