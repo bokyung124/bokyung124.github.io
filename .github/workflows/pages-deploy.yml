@@ -35,13 +35,6 @@ jobs:
           # If using the 'assets' git submodule from Chirpy Starter, uncomment above
           # (See: https://github.com/cotes2020/chirpy-starter/tree/main/assets)
 
-      - name: Move site-chirpy contents to root
-        run: |
-          # Move all visible files and directories from site-chirpy to the root
-          mv site-chirpy/* .
-          # Move all hidden files, suppressing errors if no hidden files exist
-          mv site-chirpy/.* . 2>/dev/null || true
-
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
