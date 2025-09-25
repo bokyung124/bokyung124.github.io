@@ -12,7 +12,7 @@ mathjax: true
 tag: [MySQL]
 ---
 
-![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fm94Oz%2FbtqTNBsMZ9x%2FHkuOTKjJ2Kv94M0wz8BtM0%2Fimg.png)
+![Algorithm Image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fm94Oz%2FbtqTNBsMZ9x%2FHkuOTKjJ2Kv94M0wz8BtM0%2Fimg.png)
 
 SQL 실행 과정
 
@@ -72,7 +72,7 @@ SQL 파싱은
 
 비용을 기반으로 최적화를 수행하는 방식이다. 이때 비용이란 쿼리를 수행하는데 소요되는 일의 양 또는 시간 예상치이다.   
 
-![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F9DJ6V%2FbtqTPxKrhJW%2FaH5NoMZxKZqUmKBKTq8X40%2Fimg.png)
+![Algorithm Image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F9DJ6V%2FbtqTPxKrhJW%2FaH5NoMZxKZqUmKBKTq8X40%2Fimg.png)
 
 딕셔너리에서 테이블과 인덱스를 통해 레코드 개수, 블록 개수, 평균 행 길이, 칼럼 값의 수, 칼럼 값 분포, 인덱스 높이, 클러스터링 팩터 등의 통계값을 기반으로 비용을 예측하는 방식이다.    
 이 예측된 비용에 따라 최적의 실행 계획을 도출한다.     
@@ -93,7 +93,7 @@ SQL 파싱은
 - **연산 (Operation)** : 크다, 작다, 함수, MAX, MIN 등
 
 
-![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbh8nE1%2FbtqTJlLfEkR%2F3l0j9puo2LQl9JvSGUlYg1%2Fimg.png)
+![Algorithm Image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbh8nE1%2FbtqTJlLfEkR%2F3l0j9puo2LQl9JvSGUlYg1%2Fimg.png)
 
 <br>
 
@@ -132,13 +132,13 @@ EXPLAIN SELECT * FROM db.table;
 DESC kaggle.titanic;
 ```
 
-![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FztOUG%2FbtqTIpNTltA%2FXCdVBuryjbNcVqW14hYr31%2Fimg.png)
+![Algorithm Image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FztOUG%2FbtqTIpNTltA%2FXCdVBuryjbNcVqW14hYr31%2Fimg.png)
 
 ```sql
 EXPLAIN SELECT * FROM kaggle.titanic WHERE `Age` = 23;
 ```
 
-![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpWY0Y%2FbtqTJTOvjTu%2FPBDVHZw24vbLj7k41kYeXK%2Fimg.png)
+![Algorithm Image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpWY0Y%2FbtqTJTOvjTu%2FPBDVHZw24vbLj7k41kYeXK%2Fimg.png)
 
 > Age가 23인 데이터를 찾기 위해 418개의 rows를 모두 검색하는 것이 플랜임을 알 수 있다.
 
@@ -150,7 +150,7 @@ EXPLAIN SELECT * FROM kaggle.titanic WHERE `Age` = 23;
 DESC kaggle.titanic;
 ```
 
-![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FkUFeb%2FbtqTYRH4XIT%2F7RMbV1JZebylOsyqoGs4PK%2Fimg.png)
+![Algorithm Image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FkUFeb%2FbtqTYRH4XIT%2F7RMbV1JZebylOsyqoGs4PK%2Fimg.png)
 
 > Age에 인덱스가 생성된 것을 확인할 수 있다.
 
@@ -158,7 +158,7 @@ DESC kaggle.titanic;
 EXPLAIN SELECT * FROM kaggle.titanic WHERE `Age` = 23;
 ```
 
-![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc8UAoG%2FbtqTNzuXuCI%2FMWPmcZGR8JCTZYz0BDjf2k%2Fimg.png)
+![Algorithm Image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc8UAoG%2FbtqTNzuXuCI%2FMWPmcZGR8JCTZYz0BDjf2k%2Fimg.png)
 
 > IDX_AGE를 사용해서 reference를 통해서 쿼리를 실행하는 것이 플랜임을 알 수 있다.
 > 데이터를 얻기 위해서 11개의 row만 검색하면 된다.
