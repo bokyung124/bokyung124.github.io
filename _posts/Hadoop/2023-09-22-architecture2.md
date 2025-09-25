@@ -50,7 +50,7 @@ tag: [study, Hadoop, 파일럿프로젝트]
 
 ## 4. 크롬으로 CM 접속
 
-[](http://server01.hadoop.com:7180)
+[](https://server01.hadoop.com:7180)
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FoAePZ%2FbtrVQN5VGHq%2FL05FOfb1W8eRNb8GA3wuj0%2Fimg.png)
 

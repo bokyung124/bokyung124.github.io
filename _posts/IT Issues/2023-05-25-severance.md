@@ -11,7 +11,7 @@ mathjax: true
 published: true
 ---
 
-메디포뉴스 <http://www.medifonews.com/news/article.html?no=178990>
+메디포뉴스 <https://www.medifonews.com/news/article.html?no=178990>
 
 <br>
 
