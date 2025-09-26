@@ -16,10 +16,10 @@ timezone: Asia/Seoul
 
 title: 갱로그 # the main title
 
-tagline: "bokyung's blog" # subtitle
+tagline: "Data Engineer" # subtitle
 
 description: >- # used by seo meta and the atom feed
-  bokyung's blog
+  data engineer tech blog
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
