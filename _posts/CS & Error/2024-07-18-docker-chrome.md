@@ -40,7 +40,7 @@ tag: [docker, chrome]
 
 > chrome 설치 오류
 
-```log
+```
 07/11/2024 06:29:47 p:INFO:Get LATEST chromedriver version for google-chrome
 Traceback (most recent call last):
   File "/app/scripts/google_snippet.py", line 135, in <module>
@@ -82,17 +82,17 @@ AttributeError: 'NoneType' object has no attribute 'split'
 
 > chrome과 chromedriver 버전 오류
 
-```log
+```
 selenium.common.exceptions.WebDriverException: Message: Service /usr/local/bin/chromedriver unexpectedly exited. Status code was: 127
 ```
 
-```log
+```
 selenium.common.exceptions.WebDriverException: Message: unknown error: Chrome failed to start: exited abnormally.
   (unknown error: DevToolsActivePort file doesn't exist)
   (The process started from chrome location /usr/bin/google-chrome is no longer running, so ChromeDriver is assuming that Chrome has crashed.)
 ```
 
-```log
+```
 DevToolsActivePort file doesn't exist
 ```
 
