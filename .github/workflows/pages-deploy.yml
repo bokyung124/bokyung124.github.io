@@ -58,6 +58,10 @@ jobs:
         run: |
           npm run build:js
 
+      - name: Build CSS
+        run: |
+          npm run build:css
+
       - name: Build site
         run: |
           bundle install
