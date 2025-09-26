@@ -9,3 +9,30 @@
 ';
 
 /* append your custom style below */
+/* Sidebar: remove bullets for nav list */
+#sidebar nav ul.nav {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+#sidebar nav ul.nav > li {
+  list-style: none;
+}
+
+/* Topbar: force horizontal layout if utilities not loaded */
+#topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#topbar #breadcrumb {
+  display: inline-flex;
+  align-items: center;
+}
+
+#topbar #search {
+  display: inline-flex;
+  align-items: center;
+}
