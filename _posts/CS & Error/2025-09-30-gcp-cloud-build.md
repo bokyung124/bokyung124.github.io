@@ -273,8 +273,6 @@ fi
 [본 문서](https://cloud.google.com/build/docs/locations?hl=ko#restricted\_regions\_for\_some\_projects)에 따라 제한이 적은 `asia-east1` 리전을 선택했습니다.
 
 Cloud Build > 트리거에서 수동으로 빌드를 트리거할 수 있고, 대시보드에서 로그 및 상태를 확인할 수 있습니다.
-![](<../.gitbook/assets/스크린샷 2024-07-10 오후 6.11.19.png>)
-
 ![Cloud Build 개요](/assets/img/cs_cloudbuild/01.png)
 
 
