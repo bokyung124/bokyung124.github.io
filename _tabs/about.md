@@ -31,9 +31,10 @@ Metric Studio (NNT Tech) 데이터 엔지니어 (2024.03 \~)
 * TikTok Event API 연동을 위한 Fast API 개발
 * Wordpress 설치, 이관 및 오류 해결
 * Streamlit을 이용한 대시보드 제작 및 자체 서비스 관리 (GCP, python)
-* Gemini를 활용한 EP 개선 자동화
+* Gemini를 활용한 EP, Google Catalog 개선 자동화 (AWS Batch, GCP BigQuery)
 * Airflow를 활용한 작업 스케줄링
-    * Prometheus, GCP Cloud Monitoring으로 Airflow 작업 모니터링
+  * Prometheus, GCP Cloud Monitoring으로 Airflow 작업 모니터링 대시보드 생성
+* AI Agent 서비스 개발 (Django, Gemini API)
 
 **📚 Experience**
 
