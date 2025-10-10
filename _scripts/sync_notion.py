@@ -3,21 +3,19 @@ import sys
 import re
 from datetime import datetime
 from notion_client import Client
-from notion2md.exporter import NotionToMarkdown
+from notion2md import NotionToMarkdown
 
 # --- Notion 데이터베이스 속성 이름 설정 ---
-# Notion 데이터베이스의 실제 속성 이름과 일치해야 합니다.
-# 예: Notion에서 "게시 상태"라는 속성을 쓴다면 STATUS_PROPERTY_NAME = "게시 상태" 로 변경
 STATUS_PROPERTY_NAME = "status"
 TITLE_PROPERTY_NAME = "title"
 TAGS_PROPERTY_NAME = "tags"
 CATEGORY_PROPERTY_NAME = "category"
-SLUG_PROPERTY_NAME = "slug" # URL에 사용될 짧은 영문 이름
+SLUG_PROPERTY_NAME = "slug"
 
 # --- 처리할 상태 값 설정 ---
 # 이 상태 값을 가진 페이지만 블로그 포스트로 생성합니다.
 STATUS_PUBLISH_VALUE = "published"
-# 처리가 완료된 후 변경될 상태 값 (선택 사항)
+# 처리가 완료된 후 변경될 상태 값
 STATUS_ARCHIVED_VALUE = "archived"
 
 # --- 환경 변수 로드 ---
@@ -108,8 +106,8 @@ tag: [{', '.join(tags)}]
 """
         # --- Notion 페이지 콘텐츠를 Markdown으로 변환 ---
         try:
-            exporter = NotionToMarkdown(page_id=page_id, notion_token=NOTION_API_KEY)
-            markdown_content = exporter.convert()
+            n2md = NotionToMarkdown(notion_token=NOTION_API_KEY)
+            markdown_content = n2md.page_to_markdown(page_id)
         except Exception as e:
             print(f"  - '{title}' 콘텐츠 변환 중 오류: {e}")
             continue
@@ -119,7 +117,7 @@ tag: [{', '.join(tags)}]
         file_path = os.path.join(POSTS_DIR, file_name)
 
         with open(file_path, "w", encoding="utf-8") as f:
-            f.write(front_matter + markdown_content)
+            f.write(front_matter + "".join(markdown_content))
         
         print(f"  - 저장 완료: {file_path}")
 
