@@ -201,24 +201,25 @@ def main():
 
             print(f"처리 중: '{title}'")
 
-            front_matter = f"""
---- 
-title: "{title}"
-last_modified_at: {last_modified_at}
-notion_page_id: {page_id}
-layout: post
-categories:
-    - {category}
-excerpt: ""
-toc: true
-toc_sticky: true
-toc_icon: "cog"
-author_profile: true
-mathjax: true
-tag: [{', '.join(tags)}]
----
+            front_matter_list = [
+                "---",
+                f'title: "{title}"',
+                f'last_modified_at: {last_modified_at}',
+                f'notion_page_id: {page_id}',
+                'layout: post',
+                'categories:',
+                f'    - {category}',
+                'excerpt: ""',
+                'toc: true',
+                'toc_sticky: true',
+                'toc_icon: "cog"',
+                'author_profile: true',
+                'mathjax: true',
+                f'tag: [{", ".join(tags)}]',
+                "---"
+            ]
+            front_matter = "\n".join(front_matter_list)
 
-"""
             try:
                 markdown_content = page_to_markdown(notion, page_id)
             except Exception as e:
@@ -231,7 +232,9 @@ tag: [{', '.join(tags)}]
             file_path = os.path.join(category_dir, file_name)
 
             with open(file_path, "w", encoding="utf-8") as f:
-                f.write(front_matter + markdown_content)
+                # 머리말과 본문 사이에 명시적으로 2개의 줄바꿈을 추가하고,
+                # 본문 시작 부분의 모든 공백/줄바꿈을 제거하여 안정성 확보
+                f.write(front_matter + "\n\n" + markdown_content.lstrip())
             print(f"  - 저장 완료: {file_path}")
 
             try:
