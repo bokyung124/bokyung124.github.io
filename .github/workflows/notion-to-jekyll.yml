@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '*/10 * * * *'
+  push:
+    branches:
+      - main
 
 # Allow one concurrent deployment
 concurrency:
@@ -58,7 +61,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: sync-notion
-    if: needs.sync-notion.outputs.changes_pushed == 'true'
+    if: github.event_name != 'schedule' || needs.sync-notion.outputs.changes_pushed == 'true'
     permissions:
       contents: read
       pages: write
