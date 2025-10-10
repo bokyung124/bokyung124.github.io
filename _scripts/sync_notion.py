@@ -50,7 +50,7 @@ def main():
                 "property": STATUS_PROPERTY_NAME,
                 "select": {"equals": STATUS_PUBLISH_VALUE},
             },
-            sorts=[{"property": "created_time", "direction": "descending"}]
+            sorts=[{"timestamp": "created_time", "direction": "descending"}]
         ).get("results")
     except Exception as e:
         print(f"Notion API 쿼리 중 오류 발생: {e}")
