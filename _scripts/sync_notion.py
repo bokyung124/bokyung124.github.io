@@ -82,7 +82,7 @@ def main():
         created_date = datetime.fromisoformat(page["created_time"]).strftime("%Y-%m-%d")
         
         category_prop = properties.get(CATEGORY_PROPERTY_NAME, {})
-        category = category_prop.get("select", {}).get("name", "")
+        category = (category_prop.get("select") or {}).get("name", "Uncategorized")
 
         tags_prop = properties.get(TAGS_PROPERTY_NAME, {})
         tags = [tag["name"] for tag in tags_prop.get("multi_select", [])]
