@@ -27,3 +27,8 @@ _sass/vendors
 assets/js/dist
 
 .DS_Store
+
+# Python
+.venv
+.env
+__pycache__
