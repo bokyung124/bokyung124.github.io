@@ -30,6 +30,14 @@ def slugify(text):
     text = text.strip("-")
     return text.lower()
 
+def replace_image_path(match):
+    """re.sub를 위한 헬퍼 함수. 로컬 이미지 경로만 수정합니다."""
+    alt_text = match.group(1)
+    url = match.group(2)
+    if url.startswith("http"):
+        return match.group(0)  # http/https로 시작하는 외부 링크는 그대로 반환
+    return f"![{alt_text}](/assets/img/{url})"
+
 def get_local_post_map():
     """_posts 폴더를 스캔하여 notion_page_id와 파일 경로의 맵을 생성"""
     post_map = {}
@@ -147,7 +155,7 @@ tag: [{', '.join(tags)}]
             try:
                 exporter = StringExporter(block_id=page_id, output_path=IMG_DIR, token=NOTION_API_KEY)
                 markdown_content = exporter.export()
-                markdown_content = re.sub(r"!\\\[(.*?)\\\]\((?!https?://)(.*?)\")", r"![\1](/assets/img/\2)", markdown_content)
+                markdown_content = re.sub(r"!\(.*?)\)", replace_image_path, markdown_content)
             except Exception as e:
                 print(f"  - '{title}' 콘텐츠 변환 중 오류: {e}")
                 continue
