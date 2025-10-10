@@ -46,35 +46,42 @@ def get_local_post_map():
             print(f"  - 로컬 파일 스캔 중 오류: {file_path} ({e})")
     return post_map
 
-def process_image_paths(content):
-    """Markdown 내용에서 이미지 경로를 찾아 수정합니다."""
-    # 정규식 패턴: ![alt_text](image_url)
-    pattern = re.compile(r"!\\[(.*?)\\]\((.*?)\")")
-    
-    new_content_parts = []
-    last_end = 0
-    
-    for match in pattern.finditer(content):
-        # 매치 이전의 텍스트를 추가
-        new_content_parts.append(content[last_end:match.start()])
-        
-        alt_text = match.group(1)
-        url = match.group(2)
-        
-        # 로컬 경로인 경우에만 수정
-        if not url.startswith("http"):
-            new_url = f"/assets/img/{url}"
-            new_content_parts.append(f"![{alt_text}]({new_url})")
-        else:
-            # 외부 URL은 그대로 둠
-            new_content_parts.append(match.group(0))
+def process_image_paths_manually(content):
+    """정규식 없이 수동으로 이미지 경로를 찾아 수정합니다."""
+    parts = content.split("![ ")
+    if len(parts) == 1:
+        return content  # No images found
+
+    processed_content = parts[0]
+    for part in parts[1:]:
+        try:
+            # part is now something like "alt_text](url) rest_of_text"
+            alt_end_index = part.find("](")
+            if alt_end_index == -1:
+                processed_content += "![ " + part
+                continue
+
+            url_end_index = part.find(")", alt_end_index)
+            if url_end_index == -1:
+                processed_content += "![ " + part
+                continue
+
+            alt_text = part[:alt_end_index]
+            url = part[alt_end_index + 2:url_end_index]
+            rest_of_text = part[url_end_index + 1:]
+
+            if not url.startswith("http"):
+                new_url = f"/assets/img/{url}"
+                processed_content += f"![{alt_text}]({new_url})"
+            else:
+                processed_content += f"![{alt_text}]({url})"
             
-        last_end = match.end()
-        
-    # 마지막 매치 이후의 나머지 텍스트를 추가
-    new_content_parts.append(content[last_end:])
-    
-    return "".join(new_content_parts)
+            processed_content += rest_of_text
+        except Exception:
+            # 예상치 못한 형식 오류 시 원본 유지
+            processed_content += "![ " + part
+            
+    return processed_content
 
 def main():
     if not NOTION_API_KEY or not DATABASE_ID:
@@ -175,7 +182,7 @@ tag: [{', '.join(tags)}]
             try:
                 exporter = StringExporter(block_id=page_id, output_path=IMG_DIR, token=NOTION_API_KEY)
                 markdown_content = exporter.export()
-                markdown_content = process_image_paths(markdown_content)
+                markdown_content = process_image_paths_manually(markdown_content)
             except Exception as e:
                 print(f"  - '{title}' 콘텐츠 변환 중 오류: {e}")
                 continue
