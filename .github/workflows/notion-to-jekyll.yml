@@ -27,6 +27,7 @@ jobs:
       - name: Run Notion to Jekyll script
         env:
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_TOKEN: ${{ secrets.NOTION_API_KEY }} # notion2md를 위해 추가
           DATABASE_ID: ${{ secrets.DATABASE_ID }}
         run: python _scripts/sync_notion.py
 
