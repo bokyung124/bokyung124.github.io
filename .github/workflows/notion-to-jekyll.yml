@@ -1,10 +1,14 @@
-name: Notion to Jekyll Posts
+name: Sync Notion and Deploy
 
 on:
   workflow_dispatch:
-  # 10분마다 실행
   schedule:
     - cron: '*/10 * * * *'
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   sync-notion:
@@ -27,6 +31,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Notion to Jekyll script
+        id: sync
         env:
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
           NOTION_TOKEN: ${{ secrets.NOTION_API_KEY }} # notion2md를 위해 추가
@@ -37,11 +42,88 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add _posts/
-          # git status --porcelain | grep "_posts" 로 변경 사항이 있는지 확인
-          if git status --porcelain | grep -q "_posts/"; then
-            git commit -m "feat: Add new posts from Notion"
+          git add _posts assets/img
+          if git status --porcelain | grep -qE "_posts/|assets/img/"; then
+            git commit -m "feat: Add new posts and images from Notion"
             git push
+            echo "changes_pushed=true" >> $GITHUB_OUTPUT
           else
             echo "No new posts to commit."
+            echo "changes_pushed=false" >> $GITHUB_OUTPUT
           fi
+        id: git
+
+  build:
+    runs-on: ubuntu-latest
+    needs: sync-notion
+    if: needs.sync-notion.outputs.changes_pushed == 'true'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3
+          bundler-cache: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Build JavaScript
+        run: |
+          npm run build:js
+
+      - name: Build CSS
+        run: |
+          npm run build:css
+
+      - name: Build site
+        run: |
+          bundle install
+          bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: "production"
+
+      - name: Test site
+        run: |
+          bundle exec htmlproofer _site \
+          --disable-external \
+          --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "_site${{ steps.pages.outputs.base_path }}"
+
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

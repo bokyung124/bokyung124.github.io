@@ -122,8 +122,12 @@ tag: [{', '.join(tags)}]
             continue
 
         # --- 파일 저장 ---
+        # 카테고리별 하위 폴더 경로 생성
+        category_dir = os.path.join(POSTS_DIR, category)
+        os.makedirs(category_dir, exist_ok=True)
+
         file_name = f"{created_date}-{slug}.md"
-        file_path = os.path.join(POSTS_DIR, file_name)
+        file_path = os.path.join(category_dir, file_name)
 
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(front_matter + markdown_content)
