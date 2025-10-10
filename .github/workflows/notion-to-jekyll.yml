@@ -40,20 +40,20 @@ jobs:
           DATABASE_ID: ${{ secrets.DATABASE_ID }}
         run: python _scripts/sync_notion.py
 
-      - name: Commit and push new posts
+      - name: Commit and push changes
+        id: git
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add _posts assets/img
-          if git status --porcelain | grep -qE "_posts/|assets/img/"; then
-            git commit -m "[post] Add new posts and images from Notion"
+          git add .
+          if git status --porcelain | grep -qE "."; then
+            git commit -m "chore: Sync posts and images with Notion"
             git push
             echo "changes_pushed=true" >> $GITHUB_OUTPUT
           else
-            echo "No new posts to commit."
+            echo "No changes to commit."
             echo "changes_pushed=false" >> $GITHUB_OUTPUT
           fi
-        id: git
 
   build:
     runs-on: ubuntu-latest
