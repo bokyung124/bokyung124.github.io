@@ -48,7 +48,7 @@ def main():
             database_id=DATABASE_ID,
             filter={
                 "property": STATUS_PROPERTY_NAME,
-                "select": {"equals": STATUS_PUBLISH_VALUE},
+                "status": {"equals": STATUS_PUBLISH_VALUE},
             },
             sorts=[{"timestamp": "created_time", "direction": "descending"}]
         ).get("results")
@@ -82,7 +82,7 @@ def main():
         created_date = datetime.fromisoformat(page["created_time"]).strftime("%Y-%m-%d")
         
         category_prop = properties.get(CATEGORY_PROPERTY_NAME, {})
-        category = category_prop.get("select", {}).get("name", "Uncategorized")
+        category = category_prop.get("select", {}).get("name", "")
 
         tags_prop = properties.get(TAGS_PROPERTY_NAME, {})
         tags = [tag["name"] for tag in tags_prop.get("multi_select", [])]
@@ -134,7 +134,7 @@ tag: [{', '.join(tags)}]
             notion.pages.update(
                 page_id=page_id,
                 properties={
-                    STATUS_PROPERTY_NAME: {"select": {"name": STATUS_ARCHIVED_VALUE}}
+                    STATUS_PROPERTY_NAME: {"status": {"name": STATUS_ARCHIVED_VALUE}}
                 }
             )
             print(f"  - Notion 상태를 '{STATUS_ARCHIVED_VALUE}'로 변경했습니다.")
