@@ -30,14 +30,6 @@ def slugify(text):
     text = text.strip("-")
     return text.lower()
 
-def replace_image_path(match):
-    """re.sub를 위한 헬퍼 함수. 로컬 이미지 경로만 수정합니다."""
-    alt_text = match.group(1)
-    url = match.group(2)
-    if url.startswith("http"):
-        return match.group(0)  # http/https로 시작하는 외부 링크는 그대로 반환
-    return f"![{alt_text}](/assets/img/{url})"
-
 def get_local_post_map():
     """_posts 폴더를 스캔하여 notion_page_id와 파일 경로의 맵을 생성"""
     post_map = {}
@@ -53,6 +45,36 @@ def get_local_post_map():
         except Exception as e:
             print(f"  - 로컬 파일 스캔 중 오류: {file_path} ({e})")
     return post_map
+
+def process_image_paths(content):
+    """Markdown 내용에서 이미지 경로를 찾아 수정합니다."""
+    # 정규식 패턴: ![alt_text](image_url)
+    pattern = re.compile(r"!\\[(.*?)\\]\((.*?)\")")
+    
+    new_content_parts = []
+    last_end = 0
+    
+    for match in pattern.finditer(content):
+        # 매치 이전의 텍스트를 추가
+        new_content_parts.append(content[last_end:match.start()])
+        
+        alt_text = match.group(1)
+        url = match.group(2)
+        
+        # 로컬 경로인 경우에만 수정
+        if not url.startswith("http"):
+            new_url = f"/assets/img/{url}"
+            new_content_parts.append(f"![{alt_text}]({new_url})")
+        else:
+            # 외부 URL은 그대로 둠
+            new_content_parts.append(match.group(0))
+            
+        last_end = match.end()
+        
+    # 마지막 매치 이후의 나머지 텍스트를 추가
+    new_content_parts.append(content[last_end:])
+    
+    return "".join(new_content_parts)
 
 def main():
     if not NOTION_API_KEY or not DATABASE_ID:
@@ -101,7 +123,6 @@ def main():
             else:
                 print(f"삭제 건너뜀: 로컬에서 해당 포스트를 찾을 수 없습니다 (ID: {page_id})")
             
-            # Notion 상태를 'archived'로 변경
             try:
                 notion.pages.update(
                     page_id=page_id,
@@ -114,7 +135,6 @@ def main():
 
         # --- 생성/수정 처리 ---
         if current_status == STATUS_PUBLISH_VALUE:
-            # 기존 파일이 있으면 삭제 (수정 시 경로가 바뀔 수 있으므로)
             if page_id in local_post_map:
                 os.remove(local_post_map[page_id])
                 print(f"기존 파일 삭제: {local_post_map[page_id]} (업데이트를 위해)")
@@ -155,7 +175,7 @@ tag: [{', '.join(tags)}]
             try:
                 exporter = StringExporter(block_id=page_id, output_path=IMG_DIR, token=NOTION_API_KEY)
                 markdown_content = exporter.export()
-                markdown_content = re.sub(r"!\(.*?)\)", replace_image_path, markdown_content)
+                markdown_content = process_image_paths(markdown_content)
             except Exception as e:
                 print(f"  - '{title}' 콘텐츠 변환 중 오류: {e}")
                 continue
