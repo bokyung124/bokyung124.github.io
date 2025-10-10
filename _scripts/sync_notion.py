@@ -3,7 +3,7 @@ import sys
 import re
 from datetime import datetime
 from notion_client import Client
-from notion2md import NotionToMarkdown
+from notion2md.exporter.block import StringExporter
 
 # --- Notion 데이터베이스 속성 이름 설정 ---
 STATUS_PROPERTY_NAME = "status"
@@ -22,6 +22,7 @@ STATUS_ARCHIVED_VALUE = "archived"
 NOTION_API_KEY = os.environ.get("NOTION_API_KEY")
 DATABASE_ID = os.environ.get("DATABASE_ID")
 POSTS_DIR = "_posts"
+IMG_DIR = "assets/img"
 
 # --- Slug 변환 함수 ---
 def slugify(text):
@@ -61,6 +62,7 @@ def main():
 
     print(f"{len(query_results)}개의 새 포스트를 찾았습니다.")
     os.makedirs(POSTS_DIR, exist_ok=True)
+    os.makedirs(IMG_DIR, exist_ok=True)
 
     for page in query_results:
         page_id = page["id"]
@@ -106,8 +108,15 @@ tag: [{', '.join(tags)}]
 """
         # --- Notion 페이지 콘텐츠를 Markdown으로 변환 ---
         try:
-            n2md = NotionToMarkdown(notion_token=NOTION_API_KEY)
-            markdown_content = n2md.page_to_markdown(page_id)
+            # StringExporter를 사용하여 페이지 콘텐츠를 Markdown 문자열로 변환
+            # 이미지 등 첨부파일은 IMG_DIR에 저장
+            exporter = StringExporter(block_id=page_id, output_path=IMG_DIR, token=NOTION_API_KEY)
+            markdown_content = exporter.export()
+
+            # notion2md가 생성하는 상대 이미지 경로를 Jekyll 형식에 맞게 절대 경로로 변환
+            # 예: ![...](image.png) -> ![...](/assets/img/image.png)
+            # 외부 URL(http, https)은 변경하지 않음
+            markdown_content = re.sub(r"!\[(.*?)\]\((?!https?://)(.*?)\)", r"![\1](/assets/img/\2)", markdown_content)
         except Exception as e:
             print(f"  - '{title}' 콘텐츠 변환 중 오류: {e}")
             continue
@@ -117,7 +126,7 @@ tag: [{', '.join(tags)}]
         file_path = os.path.join(POSTS_DIR, file_name)
 
         with open(file_path, "w", encoding="utf-8") as f:
-            f.write(front_matter + "".join(markdown_content))
+            f.write(front_matter + markdown_content)
         
         print(f"  - 저장 완료: {file_path}")
 
