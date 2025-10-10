@@ -1,0 +1,2 @@
+notion-client==1.0.0
+notion2md==2.1.1
