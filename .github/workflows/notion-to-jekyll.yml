@@ -15,6 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      changes_pushed: ${{ steps.git.outputs.changes_pushed }}
 
     steps:
       - name: Checkout repository
@@ -44,7 +46,7 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add _posts assets/img
           if git status --porcelain | grep -qE "_posts/|assets/img/"; then
-            git commit -m "feat: Add new posts and images from Notion"
+            git commit -m "[post] Add new posts and images from Notion"
             git push
             echo "changes_pushed=true" >> $GITHUB_OUTPUT
           else
