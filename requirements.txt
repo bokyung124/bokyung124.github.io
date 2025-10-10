@@ -1,2 +1,2 @@
 notion-client==2.5.0
-notion2md==2.9.0
+requests

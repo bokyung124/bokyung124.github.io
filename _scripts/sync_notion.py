@@ -2,9 +2,9 @@ import os
 import sys
 import re
 import glob
+import requests
 from datetime import datetime
 from notion_client import Client
-from notion2md.exporter.block import StringExporter
 
 # --- Notion 데이터베이스 속성 이름 설정 ---
 STATUS_PROPERTY_NAME = "status"
@@ -31,7 +31,6 @@ def slugify(text):
     return text.lower()
 
 def get_local_post_map():
-    """_posts 폴더를 스캔하여 notion_page_id와 파일 경로의 맵을 생성"""
     post_map = {}
     md_files = glob.glob(os.path.join(POSTS_DIR, "**/*.md"), recursive=True)
     for file_path in md_files:
@@ -40,48 +39,94 @@ def get_local_post_map():
                 content = f.read()
                 match = re.search(r"^notion_page_id:\s*([a-f0-9-]+)", content, re.MULTILINE)
                 if match:
-                    page_id = match.group(1)
-                    post_map[page_id] = file_path
+                    post_map[match.group(1)] = file_path
         except Exception as e:
             print(f"  - 로컬 파일 스캔 중 오류: {file_path} ({e})")
     return post_map
 
-def process_image_paths_manually(content):
-    """정규식 없이 수동으로 이미지 경로를 찾아 수정합니다."""
-    parts = content.split("![ ")
-    if len(parts) == 1:
-        return content  # No images found
+def download_image(url, save_path):
+    try:
+        response = requests.get(url, stream=True)
+        response.raise_for_status()
+        with open(save_path, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                f.write(chunk)
+        return True
+    except requests.exceptions.RequestException as e:
+        print(f"  - 이미지 다운로드 오류: {url} ({e})")
+        return False
 
-    processed_content = parts[0]
-    for part in parts[1:]:
-        try:
-            # part is now something like "alt_text](url) rest_of_text"
-            alt_end_index = part.find("](")
-            if alt_end_index == -1:
-                processed_content += "![ " + part
-                continue
+def rich_text_to_markdown(rich_text_list):
+    md_parts = []
+    for rt in rich_text_list:
+        content = rt.get('plain_text', '')
+        annotations = rt.get('annotations', {})
+        if annotations.get('bold'): content = f"**{content}**"
+        if annotations.get('italic'): content = f"*{content}*"
+        if annotations.get('strikethrough'): content = f"~~{content}~~"
+        if annotations.get('code'): content = f"`{content}`"
+        
+        link = rt.get('href')
+        if link:
+            md_parts.append(f"[{content}]({link})")
+        else:
+            md_parts.append(content)
+    return "".join(md_parts)
 
-            url_end_index = part.find(")", alt_end_index)
-            if url_end_index == -1:
-                processed_content += "![ " + part
-                continue
-
-            alt_text = part[:alt_end_index]
-            url = part[alt_end_index + 2:url_end_index]
-            rest_of_text = part[url_end_index + 1:]
-
-            if not url.startswith("http"):
-                new_url = f"/assets/img/{url}"
-                processed_content += f"![{alt_text}]({new_url})"
+def block_to_markdown(block):
+    block_type = block['type']
+    
+    if block_type == 'paragraph':
+        return rich_text_to_markdown(block['paragraph']['rich_text']) + "\n"
+    elif block_type == 'heading_1':
+        return f"# {rich_text_to_markdown(block['heading_1']['rich_text'])}\n"
+    elif block_type == 'heading_2':
+        return f"## {rich_text_to_markdown(block['heading_2']['rich_text'])}\n"
+    elif block_type == 'heading_3':
+        return f"### {rich_text_to_markdown(block['heading_3']['rich_text'])}\n"
+    elif block_type == 'bulleted_list_item':
+        return f"- {rich_text_to_markdown(block['bulleted_list_item']['rich_text'])}\n"
+    elif block_type == 'numbered_list_item':
+        return f"1. {rich_text_to_markdown(block['numbered_list_item']['rich_text'])}\n"
+    elif block_type == 'to_do':
+        checked = block['to_do']['checked']
+        prefix = "- [x]" if checked else "- [ ]"
+        return f"{prefix} {rich_text_to_markdown(block['to_do']['rich_text'])}\n"
+    elif block_type == 'quote':
+        return f"> {rich_text_to_markdown(block['quote']['rich_text'])}\n"
+    elif block_type == 'divider':
+        return "---\n"
+    elif block_type == 'code':
+        language = block['code']['language']
+        code = rich_text_to_markdown(block['code']['rich_text'])
+        return f"```{language}\n{code}\n```\n"
+    elif block_type == 'image':
+        img_block = block['image']
+        img_type = img_block['type']
+        
+        if img_type == 'external':
+            url = img_block['external']['url']
+            return f"![image]({url})\n"
+        elif img_type == 'file':
+            url = img_block['file']['url']
+            filename = os.path.basename(url.split('?')[0])
+            save_path = os.path.join(IMG_DIR, filename)
+            if download_image(url, save_path):
+                return f"![image](/assets/img/{filename})\n"
             else:
-                processed_content += f"![{alt_text}]({url})"
-            
-            processed_content += rest_of_text
-        except Exception:
-            # 예상치 못한 형식 오류 시 원본 유지
-            processed_content += "![ " + part
-            
-    return processed_content
+                return "<!-- 이미지 다운로드 실패 -->\n"
+    return ""
+
+def page_to_markdown(notion_client, page_id):
+    markdown_content = []
+    
+    paginated_blocks = notion_client.blocks.children.list(block_id=page_id)
+    blocks = paginated_blocks.get('results', [])
+    
+    for block in blocks:
+        markdown_content.append(block_to_markdown(block))
+        
+    return "\n".join(markdown_content)
 
 def main():
     if not NOTION_API_KEY or not DATABASE_ID:
@@ -121,7 +166,6 @@ def main():
         properties = page["properties"]
         current_status = properties[STATUS_PROPERTY_NAME]["status"]["name"]
 
-        # --- 삭제 처리 ---
         if current_status == STATUS_DELETED_VALUE:
             if page_id in local_post_map:
                 file_to_delete = local_post_map[page_id]
@@ -131,24 +175,20 @@ def main():
                 print(f"삭제 건너뜀: 로컬에서 해당 포스트를 찾을 수 없습니다 (ID: {page_id})")
             
             try:
-                notion.pages.update(
-                    page_id=page_id,
-                    properties={STATUS_PROPERTY_NAME: {"status": {"name": STATUS_ARCHIVED_VALUE}}}
-                )
+                notion.pages.update(page_id=page_id, properties={STATUS_PROPERTY_NAME: {"status": {"name": STATUS_ARCHIVED_VALUE}}})
                 print(f"  - Notion 상태를 '{STATUS_ARCHIVED_VALUE}'로 변경했습니다.")
             except Exception as e:
                 print(f"  - Notion 상태 변경 중 오류: {e}")
             continue
 
-        # --- 생성/수정 처리 ---
         if current_status == STATUS_PUBLISH_VALUE:
             if page_id in local_post_map:
                 os.remove(local_post_map[page_id])
                 print(f"기존 파일 삭제: {local_post_map[page_id]} (업데이트를 위해)")
 
-            title = properties[TITLE_PROPERTY_NAME]["title"][0]["plain_text"]
+            title = rich_text_to_markdown(properties[TITLE_PROPERTY_NAME]["title"])
             slug_prop = properties.get(SLUG_PROPERTY_NAME, {})
-            slug = slug_prop["rich_text"][0]["plain_text"] if slug_prop and slug_prop.get("rich_text") else slugify(title)
+            slug = rich_text_to_markdown(slug_prop.get("rich_text", [])) if slug_prop.get("rich_text") else slugify(title)
             
             last_modified_at = datetime.fromisoformat(page["last_edited_time"]).isoformat()
             created_date = datetime.fromisoformat(page["created_time"]).strftime("%Y-%m-%d")
@@ -162,7 +202,7 @@ def main():
             print(f"처리 중: '{title}'")
 
             front_matter = f"""
----
+--- 
 title: "{title}"
 last_modified_at: {last_modified_at}
 notion_page_id: {page_id}
@@ -180,9 +220,7 @@ tag: [{', '.join(tags)}]
 
 """
             try:
-                exporter = StringExporter(block_id=page_id, output_path=IMG_DIR, token=NOTION_API_KEY)
-                markdown_content = exporter.export()
-                markdown_content = process_image_paths_manually(markdown_content)
+                markdown_content = page_to_markdown(notion, page_id)
             except Exception as e:
                 print(f"  - '{title}' 콘텐츠 변환 중 오류: {e}")
                 continue
@@ -197,18 +235,14 @@ tag: [{', '.join(tags)}]
             print(f"  - 저장 완료: {file_path}")
 
             try:
-                notion.pages.update(
-                    page_id=page_id,
-                    properties={STATUS_PROPERTY_NAME: {"status": {"name": STATUS_ARCHIVED_VALUE}}}
-                )
+                notion.pages.update(page_id=page_id, properties={STATUS_PROPERTY_NAME: {"status": {"name": STATUS_ARCHIVED_VALUE}}})
                 print(f"  - Notion 상태를 '{STATUS_ARCHIVED_VALUE}'로 변경했습니다.")
             except Exception as e:
                 print(f"  - Notion 상태 변경 중 오류: {e}")
 
-    # --- 빈 카테고리 폴더 정리 ---
     for dirpath, _, filenames in os.walk(POSTS_DIR, topdown=False):
-        if not filenames and not os.listdir(dirpath): # 파일도 없고 하위 폴더도 없으면
-            if dirpath != POSTS_DIR: # _posts 최상위는 삭제하지 않음
+        if not filenames and not os.listdir(dirpath):
+            if dirpath != POSTS_DIR:
                 os.rmdir(dirpath)
                 print(f"빈 폴더 삭제: {dirpath}")
 
