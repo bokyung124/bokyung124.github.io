@@ -78,12 +78,11 @@ mathjax: true
 - 클라우드 인프라 구성은 terraform을 이용했습니다.
   - Compute Engine, Cloud SQL, Cloud Storage, Load Balancer, SSL Cert
   - state backend는 GCS 버킷에 저장합니다.
-  
+
   <details markdown="1">
     <summary>main.tf</summary>
 
     ```hcl
-
   # GCP 프로젝트 변수
   variable "project_id" {
     type        = string
@@ -340,7 +339,6 @@ mathjax: true
 2. **Airflow**
 - 버전은 2.10.5 를 사용합니다.
 - 필요한 패키지들을 함께 설치합니다.
-
 ```bash
 pip install "apache-airflow[standard,google,celery,redis,postgres,ssh,statsd,slack]==2.10.5" \
   --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.5/constraints-3.11.txt"
@@ -352,7 +350,6 @@ pip install "apache-airflow[standard,google,celery,redis,postgres,ssh,statsd,sla
 
 4. **Redis**
 - 버전은 7.0.15 를 사용합니다.
-
 ```bash
 # 설치
 sudo apt update
@@ -367,7 +364,6 @@ pip install redis celery[redis]
 ```
 
 - b. Debian의 경우 설정 파일은 `/etc/redis/redis.conf` 에 위치합니다. 아래 설정을 변경하여 비밀번호를 설정할 수 있습니다.
-
   ```bash
   requirepass {password}
   ```
@@ -375,7 +371,6 @@ pip install redis celery[redis]
   설정 후 Redis 서버를 재시작합니다. `sudo systemctl restart redis-server`
 
 - c. VM 인스턴스 1대로 구성하고 있기 때문에 bind 설정은 127.0.0.1로 유지합니다.
-
 ```bash
 # 접속 테스트
 redis-cli -a {password} ping
@@ -394,12 +389,14 @@ redis-cli -a {password} GET "celery-task-meta-새로운작업ID"
 - 해당 파일을 수정하여 설정을 변경합니다.
 
 1. **database 설정**
+
 ```bash
 [database]
 sql_alchemy_conn = postgresql+psycopg2://{username}:{password}@{cloud_sql_ip}/{database}
 ```
 
 2. **core 설정**
+
 ```bash
 [core]
 executor = CeleryExecutor
@@ -408,6 +405,7 @@ load_examples = False
 ```
 
 3. **logging 설정**
+
 ```bash
 [logging]
 base_log_folder = {$AIRFLOW_HOME}/logs
@@ -431,6 +429,7 @@ simple_log_format = %%(asctime)s - %%(name)s - %%(levelname)s - %%(message)s
 - base_log_folder (로컬 VM 머신) 에 먼저 로그를 쌓은 뒤, Task가 종료되면 remote_log_folder로 로그를 복사하고 로컬의 로그를 삭제합니다.
 
 4. **api 설정**
+
 ```bash
 auth_backends = airflow.api.auth.backend.session
 ```
@@ -439,6 +438,7 @@ auth_backends = airflow.api.auth.backend.session
 - 비밀번호가 암호화되지 않기 때문에 HTTPS와 함께 사용해야 합니다.
 
 5. **webserver 설정**
+
 ```bash
 [webserver]
 workers = 2
@@ -456,12 +456,14 @@ rate_limit_storage_uri = redis://{password}@localhost:6379/1
   - 이미 메시지 브로커로 Redis를 사용하고 있기 때문에, 데이터가 섞이지 않도록 **/1** 등 다른 DB 번호를 사용합니다.
 
 6. **scheduler 설정**
+
 ```bash
 [scheduler]
 enable_health_check = True
 ```
 
 7. **celery 설정**
+
 ```bash
 [celery]
 broker_url = redis://{password}@localhost:6379/0
@@ -647,7 +649,6 @@ sudo systemctl status 'airflow-worker@*.service'
   <summary>배포 스크립트는 yaml 파일로 구성합니다.</summary>
 
   ```yaml
-
   # deploy/deploy_to_vm.cloudbuild.yaml
   # Worker Pool을 사용한 내부 IP 접속
 
