@@ -29,33 +29,28 @@ mathjax: true
 - UI를 통해 DAG 모니터링, Task 상태 확인, 커넥션 추가 등 시스템을 수동으로 제어할 수 있음
 
 2. **스케줄러**
-
-  - DAG 정의 파일을 주기적으로 파싱하여 실행 조건이 충족된 Task를 식별하고, 이를 메시지 브로커의 큐 (Queue)로 전송
-  - Task를 직접 실행하지 않고, Celery Worker에게 작업을 지시하는 역할
-  - Airflow 2.0부터는 여러 스케줄러를 동시 실행하여 고가용성 구성이 가능해짐
+- DAG 정의 파일을 주기적으로 파싱하여 실행 조건이 충족된 Task를 식별하고, 이를 메시지 브로커의 큐 (Queue)로 전송
+- Task를 직접 실행하지 않고, Celery Worker에게 작업을 지시하는 역할
+- Airflow 2.0부터는 여러 스케줄러를 동시 실행하여 고가용성 구성이 가능해짐
 
 3. **메타데이터 데이터베이스**
-
-  - DAG, Task 인스턴스, 커넥션, 변수 등 Airflow의 모든 상태 정보 저장
-  - PostgreSQL 같은 RDBMS를 주로 사용함
+- DAG, Task 인스턴스, 커넥션, 변수 등 Airflow의 모든 상태 정보 저장
+- PostgreSQL 같은 RDBMS를 주로 사용함
 
 4. **메시지 브로커**
-
-  - 스케줄러와 Celery Worker 간의 통신을 중개하는 비동기 메시징 시스템
-  - 스케줄러가 보낸 Task 메시지를 큐에 임시 저장했다가, 유휴 상태의 Worker에게 전달하는 역할
-  - 주로 Redis 또는 RabbitMQ 사용
+- 스케줄러와 Celery Worker 간의 통신을 중개하는 비동기 메시징 시스템
+- 스케줄러가 보낸 Task 메시지를 큐에 임시 저장했다가, 유휴 상태의 Worker에게 전달하는 역할
+- 주로 Redis 또는 RabbitMQ 사용
 
 5. **Celery Workers**
-
-  - 실제 Task를 실행하는 일꾼 프로세스
-  - 메시지 브로커의 큐를 지속적으로 Listen 하다가 새로운 Task가 들어오면 이를 가져와 수행함 (Dequeue)
-  - Worker는 여러 서버에 분산하여 배치할 수 있으며, 이 노드들을 추가하는 것만으로 손쉽게 전체 시스템의 처리량을 늘릴 수 있음 (수평 확장)
+- 실제 Task를 실행하는 일꾼 프로세스
+- 메시지 브로커의 큐를 지속적으로 Listen 하다가 새로운 Task가 들어오면 이를 가져와 수행함 (Dequeue)
+- Worker는 여러 서버에 분산하여 배치할 수 있으며, 이 노드들을 추가하는 것만으로 손쉽게 전체 시스템의 처리량을 늘릴 수 있음 (수평 확장)
 
 6. **Result Backend**
-
-  - Celery Worker가 Task 실행을 마친 후, 그 결과를 저장하는 공간 (실패, 성공, 반환 값 등)
-  - 스케줄러와 웹서버는 이 백엔드를 조회하여 Task의 최종 상태를 메타데이터 데이터베이스에 업데이트함
-  - 일반적으로 Airflow의 메타데이터 데이터베이스 또는 메시지 브로커를 그대로 사용함
+- Celery Worker가 Task 실행을 마친 후, 그 결과를 저장하는 공간 (실패, 성공, 반환 값 등)
+- 스케줄러와 웹서버는 이 백엔드를 조회하여 Task의 최종 상태를 메타데이터 데이터베이스에 업데이트함
+- 일반적으로 Airflow의 메타데이터 데이터베이스 또는 메시지 브로커를 그대로 사용함
 
 **데이터 흐름 요약:**
 
@@ -66,276 +61,272 @@ mathjax: true
 ### GCP Infra
 
 - VM 머신: Compute Engine
-
   - Debian 12
   - e2-highmem-2 (vCPU 2, 메모리 16GB)
 
 - 메타데이터 데이터베이스: Cloud SQL
-
   - PostgreSQL 17
   - vCPU 1, 메모리 3.75GB
   - SSD 10GB
 
 - 메시지 브로커: Redis
-
   - VM에 직접 설치
 
 - 로깅: Cloud Storage에 별도 저장
-
   - VM 머신의 디스크 사용량을 줄이기 위함
 
 - 클라우드 인프라 구성은 terraform을 이용했습니다.
-
   - Compute Engine, Cloud SQL, Cloud Storage, Load Balancer, SSL Cert
   - state backend는 GCS 버킷에 저장합니다.
   <details>
     <summary>main.tf</summary>
 
     ```hcl
-    # GCP 프로젝트 변수
-    variable "project_id" {
-      type        = string
-      default     = "{project_id}"
-      description = "GCP 프로젝트 ID"
-    }
 
-    variable "region" {
-      type        = string
-      default     = "asia-northeast3"
-      description = "GCP 리전"
-    }
+  # GCP 프로젝트 변수
+  variable "project_id" {
+    type        = string
+    default     = "{project_id}"
+    description = "GCP 프로젝트 ID"
+  }
 
-    # Compute Engine 변수
-    variable "vm_name" {
-      type        = string
-      default     = "{instance_name}"
-      description = "Compute Engine VM 이름"
-    }
+  variable "region" {
+    type        = string
+    default     = "asia-northeast3"
+    description = "GCP 리전"
+  }
 
-    variable "vm_machine_type" {
-      type        = string
-      default     = "e2-highmem-2"
-      description = "VM 머신 타입"
-    }
+  # Compute Engine 변수
+  variable "vm_name" {
+    type        = string
+    default     = "{instance_name}"
+    description = "Compute Engine VM 이름"
+  }
 
-    # Cloud SQL 변수
-    variable "db_instance_name" {
-      type        = string
-      default     = "{sql_instance_name}"
-      description = "Cloud SQL 인스턴스 이름"
-    }
+  variable "vm_machine_type" {
+    type        = string
+    default     = "e2-highmem-2"
+    description = "VM 머신 타입"
+  }
+
+  # Cloud SQL 변수
+  variable "db_instance_name" {
+    type        = string
+    default     = "{sql_instance_name}"
+    description = "Cloud SQL 인스턴스 이름"
+  }
 
 
-    # GCS 변수
-    variable "logs_bucket_name" {
-      type        = string
-      default     = "{bucket_name}"
-      description = "Airflow 로그용 GCS 버킷 이름"
-    }
+  # GCS 변수
+  variable "logs_bucket_name" {
+    type        = string
+    default     = "{bucket_name}"
+    description = "Airflow 로그용 GCS 버킷 이름"
+  }
 
-    # 로드밸런서 및 SSL 변수
-    variable "domain_name" {
-      type        = string
-      default     = "{domain}"
-      description = "Airflow 웹서버용 도메인 이름"
-    }
+  # 로드밸런서 및 SSL 변수
+  variable "domain_name" {
+    type        = string
+    default     = "{domain}"
+    description = "Airflow 웹서버용 도메인 이름"
+  }
 
-    provider "google" {
-      project = var.project_id
-      region  = var.region
-    }
+  provider "google" {
+    project = var.project_id
+    region  = var.region
+  }
 
-    # Compute Engine VM
-    resource "google_compute_instance" "airflow_vm" {
-      name         = var.vm_name
-      machine_type = var.vm_machine_type
-      zone         = "${var.region}-a"
+  # Compute Engine VM
+  resource "google_compute_instance" "airflow_vm" {
+    name         = var.vm_name
+    machine_type = var.vm_machine_type
+    zone         = "${var.region}-a"
 
-      boot_disk {
-        initialize_params {
-          image = "debian-cloud/debian-12"
-          type  = "pd-standard"
-        }
+    boot_disk {
+      initialize_params {
+        image = "debian-cloud/debian-12"
+        type  = "pd-standard"
       }
-
-      network_interface {
-        network = "default"
-        access_config {
-          // Ephemeral public IP
-        }
-      }
-
-      service_account {
-        email  = "service-executor@${var.project_id}.iam.gserviceaccount.com"
-        scopes = ["cloud-platform"]
-      }
-
-      metadata = {
-        enable-oslogin = "TRUE"
-      }
-
-      tags = ["airflow-vm", "allow-lb-backend"]
     }
 
-    # Cloud SQL PostgreSQL 인스턴스
-    resource "google_sql_database_instance" "airflow_db" {
-      name                = var.db_instance_name
-      database_version    = "POSTGRES_17"
-      region              = var.region
-
-      settings {
-        edition = "ENTERPRISE"
-        tier = "db-custom-1-3840" 
-
-        disk_size = 10
-        disk_type = "PD_SSD"
-        
-        backup_configuration {
-          enabled = true
-          start_time = "02:00"
-          point_in_time_recovery_enabled = true
-          
-          backup_retention_settings {
-            retained_backups = 7
-            retention_unit = "COUNT"
-          }
-        }
-        
-        # 인스턴스 삭제 시 최종 백업 설정
-        final_backup_config {
-          enabled = true
-          retention_days = 30
-        }
+    network_interface {
+      network = "default"
+      access_config {
+        // Ephemeral public IP
       }
+    }
+
+    service_account {
+      email  = "service-executor@${var.project_id}.iam.gserviceaccount.com"
+      scopes = ["cloud-platform"]
+    }
+
+    metadata = {
+      enable-oslogin = "TRUE"
+    }
+
+    tags = ["airflow-vm", "allow-lb-backend"]
+  }
+
+  # Cloud SQL PostgreSQL 인스턴스
+  resource "google_sql_database_instance" "airflow_db" {
+    name                = var.db_instance_name
+    database_version    = "POSTGRES_17"
+    region              = var.region
+
+    settings {
+      edition = "ENTERPRISE"
+      tier = "db-custom-1-3840" 
+
+      disk_size = 10
+      disk_type = "PD_SSD"
       
-      deletion_protection = false
-    }
-
-    # GCS 버킷 (로그용)
-    resource "google_storage_bucket" "airflow_logs" {
-      name       = var.logs_bucket_name
-      location   = var.region
-
-      uniform_bucket_level_access = true
-
-      versioning {
+      backup_configuration {
         enabled = true
-      }
-
-      lifecycle_rule {
-        condition {
-          age = 30
-        }
-        action {
-          type = "Delete"
+        start_time = "02:00"
+        point_in_time_recovery_enabled = true
+        
+        backup_retention_settings {
+          retained_backups = 7
+          retention_unit = "COUNT"
         }
       }
-    }
-
-
-    # 로드밸런서용 정적 IP
-    resource "google_compute_global_address" "airflow_lb_ip" {
-      name = "airflow-lb-ip"
-    }
-
-    # 헬스체크 - Airflow 웹서버 상태 확인
-    resource "google_compute_health_check" "airflow_health_check" {
-      name = "airflow-health-check"
       
-      timeout_sec         = 10
-      check_interval_sec  = 10
-      healthy_threshold   = 3
-      unhealthy_threshold = 3
-      
-      http_health_check {
-        port         = "80"
-        request_path = "/health"
+      # 인스턴스 삭제 시 최종 백업 설정
+      final_backup_config {
+        enabled = true
+        retention_days = 30
       }
     }
-
-    # 인스턴스 그룹
-    resource "google_compute_instance_group" "airflow_ig" {
-      name = "airflow-instance-group"
-      zone = "${var.region}-a"
-      
-      instances = [
-        google_compute_instance.airflow_vm.id
-      ]
-      
-      named_port {
-        name = "http"
-        port = "80"
-      }
-    }
-
-    # 백엔드 서비스 - 로드밸런서가 트래픽을 전달할 대상
-    resource "google_compute_backend_service" "airflow_backend" {
-      name        = "airflow-backend-service"
-      protocol    = "HTTP"
-      timeout_sec = 30
-      
-      health_checks = [google_compute_health_check.airflow_health_check.id]
-      
-      backend {
-        group = google_compute_instance_group.airflow_ig.id
-      }
-    }
-
-    # HTTP → HTTPS 리다이렉트 URL 맵
-    resource "google_compute_url_map" "airflow_http_redirect" {
-      name = "airflow-http-redirect"
-      
-      default_url_redirect {
-        redirect_response_code = "MOVED_PERMANENTLY_DEFAULT"
-        https_redirect         = true
-        strip_query            = false
-      }
-    }
-
-    # HTTPS URL 맵 - 요청을 백엔드 서비스로 라우팅
-    resource "google_compute_url_map" "airflow_url_map" {
-      name            = "airflow-url-map"
-      default_service = google_compute_backend_service.airflow_backend.id
-    }
-
-    # HTTPS 프록시 - SSL 종료
-    resource "google_compute_target_https_proxy" "airflow_https_proxy" {
-      name    = "airflow-https-proxy"
-      url_map = google_compute_url_map.airflow_url_map.id
-      
-      ssl_certificates = [google_compute_managed_ssl_certificate.airflow_ssl.id]
-    }
-
-    # HTTP 프록시 - HTTP → HTTPS 리다이렉트용
-    resource "google_compute_target_http_proxy" "airflow_http_proxy" {
-      name    = "airflow-http-proxy"
-      url_map = google_compute_url_map.airflow_http_redirect.id
-    }
-
-    # 관리형 SSL 인증서
-    resource "google_compute_managed_ssl_certificate" "airflow_ssl" {
-      name = "airflow-ssl-cert"
     
-      managed {
-        domains = [var.domain_name]
+    deletion_protection = false
+  }
+
+  # GCS 버킷 (로그용)
+  resource "google_storage_bucket" "airflow_logs" {
+    name       = var.logs_bucket_name
+    location   = var.region
+
+    uniform_bucket_level_access = true
+
+    versioning {
+      enabled = true
+    }
+
+    lifecycle_rule {
+      condition {
+        age = 30
+      }
+      action {
+        type = "Delete"
       }
     }
+  }
 
-    # 글로벌 전달 규칙 - HTTPS
-    resource "google_compute_global_forwarding_rule" "airflow_https_forwarding" {
-      name       = "airflow-https-forwarding-rule"
-      target     = google_compute_target_https_proxy.airflow_https_proxy.id
-      port_range = "443"
-      ip_address = google_compute_global_address.airflow_lb_ip.id 
-    }
 
-    # 글로벌 전달 규칙 - HTTP (리다이렉트용)
-    resource "google_compute_global_forwarding_rule" "airflow_http_forwarding" {
-      name       = "airflow-http-forwarding-rule"
-      target     = google_compute_target_http_proxy.airflow_http_proxy.id
-      port_range = "80"
-      ip_address = google_compute_global_address.airflow_lb_ip.id
+  # 로드밸런서용 정적 IP
+  resource "google_compute_global_address" "airflow_lb_ip" {
+    name = "airflow-lb-ip"
+  }
+
+  # 헬스체크 - Airflow 웹서버 상태 확인
+  resource "google_compute_health_check" "airflow_health_check" {
+    name = "airflow-health-check"
+    
+    timeout_sec         = 10
+    check_interval_sec  = 10
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+    
+    http_health_check {
+      port         = "80"
+      request_path = "/health"
     }
+  }
+
+  # 인스턴스 그룹
+  resource "google_compute_instance_group" "airflow_ig" {
+    name = "airflow-instance-group"
+    zone = "${var.region}-a"
+    
+    instances = [
+      google_compute_instance.airflow_vm.id
+    ]
+    
+    named_port {
+      name = "http"
+      port = "80"
+    }
+  }
+
+  # 백엔드 서비스 - 로드밸런서가 트래픽을 전달할 대상
+  resource "google_compute_backend_service" "airflow_backend" {
+    name        = "airflow-backend-service"
+    protocol    = "HTTP"
+    timeout_sec = 30
+    
+    health_checks = [google_compute_health_check.airflow_health_check.id]
+    
+    backend {
+      group = google_compute_instance_group.airflow_ig.id
+    }
+  }
+
+  # HTTP → HTTPS 리다이렉트 URL 맵
+  resource "google_compute_url_map" "airflow_http_redirect" {
+    name = "airflow-http-redirect"
+    
+    default_url_redirect {
+      redirect_response_code = "MOVED_PERMANENTLY_DEFAULT"
+      https_redirect         = true
+      strip_query            = false
+    }
+  }
+
+  # HTTPS URL 맵 - 요청을 백엔드 서비스로 라우팅
+  resource "google_compute_url_map" "airflow_url_map" {
+    name            = "airflow-url-map"
+    default_service = google_compute_backend_service.airflow_backend.id
+  }
+
+  # HTTPS 프록시 - SSL 종료
+  resource "google_compute_target_https_proxy" "airflow_https_proxy" {
+    name    = "airflow-https-proxy"
+    url_map = google_compute_url_map.airflow_url_map.id
+    
+    ssl_certificates = [google_compute_managed_ssl_certificate.airflow_ssl.id]
+  }
+
+  # HTTP 프록시 - HTTP → HTTPS 리다이렉트용
+  resource "google_compute_target_http_proxy" "airflow_http_proxy" {
+    name    = "airflow-http-proxy"
+    url_map = google_compute_url_map.airflow_http_redirect.id
+  }
+
+  # 관리형 SSL 인증서
+  resource "google_compute_managed_ssl_certificate" "airflow_ssl" {
+    name = "airflow-ssl-cert"
+  
+    managed {
+      domains = [var.domain_name]
+    }
+  }
+
+  # 글로벌 전달 규칙 - HTTPS
+  resource "google_compute_global_forwarding_rule" "airflow_https_forwarding" {
+    name       = "airflow-https-forwarding-rule"
+    target     = google_compute_target_https_proxy.airflow_https_proxy.id
+    port_range = "443"
+    ip_address = google_compute_global_address.airflow_lb_ip.id 
+  }
+
+  # 글로벌 전달 규칙 - HTTP (리다이렉트용)
+  resource "google_compute_global_forwarding_rule" "airflow_http_forwarding" {
+    name       = "airflow-http-forwarding-rule"
+    target     = google_compute_target_http_proxy.airflow_http_proxy.id
+    port_range = "80"
+    ip_address = google_compute_global_address.airflow_lb_ip.id
+  }
   ```
   </detail>
 
@@ -352,7 +343,7 @@ mathjax: true
   - 필요한 패키지들을 함께 설치합니다.
 
   ```bash
-pip install "apache-airflow[standard,google,celery,redis,postgres,ssh,statsd,slack]==2.10.5" \
+  pip install "apache-airflow[standard,google,celery,redis,postgres,ssh,statsd,slack]==2.10.5" \
     --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.5/constraints-3.11.txt"
   ```
 
@@ -652,7 +643,7 @@ sudo systemctl status 'airflow-worker@*.service'
 
 ## DAG 배포 자동화
 
-- 배포 자동화는 GCP Cloud Build를 사용합니다.
+- 배포 자동화는 [GCP Cloud Build](https://cloud.google.com/build?hl=ko)를 사용합니다.
 
 - main 브랜치에 push가 되면 `git pull origin main` → airflow service들을 모두 재시작합니다.
 
@@ -664,97 +655,98 @@ sudo systemctl status 'airflow-worker@*.service'
   <summary>배포 스크립트는 yaml 파일로 구성합니다.</summary>
 
   ```yaml
-# deploy/deploy_to_vm.cloudbuild.yaml
-# Worker Pool을 사용한 내부 IP 접속
 
-options:
-  pool:
-    name: 'projects/{gcp_project_id}/locations/asia-northeast3/workerPools/{worker_pool_name}'
-  logging: CLOUD_LOGGING_ONLY
+  # deploy/deploy_to_vm.cloudbuild.yaml
+  # Worker Pool을 사용한 내부 IP 접속
 
-steps:
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        echo "=== Worker Pool을 사용한 VM 배포 시작 ==="
-        
-        # Secret Manager에서 SSH 키 가져오기
-        echo "SSH 키 설정 중..."
-        mkdir -p /root/.ssh
-        gcloud secrets versions access latest --secret="{secret_manager_key}" > /root/.ssh/id_rsa
-        chmod 600 /root/.ssh/id_rsa
-        
-        # SSH 설정
-        cat > /root/.ssh/config << EOF
-        Host *
-          StrictHostKeyChecking no
-          UserKnownHostsFile=/dev/null
-          LogLevel=DEBUG3
-        EOF
-        
-        # VM 내부 IP 가져오기
-        VM_INTERNAL_IP=$$(gcloud compute instances describe ${_VM_NAME} --zone=${_VM_ZONE} --format="value(networkInterfaces[0].networkIP)")
-        echo "VM 내부 IP: $$VM_INTERNAL_IP"
-        
-        # SSH 명령 실행 (내부 IP 사용)
-        echo "SSH를 통한 VM 접속 및 배포 시작..."
-        ssh -i /root/.ssh/id_rsa ${_VM_USER}@$$VM_INTERNAL_IP '
-          set -e
+  options:
+    pool:
+      name: 'projects/{gcp_project_id}/locations/asia-northeast3/workerPools/{worker_pool_name}'
+    logging: CLOUD_LOGGING_ONLY
+
+  steps:
+    - name: 'gcr.io/cloud-builders/gcloud'
+      entrypoint: 'bash'
+      args:
+        - '-c'
+        - |
+          echo "=== Worker Pool을 사용한 VM 배포 시작 ==="
           
-          echo "VM 내부에서 작업 시작..."
+          # Secret Manager에서 SSH 키 가져오기
+          echo "SSH 키 설정 중..."
+          mkdir -p /root/.ssh
+          gcloud secrets versions access latest --secret="{secret_manager_key}" > /root/.ssh/id_rsa
+          chmod 600 /root/.ssh/id_rsa
           
-          # 작업 디렉토리로 이동
-          cd ${_AIRFLOW_HOME}
-          echo "작업 디렉토리: $(pwd)"
+          # SSH 설정
+          cat > /root/.ssh/config << EOF
+          Host *
+            StrictHostKeyChecking no
+            UserKnownHostsFile=/dev/null
+            LogLevel=DEBUG3
+          EOF
           
-          # Git 저장소 업데이트
-          echo "Git 저장소 업데이트 중..."
-          if ! git pull origin main; then
-            echo "ERROR: Git pull 실패"
+          # VM 내부 IP 가져오기
+          VM_INTERNAL_IP=$$(gcloud compute instances describe ${_VM_NAME} --zone=${_VM_ZONE} --format="value(networkInterfaces[0].networkIP)")
+          echo "VM 내부 IP: $$VM_INTERNAL_IP"
+          
+          # SSH 명령 실행 (내부 IP 사용)
+          echo "SSH를 통한 VM 접속 및 배포 시작..."
+          ssh -i /root/.ssh/id_rsa ${_VM_USER}@$$VM_INTERNAL_IP '
+            set -e
+            
+            echo "VM 내부에서 작업 시작..."
+            
+            # 작업 디렉토리로 이동
+            cd ${_AIRFLOW_HOME}
+            echo "작업 디렉토리: $(pwd)"
+            
+            # Git 저장소 업데이트
+            echo "Git 저장소 업데이트 중..."
+            if ! git pull origin main; then
+              echo "ERROR: Git pull 실패"
+              exit 1
+            fi
+            echo "Git 저장소 업데이트 완료"
+            
+            # Airflow 서비스 재시작
+            echo "Airflow 서비스 상태 확인 중..."
+            if systemctl is-active --quiet airflow-webserver 2>/dev/null; then
+              echo "Airflow 서비스 재시작 중..."
+              if ! sudo systemctl restart airflow-webserver; then
+                echo "ERROR: airflow-webserver 재시작 실패"
+                exit 1
+              fi
+              if ! sudo systemctl restart airflow-scheduler; then
+                echo "ERROR: airflow-scheduler 재시작 실패"
+                exit 1
+              fi
+              if ! sudo systemctl restart airflow-worker; then
+                echo "ERROR: airflow-worker 재시작 실패"
+                exit 1
+              fi
+              echo "Airflow 서비스 재시작 완료"
+            else
+              echo "WARNING: Airflow 서비스가 실행 중이지 않습니다."
+            fi
+            
+            echo "배포 완료!"
+          '
+          
+          if [[ $? -eq 0 ]]; then
+            echo "✅ VM 코드 배포가 성공적으로 완료되었습니다."
+          else
+            echo "❌ VM 배포 실패"
             exit 1
           fi
-          echo "Git 저장소 업데이트 완료"
-          
-          # Airflow 서비스 재시작
-          echo "Airflow 서비스 상태 확인 중..."
-          if systemctl is-active --quiet airflow-webserver 2>/dev/null; then
-            echo "Airflow 서비스 재시작 중..."
-            if ! sudo systemctl restart airflow-webserver; then
-              echo "ERROR: airflow-webserver 재시작 실패"
-              exit 1
-            fi
-            if ! sudo systemctl restart airflow-scheduler; then
-              echo "ERROR: airflow-scheduler 재시작 실패"
-              exit 1
-            fi
-            if ! sudo systemctl restart airflow-worker; then
-              echo "ERROR: airflow-worker 재시작 실패"
-              exit 1
-            fi
-            echo "Airflow 서비스 재시작 완료"
-          else
-            echo "WARNING: Airflow 서비스가 실행 중이지 않습니다."
-          fi
-          
-          echo "배포 완료!"
-        '
-        
-        if [[ $? -eq 0 ]]; then
-          echo "✅ VM 코드 배포가 성공적으로 완료되었습니다."
-        else
-          echo "❌ VM 배포 실패"
-          exit 1
-        fi
 
-substitutions:
-  _AIRFLOW_HOME: "{airflow_home}"
-  _VM_NAME: "{vm_instance_name}"
-  _VM_ZONE: "asia-northeast3-a"
-  _VM_USER: "{vm_username}"
+  substitutions:
+    _AIRFLOW_HOME: "{airflow_home}"
+    _VM_NAME: "{vm_instance_name}"
+    _VM_ZONE: "asia-northeast3-a"
+    _VM_USER: "{vm_username}"
 
-timeout: '600s'
+  timeout: '600s'
   ```
 
 </details>
