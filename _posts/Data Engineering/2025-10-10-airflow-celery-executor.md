@@ -350,6 +350,7 @@ pip install "apache-airflow[standard,google,celery,redis,postgres,ssh,statsd,sla
 
 4. **Redis**
 - 버전은 7.0.15 를 사용합니다.
+
 ```bash
 # 설치
 sudo apt update
@@ -364,6 +365,7 @@ pip install redis celery[redis]
 ```
 
 - b. Debian의 경우 설정 파일은 `/etc/redis/redis.conf` 에 위치합니다. 아래 설정을 변경하여 비밀번호를 설정할 수 있습니다.
+
   ```bash
   requirepass {password}
   ```
@@ -371,6 +373,7 @@ pip install redis celery[redis]
   설정 후 Redis 서버를 재시작합니다. `sudo systemctl restart redis-server`
 
 - c. VM 인스턴스 1대로 구성하고 있기 때문에 bind 설정은 127.0.0.1로 유지합니다.
+
 ```bash
 # 접속 테스트
 redis-cli -a {password} ping
