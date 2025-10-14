@@ -1,6 +1,6 @@
 ---
-title: "Airflow Celery Executor"
-last_modified_at: 2025-10-14T04:27:00+00:00
+title: "[DEV] Airflow Celery Executor"
+last_modified_at: 2025-10-14T01:27:00+00:00
 notion_page_id: 28812b31-a8a8-8036-b492-de3f1afe9166
 layout: post
 categories:
@@ -10,7 +10,7 @@ tags:
   - "Airflow"
   - "GCP"
   - "DE"
-excerpt: ""
+excerpt: 
 toc: true
 toc_sticky: true
 toc_icon: "cog"
@@ -18,16 +18,15 @@ author_profile: true
 mathjax: true
 ---
 
+## Celery Executor 아키텍처
+
 ![image](/assets/img/image.png)
 
 출처: [https://medium.com/sicara/using-airflow-with-celery-workers-54cb5212d405](https://medium.com/sicara/using-airflow-with-celery-workers-54cb5212d405)
 
-## Celery Executor 아키텍처
-
 1. **웹서버**
-
-  - Airflow의 UI를 제공하는 Flask 기반 웹 애플리케이션
-  - UI를 통해 DAG 모니터링, Task 상태 확인, 커넥션 추가 등 시스템을 수동으로 제어할 수 있음
+- Airflow의 UI를 제공하는 Flask 기반 웹 애플리케이션
+- UI를 통해 DAG 모니터링, Task 상태 확인, 커넥션 추가 등 시스템을 수동으로 제어할 수 있음
 
 2. **스케줄러**
 
@@ -91,254 +90,254 @@ mathjax: true
   - state backend는 GCS 버킷에 저장합니다.
   <details>
     <summary>main.tf</summary>
+
     ```hcl
-# GCP 프로젝트 변수
-variable "project_id" {
-  type        = string
-  default     = "{project_id}"
-  description = "GCP 프로젝트 ID"
-}
-
-variable "region" {
-  type        = string
-  default     = "asia-northeast3"
-  description = "GCP 리전"
-}
-
-# Compute Engine 변수
-variable "vm_name" {
-  type        = string
-  default     = "{instance_name}"
-  description = "Compute Engine VM 이름"
-}
-
-variable "vm_machine_type" {
-  type        = string
-  default     = "e2-highmem-2"
-  description = "VM 머신 타입"
-}
-
-# Cloud SQL 변수
-variable "db_instance_name" {
-  type        = string
-  default     = "{sql_instance_name}"
-  description = "Cloud SQL 인스턴스 이름"
-}
-
-
-# GCS 변수
-variable "logs_bucket_name" {
-  type        = string
-  default     = "{bucket_name}"
-  description = "Airflow 로그용 GCS 버킷 이름"
-}
-
-# 로드밸런서 및 SSL 변수
-variable "domain_name" {
-  type        = string
-  default     = "{domain}"
-  description = "Airflow 웹서버용 도메인 이름"
-}
-
-provider "google" {
-  project = var.project_id
-  region  = var.region
-}
-
-# Compute Engine VM
-resource "google_compute_instance" "airflow_vm" {
-  name         = var.vm_name
-  machine_type = var.vm_machine_type
-  zone         = "${var.region}-a"
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-12"
-      type  = "pd-standard"
+    # GCP 프로젝트 변수
+    variable "project_id" {
+      type        = string
+      default     = "{project_id}"
+      description = "GCP 프로젝트 ID"
     }
-  }
 
-  network_interface {
-    network = "default"
-    access_config {
-      // Ephemeral public IP
+    variable "region" {
+      type        = string
+      default     = "asia-northeast3"
+      description = "GCP 리전"
     }
-  }
 
-  service_account {
-    email  = "service-executor@${var.project_id}.iam.gserviceaccount.com"
-    scopes = ["cloud-platform"]
-  }
+    # Compute Engine 변수
+    variable "vm_name" {
+      type        = string
+      default     = "{instance_name}"
+      description = "Compute Engine VM 이름"
+    }
 
-  metadata = {
-    enable-oslogin = "TRUE"
-  }
+    variable "vm_machine_type" {
+      type        = string
+      default     = "e2-highmem-2"
+      description = "VM 머신 타입"
+    }
 
-  tags = ["airflow-vm", "allow-lb-backend"]
-}
+    # Cloud SQL 변수
+    variable "db_instance_name" {
+      type        = string
+      default     = "{sql_instance_name}"
+      description = "Cloud SQL 인스턴스 이름"
+    }
 
-# Cloud SQL PostgreSQL 인스턴스
-resource "google_sql_database_instance" "airflow_db" {
-  name                = var.db_instance_name
-  database_version    = "POSTGRES_17"
-  region              = var.region
 
-  settings {
-    edition = "ENTERPRISE"
-    tier = "db-custom-1-3840" 
+    # GCS 변수
+    variable "logs_bucket_name" {
+      type        = string
+      default     = "{bucket_name}"
+      description = "Airflow 로그용 GCS 버킷 이름"
+    }
 
-    disk_size = 10
-    disk_type = "PD_SSD"
-    
-    backup_configuration {
-      enabled = true
-      start_time = "02:00"
-      point_in_time_recovery_enabled = true
+    # 로드밸런서 및 SSL 변수
+    variable "domain_name" {
+      type        = string
+      default     = "{domain}"
+      description = "Airflow 웹서버용 도메인 이름"
+    }
+
+    provider "google" {
+      project = var.project_id
+      region  = var.region
+    }
+
+    # Compute Engine VM
+    resource "google_compute_instance" "airflow_vm" {
+      name         = var.vm_name
+      machine_type = var.vm_machine_type
+      zone         = "${var.region}-a"
+
+      boot_disk {
+        initialize_params {
+          image = "debian-cloud/debian-12"
+          type  = "pd-standard"
+        }
+      }
+
+      network_interface {
+        network = "default"
+        access_config {
+          // Ephemeral public IP
+        }
+      }
+
+      service_account {
+        email  = "service-executor@${var.project_id}.iam.gserviceaccount.com"
+        scopes = ["cloud-platform"]
+      }
+
+      metadata = {
+        enable-oslogin = "TRUE"
+      }
+
+      tags = ["airflow-vm", "allow-lb-backend"]
+    }
+
+    # Cloud SQL PostgreSQL 인스턴스
+    resource "google_sql_database_instance" "airflow_db" {
+      name                = var.db_instance_name
+      database_version    = "POSTGRES_17"
+      region              = var.region
+
+      settings {
+        edition = "ENTERPRISE"
+        tier = "db-custom-1-3840" 
+
+        disk_size = 10
+        disk_type = "PD_SSD"
+        
+        backup_configuration {
+          enabled = true
+          start_time = "02:00"
+          point_in_time_recovery_enabled = true
+          
+          backup_retention_settings {
+            retained_backups = 7
+            retention_unit = "COUNT"
+          }
+        }
+        
+        # 인스턴스 삭제 시 최종 백업 설정
+        final_backup_config {
+          enabled = true
+          retention_days = 30
+        }
+      }
       
-      backup_retention_settings {
-        retained_backups = 7
-        retention_unit = "COUNT"
+      deletion_protection = false
+    }
+
+    # GCS 버킷 (로그용)
+    resource "google_storage_bucket" "airflow_logs" {
+      name       = var.logs_bucket_name
+      location   = var.region
+
+      uniform_bucket_level_access = true
+
+      versioning {
+        enabled = true
+      }
+
+      lifecycle_rule {
+        condition {
+          age = 30
+        }
+        action {
+          type = "Delete"
+        }
       }
     }
+
+
+    # 로드밸런서용 정적 IP
+    resource "google_compute_global_address" "airflow_lb_ip" {
+      name = "airflow-lb-ip"
+    }
+
+    # 헬스체크 - Airflow 웹서버 상태 확인
+    resource "google_compute_health_check" "airflow_health_check" {
+      name = "airflow-health-check"
+      
+      timeout_sec         = 10
+      check_interval_sec  = 10
+      healthy_threshold   = 3
+      unhealthy_threshold = 3
+      
+      http_health_check {
+        port         = "80"
+        request_path = "/health"
+      }
+    }
+
+    # 인스턴스 그룹
+    resource "google_compute_instance_group" "airflow_ig" {
+      name = "airflow-instance-group"
+      zone = "${var.region}-a"
+      
+      instances = [
+        google_compute_instance.airflow_vm.id
+      ]
+      
+      named_port {
+        name = "http"
+        port = "80"
+      }
+    }
+
+    # 백엔드 서비스 - 로드밸런서가 트래픽을 전달할 대상
+    resource "google_compute_backend_service" "airflow_backend" {
+      name        = "airflow-backend-service"
+      protocol    = "HTTP"
+      timeout_sec = 30
+      
+      health_checks = [google_compute_health_check.airflow_health_check.id]
+      
+      backend {
+        group = google_compute_instance_group.airflow_ig.id
+      }
+    }
+
+    # HTTP → HTTPS 리다이렉트 URL 맵
+    resource "google_compute_url_map" "airflow_http_redirect" {
+      name = "airflow-http-redirect"
+      
+      default_url_redirect {
+        redirect_response_code = "MOVED_PERMANENTLY_DEFAULT"
+        https_redirect         = true
+        strip_query            = false
+      }
+    }
+
+    # HTTPS URL 맵 - 요청을 백엔드 서비스로 라우팅
+    resource "google_compute_url_map" "airflow_url_map" {
+      name            = "airflow-url-map"
+      default_service = google_compute_backend_service.airflow_backend.id
+    }
+
+    # HTTPS 프록시 - SSL 종료
+    resource "google_compute_target_https_proxy" "airflow_https_proxy" {
+      name    = "airflow-https-proxy"
+      url_map = google_compute_url_map.airflow_url_map.id
+      
+      ssl_certificates = [google_compute_managed_ssl_certificate.airflow_ssl.id]
+    }
+
+    # HTTP 프록시 - HTTP → HTTPS 리다이렉트용
+    resource "google_compute_target_http_proxy" "airflow_http_proxy" {
+      name    = "airflow-http-proxy"
+      url_map = google_compute_url_map.airflow_http_redirect.id
+    }
+
+    # 관리형 SSL 인증서
+    resource "google_compute_managed_ssl_certificate" "airflow_ssl" {
+      name = "airflow-ssl-cert"
     
-    # 인스턴스 삭제 시 최종 백업 설정
-    final_backup_config {
-      enabled = true
-      retention_days = 30
+      managed {
+        domains = [var.domain_name]
+      }
     }
-  }
-  
-  deletion_protection = false
-}
 
-# GCS 버킷 (로그용)
-resource "google_storage_bucket" "airflow_logs" {
-  name       = var.logs_bucket_name
-  location   = var.region
-
-  uniform_bucket_level_access = true
-
-  versioning {
-    enabled = true
-  }
-
-  lifecycle_rule {
-    condition {
-      age = 30
+    # 글로벌 전달 규칙 - HTTPS
+    resource "google_compute_global_forwarding_rule" "airflow_https_forwarding" {
+      name       = "airflow-https-forwarding-rule"
+      target     = google_compute_target_https_proxy.airflow_https_proxy.id
+      port_range = "443"
+      ip_address = google_compute_global_address.airflow_lb_ip.id 
     }
-    action {
-      type = "Delete"
+
+    # 글로벌 전달 규칙 - HTTP (리다이렉트용)
+    resource "google_compute_global_forwarding_rule" "airflow_http_forwarding" {
+      name       = "airflow-http-forwarding-rule"
+      target     = google_compute_target_http_proxy.airflow_http_proxy.id
+      port_range = "80"
+      ip_address = google_compute_global_address.airflow_lb_ip.id
     }
-  }
-}
-
-
-# 로드밸런서용 정적 IP
-resource "google_compute_global_address" "airflow_lb_ip" {
-  name = "airflow-lb-ip"
-}
-
-# 헬스체크 - Airflow 웹서버 상태 확인
-resource "google_compute_health_check" "airflow_health_check" {
-  name = "airflow-health-check"
-  
-  timeout_sec         = 10
-  check_interval_sec  = 10
-  healthy_threshold   = 3
-  unhealthy_threshold = 3
-  
-  http_health_check {
-    port         = "80"
-    request_path = "/health"
-  }
-}
-
-# 인스턴스 그룹
-resource "google_compute_instance_group" "airflow_ig" {
-  name = "airflow-instance-group"
-  zone = "${var.region}-a"
-  
-  instances = [
-    google_compute_instance.airflow_vm.id
-  ]
-  
-  named_port {
-    name = "http"
-    port = "80"
-  }
-}
-
-# 백엔드 서비스 - 로드밸런서가 트래픽을 전달할 대상
-resource "google_compute_backend_service" "airflow_backend" {
-  name        = "airflow-backend-service"
-  protocol    = "HTTP"
-  timeout_sec = 30
-  
-  health_checks = [google_compute_health_check.airflow_health_check.id]
-  
-  backend {
-    group = google_compute_instance_group.airflow_ig.id
-  }
-}
-
-# HTTP → HTTPS 리다이렉트 URL 맵
-resource "google_compute_url_map" "airflow_http_redirect" {
-  name = "airflow-http-redirect"
-  
-  default_url_redirect {
-    redirect_response_code = "MOVED_PERMANENTLY_DEFAULT"
-    https_redirect         = true
-    strip_query            = false
-  }
-}
-
-# HTTPS URL 맵 - 요청을 백엔드 서비스로 라우팅
-resource "google_compute_url_map" "airflow_url_map" {
-  name            = "airflow-url-map"
-  default_service = google_compute_backend_service.airflow_backend.id
-}
-
-# HTTPS 프록시 - SSL 종료
-resource "google_compute_target_https_proxy" "airflow_https_proxy" {
-  name    = "airflow-https-proxy"
-  url_map = google_compute_url_map.airflow_url_map.id
-  
-  ssl_certificates = [google_compute_managed_ssl_certificate.airflow_ssl.id]
-}
-
-# HTTP 프록시 - HTTP → HTTPS 리다이렉트용
-resource "google_compute_target_http_proxy" "airflow_http_proxy" {
-  name    = "airflow-http-proxy"
-  url_map = google_compute_url_map.airflow_http_redirect.id
-}
-
-# 관리형 SSL 인증서
-resource "google_compute_managed_ssl_certificate" "airflow_ssl" {
-  name = "airflow-ssl-cert"
- 
-  managed {
-    domains = [var.domain_name]
-  }
-}
-
-# 글로벌 전달 규칙 - HTTPS
-resource "google_compute_global_forwarding_rule" "airflow_https_forwarding" {
-  name       = "airflow-https-forwarding-rule"
-  target     = google_compute_target_https_proxy.airflow_https_proxy.id
-  port_range = "443"
-  ip_address = google_compute_global_address.airflow_lb_ip.id 
-}
-
-# 글로벌 전달 규칙 - HTTP (리다이렉트용)
-resource "google_compute_global_forwarding_rule" "airflow_http_forwarding" {
-  name       = "airflow-http-forwarding-rule"
-  target     = google_compute_target_http_proxy.airflow_http_proxy.id
-  port_range = "80"
-  ip_address = google_compute_global_address.airflow_lb_ip.id
-}
-
-    ```
-  </details>
+  ```
+  </detail>
 
 ### VM 환경 구성
 
@@ -351,6 +350,7 @@ resource "google_compute_global_forwarding_rule" "airflow_http_forwarding" {
 
   - 버전은 2.10.5 를 사용합니다.
   - 필요한 패키지들을 함께 설치합니다.
+
   ```bash
 pip install "apache-airflow[standard,google,celery,redis,postgres,ssh,statsd,slack]==2.10.5" \
     --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.5/constraints-3.11.txt"
@@ -364,33 +364,39 @@ pip install "apache-airflow[standard,google,celery,redis,postgres,ssh,statsd,sla
 4. **Redis**
 
   - 버전은 7.0.15 를 사용합니다.
+
   ```bash
-# 설치
-sudo apt update
-sudo apt install redis-server -y
+  # 설치
+  sudo apt update
+  sudo apt install redis-server -y
 
-# 서비스 활성화
-sudo systemctl enable redis-server
-sudo systemctl start redis-server
+  # 서비스 활성화
+  sudo systemctl enable redis-server
+  sudo systemctl start redis-server
 
-# redis python 패키지 설치
-pip install redis celery[redis]
+  # redis python 패키지 설치
+  pip install redis celery[redis]
   ```
+
   - b. Debian의 경우 설정 파일은 `/etc/redis/redis.conf` 에 위치합니다. 아래 설정을 변경하여 비밀번호를 설정할 수 있습니다.
+
     ```bash
-requirepass {password}
+    requirepass {password}
     ```
+
     설정 후 Redis 서버를 재시작합니다. `sudo systemctl restart redis-server`
+
   - c. VM 인스턴스 1대로 구성하고 있기 때문에 bind 설정은 127.0.0.1로 유지합니다.
+
   ```bash
-# 접속 테스트
-redis-cli -a {password} ping
+  # 접속 테스트
+  redis-cli -a {password} ping
 
-# task 목록
-redis-cli -a {password} KEYS "celery-task-meta-*"
+  # task 목록
+  redis-cli -a {password} KEYS "celery-task-meta-*"
 
-# 메타데이터 확인
-redis-cli -a {password} GET "celery-task-meta-새로운작업ID"
+  # 메타데이터 확인
+  redis-cli -a {password} GET "celery-task-meta-새로운작업ID"
   ```
 
 ### Airflow 설정
@@ -402,95 +408,98 @@ redis-cli -a {password} GET "celery-task-meta-새로운작업ID"
 1. **database 설정**
 
   ```bash
-[database]
-sql_alchemy_conn = postgresql+psycopg2://{username}:{password}@{cloud_sql_ip}/{database}
+  [database]
+  sql_alchemy_conn = postgresql+psycopg2://{username}:{password}@{cloud_sql_ip}/{database}
   ```
 
-1. **core 설정**
+2. **core 설정**
 
   ```bash
-[core]
-executor = CeleryExecutor
+  [core]
+  executor = CeleryExecutor
 
-load_examples = False
+  load_examples = False
   ```
 
-1. **logging 설정**
+3. **logging 설정**
 
   ```bash
-[logging]
-base_log_folder = {$AIRFLOW_HOME}/logs
+  [logging]
+  base_log_folder = {$AIRFLOW_HOME}/logs
 
-remote_logging = True
+  remote_logging = True
 
-delete_local_logs = True
+  delete_local_logs = True
 
-remote_log_conn_id = {gcs_connection_id}
+  remote_log_conn_id = {gcs_connection_id}
 
-remote_log_folder = gs://{gcs_bucket_name}/logs
+  remote_log_folder = gs://{gcs_bucket_name}/logs
 
-log_filename_template = {{ ti.dag_id }}/{{ ti.task_id }}/{{ ts }}/{{ ti.try_number }}.log
+  log_filename_template = {{ ti.dag_id }}/{{ ti.task_id }}/{{ ts }}/{{ ti.try_number }}.log
 
-log_format = %%(asctime)s - %%(name)s - %%(levelname)s - %%(message)s
+  log_format = %%(asctime)s - %%(name)s - %%(levelname)s - %%(message)s
 
-simple_log_format = %%(asctime)s - %%(name)s - %%(levelname)s - %%(message)s
+  simple_log_format = %%(asctime)s - %%(name)s - %%(levelname)s - %%(message)s
   ```
+
   - 외부 버킷에 로그를 저장하기 위해서** base_log_folder, remote_logging, delete_local_logs, remote_log_conn_id, remote_log_folder** 설정이 필요합니다.
   - base_log_folder (로컬 VM 머신) 에 먼저 로그를 쌓은 뒤, Task가 종료되면 remote_log_folder로 로그를 복사하고 로컬의 로그를 삭제합니다.
 
-1. **api 설정**
+4. **api 설정**
 
   ```bash
-auth_backends = airflow.api.auth.backend.session
+  auth_backends = airflow.api.auth.backend.session
   ```
+
   - 웹 서버에 접근할 때 사용하는 인증 방식을 **기본 인증**으로 지정합니다. (아이디, 비밀번호)
   - 비밀번호가 암호화되지 않기 때문에 HTTPS와 함께 사용해야 합니다.
 
-1. **webserver 설정**
+5. **webserver 설정**
 
   ```bash
-[webserver]
-workers = 2
+  [webserver]
+  workers = 2
 
-default_ui_timezone = Asia/Seoul
+  default_ui_timezone = Asia/Seoul
 
-base_url = https://{domain}
+  base_url = https://{domain}
 
-rate_limit_storage_uri = redis://{password}@localhost:6379/1
+  rate_limit_storage_uri = redis://{password}@localhost:6379/1
   ```
+
   - `rate_limit_storage_uri` 설정은 웹서버의 요청 횟수 제한 상태를 저장할 저장소 주소를 지정합니다. 주로 Redis를 사용합니다. 
     - 브루트 포스 공격과 Dos 공격으로부터 보호하기 위해 사용됩니다. 
     - 공격을 방지하기 위해 특정 IP가 1분 동안 몇 번 요청했는지와 같은 상태 정보를 저장하고 추적해야하는데, 이때 사용될 데이터베이스를 지정하는 설정입니다. 
     - 이미 메시지 브로커로 Redis를 사용하고 있기 때문에, 데이터가 섞이지 않도록 **/1** 등 다른 DB 번호를 사용합니다.
 
-1. **scheduler 설정**
+6. **scheduler 설정**
 
   ```bash
-[scheduler]
-enable_health_check = True
+  [scheduler]
+  enable_health_check = True
   ```
 
-1. **celery 설정**
+7. **celery 설정**
 
   ```bash
-[celery]
-broker_url = redis://{password}@localhost:6379/0
-result_backend = redis://{password}@localhost:6379/2
+  [celery]
+  broker_url = redis://{password}@localhost:6379/0
+  result_backend = redis://{password}@localhost:6379/2
 
-worker_prefetch_multiplier = 1
-task_acks_late = True
-task_track_started = True
-task_send_sent_event = True
-task_soft_time_limit = 3600
-task_time_limit = 3600
+  worker_prefetch_multiplier = 1
+  task_acks_late = True
+  task_track_started = True
+  task_send_sent_event = True
+  task_soft_time_limit = 3600
+  task_time_limit = 3600
 
-worker_concurrency = 4
+  worker_concurrency = 4
   ```
+
   - `broker_url` 설정은 메시지 브로커의 주소입니다. 로컬에 설치된 Redis의 0번 DB를 사용합니다.
   - `result_backend` 설정은 result backend 를 저장할 DB 주소입니다. Redis의 2번 DB를 사용합니다.
 
 - `task_acks_late` 설정은 워커가 Task를 언제 ‘처리 완료’ 로 간주할지 결정하는 옵션입니다. 
-
   - True로 설정한 경우, 워커가 Task를 성공적으로 완료한 후에야 메시지 큐에 Task 완료를 알립니다. 만약 워커가 Task를 처리하던 중 장애로 갑자기 종료되면 메시지 큐에는 해당 Task가 여전히 처리중인 상태로 남아있게 되어, 다른 워커가 Task를 가져가 다시 실행할 수 있습니다. 데이터 무결성이 중요한 경우 True로 설정하는 것이 좋습니다.
   - 기본값인 False를 유지하는 경우에는 워커가 Task를 가져가는 즉시 처리 완료로 설정됩니다. 이 경우 처리 중 장애가 발생하면 해당 Task는 유실됩니다.
 
