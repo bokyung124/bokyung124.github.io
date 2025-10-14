@@ -73,60 +73,84 @@ def rich_text_to_markdown(rich_text_list):
             md_parts.append(content)
     return "".join(md_parts)
 
-def block_to_markdown(block):
-    block_type = block['type']
-    
-    if block_type == 'paragraph':
-        return rich_text_to_markdown(block['paragraph']['rich_text']) + "\n"
-    elif block_type == 'heading_1':
-        return f"# {rich_text_to_markdown(block['heading_1']['rich_text'])}\n"
-    elif block_type == 'heading_2':
-        return f"## {rich_text_to_markdown(block['heading_2']['rich_text'])}\n"
-    elif block_type == 'heading_3':
-        return f"### {rich_text_to_markdown(block['heading_3']['rich_text'])}\n"
-    elif block_type == 'bulleted_list_item':
-        return f"- {rich_text_to_markdown(block['bulleted_list_item']['rich_text'])}\n"
-    elif block_type == 'numbered_list_item':
-        return f"1. {rich_text_to_markdown(block['numbered_list_item']['rich_text'])}\n"
-    elif block_type == 'to_do':
-        checked = block['to_do']['checked']
-        prefix = "- [x]" if checked else "- [ ]"
-        return f"{prefix} {rich_text_to_markdown(block['to_do']['rich_text'])}\n"
-    elif block_type == 'quote':
-        return f"> {rich_text_to_markdown(block['quote']['rich_text'])}\n"
-    elif block_type == 'divider':
-        return "---\n"
-    elif block_type == 'code':
-        language = block['code']['language']
-        code = rich_text_to_markdown(block['code']['rich_text'])
-        return f"```{language}\n{code}\n```\n"
-    elif block_type == 'image':
-        img_block = block['image']
-        img_type = img_block['type']
+def blocks_to_markdown(notion_client, blocks, indent_level=0):
+    md_parts = []
+    indent_space = "  " * indent_level
+    numbered_list_start_index = 1
+
+    for i, block in enumerate(blocks):
+        block_type = block['type']
         
-        if img_type == 'external':
-            url = img_block['external']['url']
-            return f"![image]({url})\n"
-        elif img_type == 'file':
-            url = img_block['file']['url']
-            filename = os.path.basename(url.split('?')[0])
-            save_path = os.path.join(IMG_DIR, filename)
-            if download_image(url, save_path):
-                return f"![image](/assets/img/{filename})\n"
-            else:
-                return "<!-- 이미지 다운로드 실패 -->\n"
-    return ""
+        is_numbered = block_type == 'numbered_list_item'
+        if not is_numbered or (i > 0 and blocks[i-1]['type'] != 'numbered_list_item'):
+            numbered_list_start_index = 1
+
+        content = ""
+        if block_type == 'paragraph':
+            content = indent_space + rich_text_to_markdown(block['paragraph']['rich_text'])
+        elif block_type == 'heading_1':
+            content = f"# {rich_text_to_markdown(block['heading_1']['rich_text'])}"
+        elif block_type == 'heading_2':
+            content = f"## {rich_text_to_markdown(block['heading_2']['rich_text'])}"
+        elif block_type == 'heading_3':
+            content = f"### {rich_text_to_markdown(block['heading_3']['rich_text'])}"
+        elif block_type == 'bulleted_list_item':
+            content = f"{indent_space}- {rich_text_to_markdown(block['bulleted_list_item']['rich_text'])}"
+        elif block_type == 'numbered_list_item':
+            content = f"{indent_space}{numbered_list_start_index}. {rich_text_to_markdown(block['numbered_list_item']['rich_text'])}"
+            numbered_list_start_index += 1
+        elif block_type == 'to_do':
+            checked = block['to_do']['checked']
+            prefix = "- [x]" if checked else "- [ ]"
+            content = f"{indent_space}{prefix} {rich_text_to_markdown(block['to_do']['rich_text'])}"
+        elif block_type == 'quote':
+            quote_text = rich_text_to_markdown(block['quote']['rich_text'])
+            content = '\n'.join([f"{indent_space}> {line}" for line in quote_text.split('\n')])
+        elif block_type == 'divider':
+            content = f"{indent_space}---"
+        elif block_type == 'code':
+            language = block['code']['language']
+            code = rich_text_to_markdown(block['code']['rich_text'])
+            content = f"{indent_space}```{language}\n{code}\n{indent_space}```"
+        elif block_type == 'image':
+            img_block = block['image']
+            img_type = img_block['type']
+            if img_type == 'external':
+                url = img_block['external']['url']
+                content = f"{indent_space}![image]({url})"
+            elif img_type == 'file':
+                url = img_block['file']['url']
+                filename = os.path.basename(url.split('?')[0])
+                save_path = os.path.join(IMG_DIR, filename)
+                if download_image(url, save_path):
+                    content = f"{indent_space}![image](/assets/img/{filename})"
+                else:
+                    content = f"{indent_space}<!-- 이미지 다운로드 실패 -->"
+        elif block_type == 'toggle':
+            summary = rich_text_to_markdown(block['toggle']['rich_text'])
+            content = f'{indent_space}<details>\n{indent_space}  <summary>{summary}</summary>'
+
+        if content:
+            md_parts.append(content)
+
+        if block.get('has_children'):
+            child_blocks_response = notion_client.blocks.children.list(block_id=block['id'])
+            child_blocks = child_blocks_response.get('results', [])
+            next_indent = indent_level + 1 if block_type in ['bulleted_list_item', 'numbered_list_item', 'to_do', 'toggle'] else indent_level
+            child_markdown = blocks_to_markdown(notion_client, child_blocks, indent_level=next_indent)
+            if child_markdown:
+                md_parts.append(child_markdown)
+
+        if block_type == 'toggle':
+            md_parts.append(f"{indent_space}</details>")
+
+    separator = "\n\n" if indent_level == 0 else "\n"
+    return separator.join(filter(None, md_parts))
 
 def page_to_markdown(notion_client, page_id):
-    markdown_content = []
-    
     paginated_blocks = notion_client.blocks.children.list(block_id=page_id)
     blocks = paginated_blocks.get('results', [])
-    
-    for block in blocks:
-        markdown_content.append(block_to_markdown(block))
-        
-    return "\n".join(markdown_content)
+    return blocks_to_markdown(notion_client, blocks)
 
 def main():
     if not NOTION_API_KEY or not DATABASE_ID:
@@ -208,16 +232,23 @@ def main():
                 f'notion_page_id: {page_id}',
                 'layout: post',
                 'categories:',
-                f'    - {category}',
+                f'  - {category}',
+            ]
+            
+            if tags:
+                front_matter_list.append('tags:')
+                for tag in tags:
+                    front_matter_list.append(f'  - "{tag}"')
+
+            front_matter_list.extend([
                 'excerpt: ""',
                 'toc: true',
                 'toc_sticky: true',
                 'toc_icon: "cog"',
                 'author_profile: true',
                 'mathjax: true',
-                f'tag: [{", ".join(tags)}]',
                 "---"
-            ]
+            ])
             front_matter = "\n".join(front_matter_list)
 
             try:
@@ -232,8 +263,6 @@ def main():
             file_path = os.path.join(category_dir, file_name)
 
             with open(file_path, "w", encoding="utf-8") as f:
-                # 머리말과 본문 사이에 명시적으로 2개의 줄바꿈을 추가하고,
-                # 본문 시작 부분의 모든 공백/줄바꿈을 제거하여 안정성 확보
                 f.write(front_matter + "\n\n" + markdown_content.lstrip())
             print(f"  - 저장 완료: {file_path}")
 
