@@ -128,7 +128,7 @@ def blocks_to_markdown(notion_client, blocks, indent_level=0):
                     content = f"{indent_space}<!-- 이미지 다운로드 실패 -->"
         elif block_type == 'toggle':
             summary = rich_text_to_markdown(block['toggle']['rich_text'])
-            content = f'{indent_space}<details>\n{indent_space}  <summary>{summary}</summary>'
+            content = f'{indent_space}<details markdown="1">\n{indent_space}  <summary>{summary}</summary>\n'
 
         if content:
             md_parts.append(content)
