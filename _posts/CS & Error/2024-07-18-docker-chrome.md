@@ -171,7 +171,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 애플리케이션 코드 및 credential 파일 복사
 COPY . /app
 COPY client_secret.json /app/
-COPY hyundai-card-crawling.json /app/
+COPY service-account.json /app/
 
 CMD ["python", "scripts/google_snippet.py"]
 ```

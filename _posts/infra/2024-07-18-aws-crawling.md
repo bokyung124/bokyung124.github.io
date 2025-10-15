@@ -62,7 +62,7 @@ tag: [AWS, crawling]
 - batch에서 **예약 정책** 생성 -> 작업 대기열에 적용    
     ```bash
     aws batch create-scheduling-policy \
-    --name hyundai-card-fair-share-policy \
+    --name fair-share-policy \
     --fairshare-policy '{"shareDecaySeconds": 3600, "computeReservation": 10, "shareDistribution": [{"shareIdentifier": "Priority1", "weightFactor": 1},{"shareIdentifier": "Priority2", "weightFactor": 2},{"shareIdentifier": "Priority3", "weightFactor": 3},{"shareIdentifier": "Priority4", "weightFactor": 4},{"shareIdentifier": "Priority5", "weightFactor": 5},{"shareIdentifier": "Priority6", "weightFactor": 6},{"shareIdentifier": "Priority7", "weightFactor": 7},{"shareIdentifier": "Priority8", "weightFactor": 8},{"shareIdentifier": "Priority9", "weightFactor": 9},{"shareIdentifier": "Priority10", "weightFactor": 10}]}'
     ```
 
@@ -71,11 +71,11 @@ tag: [AWS, crawling]
 - 작업 대기열에 적용시 `Only fairshare queues can have a scheduling policy.` 오류 발생    
     ```bash
     aws batch create-job-queue 
-    --job-queue-name hyundai-card-crawling-queue \
+    --job-queue-name crawling-queue \
     --state ENABLED \
     --priority 1 \
-    --compute-environment-order computeEnvironment=arn:***:compute-environment/hyundai-card-crawling-fargate,order=1 \
-    --scheduling-policy-arn arn:***:scheduling-policy/hyundai-card-fair-share-policy
+    --compute-environment-order computeEnvironment=arn:***:compute-environment/crawling-fargate,order=1 \
+    --scheduling-policy-arn arn:***:scheduling-policy/fair-share-policy
     ```
 
 - batch job을 submit하는 lambda 함수에서 `shareIdentifier` 옵션 전달
@@ -88,19 +88,19 @@ import boto3
 def lambda_handler(event, context):
     client = boto3.client('batch')
 
-    job_queue = "hyundai-card-crawling-queue"
+    job_queue = "crawling-queue"
     
     job_definitions = [
-        "hyundai-card-naver-keyword-api",
-        "hyundai-card-naver-brand-search", 
-        "hyundai-card-naver-power-link",
-        "hyundai-card-naver-card-search",
-        "hyundai-card-naver-snippet",
-        "hyundai-card-naver-organic",
-        "hyundai-card-dragon-metrics",
-        "hyundai-card-google-snippet",
-        "hyundai-card-google-search",
-        "hyundai-card-google-search-ads"
+        "naver-keyword-api",
+        "naver-brand-search", 
+        "naver-power-link",
+        "naver-card-search",
+        "naver-snippet",
+        "naver-organic",
+        "dragon-metrics",
+        "google-snippet",
+        "google-search",
+        "google-search-ads"
     ]
     
     job_names = [
