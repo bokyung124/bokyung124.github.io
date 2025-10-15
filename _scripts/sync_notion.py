@@ -111,7 +111,8 @@ def blocks_to_markdown(notion_client, blocks, indent_level=0):
         elif block_type == 'code':
             language = block['code']['language']
             code = rich_text_to_markdown(block['code']['rich_text'])
-            content = f"{indent_space}```{language}\n{code}\n{indent_space}```"
+            code_block_text = f"```{language}\n{code}\n```"
+            content = '\n'.join(f"{indent_space}{line}" for line in code_block_text.split('\n'))
         elif block_type == 'image':
             img_block = block['image']
             img_type = img_block['type']
@@ -128,10 +129,7 @@ def blocks_to_markdown(notion_client, blocks, indent_level=0):
                     content = f"{indent_space}<!-- 이미지 다운로드 실패 -->"
         elif block_type == 'toggle':
             summary = rich_text_to_markdown(block['toggle']['rich_text'])
-            content = f'{indent_space}<details markdown="1">\n{indent_space}  <summary>{summary}</summary>\n'
-
-        if content:
-            md_parts.append(content)
+            content = f'{indent_space}<details markdown="1">\n{indent_space}  <summary>{summary}</summary>'
 
         if block.get('has_children'):
             child_blocks_response = notion_client.blocks.children.list(block_id=block['id'])
@@ -139,12 +137,15 @@ def blocks_to_markdown(notion_client, blocks, indent_level=0):
             next_indent = indent_level + 1 if block_type in ['bulleted_list_item', 'numbered_list_item', 'to_do', 'toggle'] else indent_level
             child_markdown = blocks_to_markdown(notion_client, child_blocks, indent_level=next_indent)
             if child_markdown:
-                md_parts.append(child_markdown)
+                content += "\n" + child_markdown
 
         if block_type == 'toggle':
-            md_parts.append(f"{indent_space}</details>")
+            content += f"\n{indent_space}</details>"
 
-    separator = "\n\n" if indent_level == 0 else "\n"
+        if content:
+            md_parts.append(content)
+
+    separator = "\n\n"
     return separator.join(filter(None, md_parts))
 
 def page_to_markdown(notion_client, page_id):
