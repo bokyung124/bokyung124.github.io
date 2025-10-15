@@ -351,7 +351,7 @@ pip install "apache-airflow[standard,google,celery,redis,postgres,ssh,statsd,sla
 4. **Redis**
 - 버전은 7.0.15 를 사용합니다.
 
-```bash
+  ```bash
 # 설치
 sudo apt update
 sudo apt install redis-server -y
@@ -362,19 +362,19 @@ sudo systemctl start redis-server
 
 # redis python 패키지 설치
 pip install redis celery[redis]
-```
+  ```
 
 - b. Debian의 경우 설정 파일은 `/etc/redis/redis.conf` 에 위치합니다. 아래 설정을 변경하여 비밀번호를 설정할 수 있습니다.
 
   ```bash
-  requirepass {password}
+requirepass {password}
   ```
 
   설정 후 Redis 서버를 재시작합니다. `sudo systemctl restart redis-server`
 
 - c. VM 인스턴스 1대로 구성하고 있기 때문에 bind 설정은 127.0.0.1로 유지합니다.
 
-```bash
+  ```bash
 # 접속 테스트
 redis-cli -a {password} ping
 
@@ -383,7 +383,7 @@ redis-cli -a {password} KEYS "celery-task-meta-*"
 
 # 메타데이터 확인
 redis-cli -a {password} GET "celery-task-meta-새로운작업ID"
-```
+  ```
 
 ### Airflow 설정
 
@@ -485,7 +485,6 @@ worker_concurrency = 4
 - `broker_url` 설정은 메시지 브로커의 주소입니다. 로컬에 설치된 Redis의 0번 DB를 사용합니다.
 - `result_backend` 설정은 result backend 를 저장할 DB 주소입니다. Redis의 2번 DB를 사용합니다.
 
-</br>
 
 - `task_acks_late` 설정은 워커가 Task를 언제 ‘처리 완료’ 로 간주할지 결정하는 옵션입니다. 
   - True로 설정한 경우, 워커가 Task를 성공적으로 완료한 후에야 메시지 큐에 Task 완료를 알립니다. 만약 워커가 Task를 처리하던 중 장애로 갑자기 종료되면 메시지 큐에는 해당 Task가 여전히 처리중인 상태로 남아있게 되어, 다른 워커가 Task를 가져가 다시 실행할 수 있습니다. 데이터 무결성이 중요한 경우 True로 설정하는 것이 좋습니다.
@@ -495,13 +494,11 @@ worker_concurrency = 4
   - `task_soft_time_limit` 은 Celery에서 SoftTimeLimitExceeded 예외를 발생시키게 됩니다. 코드에서 이 예외를 잡아서 로그를 남기거나 리소스를 정리하는 등 graceful shutdown을 시도할 수 있습니다.
   - `task_time_limit` 은 Celery에서 SIGKILL 신호를 보내 해당 Task를 실행하는 프로세스를 강제로 종료합니다.
 
-</br>
 
 - `task_track_started` 를 True로 설정하면 Task가 “실행 시작” 상태일 때, 그 상태를 결과 백엔드에 기록합니다. Airflow UI에서 Task 상태가 ‘queued’ → ‘success’ 로 바뀌는 것이 아니라, ‘queued’ → **’running’** → ‘success’ 로 바뀌어 더욱 상세한 모니터링이 가능합니다.
 
 - `task_send_sent_event` 는 스케줄러가 워커에서 Task를 성공적으로 보냈을 때 ‘sent’ 이벤트를 발생시킬지 여부를 결정합니다. Flower와 같은 Celery 모니터링 도구에서 주로 사용되어 Task의 전체 생명주기를 더 정확하게 추적하고 시각화해줍니다.
 
-</br>
 
 - `worker_prefetch_multiplier` 는 워커가 자신의 동시성 (concurrency)에 기반하여 한 번에 몇 개의 Task를 미리 가져올지 결정하는 배수입니다.
   - 공식: concurrency * prefetch_multiplier
@@ -652,97 +649,97 @@ sudo systemctl status 'airflow-worker@*.service'
   <summary>배포 스크립트는 yaml 파일로 구성합니다.</summary>
 
   ```yaml
-  # deploy/deploy_to_vm.cloudbuild.yaml
-  # Worker Pool을 사용한 내부 IP 접속
+# deploy/deploy_to_vm.cloudbuild.yaml
+# Worker Pool을 사용한 내부 IP 접속
 
-  options:
-    pool:
-      name: 'projects/{gcp_project_id}/locations/asia-northeast3/workerPools/{worker_pool_name}'
-    logging: CLOUD_LOGGING_ONLY
+options:
+  pool:
+    name: 'projects/{gcp_project_id}/locations/asia-northeast3/workerPools/{worker_pool_name}'
+  logging: CLOUD_LOGGING_ONLY
 
-  steps:
-    - name: 'gcr.io/cloud-builders/gcloud'
-      entrypoint: 'bash'
-      args:
-        - '-c'
-        - |
-          echo "=== Worker Pool을 사용한 VM 배포 시작 ==="
+steps:
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "=== Worker Pool을 사용한 VM 배포 시작 ==="
+        
+        # Secret Manager에서 SSH 키 가져오기
+        echo "SSH 키 설정 중..."
+        mkdir -p /root/.ssh
+        gcloud secrets versions access latest --secret="{secret_manager_key}" > /root/.ssh/id_rsa
+        chmod 600 /root/.ssh/id_rsa
+        
+        # SSH 설정
+        cat > /root/.ssh/config << EOF
+        Host *
+          StrictHostKeyChecking no
+          UserKnownHostsFile=/dev/null
+          LogLevel=DEBUG3
+        EOF
+        
+        # VM 내부 IP 가져오기
+        VM_INTERNAL_IP=$$(gcloud compute instances describe ${_VM_NAME} --zone=${_VM_ZONE} --format="value(networkInterfaces[0].networkIP)")
+        echo "VM 내부 IP: $$VM_INTERNAL_IP"
+        
+        # SSH 명령 실행 (내부 IP 사용)
+        echo "SSH를 통한 VM 접속 및 배포 시작..."
+        ssh -i /root/.ssh/id_rsa ${_VM_USER}@$$VM_INTERNAL_IP '
+          set -e
           
-          # Secret Manager에서 SSH 키 가져오기
-          echo "SSH 키 설정 중..."
-          mkdir -p /root/.ssh
-          gcloud secrets versions access latest --secret="{secret_manager_key}" > /root/.ssh/id_rsa
-          chmod 600 /root/.ssh/id_rsa
+          echo "VM 내부에서 작업 시작..."
           
-          # SSH 설정
-          cat > /root/.ssh/config << EOF
-          Host *
-            StrictHostKeyChecking no
-            UserKnownHostsFile=/dev/null
-            LogLevel=DEBUG3
-          EOF
+          # 작업 디렉토리로 이동
+          cd ${_AIRFLOW_HOME}
+          echo "작업 디렉토리: $(pwd)"
           
-          # VM 내부 IP 가져오기
-          VM_INTERNAL_IP=$$(gcloud compute instances describe ${_VM_NAME} --zone=${_VM_ZONE} --format="value(networkInterfaces[0].networkIP)")
-          echo "VM 내부 IP: $$VM_INTERNAL_IP"
-          
-          # SSH 명령 실행 (내부 IP 사용)
-          echo "SSH를 통한 VM 접속 및 배포 시작..."
-          ssh -i /root/.ssh/id_rsa ${_VM_USER}@$$VM_INTERNAL_IP '
-            set -e
-            
-            echo "VM 내부에서 작업 시작..."
-            
-            # 작업 디렉토리로 이동
-            cd ${_AIRFLOW_HOME}
-            echo "작업 디렉토리: $(pwd)"
-            
-            # Git 저장소 업데이트
-            echo "Git 저장소 업데이트 중..."
-            if ! git pull origin main; then
-              echo "ERROR: Git pull 실패"
-              exit 1
-            fi
-            echo "Git 저장소 업데이트 완료"
-            
-            # Airflow 서비스 재시작
-            echo "Airflow 서비스 상태 확인 중..."
-            if systemctl is-active --quiet airflow-webserver 2>/dev/null; then
-              echo "Airflow 서비스 재시작 중..."
-              if ! sudo systemctl restart airflow-webserver; then
-                echo "ERROR: airflow-webserver 재시작 실패"
-                exit 1
-              fi
-              if ! sudo systemctl restart airflow-scheduler; then
-                echo "ERROR: airflow-scheduler 재시작 실패"
-                exit 1
-              fi
-              if ! sudo systemctl restart airflow-worker; then
-                echo "ERROR: airflow-worker 재시작 실패"
-                exit 1
-              fi
-              echo "Airflow 서비스 재시작 완료"
-            else
-              echo "WARNING: Airflow 서비스가 실행 중이지 않습니다."
-            fi
-            
-            echo "배포 완료!"
-          '
-          
-          if [[ $? -eq 0 ]]; then
-            echo "✅ VM 코드 배포가 성공적으로 완료되었습니다."
-          else
-            echo "❌ VM 배포 실패"
+          # Git 저장소 업데이트
+          echo "Git 저장소 업데이트 중..."
+          if ! git pull origin main; then
+            echo "ERROR: Git pull 실패"
             exit 1
           fi
+          echo "Git 저장소 업데이트 완료"
+          
+          # Airflow 서비스 재시작
+          echo "Airflow 서비스 상태 확인 중..."
+          if systemctl is-active --quiet airflow-webserver 2>/dev/null; then
+            echo "Airflow 서비스 재시작 중..."
+            if ! sudo systemctl restart airflow-webserver; then
+              echo "ERROR: airflow-webserver 재시작 실패"
+              exit 1
+            fi
+            if ! sudo systemctl restart airflow-scheduler; then
+              echo "ERROR: airflow-scheduler 재시작 실패"
+              exit 1
+            fi
+            if ! sudo systemctl restart airflow-worker; then
+              echo "ERROR: airflow-worker 재시작 실패"
+              exit 1
+            fi
+            echo "Airflow 서비스 재시작 완료"
+          else
+            echo "WARNING: Airflow 서비스가 실행 중이지 않습니다."
+          fi
+          
+          echo "배포 완료!"
+        '
+        
+        if [[ $? -eq 0 ]]; then
+          echo "✅ VM 코드 배포가 성공적으로 완료되었습니다."
+        else
+          echo "❌ VM 배포 실패"
+          exit 1
+        fi
 
-  substitutions:
-    _AIRFLOW_HOME: "{airflow_home}"
-    _VM_NAME: "{vm_instance_name}"
-    _VM_ZONE: "asia-northeast3-a"
-    _VM_USER: "{vm_username}"
+substitutions:
+  _AIRFLOW_HOME: "{airflow_home}"
+  _VM_NAME: "{vm_instance_name}"
+  _VM_ZONE: "asia-northeast3-a"
+  _VM_USER: "{vm_username}"
 
-  timeout: '600s'
+timeout: '600s'
   ```
 
 </details>
