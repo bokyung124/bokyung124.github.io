@@ -350,36 +350,36 @@ pip install "apache-airflow[standard,google,celery,redis,postgres,ssh,statsd,sla
 
 4. **Redis**
 - 버전은 7.0.15 를 사용합니다.
-  ```bash
-  # 설치
-  sudo apt update
-  sudo apt install redis-server -y
+```bash
+# 설치
+sudo apt update
+sudo apt install redis-server -y
 
-  # 서비스 활성화
-  sudo systemctl enable redis-server
-  sudo systemctl start redis-server
+# 서비스 활성화
+sudo systemctl enable redis-server
+sudo systemctl start redis-server
 
-  # redis python 패키지 설치
-  pip install redis celery[redis]
-  ```
+# redis python 패키지 설치
+pip install redis celery[redis]
+```
 
-- b. Debian의 경우 설정 파일은 `/etc/redis/redis.conf` 에 위치합니다. 아래 설정을 변경하여 비밀번호를 설정할 수 있습니다.
-  ```bash
-  requirepass {password}
-  ```
+- Debian의 경우 설정 파일은 `/etc/redis/redis.conf` 에 위치합니다. 아래 설정을 변경하여 비밀번호를 설정할 수 있습니다.
+```bash
+requirepass {password}
+```
   - 설정 후 Redis 서버를 재시작합니다. `sudo systemctl restart redis-server`
 
-- c. VM 인스턴스 1대로 구성하고 있기 때문에 bind 설정은 127.0.0.1로 유지합니다.
-  ```bash
-  # 접속 테스트
-  redis-cli -a {password} ping
+- VM 인스턴스 1대로 구성하고 있기 때문에 bind 설정은 127.0.0.1로 유지합니다.
+```bash
+# 접속 테스트
+redis-cli -a {password} ping
 
-  # task 목록
-  redis-cli -a {password} KEYS "celery-task-meta-*"
+# task 목록
+redis-cli -a {password} KEYS "celery-task-meta-*"
 
-  # 메타데이터 확인
-  redis-cli -a {password} GET "celery-task-meta-새로운작업ID"
-  ```
+# 메타데이터 확인
+redis-cli -a {password} GET "celery-task-meta-새로운작업ID"
+```
 
 ### Airflow 설정
 
