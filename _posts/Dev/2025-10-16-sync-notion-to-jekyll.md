@@ -1,5 +1,5 @@
 ---
-title: "Sync Notion to Jekyll"
+title: "Notion과 GitHub Pages 블로그 연동하여 글쓰기 자동화하기"
 last_modified_at: 2025-10-17T01:16:00+00:00
 notion_page_id: 28e12b31-a8a8-8042-929a-f8c732b579f6
 layout: post
@@ -17,10 +17,7 @@ author_profile: true
 mathjax: true
 ---
 
-# **Notion과 GitHub Pages 블로그 연동하여 글쓰기 자동화하기**
-
 매번 VS Code로 글을 작성하기 번거로워서 노션 데이터베이스와 Github Blog (Jekyll) 을 연동하는 워크플로우를 생성했습니다. 
-
 Github Actions를 통해 스크립트를 실행하고, 스케줄링합니다.
 
 ## **Notion과 GitHub Blog 연동의 장점**
@@ -47,9 +44,9 @@ Github Actions를 통해 스크립트를 실행하고, 스케줄링합니다.
 
 5. **블로그 빌드 및 배포**: 위 과정을 통해 새로운 커밋이 감지되면, 워크플로우의 두 번째 job이 실행되어 사이트를 빌드하고 GitHub Pages에 배포합니다.
 
-## **1단계: Notion 설정**
+## 1단계: Notion 설정
 
-### **1. Notion Integration 생성 및 API 키 발급**
+### 1. Notion Integration 생성 및 API 키 발급
 
 ![image](/assets/img/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-10-16_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_7.21.14.png)
 
@@ -57,14 +54,12 @@ Github Actions를 통해 스크립트를 실행하고, 스케줄링합니다.
 
 - 필요한 권한을 선택합니다.
   - 콘텐츠 읽기
-
   - 콘텐츠 업데이트
-
   - 콘텐츠 입력
 
-- 생성된 Integration의 '구성' 탭에서 **프라이빗 API 통합 시크릿** 값을 복사합니다. 이 값이 `NOTION_API_KEY`가 됩니다.
+- 생성된 Integration의 '구성' 탭에서 **프라이빗 API 통합 시크릿 값** 을 복사합니다. 이 값이 `NOTION_API_KEY`가 됩니다.
 
-### **2. 콘텐츠 데이터베이스 생성 및 연동**
+### 2. 콘텐츠 데이터베이스 생성 및 연동
 
 ![image](/assets/img/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-10-16_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_7.22.15.png)
 
@@ -74,11 +69,11 @@ Github Actions를 통해 스크립트를 실행하고, 스케줄링합니다.
 
 - 브라우저에서 데이터베이스 URL을 확인합니다. `https://www.notion.so/{workspace_name}/{DATABASE_ID}?v=...` 형태에서 `DATABASE_ID` 부분을 복사합니다.
 
-### **3. 데이터베이스 속성 설정**
+### 3. 데이터베이스 속성 설정
 
 동기화 스크립트가 올바르게 동작하려면 데이터베이스의 속성을 다음과 같이 설정해야 합니다.
 
-## **2단계: 동기화 스크립트 작성**
+## 2단계: 동기화 스크립트 작성
 
 Notion의 콘텐츠를 마크다운으로 변환하고, 이미지를 다운로드하는 Python 스크립트를 작성합니다.
 
@@ -86,6 +81,7 @@ Notion의 콘텐츠를 마크다운으로 변환하고, 이미지를 다운로�
 
 <details markdown="1">
   <summary>python 파일 예시</summary>
+
   ```python
   import os
   import sys
@@ -377,16 +373,17 @@ Notion의 콘텐츠를 마크다운으로 변환하고, 이미지를 다운로�
   ```
 </details>
 
+
 또한, 스크립트가 사용하는 라이브러리를 `requirements.txt` 파일에 명시합니다.
 
-**경로**: `requirements.txt`
+- **경로**: `requirements.txt`
 
-```plain text
+```
 requests
 notion-client
 ```
 
-## **3단계: GitHub Actions로 자동화하기**
+## 3단계: GitHub Actions로 자동화하기
 
 동기화 스크립트를 주기적으로 실행하고, 변경 사항이 있을 때 블로그를 자동으로 배포하는 GitHub Actions 워크플로우를 설정합니다.
 
@@ -394,6 +391,7 @@ notion-client
 
 <details markdown="1">
   <summary>yml 파일 예시</summary>
+
   ```yaml
   name: Sync Notion and Deploy
   
@@ -531,17 +529,17 @@ notion-client
   ```
 </details>
 
-### **워크플로우**
+### 워크플로우
 
-- `**on**`: 워크플로우가 언제 실행될지를 정의합니다.
+- `on`: 워크플로우가 언제 실행될지를 정의합니다.
   - `workflow_dispatch`: 수동으로 실행할 수 있습니다.
 
   - `schedule`: `cron: '*/10 * * * *'` 설정은 10분마다 워크플로우를 실행합니다.
 
   - `push`: `main` 브랜치에 푸시될 때 실행됩니다.
 
-- `**jobs**`: 워크플로우는 두 개의 잡으로 구성됩니다.
-  - `**sync-notion**`:
+- `jobs`: 워크플로우는 두 개의 잡으로 구성됩니다.
+  - `sync-notion`:
     1. Python 환경을 설정하고 `requirements.txt`로 의존성을 설치합니다.
 
     2. `sync_notion.py` 스크립트를 실행합니다. 이때 GitHub Secrets에 저장된 `NOTION_API_KEY`와 `DATABASE_ID`를 환경 변수로 주입합니다.
@@ -550,7 +548,7 @@ notion-client
 
     4. 변경 사항이 있었는지 여부를 `outputs`으로 다음 잡에 전달합니다.
 
-  - `**build**`:
+  - `build`:
     1. `sync-notion` 잡이 완료된 후에 실행됩니다.
 
     2. `if` 조건을 통해, 스케줄 실행의 경우 `sync-notion` 잡에서 변경 사항이 있었을 때만 실행되도록 하여 불필요한 빌드를 방지합니다.
@@ -559,13 +557,13 @@ notion-client
 
     4. 빌드된 결과물을 GitHub Pages에 배포하기 위해 아티팩트로 업로드합니다.
 
-- `**deploy**`: `build` 잡이 성공하면, 아티팩트를 다운로드하여 GitHub Pages에 배포합니다.
+- `deploy`: `build` 잡이 성공하면, 아티팩트를 다운로드하여 GitHub Pages에 배포합니다.
 
 - 참고: 찾아보니 GitHub Actions는 정확히 설정한 시간에 동작하지 않는다고 합니다. 저도 배포해보니 매우 랜덤한 시간에 실행이 되는 것 같습니다. 이정도는 감안해야할듯!
 
-## **4단계: GitHub 리포지토리 설정**
+## 4단계: GitHub 리포지토리 설정
 
-### **GitHub Secrets 설정**
+### GitHub Secrets 설정
 
 워크플로우가 Notion API에 접근할 수 있도록 앞에서 발급받은 API 키와 데이터베이스 ID를 GitHub 리포지토리의 Secrets에 등록해야 합니다.
 
@@ -576,7 +574,7 @@ notion-client
 
   - `DATABASE_ID`: 1단계에서 확인한 Notion 데이터베이스 ID
 
-## **마무리**
+## 마무리
 
 이제 Notion 데이터베이스에 글을 작성하고 status를 `Published` 로 변경해보세요. GitHub Actions에서 워크플로우를 직접 실행할 수도 있습니다.
 
