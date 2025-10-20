@@ -91,15 +91,29 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # 현재 디렉토리와 파일 확인
+          echo "현재 디렉토리: $(pwd)"
+          echo "package.json 존재 여부: $(ls -la package.json 2>/dev/null && echo 'YES' || echo 'NO')"
+          echo "package-lock.json 존재 여부: $(ls -la package-lock.json 2>/dev/null && echo 'YES' || echo 'NO')"
+          
           # npm 설정 최적화
           npm config set fetch-retry-mintimeout 20000
           npm config set fetch-retry-maxtimeout 120000
           npm config set fetch-retries 3
           
+          # package-lock.json이 있으면 npm ci, 없으면 npm install 사용
+          if [ -f "package-lock.json" ]; then
+            echo "package-lock.json 발견, npm ci 사용"
+            INSTALL_CMD="npm ci"
+          else
+            echo "package-lock.json 없음, npm install 사용"
+            INSTALL_CMD="npm install"
+          fi
+          
           # 재시도 로직으로 npm install 실행
           for i in {1..3}; do
             echo "npm install 시도 $i/3"
-            if npm ci --no-audit --no-fund; then
+            if $INSTALL_CMD --no-audit --no-fund; then
               echo "npm install 성공"
               break
             else
@@ -107,7 +121,7 @@ jobs:
               if [ $i -eq 3 ]; then
                 echo "모든 재시도 실패, 대체 레지스트리 사용"
                 npm config set registry https://registry.npmmirror.com/
-                npm ci --no-audit --no-fund
+                $INSTALL_CMD --no-audit --no-fund
               fi
               sleep 5
             fi
