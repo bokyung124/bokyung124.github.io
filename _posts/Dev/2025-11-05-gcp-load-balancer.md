@@ -83,7 +83,7 @@ GCP의 관리형 서비스를 조합하여 안정적인 웹 애플리케이션 �
 아래 순서에 따라 요청을 처리합니다.
 
 1. **호스트 이름 확인 (gryyd.ai)**
-  1. [`http://gryyd.ai`](http://gryyd.ai/) 또는 [`https://gryyd.ai`](https://gryyd.ai/) 로 사용자가 접속하면, `gryyd.ai` 호스트 규칙을 확인합니다.
+  1. `http://gryyd.ai` 또는 [`https://gryyd.ai`](https://gryyd.ai/) 로 사용자가 접속하면, `gryyd.ai` 호스트 규칙을 확인합니다.
 
   2. 이 규칙에는 URL 리디렉션이 설정되어 있습니다.
     1. **httpsRedirect: true** → HTTP 요청을 HTTPS 로 강제 전환합니다.
