@@ -1,6 +1,6 @@
 ---
 title: "GCP 로드밸런서 설정 - Cloud Run Service"
-last_modified_at: 2025-11-06T04:40:00+00:00
+last_modified_at: 2025-11-06T07:02:00+00:00
 notion_page_id: 2a212b31-a8a8-80a0-98d8-fe5d175aadf1
 layout: post
 categories:
@@ -39,11 +39,11 @@ GCP의 관리형 서비스를 조합하여 안정적인 웹 애플리케이션 �
 외부로 부터 들어오는 모든 트래픽을 수신합니다. 어떤 IP 주소와 포트로 요청을 받을지, 통신을 어떻게 암호화할지 정의합니다.
 
 - 고정 IP 주소 및 포트
-  - 단일 고정 IP 주소를 생성하여 HTTP, HTTPS 모두 연결합니다. 리디렉션 설정은 이후 라우팅 규칙에서 정의하기 때문에 별도의 프론트엔드 설정을 2개 생성합니다.
+  - 단일 고정 IP 주소를 생성하여 HTTPS에 연결합니다. 설정에서 HTTP 자동 리디렉션 설정을 추가합니다. 그럼 자동으로 `https-forwarding-rule-redirect` 이러한 형식의 HTTP url map 이 생성됩니다.
 
   - GCP 관리형 SSL 인증서를 생성합니다. Cloud DNS 에서 A 레코드에 구입한 도메인을 추가합니다.
 
-![image](/assets/img/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-11-06_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.36.22.png)
+![image](/assets/img/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-11-06_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_4.02.37.png)
 
 **2. 백엔드 설정**
 
@@ -83,57 +83,59 @@ GCP의 관리형 서비스를 조합하여 안정적인 웹 애플리케이션 �
 아래 순서에 따라 요청을 처리합니다.
 
 1. **호스트 이름 확인 (gryyd.ai)**
-  - `http://gryyd.ai` 또는 [`https://gryyd.ai`](https://gryyd.ai/) 로 사용자가 접속하면, `gryyd.ai` 호스트 규칙을 확인합니다.
+  1. [`http://gryyd.ai`](http://gryyd.ai/) 또는 [`https://gryyd.ai`](https://gryyd.ai/) 로 사용자가 접속하면, `gryyd.ai` 호스트 규칙을 확인합니다.
 
-  - 이 규칙에는 URL 리디렉션이 설정되어 있습니다.
-    - **httpsRedirect: true** → HTTP 요청을 HTTPS 로 강제 전환합니다.
-    - **hostRedirect: www.gryyd.ai** → www가 없는 주소를 www.gryyd.ai 로 보냅니다.
+  2. 이 규칙에는 URL 리디렉션이 설정되어 있습니다.
+    1. **httpsRedirect: true** → HTTP 요청을 HTTPS 로 강제 전환합니다.
 
-  - 결과적으로, 모든 gryyd.ai 요청은 최종적으로 https://www.gryyd.ai 로 영구 이동(301) 됩니다.
+    2. **hostRedirect: www.gryyd.ai** → www가 없는 주소를 www.gryyd.ai 로 보냅니다.
 
-<details markdown="1">
-  <summary>경로 일치자 (host: gryyd.ai)</summary>
-  
-  ```yaml
-  name: path-matcher-3
-  defaultUrlRedirect:
-    httpsRedirect: true
-    hostRedirect: www.gryyd.ai
-    redirectResponseCode: MOVED_PERMANENTLY_DEFAULT
-  ```
-</details>
+  3. 결과적으로, 모든 gryyd.ai 요청은 최종적으로 https://www.gryyd.ai 로 영구 이동(301) 됩니다.
+
+  <details markdown="1">
+    <summary>경로 일치자 (host: gryyd.ai)</summary>
+    ```yaml
+    name: path-matcher-3
+    defaultUrlRedirect:
+      httpsRedirect: true
+      hostRedirect: www.gryyd.ai
+      redirectResponseCode: MOVED_PERMANENTLY_DEFAULT
+    ```
+  </details>
 
 2. **호스트 이름 및 경로 확인 (www.gryyd.ai)**
-  - 이제 [https://www.gryyd.ai](https://www.gryyd.ai/) 로 들어온 요청은 경로에 따라 다른 백엔드 서비스로 전달됩니다.
-    - `/api/generation/*` → worker 서비스로 이동하여 비동기 작업 실행
-    - `/api/*`, `/admin`, `/admin/*` → API 요청과 admin 페이지는 메인 백엔드 서버로 전달하여 요청 처리
-    - `/images/*`, `/assets/*` , .. → 이미지 CDN URL은 스토리지 서비스로 전달하여 이미지 서빙
-    - 기타 모든 요청은 UI 상의 요청이므로 기본값인 프론트엔드 서버로 전달
+  1. 이제 [https://www.gryyd.ai](https://www.gryyd.ai/) 로 들어온 요청은 경로에 따라 다른 백엔드 서비스로 전달됩니다.
+    1. `/api/generation/*` → worker 서비스로 이동하여 비동기 작업 실행
 
-<details markdown="1">
-  <summary>경로 일치자 (host: www.gryyd.ai)</summary>
-  
-  ```yaml
-  defaultService: projects/{project_id}/global/backendServices/gryd-fe-service
-  name: path-matcher-2
-  pathRules:
-  - paths:
-    - /api/generation/*
-    service: projects/{project_id}/global/backendServices/gryd-worker-be-service
-  - paths:
-    - /api/*
-    - /admin
-    - /admin/*
-    service: projects/{project_id}/global/backendServices/gryd-be-service
-  - paths:
-    - /images/*
-    - /thumbnails/*
-    - /results/*
-    - /assets/*
-    - /references/*
-    service: projects/{project_id}/global/backendServices/gryd-storage-service
-  ```
-</details>
+    2. `/api/*`, `/admin`, `/admin/*` → API 요청과 admin 페이지는 메인 백엔드 서버로 전달하여 요청 처리
+
+    3. `/images/*`, `/assets/*` ,.. → 이미지 CDN URL은 스토리지 서비스로 전달하여 이미지 서빙
+
+    4. 기타 모든 요청은 UI 상의 요청이므로 기본값인 프론트엔드 서버로 전달
+
+  <details markdown="1">
+    <summary>경로 일치자 (host: www.gryyd.ai)</summary>
+    ```yaml
+    defaultService: projects/{project_id}/global/backendServices/gryd-fe-service
+    name: path-matcher-2
+    pathRules:
+    - paths:
+      - /api/generation/*
+      service: projects/{project_id}/global/backendServices/gryd-worker-be-service
+    - paths:
+      - /api/*
+      - /admin
+      - /admin/*
+      service: projects/{project_id}/global/backendServices/gryd-be-service
+    - paths:
+      - /images/*
+      - /thumbnails/*
+      - /results/*
+      - /assets/*
+      - /references/*
+      service: projects/{project_id}/global/backendServices/gryd-storage-service
+    ```
+  </details>
 
 ![image](/assets/img/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-11-06_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.40.12.png)
 
