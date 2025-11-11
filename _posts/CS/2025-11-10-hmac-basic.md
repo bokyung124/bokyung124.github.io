@@ -67,7 +67,7 @@ HMAC (Hash-based Message Authentication Code) 은 데이터의 무결성과 진�
 
 Gemini가 알려준 예시
 
-```plain text
+```
 편지에 찍는 '밀랍 인장'을 생각해보세요.
 HMAC을 이해하는 가장 좋은 비유는 중세 시대 편지에 찍던 '밀랍 인장'입니다.
 
