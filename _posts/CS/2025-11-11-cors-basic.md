@@ -51,8 +51,11 @@ mathjax: true
   - 브라우저
 
 1. **클라이언트 (브라우저) 의 요청**
+
     1) 웹페이지의 JavaScript 코드가 API 서버에 요청을 보내고자 합니다.
+
     2) 브라우저는 API 서버에 요청을 보내면서, 요청 헤더에 `Origin` 을 자동으로 추가합니다.
+
     3)  `Origin`은 브라우저의 URL (== 웹페이지 주소) 값을 갖습니다.
       ```bash
       GET /data HTTP/1.1
@@ -61,20 +64,27 @@ mathjax: true
       ```
 
 2. **API 서버의 응답**
+
     1) 서버는 요청을 받고, 서버에 설정된 CORS 정책을 확인합니다.
         - 서버 개발자가 미리 작성해둔 규칙입니다.
+
     2) 이 규칙에 따라 서버는 응답을 보낼 때 응답 헤더에 `Access-Control-Allow-Origin` 값을 포함시킵니다.
     ```bash
     HTTP/1.1 200 OK
     Access-Control-Allow-Origin: https://my-site.com
     Content-Type: application/json
     ```
+
     3) 이 출처 (`https://my-site.com`) 는 우리 리소스에 접근해도 좋다는 의미입니다.
 
 3. **브라우저의 최종 확인**
+
     1) 브라우저는 서버로부터 이 응답을 받고 `Origin` 값과 `Access-Control-Allow-Origin` 값을 비교합니다.
+
     2) 두 값이 일치하면 허가된 요청으로 판단하고, 서버가 보내준 데이터를 웹페이지의 JavaScript 코드에 안전하게 전달해줍니다.
+
     3) 브라우저가 일종의 경비원 역할을 하는 것입니다.
+    
     4) 만약 서버가 `Access-Control-Allow-Origin: https://another-site.com` 으로 응답했다면, 브라우저는 데이터를 즉시 폐기하고 콘솔에 CORS 오류를 띄웁니다.
 
 ### Access-Control-Allow-Origin 값의 종류
