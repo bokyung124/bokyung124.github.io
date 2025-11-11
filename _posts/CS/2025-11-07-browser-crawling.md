@@ -127,7 +127,6 @@ def run(playwright):
 # Playwright 실행
 with sync_playwright() as playwright:
     run(playwright)
-
 ```
 
 ## **3. API 직접 호출을 통한 데이터 수집**
@@ -217,13 +216,12 @@ except requests.exceptions.RequestException as e:
 except json.JSONDecodeError:
     print("Error: 응답이 유효한 JSON 형식이 아닙니다.")
     print(f"Raw Response: {response.text}")
-
 ```
 
 ### **핵심 고려사항 및 주의점**
 
 1. **인증(Authentication):** API 크롤링의 가장 큰 허들입니다. `Authorization` 헤더나 `Cookie`를 요청에 포함시켜야 합니다. 이 값들은 보통 로그인 API를 먼저 호출하여 얻거나, 개발자 도구에서 임시로 복사하여 테스트해야 합니다.
-  1. 주로 유효 기간이 있기 때문에 이 값을 주기적으로 Refresh 하는 작업이 필요할 수 있습니다.
+    - 주로 유효 기간이 있기 때문에 이 값을 주기적으로 Refresh 하는 작업이 필요할 수 있습니다.
 
 2. **동적 헤더(Dynamic Headers):** 일부 사이트는 보안을 위해 매번 바뀌는 `X-CSRF-Token` 같은 헤더를 사용합니다. 이 경우, HTML 페이지를 먼저 요청하여 토큰을 파싱한 후, API 요청 헤더에 포함시켜야 하는 다단계 프로세스가 필요할 수 있습니다.
 
