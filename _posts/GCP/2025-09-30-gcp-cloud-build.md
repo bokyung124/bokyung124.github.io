@@ -1,9 +1,9 @@
 ---
-title: "[Dev] GCP Cloud Build를 활용한 Spring boot 배포 자동화"
+title: "GCP Cloud Build를 활용한 Spring boot 배포 자동화"
 last_modified_at: 2025-09-30T08:00:00-05:00
 layout: post
 categories:
-    - CS & Error
+    - GCP
 excerpt: 
 toc: true
 toc_sticky: true

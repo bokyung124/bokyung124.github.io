@@ -8,7 +8,7 @@ toc: true
 toc_sticky: true
 author_profile: true
 mathjax: true
-published: true
+published: false
 ---
 
 메디포뉴스 <https://www.medifonews.com/news/article.html?no=178990>

@@ -1,9 +1,9 @@
 ---
-title: "[AWS] AWS Serverless"
+title: "[Study] AWS Serverless"
 last_modified_at: 2023-08-25T16:47:00-05:00
 layout: post
 categories:
-    - Infra
+    - AWS
 excerpt: aws serverless
 toc: true
 toc_sticky: true

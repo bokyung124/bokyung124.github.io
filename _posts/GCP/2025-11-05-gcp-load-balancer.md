@@ -4,7 +4,7 @@ last_modified_at: 2025-11-06T07:02:00+00:00
 notion_page_id: 2a212b31-a8a8-80a0-98d8-fe5d175aadf1
 layout: post
 categories:
-  - Dev
+  - GCP
 tags:
   - "GCP"
   - "Deploy"

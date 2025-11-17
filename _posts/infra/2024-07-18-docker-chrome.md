@@ -1,9 +1,9 @@
 ---
-title: "[Error] docker 이미지에 chrome 설치"
+title: "[Dev] docker 이미지에 chrome 설치"
 last_modified_at: 2024-07-18T08:00:00-05:00
 layout: post
 categories:
-    - CS & Error
+    - Infra
 toc: true
 toc_sticky: true
 author_profile: true

@@ -1,9 +1,9 @@
 ---
-title: "[AWS] AWS로 크롤링 자동화하기"
+title: "[Dev] AWS로 크롤링 자동화하기"
 last_modified_at: 2024-07-18T9:00:00-05:00
 layout: post
 categories:
-    - Infra
+    - AWS
 excerpt: 
 toc: true
 toc_sticky: true

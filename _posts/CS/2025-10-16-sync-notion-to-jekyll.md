@@ -4,7 +4,7 @@ last_modified_at: 2025-10-17T01:16:00+00:00
 notion_page_id: 28e12b31-a8a8-8042-929a-f8c732b579f6
 layout: post
 categories:
-  - Dev
+  - CS
 tags:
   - "Notion"
   - "Github Blog"

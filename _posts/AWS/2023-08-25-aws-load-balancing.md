@@ -1,9 +1,9 @@
 ---
-title: "[AWS] AWS Load Balancing"
+title: "[Study] AWS Load Balancing"
 last_modified_at: 2023-08-25T16:46:00-05:00
 layout: post
 categories:
-    - Infra
+    - AWS
 excerpt: aws load balancing
 toc: true
 toc_sticky: true
