@@ -1,5 +1,5 @@
 ---
-title: "Notion과 GitHub Pages 블로그 연동하여 글쓰기 자동화하기"
+title: "[DEV] Notion과 GitHub Pages 블로그 연동하여 글쓰기 자동화하기"
 last_modified_at: 2025-10-17T01:16:00+00:00
 notion_page_id: 28e12b31-a8a8-8042-929a-f8c732b579f6
 layout: post

@@ -1,5 +1,5 @@
 ---
-title: "[Dev] docker 이미지에 chrome 설치"
+title: "[DEV] docker 이미지에 chrome 설치"
 last_modified_at: 2024-07-18T08:00:00-05:00
 layout: post
 categories:

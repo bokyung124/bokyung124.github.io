@@ -1,5 +1,5 @@
 ---
-title: "브라우저 렌더링 방식"
+title: "[CS] 브라우저 렌더링 방식"
 last_modified_at: 2025-11-07T05:06:00+00:00
 notion_page_id: 2a412b31-a8a8-809b-950e-f19d8d7dc288
 layout: post

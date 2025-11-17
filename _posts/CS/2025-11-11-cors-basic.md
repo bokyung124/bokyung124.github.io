@@ -1,5 +1,5 @@
 ---
-title: "CORS"
+title: "[CS] CORS"
 last_modified_at: 2025-11-11T02:10:00+00:00
 notion_page_id: 2a812b31-a8a8-8099-ad2b-e7b2d73ccddd
 layout: post

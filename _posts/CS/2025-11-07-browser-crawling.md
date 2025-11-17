@@ -1,5 +1,5 @@
 ---
-title: "브라우저 렌더링 방식에 따른 크롤링 전략"
+title: "[CS] 브라우저 렌더링 방식에 따른 크롤링 전략"
 last_modified_at: 2025-11-07T06:21:00+00:00
 notion_page_id: 2a412b31-a8a8-800f-87bc-de5b274b0195
 layout: post

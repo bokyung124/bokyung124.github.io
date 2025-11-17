@@ -1,9 +1,9 @@
 ---
-title: "[Algorithm] 시간 복잡도"
+title: "시간 복잡도"
 last_modified_at: 2023-04-09T16:30:00-05:00
 layout: post
 categories:
-    - CS
+    - Algorithm
 excerpt: Inflearn) Do it! 알고리즘 코딩테스트 with JAVA 1강 
 toc: true
 toc_sticky: true
