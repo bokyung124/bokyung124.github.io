@@ -23,18 +23,21 @@ Metric Studio (NNT Tech) 데이터 엔지니어 (2024.03 \~)
 * 마케팅 데이터 웨어하우스 구축
   * 서버리스 기반 GCP 아키텍처 구성
   * 데이터 가공 모듈 개발 (Cloud Function, Cloud Task, Pub/Sub)
-  * 데이터 파이프라인 자동화 구축 (BigQuery, Dataflow)
-  * 미디어 믹스 개선을 위한 웹사이트 구축 (Spring Boot, Thymeleaf, Javascript)
+  * 데이터 파이프라인 자동화 구축 (BigQuery, Dataflow, Elasticsearch)
+  * 미디어 믹스 개선을 위한 웹사이트 구축 (Spring Boot, Thymeleaf, Javascript, Compute Engine)
   * Elasticsearch를 활용하여 데이터 검색 속도 개선
-* SEO 최적화 개발
-  * 플랫폼 별 오가닉 순위 및 키워드 API 데이터 수집 자동화 (AWS Batch, Airflow, BigQuery, 크롤링)
+* SEO 최적화 대시보드 개발
+  * 플랫폼 별 오가닉 순위 및 키워드 API 데이터 수집 자동화 (AWS Batch, Airflow, BigQuery, 크롤링, Looker Studio)
 * TikTok Event API 연동을 위한 Fast API 개발
 * Wordpress 설치, 이관 및 오류 해결
-* Streamlit을 이용한 대시보드 제작 및 자체 서비스 관리 (GCP, python)
-* Gemini를 활용한 EP, Google Catalog 개선 자동화 (AWS Batch, GCP BigQuery)
+* Streamlit을 이용한 대시보드 제작 및 사내 서비스 관리 (GCP, python)
+* Gemini를 활용한 Naver EP, Google Catalog 개선 자동화 (AWS Batch, GCP BigQuery)
+* 웹뷰 이벤트 페이지 개발 (Javascript, AWS Lambda, Braze)
 * Airflow를 활용한 작업 스케줄링
+  * GCE 서버 자체 호스팅
   * Prometheus, GCP Cloud Monitoring으로 Airflow 작업 모니터링 대시보드 생성
-* AI Agent 서비스 개발 (Django, Gemini API)
+* AI Agent 서비스 개발 (GCP, Django, Gemini API, N8N)
+* 데이터 엔지니어링 관련 사내 테크 블로그 작성
 
 **📚 Experience**
 
