@@ -34,9 +34,9 @@ Metric Studio (NNT Tech) 데이터 엔지니어 (2024.03 \~)
 * Gemini를 활용한 Naver EP, Google Catalog 개선 자동화 (AWS Batch, GCP BigQuery)
 * 웹뷰 이벤트 페이지 개발 (Javascript, AWS Lambda, Braze)
 * Airflow를 활용한 작업 스케줄링
-  * GCE 서버 자체 호스팅
+  * GCE 서버 자체 호스팅 (Terraform)
   * Prometheus, GCP Cloud Monitoring으로 Airflow 작업 모니터링 대시보드 생성
-* AI Agent 서비스 개발 (GCP, Django, Gemini API, N8N)
+* AI Agent 서비스 개발 (GCP, Django, Gemini API, N8N, Meta CAPI)
 * 데이터 엔지니어링 관련 사내 테크 블로그 작성
 
 **📚 Experience**
