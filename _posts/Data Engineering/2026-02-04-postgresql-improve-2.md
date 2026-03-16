@@ -1,5 +1,5 @@
 ---
-title: "**PostgreSQL 쿼리 성능 20배 개선하기 (Part 2) - 최적화 전략 수립**"
+title: "PostgreSQL 쿼리 성능 20배 개선하기 (Part 2) - 최적화 전략 수립"
 last_modified_at: 2026-02-04T05:37:00+00:00
 notion_page_id: 2fd12b31-a8a8-8098-bb5b-e87ee9d75a39
 layout: post
