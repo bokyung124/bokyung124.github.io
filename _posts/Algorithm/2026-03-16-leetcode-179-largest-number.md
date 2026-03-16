@@ -1,6 +1,6 @@
 ---
-title: "Leetcode) **179. Largest Number**"
-last_modified_at: 2026-03-16T10:32:00+00:00
+title: "Leetcode) 179. Largest Number"
+last_modified_at: 2026-03-16T01:32:00+00:00
 notion_page_id: 32512b31-a8a8-8082-95e7-fed88e3a7cd9
 layout: post
 categories:
