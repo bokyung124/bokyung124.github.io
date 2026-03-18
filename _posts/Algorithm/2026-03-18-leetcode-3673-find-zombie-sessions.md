@@ -68,6 +68,7 @@ ORDER BY e.scroll_count DESC, a.session_id
     SUM(CASE WHEN event_type = 'scroll' THEN 1 ELSE 0 END) AS scroll_count
     ```
 
+
 ### 풀이2 - HAVING
 
 ```sql
