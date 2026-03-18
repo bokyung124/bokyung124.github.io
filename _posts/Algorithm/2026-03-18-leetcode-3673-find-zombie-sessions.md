@@ -52,7 +52,7 @@ WHERE e.session_duration_minutes >= 30
 	AND e.scroll_count >= 5
 	AND e.purchase_count = 0
 	AND e.click_count / e.scroll_count < 0.2
-GROUP BY a.session_id
+GROUP BY a.session_id, a.user_id
 ORDER BY e.scroll_count DESC, a.session_id
 ```
 
@@ -78,7 +78,7 @@ SELECT
     TIMESTAMPDIFF(MINUTE, MIN(event_timestamp), MAX(event_timestamp)) AS session_duration_minutes,
     SUM(event_type = 'scroll') AS scroll_count
 FROM app_events
-GROUP BY session_id
+GROUP BY session_id, user_id
 HAVING 
     session_duration_minutes >= 30
     AND SUM(event_type = 'scroll') >= 5 
@@ -98,3 +98,4 @@ ORDER BY scroll_count DESC, session_id;
   - **FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY**
 
 - 이 방식이 100ms 더 빨랐음
+- 웬만하면 JOIN을 피하는 것이 좋아서 이 방법을 더 추천!
