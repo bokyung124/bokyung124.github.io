@@ -41,6 +41,7 @@ Return the result table in **any order**.
 
 The result format is in the following example.
 
+
 ### 풀이 1 - CTE
 
 ```sql
@@ -59,6 +60,7 @@ JOIN m ON e.id = m.managerid
 
 - join이 그나마 로직 생각하기 쉬워서인지 이 방식이 먼저 생각나는 경우가 많은 것 같음
   - 다른 방법으로 풀 수 있는지도 계속 고민하기!
+
 
 ### 풀이 2 - 서브쿼리
 
