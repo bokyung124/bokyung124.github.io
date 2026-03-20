@@ -20,7 +20,7 @@ mathjax: true
 
 [https://leetcode.com/problems/managers-with-at-least-5-direct-reports/description/?envType=study-plan-v2&envId=top-sql-50](https://leetcode.com/problems/managers-with-at-least-5-direct-reports/description/?envType=study-plan-v2&envId=top-sql-50)
 
-```plain text
+```
 +-------------+---------+
 | Column Name | Type    |
 +-------------+---------+
@@ -34,6 +34,7 @@ Each row of this table indicates the name of an employee, their department, and 
 If managerId is null, then the employee does not have a manager.
 No employee will be the manager of themself.
 ```
+
 
 Write a solution to find managers with at least **five direct reports**.
 
