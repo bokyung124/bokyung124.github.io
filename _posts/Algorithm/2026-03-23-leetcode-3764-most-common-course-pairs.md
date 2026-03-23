@@ -20,6 +20,7 @@ mathjax: true
 
 [https://leetcode.com/problems/most-common-course-pairs/description/](https://leetcode.com/problems/most-common-course-pairs/description/)
 
+
 ```plain text
 +-------------------+---------+
 | Column Name       | Type    |
@@ -34,6 +35,7 @@ mathjax: true
 Each row represents a completed course by a user with their rating (1-5 scale).
 ```
 
+
 Write a solution to identify **skill mastery pathways** by analyzing course completion sequences among top-performing students:
 
 - Consider only **top-performing students** (those who completed **at least **`5`** courses** with an **average rating of **`4`** or higher**).
@@ -45,6 +47,7 @@ Write a solution to identify **skill mastery pathways** by analyzing course co
 - Return the **pair frequency**, identifying which course transitions are most common among high achievers.
 
 Return *the result table ordered by* *pair frequency in ****descending**** order* *and then by first course name and second course name in ****ascending**** order*.
+
 
 ### 풀이 1 - 우수 학생 먼저 필터링
 
@@ -112,6 +115,7 @@ GROUP BY first_course, second_course
 ORDER BY transition_count DESC, first_course, second_course
 ```
 
+
 ### 리뷰
 
 - 풀이 1 vs. 풀이 2
@@ -122,6 +126,7 @@ ORDER BY transition_count DESC, first_course, second_course
   - 데이터가 수천만 건 이상으로 많아질 경우 선 필터링 방식 (`풀이 1`) 이 더 유리함
 
 - **강의 쌍** 을 찾아야 하기 때문에 가장 마지막 (`second_course IS NULL` )인 행은 제외해야 함
+
 
 ### 윈도우 함수
 
@@ -145,24 +150,21 @@ ORDER BY transition_count DESC, first_course, second_course
 
 - `PARTITION BY` 를 사용하면 **원본 데이터의 개별 행이 유지**된다는 것이 가장 큰 차이
 
-1. **개별 값과 그룹의 통계값을 비교해야 할 때**
-  1. e.g.
-    1. 이 사람의 연봉은 속한 부서의 평균 연봉보다 얼마나 높을까?
+- **개별 값과 그룹의 통계값을 비교해야 할 때**
+  - e.g.
+    - 이 사람의 연봉은 속한 부서의 평균 연봉보다 얼마나 높을까?
+    - 이 금액은 해당 고객이 평생 사용한 총액의 몇 %를 차지할까?
+  - `GROUP BY`를 사용하면 평균값, 총액 등은 구할 수 있지만, 상세 데이터는 사라지기 때문에 두 값을 비교하려면 원본 테이블과 JOIN하는 과정이 추가되어야 함
 
-    2. 이 금액은 해당 고객이 평생 사용한 총액의 몇 %를 차지할까?
+- **그룹 별로 순위를 매겨야 할 때 (Top N 추출)**
+  - e.g.
+    - 각 부서 별로 연봉이 가장 높은 상위 3명의 직원 이름과 직급 추출
 
-  2. `GROUP BY`를 사용하면 평균값, 총액 등은 구할 수 있지만, 상세 데이터는 사라지기 때문에 두 값을 비교하려면 원본 테이블과 JOIN하는 과정이 추가되어야 함
+- **누적합이나 이동 평균을 구할 때**
+  - e.g.
+    - 한 고객이 1월에 만원, 2월에 2만원, 3월에 3만원을 사용했을 때, 각 달 별로 그 달까지의 누적 결재액을 구하는 경우
+  - `GROUP BY`는 전체 기간을 합친 값만 보여줄 수 있음
 
-2. **그룹 별로 순위를 매겨야 할 때 (Top N 추출)**
-  1. e.g.
-    1. 각 부서 별로 연봉이 가장 높은 상위 3명의 직원 이름과 직급 추출
-
-3. **누적합이나 이동 평균을 구할 때**
-  1. e.g.
-    1. 한 고객이 1월에 만원, 2월에 2만원, 3월에 3만원을 사용했을 때, 각 달 별로 그 달까지의 누적 결재액을 구하는 경우
-
-  2. `GROUP BY`는 전체 기간을 합친 값만 보여줄 수 있음
-
-4. **이전/다음 데이터와 비교할 때 (흐름 분석)**
-  1. e.g.
-    1. 고객이 이전 결제일로부터 며칠 만에 재구매했는지
+- **이전/다음 데이터와 비교할 때 (흐름 분석)**
+  - e.g.
+    - 고객이 이전 결제일로부터 며칠 만에 재구매했는지
