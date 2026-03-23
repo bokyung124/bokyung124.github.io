@@ -20,8 +20,7 @@ mathjax: true
 
 [https://leetcode.com/problems/most-common-course-pairs/description/](https://leetcode.com/problems/most-common-course-pairs/description/)
 
-
-```plain text
+```
 +-------------------+---------+
 | Column Name       | Type    |
 +-------------------+---------+
@@ -34,7 +33,6 @@ mathjax: true
 (user_id, course_id) is the combination of columns with unique values for this table.
 Each row represents a completed course by a user with their rating (1-5 scale).
 ```
-
 
 Write a solution to identify **skill mastery pathways** by analyzing course completion sequences among top-performing students:
 
