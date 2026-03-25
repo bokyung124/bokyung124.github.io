@@ -20,7 +20,7 @@ mathjax: true
 
 [https://leetcode.com/problems/find-users-with-persistent-behavior-patterns/description/](https://leetcode.com/problems/find-users-with-persistent-behavior-patterns/description/)
 
-```plain text
+```
 +--------------+---------+
 | Column Name  | Type    |
 +--------------+---------+
