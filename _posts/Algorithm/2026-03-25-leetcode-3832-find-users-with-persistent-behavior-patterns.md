@@ -137,7 +137,7 @@ MaxStreaks AS (
         streak_length,
         start_date,
         end_date,
-        RANK() OVER (PARTITION BY user_id ORDER BY streak_length DESC) AS rnk
+        ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY streak_length DESC) AS rnk
     FROM StreakLengths
 )
 -- 5. 최종 결과 반환 및 정렬
