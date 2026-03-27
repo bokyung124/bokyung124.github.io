@@ -1,5 +1,5 @@
 ---
-title: "PostgreSQL 쿼리 성능 20배 개선하기 (Part 1) - 문제 정의와 성능 분석"
+title: "PostgreSQL 쿼리 성능 개선하기 (Part 1) - 문제 정의와 성능 분석"
 last_modified_at: 2026-02-04T05:32:00+00:00
 notion_page_id: 2f512b31-a8a8-80aa-9d7d-e7005568e96f
 layout: post

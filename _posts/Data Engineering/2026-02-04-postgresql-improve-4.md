@@ -1,5 +1,5 @@
 ---
-title: "PostgreSQL 쿼리 성능 20배 개선하기 (Part 4) - 검색과 JOIN 최적화"
+title: "PostgreSQL 쿼리 성능 개선하기 (Part 4) - 검색과 JOIN 최적화"
 last_modified_at: 2026-02-04T05:39:00+00:00
 notion_page_id: 2fd12b31-a8a8-8006-adbd-fd2d126130d5
 layout: post

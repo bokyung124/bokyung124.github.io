@@ -1,5 +1,5 @@
 ---
-title: "PostgreSQL 쿼리 성능 20배 개선하기 (Part 5) - 모니터링과 결과"
+title: "PostgreSQL 쿼리 성능 개선하기 (Part 5) - 모니터링과 결과"
 last_modified_at: 2026-02-04T05:42:00+00:00
 notion_page_id: 2fd12b31-a8a8-80c1-b73a-ee6bfb1aecf1
 layout: post
