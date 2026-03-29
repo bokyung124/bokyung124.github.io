@@ -22,7 +22,7 @@ mathjax: true
 
 Table:  `logs`
 
-```plain text
+```
 +-------------+---------+
 | Column Name | Type    |
 +-------------+---------+
