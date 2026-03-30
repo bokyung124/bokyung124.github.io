@@ -22,7 +22,7 @@ mathjax: true
 
 Table: `Insurance`
 
-```plain text
+```
 +-------------+-------+
 | Column Name | Type  |
 +-------------+-------+
@@ -62,6 +62,7 @@ AND CONCAT(lat, ',', lon) NOT IN (SELECT CONCAT(lat, ',', lon) FROM insurance s 
 - **다른 사용자** 와 비교하기 위해 서브 쿼리 사용
 
 - 그냥 `CONCAT(lat, lon)` 을 사용하면 `lat=1, lon=23` 인 경우와 `lat=12, lon=3` 인 경우가 동일한 경우가 됨! 중간에 쉼표를 넣어주어서 lat과 lon을 구분해주어야 했음
+
 
 ### 풀이2 - 윈도우 함수
 
