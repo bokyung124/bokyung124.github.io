@@ -137,6 +137,8 @@ WHERE rnk = 1;
 
   - 적절한 인덱스를 태우거나, 범위를 제한하는 것이 좋음
 
+<br>
+
 ### 집계 함수에서 ORDER BY 사용 주의
 
 - SUM, COUNT, AVG 등 집계 함수는 `ORDER BY` 유무에 따라 함수의 성격이 완전히 바뀜
@@ -172,6 +174,8 @@ WHERE rnk = 1;
 
 - e.g. `BETWEEN 1 PRECEDING AND 1 FOLLOWING`: 내 앞의 1행 ~ 내 뒤 1행 → 총 3개 행 계산!
 
+<br>
+
 ## Range vs. ROW: 프레임의 범위를 잡는 기준
 
 - **ROWS**
@@ -185,6 +189,8 @@ WHERE rnk = 1;
 
   - `RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW`
     - 만약 나랑 `ORDER BY` 값이 같은 행이 있으면, 그 행들까지 한 번에 묶어서 계산
+
+<br>
 
 **예시: 급여 순으로 누적합을 구하는 경우 (100, 200, 200, 300)**
 
