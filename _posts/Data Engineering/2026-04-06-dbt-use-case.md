@@ -184,7 +184,7 @@ mart_slack_chunks ───┘
 ```yaml
 sources:
   - name: raw_notion
-    database: "{{ env_var('GCP_PROJECT_ID') }}"
+    database: "{% raw %}{{ env_var('GCP_PROJECT_ID') }}{% endraw %}"
     schema: onboarding_agent
     tables:
       - name: raw_notion_pages
@@ -192,7 +192,7 @@ sources:
 
 - dbt가 관리하지 않는 외부 테이블 등록
 
-- SQL에서 `{{ source('raw_notion', 'raw_notion_pages') }}` 로 참조할 수 있음 + lineage 추적
+- SQL에서 `{% raw %}{{ source('raw_notion', 'raw_notion_pages') }}{% endraw %}` 로 참조할 수 있음 + lineage 추적
 
 ### 2. Models 문서화
 
@@ -330,7 +330,7 @@ with recursive page_hierarchy as (
         cast(null as string) as client_name,
         notion_url,
         last_edited_at
-    from {{ ref('stg_notion_pages') }}
+    from {% raw %}{{ ref('stg_notion_pages') }}{% endraw %}
     where parent_type = 'workspace'
        or parent_id is null
 
@@ -356,7 +356,7 @@ with recursive page_hierarchy as (
         end as client_name,
         child.notion_url,
         child.last_edited_at
-    from {{ ref('stg_notion_pages') }} child
+    from {% raw %}{{ ref('stg_notion_pages') }}{% endraw %} child
     inner join page_hierarchy parent
         on child.parent_id = parent.page_id
     where parent.depth < 10  -- 무한 루프 방지
@@ -372,7 +372,7 @@ with recursive page_hierarchy as (
 
 ```sql
 -- int_notion_page_breadcrumbs.sql
-{{
+{% raw %}{{
     config(
         materialized='table',
         partition_by={
@@ -382,7 +382,7 @@ with recursive page_hierarchy as (
         },
         cluster_by=["category", "page_id"]
     )
-}}
+}}{% endraw %}
 ```
 
 - **partition_by**: BigQuery 파티셔닝 → 날짜 기반 쿼리 시 스캔 범위 축소
