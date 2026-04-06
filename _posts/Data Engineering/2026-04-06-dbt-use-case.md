@@ -1,5 +1,5 @@
 ---
-title: "[dbt] **사내 RAG 기반 챗봇 -** dbt 적용 사례"
+title: "[dbt] 사내 RAG 기반 챗봇 - dbt 적용 사례"
 last_modified_at: 2026-04-06T13:09:00+00:00
 notion_page_id: 33a12b31-a8a8-803b-afe3-d7f1a0659af7
 layout: post
@@ -37,13 +37,13 @@ mathjax: true
 - 버전 관리, CI/CD 등을 도입할 수 있어 코드 관리, 협업, 변경 사항 추적이 가능함
 
 - Jinja 템플릿 엔진 사용 (IF/ELSE, FOR, 변수 사용 등) → 코드 재사용성 극대화
-  - `{{ ref('stg_notion_pages') }}` — 모델 참조
+  - `{% raw %}{{ ref('stg_notion_pages') }}{% endraw %}` — 모델 참조
 
-  - `{{ source('raw_notion', 'raw_notion_pages') }}` — 소스 참조
+  - `{% raw %}{{ source('raw_notion', 'raw_notion_pages') }}{% endraw %}` — 소스 참조
 
-  - `{{ env_var('GCP_PROJECT_ID') }}` — 환경변수 주입
+  - `{% raw %}{{ env_var('GCP_PROJECT_ID') }}{% endraw %}` — 환경변수 주입
 
-  - `{{ config(...) }}` — 모델별 materialization 설정
+  - `{% raw %}{{ config(...) }}{% endraw %}` — 모델별 materialization 설정
 
 - 강력한 의존성 관리 (Lineage)
   - `ref()` 함수를 사용하면 테이블 간 관계를 dbt가 스스로 파악함 → DAG 형태의 리니지로 보여줌
@@ -54,7 +54,7 @@ mathjax: true
 
 ## 프로젝트 아키텍처
 
-```yaml
+```
 Notion API ─→ [Airflow: Extract] ─→ BigQuery Raw (notion)
 Slack  API ─→ [Airflow: Extract] ─→ BigQuery Raw (slack)
                                         ↓
@@ -79,15 +79,12 @@ Slack  API ─→ [Airflow: Extract] ─→ BigQuery Raw (slack)
   - 중복 제거
 
   - 불필요한 데이터 필터링
-    - 노션
-      - 아카이브된 페이지 제외
+    - 아카이브된 페이지 제외
 
-      - 비텍스트 블록 제외
+    - 비텍스트 블록 제외
 
-      - 빈 댓글 제외
-
-    - 슬랙
-      - 유저 목록에서 슬랙봇 제외
+    - 빈 댓글 제외
+    - 유저 목록에서 슬랙봇 제외
 
   - 타입 캐스팅 & 정규화
 
@@ -100,9 +97,17 @@ Slack  API ─→ [Airflow: Extract] ─→ BigQuery Raw (slack)
 
 - Notion과 Slack 브랜치가 독립적으로 병렬 실행
 
+|모델|	의존|
+|---|---|
+|int_notion_page_breadcrumbs	|stg_notion_pages — 재귀 CTE로 페이지 계층 경로/카테고리 분류|
+|int_notion_page_content	|stg_notion_blocks — 블록 순서대로 조립 → 마크다운 문서 생성 + heading 기반 청킹 생성 |
+|int_notion_db_properties	|stg_notion_pages — 노션 데이터베이스 하위 페이지 속성 평탄화  |
+|int_slack_threads	|stg_slack_messages — tread_ts를 이용하여 스레드 그루핑|
+|int_slack_channel_categories|	stg_slack_messages — 채널 → 카테고리 분류|
+
 ### Stage 3: Mart (Table, 순차 의존)
 
-```sql
+```
 int_notion_page_breadcrumbs ─┐
 int_notion_page_content ─────┼─→ mart_notion_documents ─┐
 int_notion_db_properties ────┘                          │
@@ -127,7 +132,7 @@ int_slack_channel_categories ───┴─→ mart_slack_chunks
 
 ### Stage 4: Enterprise 통합 (View)
 
-```sql
+```
 mart_notion_chunks ──┐
                      ├─→ mart_enterprise_chunks (UNION ALL)
 mart_slack_chunks ───┘
@@ -193,8 +198,8 @@ sources:
 
 ```yaml
 models:
-	- name: stg_notion_pages
-		description: 페이지 메타데이터 정제 (최신 레코드, 타입 캐스팅)
+  - name: stg_notion_pages
+    description: 페이지 메타데이터 정제 (최신 레코드, 타입 캐스팅)
 ```
 
 - 각 모델과 컬럼에 description을 달아서 `dbt docs generate` 으로 문서를 자동 생성할 수 있음
@@ -203,10 +208,10 @@ models:
 
 ```yaml
 columns: 
-	- name: page_id
-		tests:
-			- unique
-			- not_null
+  - name: page_id
+    tests:
+      - unique
+      - not_null
 ```
 
 - `dbt test` 실행 시 컬럼 단위 데이터 품질 테스트 수행
@@ -215,6 +220,11 @@ columns:
   - `not_null` : NULL 값이 없는지
 
 ## `source()` vs. `ref()`
+
+|함수|	대상	|예시|
+|---|---|---|
+|source()|	dbt 외부 테이블 (raw)|`source('raw_notion', 'raw_notion_pages')`|
+|ref()	|dbt가 관리하는 모델	|`ref('stg_notion_pages')`|
 
 - staging 모델은 `source()` 로 raw 테이블을 읽고, 그 이후 레이어 (intermediate, mart)는 `ref()` 로 dbt 모델끼리 참조함
 
@@ -282,3 +292,115 @@ WHERE _rn=1
 - _staging.yml 에 `unique` + `not_null` 테스트가 걸려있어서, 중복 제거가 제대로 됐는지 `dbt test`로 확인할 수 있음
 
 ## 청킹 전략 - RAG 파이프라인의 핵심
+
+- **heading 기준 섹션 분할**: `SUM(CASE WHEN heading_level IS NOT NULL THEN 1 ELSE 0 END) OVER(...)` 윈도우 함수로 섹션 번호 부여
+- **섹션 간 오버랩**: `lag()` 함수로 이전 섹션 끝 500자를 현재 섹션 앞에 붙여서 문맥 유지
+- **댓글 주입**: 인라인 댓글은 해당 섹션에 삽입, 페이지 레벨 댓글은 별도 chunk
+- **크기 필터링**: 20자 ~ 8000자 범위만 유지
+
+## 재귀 CTE - breadcrumb 생성
+
+```sql
+with recursive page_hierarchy as (
+    -- 앵커: 루트 레벨 페이지
+    select
+        page_id,
+        page_title,
+        parent_id,
+        page_title as breadcrumb_path,
+        0 as depth,
+        case
+            when lower(page_title) like '%마케팅%'
+                or lower(page_title) like '%프로젝트%' then 'marketing'
+            when lower(page_title) like '%seo%' then 'seo'
+            when lower(page_title) like '%crm%' then 'crm'
+            when lower(page_title) like '%aso%' then 'aso'
+            when lower(page_title) like '%pa%' then 'pa'
+            when lower(page_title) like '%ua%' then 'ua'
+            when lower(page_title) like '%cro%' then 'cro'
+            when lower(page_title) = 'nnt tech' then 'tech'
+            when lower(page_title) = 'nnt tools' then 'tools'
+            else 'uncategorized'
+        end as category,
+        case
+            when lower(page_title) like '%온보딩%'
+                or lower(page_title) like '%onboarding%' then true
+            else false
+        end as is_onboarding,
+        cast(null as string) as client_name,
+        notion_url,
+        last_edited_at
+    from {{ ref('stg_notion_pages') }}
+    where parent_type = 'workspace'
+       or parent_id is null
+
+    union all
+
+    -- 재귀: 자식 페이지
+    select
+        child.page_id,
+        child.page_title,
+        child.parent_id,
+        concat(parent.breadcrumb_path, ' > ', child.page_title) as breadcrumb_path,
+        parent.depth + 1,
+        parent.category,
+        case
+            when parent.is_onboarding then true
+            when lower(child.page_title) like '%온보딩%'
+                or lower(child.page_title) like '%onboarding%' then true
+            else false
+        end as is_onboarding,
+        case
+            when parent.depth = 0 then child.page_title  -- depth=1의 자식 → 고객사
+            else parent.client_name
+        end as client_name,
+        child.notion_url,
+        child.last_edited_at
+    from {{ ref('stg_notion_pages') }} child
+    inner join page_hierarchy parent
+        on child.parent_id = parent.page_id
+    where parent.depth < 10  -- 무한 루프 방지
+)
+```
+
+- 앵커: `parent_type = 'workspace'`인 루트 페이지에서 시작
+- 재귀: 자식 페이지를 JOIN하며 `breadcrumb_path`를 이어붙임
+- 안전장치: `WHERE parent.depth < 10`으로 무한 루프 방지
+- 카테고리는 **루트 페이지 title 기반 rule-based 분류** → 자식은 부모의 카테고리를 상속
+
+## BigQuery 최적화 설정
+
+```sql
+-- int_notion_page_breadcrumbs.sql
+{{
+    config(
+        materialized='table',
+        partition_by={
+            "field": "last_edited_at",
+            "data_type": "timestamp",
+            "granularity": "day"
+        },
+        cluster_by=["category", "page_id"]
+    )
+}}
+```
+
+- **partition_by**: BigQuery 파티셔닝 → 날짜 기반 쿼리 시 스캔 범위 축소
+- **cluster_by**: 자주 필터링하는 컬럼으로 클러스터링 → 쿼리 성능 + 비용 절감
+
+## BigQuery 스키마 분리 전략
+
+```yaml
+staging:
+  notion:
+    +schema: staging_notion
+  slack:
+    +schema: staging_slack
+intermediate:
+  notion:
+    +schema: intermediate_notion
+mart:
+  +schema: mart_notion
+```
+
+- 레이어 별로 BigQuery 데이터셋 분리
